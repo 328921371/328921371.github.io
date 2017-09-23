@@ -1119,9 +1119,9 @@ pre .javascript .function {
   display: inline-block;
   vertical-align: top;
   line-height: 36px;
-  font-size: 20px;
+  font-size: 24px;
   font-weight: normal;
-  font-family: 'Lato', "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-family: 'Lobster Two', 'Lato', "PingFang SC", "Microsoft YaHei", sans-serif;
 }
 .site-subtitle {
   margin-top: 10px;
@@ -1869,7 +1869,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #67b4ff;
+  background: #ff474a;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -2828,12 +2828,12 @@ hr {
 }
 @media (max-width: 767px) {
   .posts-expand .post-title {
-    font-size: 22px;
+    font-size: 33px;
   }
 }
 @media (min-width: 1600px) {
   .posts-expand .post-title {
-    font-size: 26px;
+    font-size: 37px;
   }
 }
 .posts-expand .post-title:hover:before {
