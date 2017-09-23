@@ -53,7 +53,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="JavaScript,CSS,VUE" />
+  <meta name="keywords" content="react,ajax," />
 
 
 
@@ -69,16 +69,18 @@
 
 
 
-<meta name="description" content="请不要在最能吃苦的日子选择安逸">
-<meta property="og:type" content="website">
-<meta property="og:title" content="陈先生的小前端">
-<meta property="og:url" content="http://www.chensheng.group/index.html">
+<meta name="description" content="1. 首先先来看一下 react的ajax请求react的ajax请求要 通过 ‘axios’ 模块 所以在node包中先安装 –  npm install axios –save 之后再App.js中进行 导入    import axios from ‘axios’;  踩坑!!!  react中文文档讲的挺详细的,我讲一下我在学习过程中遇到的一些问题 文档中的get请求挺好的,拿下来就可以用">
+<meta name="keywords" content="react,ajax">
+<meta property="og:type" content="article">
+<meta property="og:title" content="react ajax请求">
+<meta property="og:url" content="http://www.chensheng.group/2017/09/22/react的ajax请求/index.html">
 <meta property="og:site_name" content="陈先生的小前端">
-<meta property="og:description" content="请不要在最能吃苦的日子选择安逸">
+<meta property="og:description" content="1. 首先先来看一下 react的ajax请求react的ajax请求要 通过 ‘axios’ 模块 所以在node包中先安装 –  npm install axios –save 之后再App.js中进行 导入    import axios from ‘axios’;  踩坑!!!  react中文文档讲的挺详细的,我讲一下我在学习过程中遇到的一些问题 文档中的get请求挺好的,拿下来就可以用">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-09-23T03:01:06.835Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="陈先生的小前端">
-<meta name="twitter:description" content="请不要在最能吃苦的日子选择安逸">
+<meta name="twitter:title" content="react ajax请求">
+<meta name="twitter:description" content="1. 首先先来看一下 react的ajax请求react的ajax请求要 通过 ‘axios’ 模块 所以在node包中先安装 –  npm install axios –save 之后再App.js中进行 导入    import axios from ‘axios’;  踩坑!!!  react中文文档讲的挺详细的,我讲一下我在学习过程中遇到的一些问题 文档中的get请求挺好的,拿下来就可以用">
 
 
 
@@ -108,13 +110,13 @@
 
 
 
-  <link rel="canonical" href="http://www.chensheng.group/"/>
+  <link rel="canonical" href="http://www.chensheng.group/2017/09/22/react的ajax请求/"/>
 
 
 
 
 
-  <title>陈先生的小前端</title>
+  <title>react ajax请求 | 陈先生的小前端</title>
   
 
 
@@ -133,8 +135,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -237,9 +238,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -269,9 +270,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/09/22/react的ajax请求/" itemprop="url">react ajax请求</a></h1>
+          <h1 class="post-title" itemprop="name headline">react ajax请求</h1>
         
 
         <div class="post-meta">
@@ -343,24 +342,113 @@
       
 
       
-        
-          
-          1. 首先先来看一下 react的ajax请求react的ajax请求要 通过 ‘axios’ 模块
-所以在node包中先安装 –  npm install axios –save
-之后再App.js中进行 导入    import axios from ‘axios’;
+        <h3 id="1-首先先来看一下-react的ajax请求"><a href="#1-首先先来看一下-react的ajax请求" class="headerlink" title="1. 首先先来看一下 react的ajax请求"></a>1. 首先先来看一下 react的ajax请求</h3><p>react的ajax请求要 通过 ‘axios’ 模块</p>
+<p>所以在node包中先安装 –  npm install axios –save</p>
+<p>之后再App.js中进行 导入    import axios from ‘axios’;</p>
+<blockquote>
+<p>踩坑!!!</p>
+</blockquote>
+<p><a href="https://www.kancloud.cn/yunye/axios/234845" target="_blank" rel="external">react中文文档</a>讲的挺详细的,我讲一下我在学习过程中遇到的一些<br>问题</p>
+<p>文档中的get请求挺好的,拿下来就可以用(数据请求写在挂载完成里)</p>
+<pre><code>componentWillMount() {
+    var url = &apos;http://192.168.1.120:3000/get&apos;;
+    var filters = {
+        name: &apos;csing&apos;
+    }
 
-踩坑!!!
+    axios.get(url, {params: filters})
+    .then(function(response) {
+        console.log(response);
+    })
+    .catch(function(error) {
+        console.log(error);
+    });
+}
+</code></pre><font color="red" size="4">但是!!!</font>
 
-react
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/09/22/react的ajax请求/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
+<p>直接使用post请求,会报错,而且参数传递不过去,于是上百度找找原因,找到了一个解决办法—创建一个参数对象</p>
+<pre><code>var data = new URLSearchParams(filters)
+</code></pre><p>传递的参数改为data,不过作为一个程序员,不是在写bug,就是在写bug的路上,这句可以解决报错,但是还是不能传参数,<br>于是找到了下面的这种解决办法</p>
+<p>导入qs解决post请求无参数问题</p>
+<p>首先在node包进行安装—-npm install qs –save</p>
+<p>然后在头部进行导入—-import qs from ‘qs’;</p>
+<p>并且使用 qs.stringify() 对参数进行转化!!</p>
+<pre><code>axios.post(&apos;http://192.168.1.120:3000/post&apos;, qs.stringify(filters))
+.then(function(response) {
+    console.log(response);
+})
+.catch(function(error) {
+    console.log(error);
+});
+</code></pre><p>关于 react 的axaj请求就到这里了</p>
+<h3 id="2-react的路由"><a href="#2-react的路由" class="headerlink" title="2. react的路由"></a>2. react的路由</h3><p>三大主流框架之一的react路由到底有什么神奇之处呢,阮一峰老师的文档看完令我受益匪浅,下面我讲一下自己的感悟</p>
+<p><em>首先是安装</em></p>
+<p>第一种是 npm install react-router-dom –save</p>
+<p>第二种是 npm install react-router –save</p>
+<p>两个效果是一样的,至于区别其实就是,加了-dom是react关于dom操作的方法</p>
+<p>安装好了后进入到App.js的页面,在头部进行导入</p>
+<p>import { BrowserRouter as Router,Route,Link,Redirect } from ‘react-router-dom’;</p>
+<ol>
+<li>BrowserRouter 浏览器端路由对象</li>
+<li>as 改名,别名</li>
+<li>Route 路由的配置</li>
+<li>Link 连接</li>
+<li>Redirect 重定向</li>
+</ol>
+<h4 id="2-1-我先介绍一下最简单的路由使用功能"><a href="#2-1-我先介绍一下最简单的路由使用功能" class="headerlink" title="2.1 我先介绍一下最简单的路由使用功能"></a>2.1 我先介绍一下最简单的路由使用功能</h4><p>首先是 Router,它其实是一个容器,将整个div(#app)的包裹住,真正实现功能的是里面的Route</p>
+<p>我在src的路径你创建了一个文件夹,并写了几个进行调整的页面,然后在App.js中进行导入组件</p>
+<pre><code>import Home from &apos;./components/Home&apos;;
+
+&lt;Router&gt;
+    &lt;div className=&quot;App&quot;&gt;
+        &lt;Link to=&apos;/home&apos;&gt;首页&lt;/Link&gt; //Link to进行设置要跳转的地址    
+    &lt;Route path=&apos;/home&apos; component={Home}&gt;&lt;/Route&gt;// 配置一个路由,配置地址对应加载的组件
+      &lt;/div&gt;
+  &lt;/Router&gt;
+</code></pre><h4 id="2-2-如何设置默认跳转页面"><a href="#2-2-如何设置默认跳转页面" class="headerlink" title="2.2 如何设置默认跳转页面"></a>2.2 如何设置默认跳转页面</h4><p>Redirect提供了两种方法给我们</p>
+<blockquote>
+<p>第一种使用单标签的形式</p>
+</blockquote>
+<pre><code>&lt;Redirect from=&quot;/&quot; to=&quot;/home&quot; /&gt;
+</code></pre><blockquote>
+<p>第二种使用双标签的形式</p>
+</blockquote>
+<pre><code>&lt;Redirect to={{pathname:'/home',state:{from:'/'}}}&gt;&lt;/Redirect&gt;
+</code></pre><p>值得注意的是,这两种方法在控制台中都会爆出提醒,提醒编写者在篡改路由的跳转</p>
+<h4 id="2-3-如何在路由界面进行传递参数"><a href="#2-3-如何在路由界面进行传递参数" class="headerlink" title="2.3 如何在路由界面进行传递参数"></a>2.3 如何在路由界面进行传递参数</h4><p>同样也有两种方式 </p>
+<blockquote>
+<p>第一种是在url上进行传值</p>
+</blockquote>
+<pre><code>假设我要传递的是id
+
+&lt;Route path=&apos;/detail/:id&apos; component={Detail}&gt;&lt;/Route&gt;
+
+跳转的时候就加上对应的参数,点击跳转后就可以将值传过去
+
+&lt;Link to={&apos;/detail/&apos; + id }&gt; {name}&lt;/Link&gt;
+
+在跳转到的detail页面,可以获取到传递过来的id:   this.props.match.params.id
+</code></pre><blockquote>
+<p>第二种:传递的时候将值一起传递过去,写在Lint to 中</p>
+</blockquote>
+<pre><code>&lt;Link to={{pathname:url,state:{id:'666',name:'cs'}}}&gt;&lt;/Link&gt;
+
+在对应的页面进行获取 -- this.props.location.state(这里的state是你设置的对象名)
+在this.props有许多路由的api,下面会介绍一些
+</code></pre><h4 id="2-4-react路由的this-props-history-操作"><a href="#2-4-react路由的this-props-history-操作" class="headerlink" title="2.4 react路由的this.props.history 操作"></a>2.4 react路由的this.props.history 操作</h4><pre><code>比较重要的几个:
+
+1. 返回 -- this.props.history.goBack
+
+2. 跳转 -- this.props.history.push(&apos;/goods&apos;) 括号里写跳转的链接
+       -- 注意：push与replace的区别，一个是添加，一个是替换，历史记录中被替换的已经不存在了，所以浏览器回退不到替换前的页面。
+</code></pre><h4 id="2-5-react路由的嵌套"><a href="#2-5-react路由的嵌套" class="headerlink" title="2.5  react路由的嵌套"></a>2.5  react路由的嵌套</h4><pre><code>在路由中是可以嵌套路由的只要在加一个&lt;Route&gt;就可以
+
+小知识:
+
+&lt;Route path={this.props.match.url} exact component={Goods}&gt;&lt;/Route&gt;
+exact 只有页面为 this.props.match.url 时,路由嵌套才会显示,所以点击后路径改变,路由消失
+</code></pre><p>以上就是 React发生请求及React 路由的入门的一些小知识,如有错误,感谢大神们指出,谢谢</p>
+
       
     </div>
     
@@ -375,14 +463,22 @@ react
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/react/" rel="tag"># react</a>
+          
+            <a href="/tags/ajax/" rel="tag"># ajax</a>
+          
+        </div>
+      
+
+      
+      
+      
 
       
 
       
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -392,10 +488,11 @@ react
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -403,6 +500,10 @@ react
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -423,8 +524,17 @@ react
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           
             <p class="site-author-name" itemprop="name">陈晟</p>
@@ -499,6 +609,22 @@ react
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-首先先来看一下-react的ajax请求"><span class="nav-number">1.</span> <span class="nav-text">1. 首先先来看一下 react的ajax请求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-react的路由"><span class="nav-number">2.</span> <span class="nav-text">2. react的路由</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-我先介绍一下最简单的路由使用功能"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 我先介绍一下最简单的路由使用功能</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-如何设置默认跳转页面"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 如何设置默认跳转页面</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-如何在路由界面进行传递参数"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 如何在路由界面进行传递参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-4-react路由的this-props-history-操作"><span class="nav-number">2.4.</span> <span class="nav-text">2.4 react路由的this.props.history 操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-5-react路由的嵌套"><span class="nav-number">2.5.</span> <span class="nav-text">2.5  react路由的嵌套</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
