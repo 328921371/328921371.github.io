@@ -11,8 +11,24 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 <meta name="theme-color" content="#222">
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+</script>
 
 
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
 
 
 
@@ -69,18 +85,18 @@
 
 
 
-<meta name="description" content="1. 首先先来看一下 react的ajax请求react的ajax请求要 通过 ‘axios’ 模块 所以在node包中先安装 –  npm install axios –save 之后再App.js中进行 导入    import axios from ‘axios’;  踩坑!!!  react中文文档讲的挺详细的,我讲一下我在学习过程中遇到的一些问题 文档中的get请求挺好的,拿下来就可以用">
+<meta name="description" content="主要讲解了react的ajax请求 及react的路由功能">
 <meta name="keywords" content="react,ajax">
 <meta property="og:type" content="article">
 <meta property="og:title" content="react ajax请求">
 <meta property="og:url" content="http://www.chensheng.group/2017/09/22/react的ajax请求/index.html">
 <meta property="og:site_name" content="陈先生的小前端">
-<meta property="og:description" content="1. 首先先来看一下 react的ajax请求react的ajax请求要 通过 ‘axios’ 模块 所以在node包中先安装 –  npm install axios –save 之后再App.js中进行 导入    import axios from ‘axios’;  踩坑!!!  react中文文档讲的挺详细的,我讲一下我在学习过程中遇到的一些问题 文档中的get请求挺好的,拿下来就可以用">
+<meta property="og:description" content="主要讲解了react的ajax请求 及react的路由功能">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-09-23T03:01:06.835Z">
+<meta property="og:updated_time" content="2017-09-23T09:28:39.524Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="react ajax请求">
-<meta name="twitter:description" content="1. 首先先来看一下 react的ajax请求react的ajax请求要 通过 ‘axios’ 模块 所以在node包中先安装 –  npm install axios –save 之后再App.js中进行 导入    import axios from ‘axios’;  踩坑!!!  react中文文档讲的挺详细的,我讲一下我在学习过程中遇到的一些问题 文档中的get请求挺好的,拿下来就可以用">
+<meta name="twitter:description" content="主要讲解了react的ajax请求 及react的路由功能">
 
 
 
@@ -90,7 +106,7 @@
     root: '/',
     scheme: 'Mist',
     version: '5.1.2',
-    sidebar: {"position":"left","display":"always","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: true,
     tabs: true,
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn"}},
@@ -137,6 +153,9 @@
 
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
+    
+    <a href="https://github.com/328921371"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+    
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
@@ -342,7 +361,13 @@
       
 
       
-        <h3 id="1-首先先来看一下-react的ajax请求"><a href="#1-首先先来看一下-react的ajax请求" class="headerlink" title="1. 首先先来看一下 react的ajax请求"></a>1. 首先先来看一下 react的ajax请求</h3><p>react的ajax请求要 通过 ‘axios’ 模块</p>
+        <hr style="filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)" color="#FF0000" size="1">
+
+<blockquote>
+<p>主要讲解了react的ajax请求 及react的路由功能</p>
+</blockquote>
+<a id="more"></a>
+<h3 id="1-首先先来看一下-react的ajax请求"><a href="#1-首先先来看一下-react的ajax请求" class="headerlink" title="1. 首先先来看一下 react的ajax请求"></a>1. 首先先来看一下 react的ajax请求</h3><p>react的ajax请求要 通过 ‘axios’ 模块</p>
 <p>所以在node包中先安装 –  npm install axios –save</p>
 <p>之后再App.js中进行 导入    import axios from ‘axios’;</p>
 <blockquote>
@@ -454,7 +479,53 @@ exact 只有页面为 this.props.match.url 时,路由嵌套才会显示,所以�
     
     
     
+	<div>
+	  
+	    <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+	  
+	</div>
+	
+	<div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
 
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script type="text/javascript" src="http://jslibs.wuxubj.cn/sweetalert_mini/jquery-1.7.1.min.js"></script>
+  <script src="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.mini.css">
+  <p><span>本文标题:</span><a href="/2017/09/22/react的ajax请求/">react ajax请求</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 陈晟 的个人博客">陈晟</a></p>
+  <p><span>发布时间:</span>2017年09月22日 - 20:09</p>
+  <p><span>最后更新:</span>2017年09月23日 - 17:09</p>
+  <p><span>原始链接:</span><a href="/2017/09/22/react的ajax请求/" title="react ajax请求">http://www.chensheng.group/2017/09/22/react的ajax请求/</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://www.chensheng.group/2017/09/22/react的ajax请求/"  aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 </a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    clipboard.on('success', $(function(){
+      $(".fa-clipboard").click(function(){
+        swal({   
+          title: "",   
+          text: '复制成功',   
+          html: false,
+          timer: 500,   
+          showConfirmButton: false
+        });
+      });
+    }));  
+</script>
+
+      
+	</div>
+		
     
 
     
@@ -465,9 +536,9 @@ exact 只有页面为 this.props.match.url 时,路由嵌套才会显示,所以�
       
         <div class="post-tags">
           
-            <a href="/tags/react/" rel="tag"># react</a>
+            <a href="/tags/react/" rel="tag"><i class="fa fa-tag"></i> react</a>
           
-            <a href="/tags/ajax/" rel="tag"># ajax</a>
+            <a href="/tags/ajax/" rel="tag"><i class="fa fa-tag"></i> ajax</a>
           
         </div>
       
@@ -490,6 +561,32 @@ exact 只有页面为 this.props.match.url 时,路由嵌套才会显示,所以�
 
 
     <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
       
     </div>
   </div>
@@ -652,11 +749,11 @@ exact 只有页面为 this.props.match.url 时,路由嵌套才会显示,所以�
 </div>
 
 
-  <div class="powered-by">由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+  <div class="powered-by"><span>欢迎访问</span></div>
 
   <span class="post-meta-divider">|</span>
-
-  <div class="theme-info">主题 &mdash; <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.2</div>
+  <span>Mr.Chen的小前端</span>
 
 
         
