@@ -93,7 +93,7 @@
 <meta property="og:site_name" content="陈先生的小前端">
 <meta property="og:description" content="主要讲解了react的ajax请求 及react的路由功能">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-09-23T09:28:39.524Z">
+<meta property="og:updated_time" content="2017-09-24T17:08:08.998Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="react ajax请求">
 <meta name="twitter:description" content="主要讲解了react的ajax请求 及react的路由功能">
@@ -412,7 +412,7 @@
 <p>主要讲解了react的ajax请求 及react的路由功能</p>
 </blockquote>
 <a id="more"></a>
-<h3 id="1-首先先来看一下-react的ajax请求"><a href="#1-首先先来看一下-react的ajax请求" class="headerlink" title="1. 首先先来看一下 react的ajax请求"></a>1. 首先先来看一下 react的ajax请求</h3><p>react的ajax请求要 通过 ‘axios’ 模块</p>
+<h3 id="首先先来看一下-react的ajax请求"><a href="#首先先来看一下-react的ajax请求" class="headerlink" title="首先先来看一下 react的ajax请求"></a>首先先来看一下 react的ajax请求</h3><p>react的ajax请求要 通过 ‘axios’ 模块</p>
 <p>所以在node包中先安装 –  npm install axios –save</p>
 <p>之后再App.js中进行 导入    import axios from ‘axios’;</p>
 <blockquote>
@@ -451,7 +451,7 @@
     console.log(error);
 });
 </code></pre><p>关于 react 的axaj请求就到这里了</p>
-<h3 id="2-react的路由"><a href="#2-react的路由" class="headerlink" title="2. react的路由"></a>2. react的路由</h3><p>三大主流框架之一的react路由到底有什么神奇之处呢,阮一峰老师的文档看完令我受益匪浅,下面我讲一下自己的感悟</p>
+<h3 id="react的路由"><a href="#react的路由" class="headerlink" title="react的路由"></a>react的路由</h3><p>三大主流框架之一的react路由到底有什么神奇之处呢,阮一峰老师的文档看完令我受益匪浅,下面我讲一下自己的感悟</p>
 <p><em>首先是安装</em></p>
 <p>第一种是 npm install react-router-dom –save</p>
 <p>第二种是 npm install react-router –save</p>
@@ -465,7 +465,7 @@
 <li>Link 连接</li>
 <li>Redirect 重定向</li>
 </ol>
-<h4 id="2-1-我先介绍一下最简单的路由使用功能"><a href="#2-1-我先介绍一下最简单的路由使用功能" class="headerlink" title="2.1 我先介绍一下最简单的路由使用功能"></a>2.1 我先介绍一下最简单的路由使用功能</h4><p>首先是 Router,它其实是一个容器,将整个div(#app)的包裹住,真正实现功能的是里面的Route</p>
+<h4 id="我先介绍一下最简单的路由使用功能"><a href="#我先介绍一下最简单的路由使用功能" class="headerlink" title="我先介绍一下最简单的路由使用功能"></a>我先介绍一下最简单的路由使用功能</h4><p>首先是 Router,它其实是一个容器,将整个div(#app)的包裹住,真正实现功能的是里面的Route</p>
 <p>我在src的路径你创建了一个文件夹,并写了几个进行调整的页面,然后在App.js中进行导入组件</p>
 <pre><code>import Home from &apos;./components/Home&apos;;
 
@@ -475,7 +475,7 @@
     &lt;Route path=&apos;/home&apos; component={Home}&gt;&lt;/Route&gt;// 配置一个路由,配置地址对应加载的组件
       &lt;/div&gt;
   &lt;/Router&gt;
-</code></pre><h4 id="2-2-如何设置默认跳转页面"><a href="#2-2-如何设置默认跳转页面" class="headerlink" title="2.2 如何设置默认跳转页面"></a>2.2 如何设置默认跳转页面</h4><p>Redirect提供了两种方法给我们</p>
+</code></pre><h4 id="如何设置默认跳转页面"><a href="#如何设置默认跳转页面" class="headerlink" title="如何设置默认跳转页面"></a>如何设置默认跳转页面</h4><p>Redirect提供了两种方法给我们</p>
 <blockquote>
 <p>第一种使用单标签的形式</p>
 </blockquote>
@@ -485,7 +485,7 @@
 </blockquote>
 <pre><code>&lt;Redirect to={{pathname:'/home',state:{from:'/'}}}&gt;&lt;/Redirect&gt;
 </code></pre><p>值得注意的是,这两种方法在控制台中都会爆出提醒,提醒编写者在篡改路由的跳转</p>
-<h4 id="2-3-如何在路由界面进行传递参数"><a href="#2-3-如何在路由界面进行传递参数" class="headerlink" title="2.3 如何在路由界面进行传递参数"></a>2.3 如何在路由界面进行传递参数</h4><p>同样也有两种方式 </p>
+<h4 id="如何在路由界面进行传递参数"><a href="#如何在路由界面进行传递参数" class="headerlink" title="如何在路由界面进行传递参数"></a>如何在路由界面进行传递参数</h4><p>同样也有两种方式 </p>
 <blockquote>
 <p>第一种是在url上进行传值</p>
 </blockquote>
@@ -505,13 +505,13 @@
 
 在对应的页面进行获取 -- this.props.location.state(这里的state是你设置的对象名)
 在this.props有许多路由的api,下面会介绍一些
-</code></pre><h4 id="2-4-react路由的this-props-history-操作"><a href="#2-4-react路由的this-props-history-操作" class="headerlink" title="2.4 react路由的this.props.history 操作"></a>2.4 react路由的this.props.history 操作</h4><pre><code>比较重要的几个:
+</code></pre><h4 id="react路由的this-props-history-操作"><a href="#react路由的this-props-history-操作" class="headerlink" title="react路由的this.props.history 操作"></a>react路由的this.props.history 操作</h4><pre><code>比较重要的几个:
 
 1. 返回 -- this.props.history.goBack
 
 2. 跳转 -- this.props.history.push(&apos;/goods&apos;) 括号里写跳转的链接
        -- 注意：push与replace的区别，一个是添加，一个是替换，历史记录中被替换的已经不存在了，所以浏览器回退不到替换前的页面。
-</code></pre><h4 id="2-5-react路由的嵌套"><a href="#2-5-react路由的嵌套" class="headerlink" title="2.5  react路由的嵌套"></a>2.5  react路由的嵌套</h4><pre><code>在路由中是可以嵌套路由的只要在加一个&lt;Route&gt;就可以
+</code></pre><h4 id="react路由的嵌套"><a href="#react路由的嵌套" class="headerlink" title="react路由的嵌套"></a>react路由的嵌套</h4><pre><code>在路由中是可以嵌套路由的只要在加一个&lt;Route&gt;就可以
 
 小知识:
 
@@ -776,7 +776,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-首先先来看一下-react的ajax请求"><span class="nav-number">1.</span> <span class="nav-text">1. 首先先来看一下 react的ajax请求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-react的路由"><span class="nav-number">2.</span> <span class="nav-text">2. react的路由</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-我先介绍一下最简单的路由使用功能"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 我先介绍一下最简单的路由使用功能</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-如何设置默认跳转页面"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 如何设置默认跳转页面</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-如何在路由界面进行传递参数"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 如何在路由界面进行传递参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-4-react路由的this-props-history-操作"><span class="nav-number">2.4.</span> <span class="nav-text">2.4 react路由的this.props.history 操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-5-react路由的嵌套"><span class="nav-number">2.5.</span> <span class="nav-text">2.5  react路由的嵌套</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#首先先来看一下-react的ajax请求"><span class="nav-number">1.</span> <span class="nav-text">首先先来看一下 react的ajax请求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#react的路由"><span class="nav-number">2.</span> <span class="nav-text">react的路由</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#我先介绍一下最简单的路由使用功能"><span class="nav-number">2.1.</span> <span class="nav-text">我先介绍一下最简单的路由使用功能</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#如何设置默认跳转页面"><span class="nav-number">2.2.</span> <span class="nav-text">如何设置默认跳转页面</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#如何在路由界面进行传递参数"><span class="nav-number">2.3.</span> <span class="nav-text">如何在路由界面进行传递参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#react路由的this-props-history-操作"><span class="nav-number">2.4.</span> <span class="nav-text">react路由的this.props.history 操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#react路由的嵌套"><span class="nav-number">2.5.</span> <span class="nav-text">react路由的嵌套</span></a></li></ol></li></ol></div>
             
 
           </div>
