@@ -69,7 +69,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="javaScript,数据类型," />
+  <meta name="keywords" content="javaScript,原型,原型链," />
 
 
 
@@ -85,18 +85,18 @@
 
 
 
-<meta name="description" content="接触javaScript有一段时间了,今天来讲一下javaScript中的数据类型都有哪些 [原文参考 starof的博客]">
-<meta name="keywords" content="javaScript,数据类型">
+<meta name="description" content="在之前的博客中有分享过原型的概念，但是绝对原型和原型链还是容易混淆，所以再深入的研究一下">
+<meta name="keywords" content="javaScript,原型,原型链">
 <meta property="og:type" content="article">
-<meta property="og:title" content="javaScript 数据类型">
-<meta property="og:url" content="http://www.chensheng.group/2015/04/11/javaScript数据类型/index.html">
+<meta property="og:title" content="原型与原型链">
+<meta property="og:url" content="http://www.chensheng.group/2016/09/20/原型与原型链/index.html">
 <meta property="og:site_name" content="陈先生的小前端">
-<meta property="og:description" content="接触javaScript有一段时间了,今天来讲一下javaScript中的数据类型都有哪些 [原文参考 starof的博客]">
+<meta property="og:description" content="在之前的博客中有分享过原型的概念，但是绝对原型和原型链还是容易混淆，所以再深入的研究一下">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-09-25T16:46:03.029Z">
+<meta property="og:updated_time" content="2017-10-11T16:04:17.998Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="javaScript 数据类型">
-<meta name="twitter:description" content="接触javaScript有一段时间了,今天来讲一下javaScript中的数据类型都有哪些 [原文参考 starof的博客]">
+<meta name="twitter:title" content="原型与原型链">
+<meta name="twitter:description" content="在之前的博客中有分享过原型的概念，但是绝对原型和原型链还是容易混淆，所以再深入的研究一下">
 
 
 
@@ -126,13 +126,13 @@
 
 
 
-  <link rel="canonical" href="http://www.chensheng.group/2015/04/11/javaScript数据类型/"/>
+  <link rel="canonical" href="http://www.chensheng.group/2016/09/20/原型与原型链/"/>
 
 
 
 
 
-  <title>javaScript 数据类型 | 陈先生的小前端</title>
+  <title>原型与原型链 | 陈先生的小前端</title>
   
 
 
@@ -306,7 +306,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.chensheng.group/2015/04/11/javaScript数据类型/">
+    <link itemprop="mainEntityOfPage" href="http://www.chensheng.group/2016/09/20/原型与原型链/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="陈晟">
@@ -323,7 +323,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">javaScript 数据类型</h1>
+          <h1 class="post-title" itemprop="name headline">原型与原型链</h1>
         
 
         <div class="post-meta">
@@ -335,8 +335,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-04-11T19:13:00+08:00">
-                2015-04-11
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-09-20T13:50:02+08:00">
+                2016-09-20
               </time>
             
 
@@ -377,8 +377,8 @@
                 <i class="fa fa-comment-o"></i>
               </span>
               
-                <a href="/2015/04/11/javaScript数据类型/#SOHUCS" itemprop="discussionUrl">
-                  <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2015/04/11/javaScript数据类型/" itemprop="commentsCount"></span>
+                <a href="/2016/09/20/原型与原型链/#SOHUCS" itemprop="discussionUrl">
+                  <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2016/09/20/原型与原型链/" itemprop="commentsCount"></span>
                 </a>
               
             
@@ -409,87 +409,28 @@
         <hr style="filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)" color="#FF0000" size="1">
 
 <blockquote>
-<p>接触javaScript有一段时间了,今天来讲一下javaScript中的数据类型都有哪些 [原文参考 starof的博客]</p>
+<p>在之前的博客中有分享过原型的概念，但是绝对原型和原型链还是容易混淆，所以再深入的研究一下</p>
 </blockquote>
 <a id="more"></a>
-<h3 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h3><p>javaScript 中有六大数据类型:</p>
-<ul>
-<li>object   (对象)</li>
-<li>number   (数字)</li>
-<li>string   (字符串)</li>
-<li>blooean  (布尔)</li>
-<li>Null     (空)</li>
-<li>undefined(未定义)</li>
-</ul>
-<p>其中 javaScript还分为了基本数据类型和引用类型,在这里不详细的展开,我在接下来的博客中会进行详细的讲述</p>
-<h3 id="数据类型的隐式转化"><a href="#数据类型的隐式转化" class="headerlink" title="数据类型的隐式转化"></a>数据类型的隐式转化</h3><p>javaScript中的隐式转化也是很有趣的一个地方,打个比方,我定义了一个字符串的变量,<br>再定义一个Number类型的变量 ,进行比较,结果却是true</p>
-<pre><code>var a = &apos;123&apos; ;
+<h3 id="原型的概念"><a href="#原型的概念" class="headerlink" title="原型的概念"></a>原型的概念</h3><p>在说构造函数之前,我们先来探讨一下我们之前博客中提到的原型, 什么是原型?</p>
+<p>在JavaScript中,通过原型可以实现对象的属性继承,这时候就有一个问题,我们没有定义原型,原型是怎么来的?<br>之前说过,在H5中,一切皆为对象,所以函数也是一种对象,javascript默认的给函数一个属性——prototype。<br>这个prototype的属性值是一个对象（属性的集合，再次强调！）,默认的只有一个叫做constructor的属性,指向这个函数本身。</p>
+<p>注意这个prototype属性,这是只有函数才拥有的,其他的对象也有原型使用的是(<em>proto</em>)</p>
+<h3 id="prototype-与-proto-的区别"><a href="#prototype-与-proto-的区别" class="headerlink" title="prototype 与 proto 的区别"></a>prototype 与 <em>proto</em> 的区别</h3><p>就像之前说的一样， prototype是函数才有的属性，而<em>proto</em>是每个对象都有的属性，但<em>proto</em>不是一个规范的属性，只是部分的浏览器实现了此属性</p>
+<p>我举个简单的例子：</p>
+<pre><code>Person（这是一个构造函数）  --- prototype---&gt;  Person.prototype（原型）
 
-var b = 123;
-
-a == b //true
-</code></pre><p>这是因为javaScript执行时将String转化为了Number类型,再进行判断,这样的隐式转化还有很多,<br>布尔类型转化Number都是可以的</p>
-<pre><code>true == 1;
-false == 0;
-</code></pre><p>隐式转化还有个值得注意的地方在于 + 号 与 - 号</p>
-<pre><code>var a = &apos;100&apos;,
-var b = 50
-
-a + b // 10050
-a - b // 50
-</code></pre><p>这是因为,在执行 + 号的时候, 变量a为字符串类型,所以执行的字符串的拼接,但是在js的代码中,-被认定<br>为减法运算,所以会自动将变量a转化为Number类型,并进行运算</p>
-<h3 id="包装对象"><a href="#包装对象" class="headerlink" title="包装对象"></a>包装对象</h3><p>包装对象这一特性在javaScript中也是值得一提的,大家都知道对象是可以进行打点调用或赋值的,那字符串可以吗,<br>我们可以做一个测试</p>
-<pre><code>var a = &quot;string&quot;;
-console.log(a.t = 3); // 3
-console.log(a.t); // undefined
-</code></pre><p>正所谓在H5中,一切皆为对象,把一个基本类型尝试用对象的方式使用它的时候,javascript会把这些基本类型转化为对应的包装类型对象完成这样一个操作以后，这个临时对象会被销毁掉。所以a.t赋值3了以后,再去输出a.t值是undefined。</p>
-<h3 id="类型检测"><a href="#类型检测" class="headerlink" title="类型检测"></a>类型检测</h3><p>typeof 和 instanceof 都可以进行类型检测,typeof就不进行细讲了,来说一下instanceof</p>
-<p>它基于原型链操作。obj instanceof Object。</p>
-<p>左边的操作数为对象，不是就返回false,右操作数必须是函数对象或者函数构造器,因为只有函数才有prototype这个属性,不是会爆出typeError异常。</p>
-<p>原理：判断左边的左操作数的对象的原型链上是否有右边这个构造函数的prototype属性。原型链和构造函数我在后面会<br>进行细讲</p>
-<p>注意一个坑:不同window或iframe之间的对象类型检测不能使用instanceof！</p>
-<h3 id="数据类型转化"><a href="#数据类型转化" class="headerlink" title="数据类型转化"></a>数据类型转化</h3><p>我这里简单的介绍一下常用的类型转化</p>
-<ol>
-<li><p>将字符串类型转化为number的类型<br> str = Number(str);</p>
-</li>
-<li><p>number类型转化为string类型<br> a = a.toString()<br> a =    String(a)    </p>
-</li>
-<li><p>布尔类型转化为number<br> var y = false;<br> y = Number(y);</p>
-</li>
-<li><p>把数字格式化为指定的长度;会四舍五入<br> i = i.toPrecision(3)</p>
-</li>
-<li><p>将数字转化为字符串,保留几位小数,不够的用0补位<br> i = i.toFixed(1);</p>
-</li>
-</ol>
-<p>前端会经常进行数据的交互和处理,所以Number的转化是用到最多的,这里详细的介绍一下</p>
-<p>Number()函数的转换规则如下：</p>
-<ul>
-<li><p>如果是Boolean值，true和false将分别被替换为1和0</p>
-</li>
-<li><p>如果是数字值，只是简单的传入和返回</p>
-</li>
-<li><p>如果是null值，返回0</p>
-</li>
-<li><p>如果是undefined，返回NaN</p>
-</li>
-<li><p>如果是字符串，遵循下列规则：</p>
-<ul>
-<li><p>如果字符串中只包含数字，则将其转换为十进制数值，即”1“会变成1，”123“会变成123，而”011“会变成11（前导的0被忽略）</p>
-</li>
-<li><p>如果字符串中包含有效的浮点格式，如”1.1“，则将其转换为对应的浮点数（同样，也会忽略前导0）</p>
-</li>
-<li><p>如果字符串中包含有效的十六进制格式，例如”0xf“，则将其转换为相同大小的十进制整数值</p>
-</li>
-<li><p>如果字符串是空的，则将其转换为0</p>
-</li>
-<li><p>如果字符串中包含除了上述格式之外的字符，则将其转换为NaN</p>
-</li>
-<li><p>如果是对象，则调用对象的valueOf()方法，然后依照前面的规则转换返回的值。如果转换的结果是NaN，则调用对象的toString()方法，然后再依次按照前面的规则转换返回的字符串值。</p>
-</li>
-</ul>
-</li>
-</ul>
-<p>javaScript 的数据类型就讲到这里了,如果有错误,欢迎各位大牛指出,感激不尽 </p>
+person（构造函数初始化的对象）--- _proto_ ---&gt; Person.prototype（原型）
+</code></pre><p>这就是prototype与<em>proto</em>不同的用法</p>
+<p>###原型链的概念</p>
+<p>为什么会产生原型链？是因为原型本身也是一个对象，它也有自身的<em>proto</em>属性，这样的链式结构，就组成了一个原型链，并且最终会指向Null</p>
+<p>其实只要弄懂<em>proto</em>属性指向谁，原型链就很好理解了</p>
+<p>这里附上一个小demo</p>
+<pre><code>var A = function(){};
+var a = new A();
+console.log(a.__proto__); //A {}（即构造器function A 的原型对象）
+console.log(a.__proto__.__proto__); //Object {}（即构造器function Object 的原型对象）
+console.log(a.__proto__.__proto__.__proto__); //null
+</code></pre><p>以上就是我对原型与原型链的一些理解,不足之处希望大牛们多提一些意见,感激不尽</p>
 
       
     </div>
@@ -517,8 +458,8 @@ console.log(a.t); // undefined
   <script src="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.min.js"></script>
   <link rel="stylesheet" type="text/css" href="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.mini.css">
   <p><span>文章作者:</span><a href="/" title="访问 陈晟 的个人博客">陈晟</a></p>
-  <p><span>原始链接:</span><a href="/2015/04/11/javaScript数据类型/" title="javaScript 数据类型">http://www.chensheng.group/2015/04/11/javaScript数据类型/</a>
-    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://www.chensheng.group/2015/04/11/javaScript数据类型/"  aria-label="复制成功！"></i></span>
+  <p><span>原始链接:</span><a href="/2016/09/20/原型与原型链/" title="原型与原型链">http://www.chensheng.group/2016/09/20/原型与原型链/</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://www.chensheng.group/2016/09/20/原型与原型链/"  aria-label="复制成功！"></i></span>
   </p>
   <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 </a> 转载请保留原文链接及作者。</p>  
 </div>
@@ -552,7 +493,9 @@ console.log(a.t); // undefined
           
             <a href="/tags/javaScript/" rel="tag"><i class="fa fa-tag"></i> javaScript</a>
           
-            <a href="/tags/数据类型/" rel="tag"><i class="fa fa-tag"></i> 数据类型</a>
+            <a href="/tags/原型/" rel="tag"><i class="fa fa-tag"></i> 原型</a>
+          
+            <a href="/tags/原型链/" rel="tag"><i class="fa fa-tag"></i> 原型链</a>
           
         </div>
       
@@ -565,14 +508,18 @@ console.log(a.t); // undefined
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2016/09/15/构造函数与原型/" rel="next" title="原型与构造函数的继承">
+                <i class="fa fa-chevron-left"></i> 原型与构造函数的继承
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/09/11/引用对象的复制/" rel="prev" title="引用对象的复制">
-                引用对象的复制 <i class="fa fa-chevron-right"></i>
+              <a href="/2016/09/22/MongoDB总结/" rel="prev" title="MongoDB 的安装与使用">
+                MongoDB 的安装与使用 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -677,7 +624,7 @@ var jiathis_config={
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -699,7 +646,7 @@ var jiathis_config={
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-count">13</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -748,7 +695,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据类型"><span class="nav-number">1.</span> <span class="nav-text">数据类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据类型的隐式转化"><span class="nav-number">2.</span> <span class="nav-text">数据类型的隐式转化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#包装对象"><span class="nav-number">3.</span> <span class="nav-text">包装对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#类型检测"><span class="nav-number">4.</span> <span class="nav-text">类型检测</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据类型转化"><span class="nav-number">5.</span> <span class="nav-text">数据类型转化</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#原型的概念"><span class="nav-number">1.</span> <span class="nav-text">原型的概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#prototype-与-proto-的区别"><span class="nav-number">2.</span> <span class="nav-text">prototype 与 proto 的区别</span></a></li></ol></div>
             
 
           </div>
