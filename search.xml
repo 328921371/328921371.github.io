@@ -24,6 +24,63 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[webpack的流程]]></title>
+    <url>%2F2016%2F12%2F02%2Fwebpack%E7%9A%84%E6%B5%81%E7%A8%8B%2F</url>
+    <content type="text"><![CDATA[最近开始学习webpack打包工具，和大家分享一下webpack的具体流程 Webpack是什么? 一个打包工具: 将所有的资源都打包成一个js文件 一个模块加载工具 将各种资源都可以当做模块来处理 对于模块的组织,通常有以下几种方法 通过书写在不同文件中,使用 script 标签进行加载 通过CommonJS文件加载,如: nodeJS 就使用这种方式 AMD 进行加载, require.js 使用的就是这种方式 ES6模块 通过import export Webpack的特点是什么? Webpack 是 以 CommonJS 的形式来进行编写脚本的,但是对 AMD / CMD 的支持也很全面的,方便旧项目进行代码迁移 能被模块化的不仅仅是JS了 开发便捷,能够替代部分grunt/gulp 的工作, 比如 打包,压缩,混淆,图片转base64 等 扩展性强,插件机制完善 名词解释:AMD 即异步模块加载机制,完整描述了模块的定义，依赖关系，引用关系以及加载机制作为一个规范，只需定义其语法API，而不关心其实现。AMD规范简单到只有一个API，即define函数 CMD 命令行(Command Processor) 一般指命令提示符,命令提示符是在操作系统中，提示进行命令输入的一种工作提示符。 CommonJS 是一种规范，NodeJS是这种规范的实现。CommonJS API定义很多普通应用程序（主要指非浏览器的应用）使用的API在兼容CommonJS的系统中，你可以实用JavaScript程序开发： Webpack的安装全局安装一个webpack npm install -g webpack 体验生成 js 命令(将哪个js打包成哪个js) webpack ./entry.js bundle.js 将css 打包 成 js–需要安装 加载器(css加载器 与 style加载器)并安装插件npm install css-loadernpm install style-loader 注意: 这里需要在入口文件导入css , require(&apos;style-loader!css-loader!./style.css&apos;); 同样执行 webpack ./entry.js bundle.js 配置 配置文件名为: webpack.config.js 默认会找这个文件 打包命令 webpack 附上基本的 webpack.config.js 配置 12345678910111213141516171819202122module.exports = &#123; entry: './entry.js', // 配置入口文件 (入口文件中可以导入其他js或css文件)(var content = require('./content.js') 和 require('./style.css');) output: &#123; // 配置保存的路径 path: __dirname, // 文件路径,__dirname 代表当前目录,当前文件所在的路径 filename: 'bundle.js' // 打包后的文件名 &#125;, module: &#123; //模块部分 loaders: [ // 加载器 可以配置多个 &#123; test: /\.css$/, //匹配以 .css 结尾的文件 loaders: 'style-loader!css-loader' //指定加载的 &#125; ] &#125;&#125; 服务器相关配置 作用: 当文件发送变化时,会自动执行重新生成文件 全局安装:npm install webpack-dev-server -g 本地安装npm install webpack-dev-server 服务器运行(会生成 127.0.0.1:8080– 打开就可以看到了)webpack-dev-server ES6 转化 ES5创建个文件夹，初始化一下，首先全局安装webpack安装babelnpm install --save-dev babel-core babel-preset-es2015 npm install --save-dev babel-loader 创建一个文件app.js，里面写入现在浏览器不全支持的es6代码let a = 111; let b = 222; var xxx = (c,d) =&gt; c*d; console.log(xxx(a,b)); 创建webpack配置文件1234567891011121314151617module.exports = &#123; entry: './app.js', output: &#123; path: __dirname, filename: 'bundle.js' &#125;, module: &#123; loaders: [&#123; test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader' , query: &#123; presets: ['es2015'] &#125; &#125;] &#125;&#125; entry和output都是通用的配置，与ES6无关，这里不展开。重点在loaders配置，loader和query一定要配置test配置指定了哪些是ES6代码,可以指定一个文件夹,则所有源代码一定要放在该文件夹下,或者用一个 正则表达式指定哪些是ES6代码。只有ES6代码，才会编译。 运行 webpack出现下面这些指令则运行成功 function(module, exports) { &quot;use strict&quot;; var a = 111; var b = 222; var xxx = function xxx(c, d) { return c * d; }; console.log(xxx(a, b)); 以上是webpack的基本流程，如果有不对的地方，欢迎提出，谢谢]]></content>
+      <categories>
+        <category>webpack</category>
+      </categories>
+      <tags>
+        <tag>webpack</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[express请求处理管线]]></title>
+    <url>%2F2016%2F11%2F15%2Fexpress%E8%AF%B7%E6%B1%82%E5%A4%84%E7%90%86%E7%AE%A1%E7%BA%BF%2F</url>
+    <content type="text"><![CDATA[express是一个简洁而灵活的 node.js Web应用框架，这个要介绍起来太多了，现在的Node是越来越火了，今天就分享一下express请求处理管线的基本使用 Node的代码及安装配置我就不贴出来了，这里将主要代码给分享一下 为什么要用到管线？研究问题通常要带着目的去研究，管线的作用是什么？简单的来说，javaScript的代码是以此执行的，在请求数据或其他工作时，有时候是需要依赖性的，所以管线的作用就体现出来了，通常是在请求之前，先执行管线中代码，再执行之后的代码，在工作中经常用在判断cookie的存在 基本的管线处理// 请求处理管线中的一个函数 // req: 请求对象 res：响应对象 // next : 下一个等待处理请求的回调函数 function firstFun(req,res,next){ console.log(req.query); // 当前函数中的所有内容执行完后，可以进行回调下一个处理函数 next(); } 多个函数可以写入数组中 app.get(&apos;/&apos;,[firstFun,secondFun],function(req,res){ console.log(&apos;请求成功了...&apos;); res.send(&apos;收到来自 / 的请求&apos;); }); 处理请求响应数据的乱码问题function charSet(req,res,next){ // res.set() 设置响应头 // res.set(&apos;头字段&apos;,&apos;值&apos;) 设置单一的响应头 // res.set({&apos;头字段&apos;: &apos;值&apos;,&apos;头字段&apos;: &apos;值&apos;...}) 批量设置响应头 // Content-type ：设置响应数据内容类型，并且同时制定了编码格式(防止乱码) res.set(&apos;Content-type&apos;,&apos;text/html;charset=utf-8&apos;); console.log(&apos;通用功能，设置响应头编码问题&apos;); next(); } // app.use() ： 可以在默认处理管线(所有请求接口的处理管线)中 // 添加一个回调函数，每次请求都会先来执行默认管线中的回调 // 函数，然后再执行各自接口的处理管线中的回调函数 app.use(charSet);//重点:!!!!!!! app.use(charSet)千万要记得写，踩了一次坑 获取参数app.get(&apos;/index/:age&apos;,function(req,res){ // 获取参数的方法 var name = req.query.name; var age = req.query.age; // 后台获取客户端数据的方法 /* * 1. 获取 url 中 ? 后面的参数 key=value * get 请求的时候url后面的参数获取 * 通过 ： req.query.key * 2. 获取请求体中的数据(通过 post 请求的时候才能这样做) * 比如： req.body.key * 如果是用 urlencoded 编码 就用 body-parser 模块 * 如果是用 mutipart/form-data 需要用 multer 模块 * 3. 获取请求头里面的数据 * 比如 req.get(key) * 4. 获取 cookie 中的数据 * 比如 req.cookies.key 需要引入 cookie-parser * 5. 获取 url 路径中的数据 * 比如 req.params.key * 这种获取数据的方法在请求的时候需要这样去写 ： /index/20(数值) * 将参数写在 path 中相对于把参数写到 ? 后面，更加 * 容易被用户和浏览器引擎识别，又被称为 友好的 url */ console.log(req.params.age); res.send(&apos;收到来自 index 的请求&apos;); });]]></content>
+      <categories>
+        <category>express</category>
+      </categories>
+      <tags>
+        <tag>管线</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[artTemplate的基本语法]]></title>
+    <url>%2F2016%2F10%2F30%2Ftemplate%E7%9A%84%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95%2F</url>
+    <content type="text"><![CDATA[比较了几款前端模版引擎，还是选择介绍一下artTemplate，它是前端用来渲染页面的，使用方便以及性能卓越，关于它的介绍以及性能大家可以移步http://cdc.tencent.com/?p=5723。 我这里分享一下artTemplate基本的使用步骤（需要一定的NodeJs的基础，否则看的很吃力） artTemplate的使用步骤创建一个模板 创建模板需要使用script标签，并且 type要设置成text/html 创建模板是 script 标签必须设置id，才能使用模板 双花括号 表示引用模板数据对象，或者 template 内置的语法关键字 使用模板var htmlstr = template(&apos;templ&apos;, data); document.body.innerHTML = htmlstr; 参数1：需要使用的模板的ID参数2：套用模板需要使用的数据（data是要传入的数据） 模板套模板artTemplate支持模板中再嵌套一个模板，使用 include ‘templ2’ value 服务器端的模板var template = require(&quot;art-template&quot;); app.get(&apos;/&apos;,function(req,res){ console.log(&apos;如果没有index.html，就会执行这个接口&apos;) //__dirname 为当前服务器的目录 console.log(&quot;绝对路径为： &quot; + __dirname); //template 第一个参数是模板的路径，是绝对路径， 第二个参数是需要渲染的数据 var htmlStr = template(__dirname + &apos;/tem/art1&apos;,data);//这里将文件的html删掉,系统会默认寻找.art文件 res.status(200).send(htmlStr); }) 还有一种渲染的方法是较为简单的 var render = require(&apos;./views/art2&apos;)//导入 art2 这里的render就是一个渲染的函数 var htmlStr = render(data)//把数据当做参数传入进去，将数据渲染到模块上 res.status(200).send(htmlStr); 以上就是我对artTemplate的理解，因为也在学习中，所以总结的不是很到位，希望大家有好的博客也可以和我分享]]></content>
+      <categories>
+        <category>artTemplate</category>
+      </categories>
+      <tags>
+        <tag>artTemplate</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[JavaScript数组去重]]></title>
+    <url>%2F2016%2F10%2F23%2F%E6%95%B0%E7%BB%84%E5%8E%BB%E9%87%8D%2F</url>
+    <content type="text"><![CDATA[javaScript的数组去重有很多种方法，我分享一下我学习过程中的小demo 原理比较简单，我直接在下面贴出例子 假设有一个arr1的数组 去重代码第一种： function way1() { var newArr = [];//创建新数组 for(var i = 0; i &lt; arr1.length; i++) { if(newArr.indexOf(arr1[i]) == -1) {//判断是否有这个值 newArr.push(arr1[i]); } } console.log(newArr) } 第二种： function way2(){ var arr2 = arr1.sort(); //对数组排序 var res = []; for(var i=0;i&lt;arr2.length;i++){ if(arr2[i] !== res[res.length-1]){ res.push(arr2[i]); } } console.log(res); } 第三种： var setObj = new Set(); for(var i = 0; i &lt; arr1.length; i++) { setObj.add(arr1[i]); } var arr4 = []; for(var i of setObj){ arr4.push(i) } 第四种： function way4(arr){ var res =[]; var obj = {}; for(var i=0;i&lt;arr1.length;i++){ if(!obj[arr1[i]]){ res.push(arr1[i]); obj[arr1[i]] = 1; } } console.log(res) } 第五种： function way5(){ var arr=[]; for(var i = 0;i&lt;arr1.length;i++){ //判断当前位置的数字首次出现的位置是不是当前的位置 if(arr1.indexOf(arr1[i]) == i){ arr.push(arr1[i]) } } console.log(arr) } 第六种： function way6() { var r = []; for (var i = 0;i &lt; arr1.length; i++) { for (var j = i + 1; j &lt; arr1.length; j++){ if (arr1[i] === arr1[j]) j = ++i; } r.push(arr1[i]); } console.log(r); } 去重原理我简单的说一下具体的原理 第一种: 创建一个空数组arr用for循环判断 arr indexOf (这里是要判断的数组的元素) == -1如果是,就push进去 第二种: 先排序 arr2[i] !== res[res.length-1]判断前后是否一致这里的res是新数组 第三种: 创建一个集合,将数组所有的都加入到集合中 setObj.add(arr1[i]); 第四种: 创建空的[]和{}将数组值当做{}的键判断对象上是否有键没有的话就在空数组push 第五种: 判断当前位置的数字首次出现的位置是不是当前的位置 arr1.indexOf(arr1[i]) == i 第六种: 两个for循环进行判断假如有个数组[1,2,5,2,4,3,1]; for (var i = 0;i &lt; arr1.length; i++) { for (var j = i + 1; j &lt; arr1.length; j++){ if (arr1[i] === arr1[j]) j = ++i; } r.push(arr1[i]); } 当遇到一样的数值时，就跳过判断下一个，没有的话第二个for循环会执行结束这样就可以push进去了..[5,2,4,3,1] 以上就是我对数组去重的一些理解,不足之处希望大牛们多提一些意见,感激不尽]]></content>
+      <categories>
+        <category>javaScript</category>
+      </categories>
+      <tags>
+        <tag>javaScript</tag>
+        <tag>数组去重</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[JavaScript对象合并]]></title>
+    <url>%2F2016%2F10%2F05%2Fjs%E5%AF%B9%E8%B1%A1%E5%90%88%E5%B9%B6%2F</url>
+    <content type="text"><![CDATA[javaScript的对象合并也是一个比较重要的知识点，分为浅复制和深复制，现在和大家分享一下我的学习过程 浅复制在之前的博客中有提到过，由于对象赋值是实际上赋值地址，所以赋值后修改新对象，会导致原来的对象也被修改举个简单的例子 function externalCopy(original,current){ for(var i in original){ current[i] = original[i]; } return current; } 深复制解决这种问题常用的有两种方法 第一种： function deepCopy(original, current) {//这里传递两个对象，被复制的，复制的 for(var i in original){//遍历要复制的对象 if(typeof original[i] === &quot;object&quot;) {//判断是否为引用类型 //引用类型的话，数组就给一个新的[]，这样指向新地址，对象给{} current[i] = (Object.prototype.toString.call(original[i]) === &quot;[object Array]&quot;) ? [] : {}; //这时候重新调用本身，也就是递归函数，将[]或{}传入到current这个参数， //original在上面重新循环，这时候循环的是他的属性值，实现值的复制 deepCopy(original[i], current[i]); } else { //基本类型直接复制 current[i] = original[i]; } } return current; } 第二种使用 $.extend()进行深复制 var newobj = $.extend(true,{}, obj1, obj2); 以上就是我对对象复制的一些理解,不足之处希望大牛们多提一些意见,感激不尽]]></content>
+      <categories>
+        <category>javaScript</category>
+      </categories>
+      <tags>
+        <tag>javaScript</tag>
+        <tag>对象合并</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[This的指向问题与闭包]]></title>
     <url>%2F2016%2F09%2F24%2Fthis%E4%B8%8E%E9%97%AD%E5%8C%85%E7%9A%84%E6%80%BB%E7%BB%93%2F</url>
     <content type="text"><![CDATA[This的指向问题一直是JavaScript的一个容易混淆的地方，闭包与this的结合更是让人头晕，现在和大家分享一下我的学习过程 This的用法总结起来比较常用的在三个地方 全局中全局中，函数的调用，this基本都是指向window 点击事件中在点击事件中，this 指向的是当前触发事件的元素对象 构造函数中在构造函数中，this 表示的是正在初始化的对象本身 举个简单的例子 var obj = { name:&apos;小强&apos;, age: 20, run: function(){ console.log(this); } } var fun = obj.run; fun();//这样子调用，this指向的是window obj.run();//这样调用，this指向的是obj 闭包闭包的作用有两个：让外部访问函数内部的变量、另一个就是让这些变量的值始终保持在内存中。 实现的方法,在函数的内部在声明一个函数,返回这个函数,就可以获取到外部的变量，举个简单的例子 function f1(){ var n=999; nAdd=function(){n+=1} function f2(){ alert(n); } return f2; } var result=f1(); result(); // 999 nAdd(); result(); // 1000 也就是说，当内部函数的作用域，被外部引用时，就创建了该内部函数的闭包，如果内部函数引用了位于外部函数的变量，当外部函数调用完毕后，这些变量在内存中不会被释放，因为闭包需要他们 有两个比较经典的关于this的指向与闭包的小demo，也和大家分享一下，如果知道了原理，this的指向就不再困扰你了 第一题 var object = { name:&quot;My Object&quot;, getNameFunc: function() { return function() { return this; }; } }; console.log(object.getNameFunc()()); 第二题 var name = &quot;The Window&quot;; var object = { name: &quot;My Object&quot;, getNameFunc: function() { var that = this; return function() { return that.name; }; } }; console.log(object.getNameFunc()()); 以上就是我对this指向的一些理解,不足之处希望大牛们多提一些意见,感激不尽]]></content>
@@ -69,8 +126,8 @@
       </categories>
       <tags>
         <tag>javaScript</tag>
-        <tag>原型</tag>
         <tag>构造函数</tag>
+        <tag>原型</tag>
         <tag>继承</tag>
       </tags>
   </entry>
