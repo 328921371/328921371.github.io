@@ -69,7 +69,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="JavaScript,CSS,VUE" />
+  <meta name="keywords" content="Web Worker,分线程," />
 
 
 
@@ -85,16 +85,18 @@
 
 
 
-<meta name="description" content="请不要在最能吃苦的日子选择安逸">
-<meta property="og:type" content="website">
-<meta property="og:title" content="陈先生的小前端">
-<meta property="og:url" content="http://www.chensheng.group/tags/javaScript/index.html">
+<meta name="description" content="Web Workers 是 HTML5 提供的一个javascript多线程解决方案，我们可以将一些大计算量的代码交由web Worker运行而不冻结用户界面。">
+<meta name="keywords" content="Web Worker,分线程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="分线程操作">
+<meta property="og:url" content="http://www.chensheng.group/2017/01/22/分线程/index.html">
 <meta property="og:site_name" content="陈先生的小前端">
-<meta property="og:description" content="请不要在最能吃苦的日子选择安逸">
+<meta property="og:description" content="Web Workers 是 HTML5 提供的一个javascript多线程解决方案，我们可以将一些大计算量的代码交由web Worker运行而不冻结用户界面。">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-10-27T08:57:06.922Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="陈先生的小前端">
-<meta name="twitter:description" content="请不要在最能吃苦的日子选择安逸">
+<meta name="twitter:title" content="分线程操作">
+<meta name="twitter:description" content="Web Workers 是 HTML5 提供的一个javascript多线程解决方案，我们可以将一些大计算量的代码交由web Worker运行而不冻结用户界面。">
 
 
 
@@ -124,13 +126,13 @@
 
 
 
-  <link rel="canonical" href="http://www.chensheng.group/tags/javaScript/"/>
+  <link rel="canonical" href="http://www.chensheng.group/2017/01/22/分线程/"/>
 
 
 
 
 
-  <title>标签: javaScript | 陈先生的小前端</title>
+  <title>分线程操作 | 陈先生的小前端</title>
   
 
 
@@ -149,7 +151,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
     
     <a href="https://github.com/328921371"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
@@ -290,222 +292,309 @@
           <div id="content" class="content">
             
 
+  <div id="posts" class="posts-expand">
+    
+
+  
+
   
   
   
-  <div class="post-block tag">
-
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>javaScript<small>标签</small>
-        </h1>
-      </div>
-
-      
-        
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.chensheng.group/2017/01/22/分线程/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="陈晟">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="陈先生的小前端">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2016/10/23/数组去重/" itemprop="url">
-              
-                <span itemprop="name">JavaScript数组去重</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">分线程操作</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-10-23T19:22:12+08:00"
-              content="2016-10-23" >
-          10-23
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-22T18:19:06+08:00">
+                2017-01-22
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/javascript/" itemprop="url" rel="index">
+                    <span itemprop="name">javascript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2017/01/22/分线程/#SOHUCS" itemprop="discussionUrl">
+                  <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2017/01/22/分线程/" itemprop="commentsCount"></span>
+                </a>
+              
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2016/10/05/js对象合并/" itemprop="url">
-              
-                <span itemprop="name">JavaScript对象合并</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-10-05T11:42:12+08:00"
-              content="2016-10-05" >
-          10-05
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+      
 
       
-        
+        <hr style="filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)" color="#FF0000" size="1">
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2016/09/24/this与闭包的总结/" itemprop="url">
-              
-                <span itemprop="name">This的指向问题与闭包</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-09-24T12:42:12+08:00"
-              content="2016-09-24" >
-          09-24
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2016/09/20/原型与原型链/" itemprop="url">
-              
-                <span itemprop="name">原型与原型链</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-09-20T13:50:02+08:00"
-              content="2016-09-20" >
-          09-20
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2016/09/15/构造函数与原型/" itemprop="url">
-              
-                <span itemprop="name">原型与构造函数的继承</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-09-15T22:00:00+08:00"
-              content="2016-09-15" >
-          09-15
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2016/09/11/引用对象的复制/" itemprop="url">
-              
-                <span itemprop="name">引用对象的复制</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-09-11T20:39:00+08:00"
-              content="2016-09-11" >
-          09-11
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2015/07/11/javaScript数据类型/" itemprop="url">
-              
-                <span itemprop="name">javaScript 数据类型</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2015-07-11T19:13:00+08:00"
-              content="2015-07-11" >
-          07-11
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+<blockquote>
+<p>Web Workers 是 HTML5 提供的一个javascript多线程解决方案，我们可以将一些大计算量的代码交由web Worker运行而不冻结用户界面。</p>
+</blockquote>
+<a id="more"></a>
+<h3 id="进程和线程"><a href="#进程和线程" class="headerlink" title="进程和线程"></a>进程和线程</h3><ul>
+<li>进程:<ul>
+<li>打开一个app相当于打开了一个进程,进程是由线程说组成的(最少也得有一个主线程)  </li>
+</ul>
+</li>
+<li>线程:<ul>
+<li>主线程和分线程(多线程开发)  </li>
+</ul>
+</li>
+<li>耗时太多的操作(发送网络请求,读取文件)一定得放在异步执行,否则就会造成线程的卡死–卡屏</li>
+</ul>
+<h3 id="如何使用Worker"><a href="#如何使用Worker" class="headerlink" title="如何使用Worker"></a>如何使用Worker</h3><h4 id="newThread-js界面"><a href="#newThread-js界面" class="headerlink" title="newThread.js界面"></a>newThread.js界面</h4><pre><code>onmessage = function(event){
+    console.log(event.data);
+    postMessage(&apos;传回主线程的值&apos;);    
+}
+</code></pre><h4 id="html页面"><a href="#html页面" class="headerlink" title="html页面"></a>html页面</h4><pre><code>var thread = new Worker(&apos;newThread.js&apos;);
+thread.postMessage(&apos;这里是要传的值&apos;)
+thread.onmessage = function(event){
+    console.log(event.data);//newThread传来的数据
+}
+</code></pre><h3 id="开启分线程的步骤"><a href="#开启分线程的步骤" class="headerlink" title="开启分线程的步骤"></a>开启分线程的步骤</h3><p>一、 开启分线程</p>
+<pre><code>var thread = new Worker(&apos;newThread.js&apos;);  //这里的js文件时新创建的    
+</code></pre><p>二、 线程之前的传值(线程与线程之间的作用域是独立的 不能相互访问)</p>
+<pre><code>thread.postMessage(这里是要传的值)
+</code></pre><p>三、 接受线程的传值(其他线程通过postMessage()传递值时触发onmessage)</p>
+<pre><code>onmessage = function(event){
+    //event.data    //值在data中
+    postMessage(传回主线程的值)    //第四步的操作
+}
+</code></pre><p>四、 分线程传值回主线程</p>
+<pre><code>由于线程之间的作用域是独立的,所以分线程不能访问主线程的变量
+postMessage(&apos;传回主线程的值&apos;);
+</code></pre><p>五、 主线程接收分线程传回的值</p>
+<blockquote>
+<p>(当分线程postMessage 时 ,会触发分线程中的onmessage)</p>
+</blockquote>
+<pre><code>thread.onmessage = function(event){
+    event.data    //值在data中
+}    
+</code></pre><p>六、 中断分线程(分线程关闭后,未执行完的代码会立刻停止,而且不会给主线程发消息)</p>
+<pre><code>thread.terminate();        
+</code></pre><h3 id="Web-Worker的优缺点"><a href="#Web-Worker的优缺点" class="headerlink" title="Web Worker的优缺点"></a>Web Worker的优缺点</h3><p>我们可以做什么：</p>
+<p>1.可以加载一个JS进行大量的复杂计算而不挂起主进程，并通过postMessage，onmessage进行通信</p>
+<p>2.可以在worker中通过importScripts(url)加载另外的脚本文件</p>
+<p>3.可以使用 setTimeout(), clearTimeout(), setInterval(), and clearInterval()</p>
+<p>4.可以使用XMLHttpRequest来发送请求</p>
+<p>5.可以访问navigator的部分属性</p>
+<p>有哪些局限性：</p>
+<p>1.不能跨域加载JS</p>
+<p>2.worker内代码不能访问DOM</p>
+<p>3.各个浏览器对Worker的实现不大一致，例如FF里允许worker中创建新的worker,而Chrome中就不行</p>
+<p>4.不是每个浏览器都支持这个新特性</p>
+<p>以上就是我对分线程的一些理解,不足之处希望大牛们多提一些意见,感激不尽</p>
 
       
     </div>
+    
+    
+    
+	<div>
+	  
+	    <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+	  
+	</div>
+	
+	<div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
 
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script type="text/javascript" src="http://jslibs.wuxubj.cn/sweetalert_mini/jquery-1.7.1.min.js"></script>
+  <script src="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.mini.css">
+  <p><span>文章作者:</span><a href="/" title="访问 陈晟 的个人博客">陈晟</a></p>
+  <p><span>原始链接:</span><a href="/2017/01/22/分线程/" title="分线程操作">http://www.chensheng.group/2017/01/22/分线程/</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://www.chensheng.group/2017/01/22/分线程/"  aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 </a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    clipboard.on('success', $(function(){
+      $(".fa-clipboard").click(function(){
+        swal({   
+          title: "",   
+          text: '复制成功',   
+          html: false,
+          timer: 500,   
+          showConfirmButton: false
+        });
+      });
+    }));  
+</script>
+
+      
+	</div>
+		
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Web-Worker/" rel="tag"><i class="fa fa-tag"></i> Web Worker</a>
+          
+            <a href="/tags/分线程/" rel="tag"><i class="fa fa-tag"></i> 分线程</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/01/15/cookie与Storage的使用/" rel="next" title="Cookie与Storage的使用">
+                <i class="fa fa-chevron-left"></i> Cookie与Storage的使用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
 
 
           </div>
@@ -513,6 +602,12 @@
 
 
           
+  <div class="comments" id="comments">
+    
+      <div id="SOHUCS"></div>
+    
+  </div>
+
 
         </div>
         
@@ -533,8 +628,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           
             <p class="site-author-name" itemprop="name">陈晟</p>
@@ -609,6 +713,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#进程和线程"><span class="nav-number">1.</span> <span class="nav-text">进程和线程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何使用Worker"><span class="nav-number">2.</span> <span class="nav-text">如何使用Worker</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#newThread-js界面"><span class="nav-number">2.1.</span> <span class="nav-text">newThread.js界面</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#html页面"><span class="nav-number">2.2.</span> <span class="nav-text">html页面</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开启分线程的步骤"><span class="nav-number">3.</span> <span class="nav-text">开启分线程的步骤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Web-Worker的优缺点"><span class="nav-number">4.</span> <span class="nav-text">Web Worker的优缺点</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
