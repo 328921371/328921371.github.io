@@ -93,7 +93,7 @@
 <meta property="og:site_name" content="陈先生的小前端">
 <meta property="og:description" content="javaScript的数组去重有很多种方法，我分享一下我学习过程中的小demo">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-10-12T04:38:20.894Z">
+<meta property="og:updated_time" content="2017-11-02T05:32:46.746Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaScript数组去重">
 <meta name="twitter:description" content="javaScript的数组去重有很多种方法，我分享一下我学习过程中的小demo">
@@ -415,76 +415,18 @@
 <p>原理比较简单，我直接在下面贴出例子</p>
 <p>假设有一个arr1的数组</p>
 <h3 id="去重代码"><a href="#去重代码" class="headerlink" title="去重代码"></a>去重代码</h3><p>第一种： </p>
-<pre><code>function way1() {
-    var newArr = [];//创建新数组
-
-    for(var i = 0; i &lt; arr1.length; i++) {　
-
-        if(newArr.indexOf(arr1[i]) == -1) {//判断是否有这个值　
-            newArr.push(arr1[i]);　　
-        }
-    }
-    console.log(newArr)
-}
-</code></pre><p>第二种： </p>
-<pre><code>function way2(){
-
-　　var arr2 = arr1.sort();    //对数组排序
-
-　　var res = [];        
-　　for(var i=0;i&lt;arr2.length;i++){
-　　　　if(arr2[i] !== res[res.length-1]){    
-　　　　　　res.push(arr2[i]);        
-　　　　}    
-　　}    
-　　console.log(res);
-}
-</code></pre><p>第三种： </p>
-<pre><code>var setObj = new Set();
-for(var i = 0; i &lt; arr1.length; i++) {
-    setObj.add(arr1[i]);
-}
-var arr4 = [];
-for(var i of setObj){
-    arr4.push(i)
-}
-</code></pre><p>第四种：</p>
-<pre><code>function way4(arr){
-　　var res =[];        
-　　var obj = {};        
-　　for(var i=0;i&lt;arr1.length;i++){    
-　　　　if(!obj[arr1[i]]){        
-　　　　　　res.push(arr1[i]);        
-　　　　　　obj[arr1[i]] = 1;        
-　　　　}        
-　　}        
-　　console.log(res)        
-}
-</code></pre><p>第五种：</p>
-<pre><code>function way5(){
-       var arr=[];
-       for(var i = 0;i&lt;arr1.length;i++){
-           //判断当前位置的数字首次出现的位置是不是当前的位置
-           if(arr1.indexOf(arr1[i]) == i){
-
-               arr.push(arr1[i])
-           }
-
-       }
-       console.log(arr)
-}
-</code></pre><p>第六种：</p>
-<pre><code>function way6() {
-    var r = [];
-    for (var i = 0;i &lt; arr1.length; i++) {
-        for (var j = i + 1; j &lt; arr1.length; j++){
-            if (arr1[i] === arr1[j]) j = ++i;
-        }
-        r.push(arr1[i]);                    
-    }
-    console.log(r);
-}
-</code></pre><h3 id="去重原理"><a href="#去重原理" class="headerlink" title="去重原理"></a>去重原理</h3><p>我简单的说一下具体的原理</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">way1</span>(<span class="params"></span>) </span>&#123;</div><div class="line">	<span class="keyword">var</span> newArr = [];<span class="comment">//创建新数组</span></div><div class="line">	</div><div class="line">	<span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; arr1.length; i++) &#123;　</div><div class="line">	</div><div class="line">		<span class="keyword">if</span>(newArr.indexOf(arr1[i]) == <span class="number">-1</span>) &#123;<span class="comment">//判断是否有这个值　</span></div><div class="line">			newArr.push(arr1[i]);　　</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	<span class="built_in">console</span>.log(newArr)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>第二种： </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">way2</span>(<span class="params"></span>)</span>&#123;</div><div class="line"></div><div class="line">　　<span class="keyword">var</span> arr2 = arr1.sort();	<span class="comment">//对数组排序</span></div><div class="line">	</div><div class="line">　　<span class="keyword">var</span> res = [];		</div><div class="line">　　<span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;arr2.length;i++)&#123;</div><div class="line">　　　　<span class="keyword">if</span>(arr2[i] !== res[res.length<span class="number">-1</span>])&#123;	</div><div class="line">　　　　　　res.push(arr2[i]);		</div><div class="line">　　　　&#125;	</div><div class="line">　　&#125;	</div><div class="line">　　<span class="built_in">console</span>.log(res);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>第三种： </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> setObj = <span class="keyword">new</span> <span class="built_in">Set</span>();</div><div class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; arr1.length; i++) &#123;</div><div class="line">	setObj.add(arr1[i]);</div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> arr4 = [];</div><div class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i <span class="keyword">of</span> setObj)&#123;</div><div class="line">	arr4.push(i)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>第四种：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">way4</span>(<span class="params">arr</span>)</span>&#123;</div><div class="line">　　<span class="keyword">var</span> res =[];		</div><div class="line">　　<span class="keyword">var</span> obj = &#123;&#125;;		</div><div class="line">　　<span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;arr1.length;i++)&#123;	</div><div class="line">　　　　<span class="keyword">if</span>(!obj[arr1[i]])&#123;		</div><div class="line">　　　　　　res.push(arr1[i]);		</div><div class="line">　　　　　　obj[arr1[i]] = <span class="number">1</span>;		</div><div class="line">　　　　&#125;		</div><div class="line">　　&#125;		</div><div class="line">　　<span class="built_in">console</span>.log(res)		</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>第五种：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">way5</span>(<span class="params"></span>)</span>&#123;</div><div class="line">      	<span class="keyword">var</span> arr=[];</div><div class="line">      	<span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>;i&lt;arr1.length;i++)&#123;</div><div class="line">      		<span class="comment">//判断当前位置的数字首次出现的位置是不是当前的位置</span></div><div class="line">      		<span class="keyword">if</span>(arr1.indexOf(arr1[i]) == i)&#123;</div><div class="line">      			</div><div class="line">      			arr.push(arr1[i])</div><div class="line">      		&#125;</div><div class="line">      		</div><div class="line">      	&#125;</div><div class="line">      	<span class="built_in">console</span>.log(arr)</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+<p>第六种：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">way6</span>(<span class="params"></span>) </span>&#123;</div><div class="line">       <span class="keyword">var</span> r = [];</div><div class="line">       <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>;i &lt; arr1.length; i++) &#123;</div><div class="line">           <span class="keyword">for</span> (<span class="keyword">var</span> j = i + <span class="number">1</span>; j &lt; arr1.length; j++)&#123;</div><div class="line">           	<span class="keyword">if</span> (arr1[i] === arr1[j]) j = ++i;</div><div class="line">           &#125;</div><div class="line">           r.push(arr1[i]);	            	</div><div class="line">       &#125;</div><div class="line">       <span class="built_in">console</span>.log(r);</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+<h3 id="去重原理"><a href="#去重原理" class="headerlink" title="去重原理"></a>去重原理</h3><p>我简单的说一下具体的原理</p>
 <p>第一种:</p>
 <p>创建一个空数组arr<br>用for循环<br>判断 arr indexOf (这里是要判断的数组的元素) == -1<br>如果是,就push进去</p>
 <p>第二种:</p>
@@ -497,13 +439,8 @@ for(var i of setObj){
 <p>判断当前位置的数字首次出现的位置是不是当前的位置<br>    arr1.indexOf(arr1[i]) == i</p>
 <p>第六种:</p>
 <p>两个for循环进行判断<br>假如有个数组[1,2,5,2,4,3,1];</p>
-<pre><code>for (var i = 0;i &lt; arr1.length; i++) {
-    for (var j = i + 1; j &lt; arr1.length; j++){
-        if (arr1[i] === arr1[j]) j = ++i;
-    }
-    r.push(arr1[i]);                    
-}
-</code></pre><p>当遇到一样的数值时，就跳过判断下一个，没有的话第二个for循环会执行结束<br>这样就可以push进去了..[5,2,4,3,1]</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>;i &lt; arr1.length; i++) &#123;</div><div class="line">       <span class="keyword">for</span> (<span class="keyword">var</span> j = i + <span class="number">1</span>; j &lt; arr1.length; j++)&#123;</div><div class="line">       	<span class="keyword">if</span> (arr1[i] === arr1[j]) j = ++i;</div><div class="line">       &#125;</div><div class="line">       r.push(arr1[i]);	            	</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>当遇到一样的数值时，就跳过判断下一个，没有的话第二个for循环会执行结束<br>这样就可以push进去了..[5,2,4,3,1]</p>
 <p>以上就是我对数组去重的一些理解,不足之处希望大牛们多提一些意见,感激不尽</p>
 
       
@@ -696,7 +633,7 @@ var jiathis_config={
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-count">17</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -718,7 +655,7 @@ var jiathis_config={
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">23</span>
+                <span class="site-state-item-count">24</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

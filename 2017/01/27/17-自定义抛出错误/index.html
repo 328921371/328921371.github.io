@@ -69,7 +69,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="require,AMD," />
+  <meta name="keywords" content="throw," />
 
 
 
@@ -85,18 +85,18 @@
 
 
 
-<meta name="description" content="为什么要用到require？首先，当js文件 都引入的同一个文件下时，会导致命名冲动。其次，js文件之间存在依赖关系，因此必须严格保证加载顺序，依赖性最大的模块一定要放到最后加载，当依赖关系很复杂的时候，代码的编写和维护都会变得困难。所以require很好的解决了这个问题">
-<meta name="keywords" content="require,AMD">
+<meta name="description" content="使用抛出异常机制能让代码结构更加的简洁，减少很多的逻辑判断，并且能够得到出错时的详细错误信息，今天要说的就是在js中抛出（throw）异常。">
+<meta name="keywords" content="throw">
 <meta property="og:type" content="article">
-<meta property="og:title" content="require的基本操作">
-<meta property="og:url" content="http://www.chensheng.group/2016/12/28/13-require的基本使用/index.html">
+<meta property="og:title" content="自定义抛出错误">
+<meta property="og:url" content="http://www.chensheng.group/2017/01/27/17-自定义抛出错误/index.html">
 <meta property="og:site_name" content="陈先生的小前端">
-<meta property="og:description" content="为什么要用到require？首先，当js文件 都引入的同一个文件下时，会导致命名冲动。其次，js文件之间存在依赖关系，因此必须严格保证加载顺序，依赖性最大的模块一定要放到最后加载，当依赖关系很复杂的时候，代码的编写和维护都会变得困难。所以require很好的解决了这个问题">
+<meta property="og:description" content="使用抛出异常机制能让代码结构更加的简洁，减少很多的逻辑判断，并且能够得到出错时的详细错误信息，今天要说的就是在js中抛出（throw）异常。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-11-02T05:39:44.481Z">
+<meta property="og:updated_time" content="2017-11-02T05:47:39.886Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="require的基本操作">
-<meta name="twitter:description" content="为什么要用到require？首先，当js文件 都引入的同一个文件下时，会导致命名冲动。其次，js文件之间存在依赖关系，因此必须严格保证加载顺序，依赖性最大的模块一定要放到最后加载，当依赖关系很复杂的时候，代码的编写和维护都会变得困难。所以require很好的解决了这个问题">
+<meta name="twitter:title" content="自定义抛出错误">
+<meta name="twitter:description" content="使用抛出异常机制能让代码结构更加的简洁，减少很多的逻辑判断，并且能够得到出错时的详细错误信息，今天要说的就是在js中抛出（throw）异常。">
 
 
 
@@ -126,13 +126,13 @@
 
 
 
-  <link rel="canonical" href="http://www.chensheng.group/2016/12/28/13-require的基本使用/"/>
+  <link rel="canonical" href="http://www.chensheng.group/2017/01/27/17-自定义抛出错误/"/>
 
 
 
 
 
-  <title>require的基本操作 | 陈先生的小前端</title>
+  <title>自定义抛出错误 | 陈先生的小前端</title>
   
 
 
@@ -306,7 +306,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.chensheng.group/2016/12/28/13-require的基本使用/">
+    <link itemprop="mainEntityOfPage" href="http://www.chensheng.group/2017/01/27/17-自定义抛出错误/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="陈晟">
@@ -323,7 +323,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">require的基本操作</h1>
+          <h1 class="post-title" itemprop="name headline">自定义抛出错误</h1>
         
 
         <div class="post-meta">
@@ -335,8 +335,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-12-28T20:19:06+08:00">
-                2016-12-28
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-27T20:22:14+08:00">
+                2017-01-27
               </time>
             
 
@@ -358,8 +358,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/require/" itemprop="url" rel="index">
-                    <span itemprop="name">require</span>
+                  <a href="/categories/javaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">javaScript</span>
                   </a>
                 </span>
 
@@ -377,8 +377,8 @@
                 <i class="fa fa-comment-o"></i>
               </span>
               
-                <a href="/2016/12/28/13-require的基本使用/#SOHUCS" itemprop="discussionUrl">
-                  <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2016/12/28/13-require的基本使用/" itemprop="commentsCount"></span>
+                <a href="/2017/01/27/17-自定义抛出错误/#SOHUCS" itemprop="discussionUrl">
+                  <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2017/01/27/17-自定义抛出错误/" itemprop="commentsCount"></span>
                 </a>
               
             
@@ -409,75 +409,35 @@
         <hr style="filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)" color="#FF0000" size="1">
 
 <blockquote>
-<p>为什么要用到require？首先，当js文件 都引入的同一个文件下时，会导致命名冲动。其次，js文件之间存在依赖关系，因此必须严格保证加载顺序，依赖性最大的模块一定要放到最后加载，当依赖关系很复杂的时候，代码的编写和维护都会变得困难。所以require很好的解决了这个问题</p>
+<p>使用抛出异常机制能让代码结构更加的简洁，减少很多的逻辑判断，并且能够得到出错时的详细错误信息，今天要说的就是在js中抛出（throw）异常。</p>
 </blockquote>
 <a id="more"></a>
-<p>require.js的教程推荐 推荐阮一峰老师的日志，这样附上链接 <a href="http://www.ruanyifeng.com/blog/2012/11/require_js.html" target="_blank" rel="external">request.js教程</a></p>
-<p>我简单的和大家分享一下学习的过程，</p>
-<h3 id="require的基本使用"><a href="#require的基本使用" class="headerlink" title="require的基本使用"></a>require的基本使用</h3><pre><code>这里的js1，js2，main，require，html文件都是自己创建的
-</code></pre><h4 id="html界面"><a href="#html界面" class="headerlink" title="html界面"></a>html界面</h4><pre><code>&lt;script src=&quot;require.js&quot;  data-main=&quot;main&quot; type=&quot;text/javascript&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
-</code></pre><p>这里的src导入的是require.js——这里的main为主文件的路径，可以不加.js</p>
-<h4 id="js页面"><a href="#js页面" class="headerlink" title="js页面"></a>js页面</h4><pre><code>简单的创建几个变量作为测试。比如var a = 5;var b = 10;
-这里的js页面不用独立作用域,不需要return
-</code></pre><h4 id="main页面"><a href="#main页面" class="headerlink" title="main页面"></a>main页面</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">require</span>([<span class="string">'js1'</span>,<span class="string">'js2'</span>],<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">	<span class="built_in">console</span>.log(num)</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
-<p>当js1和js2没有独立的时候,main可以使用js1 和 js2 文件中的任意变量,</p>
-<p>require.js 默认会把入口js文件所在的路径,作为基本路径,加载其他文件中的js时,需要改变路径</p>
-<p>参数一:是一个数组,数组中规定了需要导入的js文件的文件路径,可以同时加载多个js文件<br>参数二:是一个回调函数,等一个参数中的所有js文件全部被加载完成后,才会进行回调参数二中指定的回调函数</p>
-<h3 id="require的模块化-AMD"><a href="#require的模块化-AMD" class="headerlink" title="require的模块化(AMD)"></a>require的模块化(AMD)</h3><p>全称是Asynchronous Module Definition，即异步模块加载机制</p>
-<p>requireJs优点:</p>
-<ol>
-<li>说明不同js文件之间的依赖</li>
-<li>可以按需求，并行，延时去加载js库</li>
-<li>可以让我们的代码已模块的方式使用</li>
+<h3 id="报错的类别"><a href="#报错的类别" class="headerlink" title="报错的类别"></a>报错的类别</h3><p>一、引用报错 (ReferenceError)</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">console</span>.log(a)</div></pre></td></tr></table></figure>
+<p>二、 类型错误 (TypeError)</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> a = &#123;&#125;;</div><div class="line">a.speak();</div></pre></td></tr></table></figure>
+<p>三、 语法错误 SyntaxError)</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="number">10.</span>speak()</div></pre></td></tr></table></figure>
+<p>四、 范围错误—非法数组长度(RangeError)</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> a = <span class="keyword">new</span> <span class="built_in">Array</span>(<span class="number">-1</span>);</div></pre></td></tr></table></figure>
+<h3 id="抛出错误的方法"><a href="#抛出错误的方法" class="headerlink" title="抛出错误的方法"></a>抛出错误的方法</h3><h4 id="常见的几种抛出错误的方法"><a href="#常见的几种抛出错误的方法" class="headerlink" title="常见的几种抛出错误的方法"></a>常见的几种抛出错误的方法</h4><ol>
+<li><p>console.error(‘第一个错误’);</p>
+</li>
+<li><p>$.Error();</p>
+</li>
+<li><p>可以定义抛出错误的类型:</p>
+</li>
 </ol>
-<p>我将主要代码贴出</p>
-<h4 id="html页面"><a href="#html页面" class="headerlink" title="html页面"></a>html页面</h4><pre><code>这个页面和之前的一样
-</code></pre><h4 id="js页面-1"><a href="#js页面-1" class="headerlink" title="js页面"></a>js页面</h4><p>需要define(),有三个参数：</p>
-<ol>
-<li>模块的名称        ——–可省略</li>
-<li>需要依赖的js    ——–可省略</li>
-<li>回调函数</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">define(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">	<span class="keyword">var</span> a = <span class="number">5</span>;</div><div class="line">	<span class="keyword">var</span> b = <span class="number">10</span>;</div><div class="line">	<span class="keyword">var</span> c = <span class="number">15</span>;</div><div class="line">	<span class="keyword">var</span> num = <span class="number">20</span>;</div><div class="line">	</div><div class="line">	<span class="keyword">return</span>&#123;a,c&#125;</div><div class="line">&#125;)</div><div class="line"></div><div class="line"><span class="comment">//这里需要注意一下，因为导入了js3，所以可以使用js3中的str----这里的js3没有独立</span></div><div class="line">define([<span class="string">'js1'</span>,<span class="string">'js3'</span>],<span class="function"><span class="keyword">function</span>(<span class="params">js1</span>)</span>&#123;</div><div class="line">	<span class="function"><span class="keyword">function</span> <span class="title">fun</span>(<span class="params"></span>)</span>&#123;	</div><div class="line">		<span class="built_in">console</span>.log(<span class="string">'这是js2中的函数'</span> +  str)</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">return</span> fun</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
-<h4 id="main页面-1"><a href="#main页面-1" class="headerlink" title="main页面"></a>main页面</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">require</span>([<span class="string">'js1'</span>,<span class="string">'js2'</span>],<span class="function"><span class="keyword">function</span>(<span class="params">js1,js2</span>)</span>&#123;</div><div class="line"></div><div class="line">	<span class="comment">//js3里面的str在这里也可以被使用，因为js3没有独立，而且已经被js2导入了</span></div><div class="line">		<span class="built_in">console</span>.log(str)		</div><div class="line">	<span class="comment">//由于js1和js2已经独立了，所以在main里面只能用js1 和js2 导出的模块功能</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
-<h3 id="require导出模块的四种方式"><a href="#require导出模块的四种方式" class="headerlink" title="require导出模块的四种方式"></a>require导出模块的四种方式</h3><h4 id="第一种"><a href="#第一种" class="headerlink" title="第一种"></a>第一种</h4><p>定义模块：define<br>导出模块中的功能:return</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">define(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">	<span class="keyword">return</span> &#123;&#125;		</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
-<h4 id="第二种"><a href="#第二种" class="headerlink" title="第二种"></a>第二种</h4><p>定义模块：define<br>导出模块中的功能 exports</p>
-<p>注意点:</p>
-<ol>
-<li>需要导入exports作为依赖项</li>
-<li>需要有参数</li>
-<li>导出时一个一个导出</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">define([<span class="string">'exports'</span>],<span class="function"><span class="keyword">function</span>(<span class="params">exports</span>)</span>&#123;</div><div class="line">	<span class="keyword">var</span> num1 = <span class="number">11</span>;			</div><div class="line">	exports.num1 = num1;</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
-<h4 id="第三种"><a href="#第三种" class="headerlink" title="第三种"></a>第三种</h4><p>定义模块：define<br>导出模块中的功能 module.exports</p>
-<p>注意点：</p>
-<ol>
-<li>这里需要导入module作为依赖项</li>
-<li>需要有参数</li>
-<li>导出时以对象的形式导出    </li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">define([<span class="string">'module'</span>],<span class="function"><span class="keyword">function</span>(<span class="params">module</span>)</span>&#123;</div><div class="line">	<span class="keyword">var</span> num1 = <span class="number">111</span>;			</div><div class="line">	<span class="built_in">module</span>.exports = &#123;num1&#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-<h4 id="第四种"><a href="#第四种" class="headerlink" title="第四种"></a>第四种</h4><p>注意点：</p>
-<ol>
-<li>这里需要导入require作为依赖项</li>
-<li>需要有参数</li>
-<li>其他与第三种方法差不多</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">define([<span class="string">'require'</span>],<span class="function"><span class="keyword">function</span>(<span class="params">require</span>)</span>&#123;</div><div class="line">	<span class="keyword">var</span> <span class="built_in">module</span> = <span class="built_in">require</span>(<span class="string">'module'</span>)		</div><div class="line">	<span class="keyword">var</span> num1 = <span class="number">1111</span>;	</div><div class="line">	<span class="built_in">module</span>.exports = &#123;num1&#125;			</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-<p>之后在main文件中</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">require</span>([<span class="string">'m1'</span>,<span class="string">'m2'</span>,<span class="string">'m3'</span>,<span class="string">'m4'</span>],<span class="function"><span class="keyword">function</span>(<span class="params">m1,m2,m3,m4</span>)</span>&#123;</div><div class="line">	<span class="built_in">console</span>.log(m1);</div><div class="line">	<span class="comment">//使用什么就打点调用什么</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
-<h3 id="require的配置及define时定义名字怎么使用"><a href="#require的配置及define时定义名字怎么使用" class="headerlink" title="require的配置及define时定义名字怎么使用"></a>require的配置及define时定义名字怎么使用</h3><p>假设我们要使用一个jq全屏插件，怎么使用require进行配置依赖项</p>
-<p>这是需要用到的js文件： jquery.fullscreen.js</p>
-<p>最终实现这样的效果： $(document).fullScreen(true)</p>
-<p>变量名是随便起的，主要是介绍一下主要的知识点是什么意思</p>
-<h4 id="define-使用名字："><a href="#define-使用名字：" class="headerlink" title="define()使用名字："></a>define()使用名字：</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">define(<span class="string">'moduleA1'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;	</div><div class="line">	<span class="built_in">console</span>.log(<span class="string">'这个是a.js中的moduleA1'</span>);	</div><div class="line">	<span class="keyword">return</span> <span class="string">'这个是a.js中的moduleA1'</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
-<p>一个js文件中可以定义多个模块，一个文件中定义多个模块的话，尽量去使用模块名称进行区分</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">define(<span class="string">'moduleA2'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;		</div><div class="line">	<span class="built_in">console</span>.log(<span class="string">'这个是a.js中的moduleA2'</span>);		</div><div class="line">	<span class="keyword">return</span> <span class="string">'这个是a.js中的moduleA2'</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
-<h4 id="在主界面main中配置require"><a href="#在主界面main中配置require" class="headerlink" title="在主界面main中配置require"></a>在主界面main中配置require</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">require</span>.config(&#123;</div><div class="line">	baseUrl:<span class="string">'lib'</span>,----- 配置基本路径，默认的是入口js文件所在的路径</div><div class="line"></div><div class="line">	paths:&#123;</div><div class="line">		test:<span class="string">'../scripts/aaa/bbb'</span>, ----配置不放在基本路径上的js的路径</div><div class="line">		test1:<span class="string">'http://cdn.jquery-3.2.1/'</span> ---含有URL协议的也可以，比如http，导入时不要写后缀.js</div><div class="line">		a:<span class="string">'../scripts/a'</span>	</div><div class="line">	&#125;,</div><div class="line">	shim:&#123;  ---------配置依赖项，当依赖的模块全部加载结束之后，才会执行当前脚本</div><div class="line">		jqueryFullscreen : [<span class="string">'jquery'</span>,<span class="string">'test'</span>]	---对象的属性为模块名（js的名字），数组中的元素一般是相对与baseUrl的路径，只不过没有文件后缀</div><div class="line">	&#125;, </div><div class="line">	bundles:&#123;--模块树，如果一个js文件中有多个模块，就可以使用这种方法来进行解决</div><div class="line">		a:[<span class="string">'moduleA1'</span>,<span class="string">'moduleA2'</span>]	---之前定义的名字在这里使用</div><div class="line">	&#125;,</div><div class="line">	waitSeconds:<span class="number">7</span> ----设置等待加载，默认<span class="number">7</span>秒</div><div class="line">	</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-<p>配置完之后，就可以使用模块的名字了,要记得写参数</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">require</span>([<span class="string">'jqueryFullscreen'</span>,<span class="string">'moduleA1'</span>,<span class="string">'moduleA2'</span>],<span class="function"><span class="keyword">function</span>(<span class="params">a0,a1,a2</span>)</span>&#123;</div><div class="line">	<span class="built_in">console</span>.log(a1);</div><div class="line">	<span class="built_in">console</span>.log(a2);</div><div class="line">	<span class="built_in">console</span>.log($.fn.fullScreen);</div><div class="line">	<span class="built_in">console</span>.log(str);</div><div class="line">	</div><div class="line">	$(<span class="string">'div'</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">		$(<span class="built_in">document</span>).fullScreen(<span class="literal">true</span>)	</div><div class="line">	&#125;)	</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
-<p>require的知识还有许多，这里只是一些入门，如果有错，希望大牛们指点一下，感激不尽</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'第三个错误'</span>);</div><div class="line"><span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">ReferenceError</span>(<span class="string">'第三个错误'</span>);</div><div class="line"><span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">TypeError</span>(<span class="string">'第三个错误'</span>);</div></pre></td></tr></table></figure>
+<h4 id="自定义抛出"><a href="#自定义抛出" class="headerlink" title="自定义抛出"></a>自定义抛出</h4><blockquote>
+<p>错误类型是可以自定义的(注意的是:Error类型不可以直接继承)</p>
+</blockquote>
+<p>下面是自定义错误的代码</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">RangeError</span>(<span class="params">msg</span>)</span>&#123;</div><div class="line">	<span class="keyword">var</span> err = <span class="keyword">new</span> <span class="built_in">Error</span>(msg);</div><div class="line">	</div><div class="line">	<span class="comment">//错误的行号</span></div><div class="line">	<span class="keyword">this</span>.lineNumber = err.lineNumber;</div><div class="line">	<span class="comment">//错误的列号</span></div><div class="line">	<span class="keyword">this</span>.columnNumber = err.columnNumber;</div><div class="line">	<span class="comment">//错误的文件</span></div><div class="line">	<span class="keyword">this</span>.fileName = err.fileName;</div><div class="line">	<span class="comment">//错误的类型</span></div><div class="line">	<span class="keyword">this</span>.name = <span class="string">'RangeError'</span>;</div><div class="line">	<span class="comment">//错误的消息</span></div><div class="line">	<span class="keyword">this</span>.message = err.message;</div><div class="line">	<span class="comment">//错误的栈信息</span></div><div class="line">	<span class="keyword">this</span>.stack = err.stack;</div><div class="line"></div><div class="line">&#125;</div><div class="line"><span class="built_in">RangeError</span>.prototype = <span class="built_in">Object</span>.create(<span class="built_in">Error</span>.prototype);  </div><div class="line"><span class="built_in">RangeError</span>.prototype.constructor = <span class="built_in">RangeError</span>; </div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">RangeError</span>(<span class="string">'自定义错误'</span>);</div></pre></td></tr></table></figure>
+<h3 id="传统的捕获错误的方法"><a href="#传统的捕获错误的方法" class="headerlink" title="传统的捕获错误的方法"></a>传统的捕获错误的方法</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">try</span>&#123;</div><div class="line">			</div><div class="line">&#125;<span class="keyword">catch</span>(e)&#123;</div><div class="line">	<span class="comment">//TODO 这里的TODO是一个记事本,可以在行数中看到记录的内容</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="全局监听错误信息"><a href="#全局监听错误信息" class="headerlink" title="全局监听错误信息"></a>全局监听错误信息</h3><p>window.onerror 当全局代码中出现错误时触发</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//一共有五个参数：错误类型，错误文件，行号，列号，错误堆栈信息</span></div><div class="line">	</div><div class="line"><span class="built_in">window</span>.onerror = <span class="function"><span class="keyword">function</span>(<span class="params">name,filename,lineNumber,columuNumber,stack</span>)</span>&#123;</div><div class="line">	<span class="built_in">console</span>.log(<span class="built_in">arguments</span>)</div><div class="line">		</div><div class="line">	<span class="keyword">return</span> <span class="literal">true</span>;<span class="comment">//通过 return true;可以不再控制台显示错误提示</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>以上就是我对自定义抛出错误的一些理解,不足之处希望大牛们多提一些意见,感激不尽</p>
 
       
     </div>
@@ -505,8 +465,8 @@
   <script src="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.min.js"></script>
   <link rel="stylesheet" type="text/css" href="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.mini.css">
   <p><span>文章作者:</span><a href="/" title="访问 陈晟 的个人博客">陈晟</a></p>
-  <p><span>原始链接:</span><a href="/2016/12/28/13-require的基本使用/" title="require的基本操作">http://www.chensheng.group/2016/12/28/13-require的基本使用/</a>
-    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://www.chensheng.group/2016/12/28/13-require的基本使用/"  aria-label="复制成功！"></i></span>
+  <p><span>原始链接:</span><a href="/2017/01/27/17-自定义抛出错误/" title="自定义抛出错误">http://www.chensheng.group/2017/01/27/17-自定义抛出错误/</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://www.chensheng.group/2017/01/27/17-自定义抛出错误/"  aria-label="复制成功！"></i></span>
   </p>
   <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 </a> 转载请保留原文链接及作者。</p>  
 </div>
@@ -538,9 +498,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/require/" rel="tag"><i class="fa fa-tag"></i> require</a>
-          
-            <a href="/tags/AMD/" rel="tag"><i class="fa fa-tag"></i> AMD</a>
+            <a href="/tags/throw/" rel="tag"><i class="fa fa-tag"></i> throw</a>
           
         </div>
       
@@ -553,8 +511,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/12/20/12-git的使用/" rel="next" title="Git 的使用">
-                <i class="fa fa-chevron-left"></i> Git 的使用
+              <a href="/2017/01/22/16-分线程/" rel="next" title="分线程操作">
+                <i class="fa fa-chevron-left"></i> 分线程操作
               </a>
             
           </div>
@@ -562,10 +520,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/01/03/14-requireJs插件的使用/" rel="prev" title="RequireJS插件的使用">
-                RequireJS插件的使用 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -740,7 +694,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#require的基本使用"><span class="nav-number">1.</span> <span class="nav-text">require的基本使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#html界面"><span class="nav-number">1.1.</span> <span class="nav-text">html界面</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#js页面"><span class="nav-number">1.2.</span> <span class="nav-text">js页面</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#main页面"><span class="nav-number">1.3.</span> <span class="nav-text">main页面</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#require的模块化-AMD"><span class="nav-number">2.</span> <span class="nav-text">require的模块化(AMD)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#html页面"><span class="nav-number">2.1.</span> <span class="nav-text">html页面</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#js页面-1"><span class="nav-number">2.2.</span> <span class="nav-text">js页面</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#main页面-1"><span class="nav-number">2.3.</span> <span class="nav-text">main页面</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#require导出模块的四种方式"><span class="nav-number">3.</span> <span class="nav-text">require导出模块的四种方式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#第一种"><span class="nav-number">3.1.</span> <span class="nav-text">第一种</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第二种"><span class="nav-number">3.2.</span> <span class="nav-text">第二种</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第三种"><span class="nav-number">3.3.</span> <span class="nav-text">第三种</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第四种"><span class="nav-number">3.4.</span> <span class="nav-text">第四种</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#require的配置及define时定义名字怎么使用"><span class="nav-number">4.</span> <span class="nav-text">require的配置及define时定义名字怎么使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#define-使用名字："><span class="nav-number">4.1.</span> <span class="nav-text">define()使用名字：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#在主界面main中配置require"><span class="nav-number">4.2.</span> <span class="nav-text">在主界面main中配置require</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#报错的类别"><span class="nav-number">1.</span> <span class="nav-text">报错的类别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#抛出错误的方法"><span class="nav-number">2.</span> <span class="nav-text">抛出错误的方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#常见的几种抛出错误的方法"><span class="nav-number">2.1.</span> <span class="nav-text">常见的几种抛出错误的方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#自定义抛出"><span class="nav-number">2.2.</span> <span class="nav-text">自定义抛出</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#传统的捕获错误的方法"><span class="nav-number">3.</span> <span class="nav-text">传统的捕获错误的方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#全局监听错误信息"><span class="nav-number">4.</span> <span class="nav-text">全局监听错误信息</span></a></li></ol></div>
             
 
           </div>

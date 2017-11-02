@@ -93,7 +93,7 @@
 <meta property="og:site_name" content="陈先生的小前端">
 <meta property="og:description" content="RequireJS 是一个JavaScript模块加载器，使用RequireJS加载模块化脚本将提高代码的加载速度和质量。今天和大家分享一下RequireJS插件的使用">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-10-12T14:21:00.782Z">
+<meta property="og:updated_time" content="2017-11-02T05:41:18.257Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="RequireJS插件的使用">
 <meta name="twitter:description" content="RequireJS 是一个JavaScript模块加载器，使用RequireJS加载模块化脚本将提高代码的加载速度和质量。今天和大家分享一下RequireJS插件的使用">
@@ -417,62 +417,20 @@
 <li><p>需要导入 require.js 和 text.js    </p>
 </li>
 <li><p>使用text!,可以得到文件中的内容,需要注意路径</p>
-<pre><code>require([&apos;libs/text!resource/textc.css&apos;,&apos;libs/text!resource/texth.html&apos;,&apos;libs/text!resource/textt.txt&apos;],function(cssStr,htmlStr,textStr){
-    console.log(cssStr);
-    console.log(htmlStr);
-    console.log(textStr);
-
-    document.getElementById(&apos;st&apos;).innerHTML = cssStr;
-    document.body.innerHTML = htmlStr + textStr;    
-})
-</code></pre></li>
+</li>
 </ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">require</span>([<span class="string">'libs/text!resource/textc.css'</span>,<span class="string">'libs/text!resource/texth.html'</span>,<span class="string">'libs/text!resource/textt.txt'</span>],<span class="function"><span class="keyword">function</span>(<span class="params">cssStr,htmlStr,textStr</span>)</span>&#123;</div><div class="line">	<span class="built_in">console</span>.log(cssStr);</div><div class="line">	<span class="built_in">console</span>.log(htmlStr);</div><div class="line">	<span class="built_in">console</span>.log(textStr);</div><div class="line"></div><div class="line">	<span class="built_in">document</span>.getElementById(<span class="string">'st'</span>).innerHTML = cssStr;</div><div class="line">	<span class="built_in">document</span>.body.innerHTML = htmlStr + textStr;	</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
 <h3 id="require-domReady插件"><a href="#require-domReady插件" class="headerlink" title="require domReady插件"></a>require domReady插件</h3><p>需要导入 require.js 和 domReady.js    </p>
-<pre><code>require([&apos;libs/domReady&apos;],function(domReady){    
-    domReady(function(){            
-        domReady()会在html文件加载完成时调用                
-    })
-})
-</code></pre><h3 id="require-css插件"><a href="#require-css插件" class="headerlink" title="require css插件"></a>require css插件</h3><p>需要导入 require.js 和 css.js    —将css.js ! style.css 写在一起</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">require</span>([<span class="string">'libs/domReady'</span>],<span class="function"><span class="keyword">function</span>(<span class="params">domReady</span>)</span>&#123;	</div><div class="line">	domReady(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;			</div><div class="line">		domReady()会在html文件加载完成时调用				</div><div class="line">	&#125;)</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<h3 id="require-css插件"><a href="#require-css插件" class="headerlink" title="require css插件"></a>require css插件</h3><p>需要导入 require.js 和 css.js    —将css.js ! style.css 写在一起</p>
 <p>如何利用 requireJs 加载 css 文件</p>
-<pre><code>//libs/css --&gt; libs/css.js
-//css/style --&gt; css/style.css
-//中间以 &apos;!&apos; 隔开
-require([&apos;libs/css!css/style&apos;],function(){
-    // 其实 css.js 实现原理很简单，读取 css 文件内容，创建 style 
-    // 标签，把 css 内容拼接进去，把 style 标签放到 head 中。
-    alert(&apos;js和css资源加载完毕&apos;);
-});
-</code></pre><h3 id="require-使用模板插件"><a href="#require-使用模板插件" class="headerlink" title="require 使用模板插件"></a>require 使用模板插件</h3><p>需要导入 require.js 和 template-web.js</p>
-<pre><code>//这里先引入template 和 模板
-require([&apos;template-web&apos;,&apos;text!template.html&apos;],function(template,templateStr){
-
-    var fun = template.compile(templateStr);//template.compile()函数返回的是一个渲染的函数,参数是一个模板的字符串
-
-
-    var htmlStr = fun(data);//通过一个渲染函数，可以将数据渲染到 渲染函数的模板上
-
-    document.body.innerHTML = htmlStr;//最终可以的到一个被渲染后的字符串
-
-})
-</code></pre><h3 id="require-压缩合并"><a href="#require-压缩合并" class="headerlink" title="require 压缩合并"></a>require 压缩合并</h3><p>需要导入 require.js 和 r.js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//libs/css --&gt; libs/css.js</span></div><div class="line"><span class="comment">//css/style --&gt; css/style.css</span></div><div class="line"><span class="comment">//中间以 '!' 隔开</span></div><div class="line"><span class="built_in">require</span>([<span class="string">'libs/css!css/style'</span>],<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">	<span class="comment">// 其实 css.js 实现原理很简单，读取 css 文件内容，创建 style </span></div><div class="line">	<span class="comment">// 标签，把 css 内容拼接进去，把 style 标签放到 head 中。</span></div><div class="line">	alert(<span class="string">'js和css资源加载完毕'</span>);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<h3 id="require-使用模板插件"><a href="#require-使用模板插件" class="headerlink" title="require 使用模板插件"></a>require 使用模板插件</h3><p>需要导入 require.js 和 template-web.js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//这里先引入template 和 模板</span></div><div class="line"><span class="built_in">require</span>([<span class="string">'template-web'</span>,<span class="string">'text!template.html'</span>],<span class="function"><span class="keyword">function</span>(<span class="params">template,templateStr</span>)</span>&#123;</div><div class="line">		</div><div class="line">	<span class="keyword">var</span> fun = template.compile(templateStr);<span class="comment">//template.compile()函数返回的是一个渲染的函数,参数是一个模板的字符串</span></div><div class="line">		</div><div class="line">	</div><div class="line">	<span class="keyword">var</span> htmlStr = fun(data);<span class="comment">//通过一个渲染函数，可以将数据渲染到 渲染函数的模板上</span></div><div class="line">	</div><div class="line">	<span class="built_in">document</span>.body.innerHTML = htmlStr;<span class="comment">//最终可以的到一个被渲染后的字符串</span></div><div class="line">			</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<h3 id="require-压缩合并"><a href="#require-压缩合并" class="headerlink" title="require 压缩合并"></a>require 压缩合并</h3><p>需要导入 require.js 和 r.js</p>
 <p>这里是压缩js——–首先要配置bulid.js文件</p>
-<h4 id="配置require"><a href="#配置require" class="headerlink" title="配置require"></a>配置require</h4><pre><code>({
-    paths:{-------使用require.js 进行js优化时，不能加载网络文件
-
-        requireLib:&apos;require&apos;,-----如果要将require.js也压缩，那需要在paths中加上
-
-        jquery:&apos;empty:&apos;---如果不想压缩某个js，就可以将其配置成：empty:
-    },
-    include:[&apos;requireLib&apos;,&apos;jquery&apos;],---include 相当于引入哪些文件，需要压缩合并的文件
-
-    name:&apos;index&apos;,---设置优化的js文件入口  ---这里的index.js将要压缩的js都导入进来require([&apos;js1&apos;])
-
-    out:&apos;index-build.js&apos;---生成优化后的文件名字及路径
-})
-
-
-在命令行输入(先cd到当前文件夹)
+<h4 id="配置require"><a href="#配置require" class="headerlink" title="配置require"></a>配置require</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">(&#123;</div><div class="line">	paths:&#123;-------使用<span class="built_in">require</span>.js 进行js优化时，不能加载网络文件</div><div class="line">		</div><div class="line">		requireLib:<span class="string">'require'</span>,-----如果要将<span class="built_in">require</span>.js也压缩，那需要在paths中加上</div><div class="line"></div><div class="line">		jquery:<span class="string">'empty:'</span>---如果不想压缩某个js，就可以将其配置成：empty:</div><div class="line">	&#125;,</div><div class="line">	include:[<span class="string">'requireLib'</span>,<span class="string">'jquery'</span>],---include 相当于引入哪些文件，需要压缩合并的文件</div><div class="line">		</div><div class="line">	name:<span class="string">'index'</span>,---设置优化的js文件入口  ---这里的index.js将要压缩的js都导入进来<span class="built_in">require</span>([<span class="string">'js1'</span>])</div><div class="line">		</div><div class="line">	out:<span class="string">'index-build.js'</span>---生成优化后的文件名字及路径</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<pre><code>在命令行输入(先cd到当前文件夹)
 
 node r.js -o build.js  ---这是压缩合并的
 
@@ -488,7 +446,8 @@ node r.js -o build.js
 </code></pre><h4 id="压缩css"><a href="#压缩css" class="headerlink" title="压缩css"></a>压缩css</h4><pre><code>先新建一个index.css----@import url(&quot;css/css1.css&quot;);
 
 node r.js -o cssIn=index.css out=index-bulid.css
-</code></pre>
+</code></pre><p>以上就是我对requireJs插件的一些理解,不足之处希望大牛们多提一些意见,感激不尽</p>
+
       
     </div>
     
@@ -677,7 +636,7 @@ var jiathis_config={
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-count">17</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -699,7 +658,7 @@ var jiathis_config={
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">23</span>
+                <span class="site-state-item-count">24</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
