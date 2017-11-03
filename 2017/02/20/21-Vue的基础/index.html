@@ -93,7 +93,7 @@
 <meta property="og:site_name" content="陈先生的小前端">
 <meta property="og:description" content="今天分享一下Vue的其他一些基础知识，计算属性，Style绑定以及条件渲染">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-11-03T02:57:34.574Z">
+<meta property="og:updated_time" content="2017-11-03T06:13:22.217Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Vue的基础知识">
 <meta name="twitter:description" content="今天分享一下Vue的其他一些基础知识，计算属性，Style绑定以及条件渲染">
@@ -434,6 +434,12 @@
 <p>具体的例子可以看一下官方的文档，这里就不给出了</p>
 <h3 id="v-for循环的使用"><a href="#v-for循环的使用" class="headerlink" title="v-for循环的使用"></a>v-for循环的使用</h3><p>假设boys是一个数组，里面有name这个对象，使用v-for可以将其遍历出来</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;tr v-<span class="keyword">for</span>=<span class="string">"(student,index) in boys"</span>&gt;</div><div class="line">	&lt;td&gt;&#123;&#123;index&#125;&#125;&lt;<span class="regexp">/td&gt;</span></div><div class="line"><span class="regexp">	&lt;td&gt;&#123;&#123;student.name&#125;&#125;&lt;/</span>td&gt;</div><div class="line">&lt;<span class="regexp">/tr&gt;</span></div></pre></td></tr></table></figure>
+<h4 id="v-for循环的方式"><a href="#v-for循环的方式" class="headerlink" title="v-for循环的方式"></a>v-for循环的方式</h4><ol>
+<li>普通循环 v-for=”(student, index) in students” 循环里还可以套一层</li>
+<li>对象的迭代 v-for=”(value,key,index) in students[0]”</li>
+<li>整数的迭代 v-for=”n in 10”</li>
+<li>数组迭代 v-for=”vl in numbers”</li>
+</ol>
 <p>以上就是我的Vue一些基础知识的理解，希望大神们可以指出错误，谢谢</p>
 
       
@@ -624,7 +630,7 @@ var jiathis_config={
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-count">24</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -695,7 +701,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#了解computed-和-methods-的区别"><span class="nav-number">1.</span> <span class="nav-text">了解computed 和 methods 的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#绑定class属性及改变样式"><span class="nav-number">2.</span> <span class="nav-text">绑定class属性及改变样式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#绑定class属性-可以直接用字符串"><span class="nav-number">2.1.</span> <span class="nav-text">绑定class属性,可以直接用字符串</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#通过对象绑定class-如果有class-那么会将其合并"><span class="nav-number">2.2.</span> <span class="nav-text">通过对象绑定class,如果有class 那么会将其合并</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#通过数组绑定class属性"><span class="nav-number">2.3.</span> <span class="nav-text">通过数组绑定class属性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#通过对象来绑定-style-改变样式"><span class="nav-number">2.4.</span> <span class="nav-text">通过对象来绑定 style 改变样式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#通过数组style数组-改变样式"><span class="nav-number">2.5.</span> <span class="nav-text">通过数组style数组 改变样式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#if与else"><span class="nav-number">3.</span> <span class="nav-text">if与else</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#v-for循环的使用"><span class="nav-number">4.</span> <span class="nav-text">v-for循环的使用</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#了解computed-和-methods-的区别"><span class="nav-number">1.</span> <span class="nav-text">了解computed 和 methods 的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#绑定class属性及改变样式"><span class="nav-number">2.</span> <span class="nav-text">绑定class属性及改变样式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#绑定class属性-可以直接用字符串"><span class="nav-number">2.1.</span> <span class="nav-text">绑定class属性,可以直接用字符串</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#通过对象绑定class-如果有class-那么会将其合并"><span class="nav-number">2.2.</span> <span class="nav-text">通过对象绑定class,如果有class 那么会将其合并</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#通过数组绑定class属性"><span class="nav-number">2.3.</span> <span class="nav-text">通过数组绑定class属性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#通过对象来绑定-style-改变样式"><span class="nav-number">2.4.</span> <span class="nav-text">通过对象来绑定 style 改变样式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#通过数组style数组-改变样式"><span class="nav-number">2.5.</span> <span class="nav-text">通过数组style数组 改变样式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#if与else"><span class="nav-number">3.</span> <span class="nav-text">if与else</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#v-for循环的使用"><span class="nav-number">4.</span> <span class="nav-text">v-for循环的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#v-for循环的方式"><span class="nav-number">4.1.</span> <span class="nav-text">v-for循环的方式</span></a></li></ol></li></ol></div>
             
 
           </div>
