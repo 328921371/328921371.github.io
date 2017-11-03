@@ -1,6 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[Vue的表单控件的使用]]></title>
+    <url>%2F2017%2F02%2F25%2F22-Vue%E8%A1%A8%E5%8D%95%E6%8E%A7%E4%BB%B6%E7%9A%84%E4%BD%BF%E7%94%A8%2F</url>
+    <content type="text"><![CDATA[Vue最方便的地方就在于它可以很轻松的实现双向数据绑定，现在就来看一下吧 v-model 指令v-model 指令就是Vue用来实现双向数据绑定的，它也有一些特性： v-model 指令在表单控件元素上创建双向数据绑定。它会根据控件类型自动选取正确的方法来更新元素。 v-model 会忽略所有表单元素的 value、checked、selected 特性的初始值。因为它会选择 Vue 实例数据来作为具体的值。你应该通过 JavaScript 在组件的 data 选项中声明初始值。 举一个简单的例子： 12&lt;input v-model="message" placeholder="edit me"&gt;&lt;p&gt;你输入的是: &#123;&#123; message &#125;&#125;&lt;/p&gt; 以上就是我的Vue一些基础知识的理解，希望大神们可以指出错误，谢谢]]></content>
+      <categories>
+        <category>Vue</category>
+      </categories>
+      <tags>
+        <tag>Vue</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Vue的基础知识]]></title>
+    <url>%2F2017%2F02%2F20%2F21-Vue%E7%9A%84%E5%9F%BA%E7%A1%80%2F</url>
+    <content type="text"><![CDATA[今天分享一下Vue的其他一些基础知识，计算属性，Style绑定以及条件渲染 了解computed 和 methods 的区别计算属性与函数的写入类似，不同之处在于函数的调用需要手动执行,不管值有没有改变都回去执行函数，而计算属性,在值发生改变的时候执行 因为计算属性是基于它们的依赖进行缓存的。计算属性只有在它的相关依赖发生改变时才会重新求值。 计算属性默认只有 getter ，不过在需要时你也可以提供一个 setter 举个例子 如果想设置值,传一个对象,里面有get和set方法 123456789101112131415age: &#123; // 不需要age.get,获取的时候自动执行 get() &#123; var year = new Date().getFullYear(); return year - this.birtYear &#125;, // setter set(Value) &#123; var year = new Date().getFullYear() this.birtYear = year - Value &#125;&#125;//设置值的时候不需要调用set方法,会自动识别app.age = 30 绑定class属性及改变样式绑定class属性,可以直接用字符串1&lt;div v-bind:title="title" :class="classStr"&gt;这是一个盒子&lt;/div&gt; 通过对象绑定class,如果有class 那么会将其合并1&lt;div class="font-size25" :class="classObject"&gt;通过对象绑定&lt;/div&gt; 通过数组绑定class属性1&lt;div :class="classArr"&gt;通过数组绑定class&lt;/div&gt; 通过对象来绑定 style 改变样式1&lt;div :style="styleObject"&gt;通过对象来绑定 style 改变样式&lt;/div&gt; 通过数组style数组 改变样式1&lt;div :style="[styleObject,styleObject2]"&gt;通过style数组 改变样式&lt;/div&gt; 下面是需要的数据： 12345678910111213141516171819202122232425&lt;script type="text/javascript"&gt;var app = new Vue(&#123; el:'#app', data:&#123; classStr: 'red font-size25', removered:true, //对象绑定class classObject:&#123; //以class的名字作为键名.使用布尔值控制class是否显示 'red':true &#125;, classArr:[&#123;red : removered &#125;,font-size25], styleObject: &#123; color: 'blue', fontSize: '30px', lineHeight:'100px' &#125;, styleObject2: &#123; color: 'green', fontSize: '60px', backgroundColor:'red' &#125;, &#125;&#125;)&lt;/script&gt; if与else v-if 和 v-else 之间不能有其他标签 ,v-else-if 要加中间 使用标签包住时使用 template ,用div时,div也会被渲染 v-if能过条件判断 是否创建这个dom元素 v-show 一定会创建这个dom元素 只是通过 样式来控制这个元素是否显示(display:none) 具体的例子可以看一下官方的文档，这里就不给出了 v-for循环的使用假设boys是一个数组，里面有name这个对象，使用v-for可以将其遍历出来 1234&lt;tr v-for="(student,index) in boys"&gt; &lt;td&gt;&#123;&#123;index&#125;&#125;&lt;/td&gt; &lt;td&gt;&#123;&#123;student.name&#125;&#125;&lt;/td&gt;&lt;/tr&gt; 以上就是我的Vue一些基础知识的理解，希望大神们可以指出错误，谢谢]]></content>
+      <categories>
+        <category>Vue</category>
+      </categories>
+      <tags>
+        <tag>Vue</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Vue的入门及介绍]]></title>
+    <url>%2F2017%2F02%2F15%2F20-Vue%E7%9A%84%E5%85%A5%E9%97%A8%2F</url>
+    <content type="text"><![CDATA[最近开始接触用户界面的渐进式框架-Vue。Vue采用自底向上增量开发的设计，是一个轻量级框架 。这里先给出Vue的官网 Vue介绍Vue是JavaScript的一个框架，是国内个人开发的,虽然是轻量级,但是功能强大。 渐进式框架：没有非常强的主张 使用的是MVVM的模式：提供高效的数据绑定和灵活的组件系统。 使用Vue (使用版为2.4.*)开始学习Vue时我们先不适用Vue-cli进行搭建项目，使用cdn来引入Vue进行单页面的学习 稍微介绍一下大致具有哪些属性，这里只列出常用的几种 模板语法 采用双大括号插入值,原样式输出(不编译标签,纯文本) v-html 插入 html内容(编译标签) v-bind: 动态添加属性 (缩写: v-bind: =&gt; :) v-on:click 绑定事件 (缩写: v-on:click =&gt; :@click) 注意：双大括号中是单个表达式，可以写入简单的javascript代码，不能使用多行的if/else，可以使用三元运算符进行判断 这里先贴出Vue单页面的代码，在代码中进行介绍各个属性的含义 1234567891011121314151617181920212223242526272829303132&lt;!DOCTYPE html&gt;&lt;html&gt; &lt;head&gt; &lt;meta charset="UTF-8"&gt; &lt;title&gt;Vue的入门及介绍&lt;/title&gt; &lt;script src="https://cdn.jsdelivr.net/npm/vue" type="text/javascript" charset="utf-8"&gt;&lt;/script&gt; &lt;/head&gt; &lt;body&gt; &lt;div id="app"&gt; &lt;span&gt;&#123;&#123; message &#125;&#125;&lt;/span&gt; // &#123;&#123; &#125;&#125; 用来插入值 //标签内可以插入Vue的指令 &lt;/div&gt; &lt;/body&gt; &lt;script type="text/javascript"&gt; //如果使用vue 可以创建一个Vue的实例 var app = new Vue(&#123; el: '#app', //el:制定模版，主模板不能指定到body data: &#123; message: '你好 世界' //data 里面是数据 &#125;, methods:&#123; //methods里面写入函数 &#125;, filters:&#123; //filters里面写入过滤器 &#125;, computed:&#123; //computed里面写入计算属性 &#125; &#125;) &lt;/script&gt;&lt;/html&gt; 指令指令 (Directives) 是带有 v- 前缀的特殊属性。指令属性的值预期是单个 JavaScript 表达式 (v-for 是例外情况，稍后我们再讨论) 只有指令名 (v-if=”值”) 带有参数的,:后面是参数 (v-bind:title) 带参数的,:后面是参数;带修饰符的 .后面是修饰符 (v-on:click.prevent) 还有很多指令，在后面会提到。 给个例子，在代码中可以更直观的看出 1234567891011121314&lt;div id="app"&gt; &lt;!-- 1. v-if 指令,当为true时候渲染这个标签--&gt; &lt;p v-if="true"&gt;能不能看到我&lt;/p&gt; &lt;!-- 2. v-bind 指令: 带有参数的指令 --&gt; &lt;p v-bind:title="message"&gt;标签上有标题&lt;/p&gt; &lt;!-- 3. v-on 指令 绑定事件--&gt; &lt;button v-on:click="go($event)"&gt;求点击&lt;/button&gt; &lt;!-- 4. 需要阻止默认事件 可以使用v-on:click.prevent .prevent是修饰符 --&gt; &lt;a href="http://www.baidu.com" v-on:click.prevent="go"&gt;点击进入百度&lt;/a&gt;&lt;/div&gt; 调用方法时 加()和不加()的区别 什么都不加,就是传递一个event事件 加()什么都不写,就是不传递参数 加(),()里写参数就是传递参数,$event就是传递事件 过滤器过滤器可以串联： 1&#123;&#123; message | filterA | filterB &#125;&#125; 可以接收多个参数： 1&#123;&#123; message | filterA('arg1', arg2) &#125;&#125; 给个简单的例子 12345678&lt;div id="app"&gt; &lt;!--第一个是参数 | 第二个是方法的名字--&gt; &lt;p&gt;2的三次方等于&#123;&#123; 2 | pow(3) &#125;&#125;&lt;/p&gt; &lt;p&gt;2加3 加5等于&#123;&#123; 2 | add(3,5) &#125;&#125;&lt;/p&gt;//多个参数的时候可以直接在第二个后面跟 &lt;/div&gt; 注意!!! 过滤器函数,必须要有一个参数 12345678filters:&#123; pow(num1,num2)&#123; return Math.pow(num1,num2) &#125;, add(n1,n2,n3)&#123; return n1 + n2 + n3 &#125;&#125; 正在学习Vue中，讲的不是太详细清楚，有好的博客欢迎和我分享一下]]></content>
+      <categories>
+        <category>Vue</category>
+      </categories>
+      <tags>
+        <tag>Vue</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[jQuery延时对象deferred]]></title>
     <url>%2F2017%2F02%2F10%2F19-jq%E5%BB%B6%E6%97%B6%E5%AF%B9%E8%B1%A1%2F</url>
     <content type="text"><![CDATA[简单说，deferred对象就是jQuery的回调函数解决方案。在英语中，defer的意思是”延迟”，所以deferred对象的含义就是”延迟”到未来某个点再执行。 本文只是简单的分享一下学习过程中的心得，具体的内容推荐阅读阮一峰老师的博客 点我跳转 创建jquery延时对象deferred创建一个延时对象12345var def = $.Deferred(function(deferred)&#123; console.log(deferred); //传入一个函数，在函数内部写触发事件&#125;) 在函数内部写入触发事件123deferred.notify(); // 调用正在延迟对象上进行的回调函数deferred.resolve(); // 改变deferred对象的执行状态--成功deferred.reject(); // 改变deferred对象的执行状态--失败 对应的代码1234567891011121314151617181920212223var def = $.Deferred(function(deferred)&#123; var timer = setInterval(function()&#123; deferred.notify('请稍后，正在创建中...'); &#125;,500); setTimeout(function()&#123; clearInterval(timer); if(Math.random() &lt; 0.5)&#123; var div = document.createElement('div'); div.style.width = '100px'; div.style.height = '100px'; div.style.border = '1px solid black'; document.body.appendChild(div); deferred.resolve(div); &#125;else&#123; deferred.reject('创建失败'); &#125; &#125;,1000); &#125;) def对象调用方法–用来监听触发事件的执行结果,可以参考ajax12345678910111213141516171819// 支持链式调用def.progress(function(str)&#123; console.log(str);//progress 任务有进度时由 notify 来触发 &#125;).done(function(div)&#123; div.style.backgroundColor = 'red'; alert('创建成功');//done 任务成功时由 resolve 来触发 &#125;).fail(function(str)&#123; alert(str);//fail 任务失败时由 reject 来触发 &#125;).always(function()&#123; alert('任务结束');//always 无论成功还是失败都会触发 &#125;) 以上只是deferred的一些基础知识， 还有一些其他的知识点， 因为能力有限不一一介绍了]]></content>
