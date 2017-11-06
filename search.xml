@@ -1,6 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[Vue插槽的使用]]></title>
+    <url>%2F2017%2F04%2F03%2F27-Vue%E6%8F%92%E6%A7%BD%E7%9A%84%E4%BD%BF%E7%94%A8%2F</url>
+    <content type="text"><![CDATA[Vue组件之间的传值不仅仅发生在父子间组件中，有时候，非父子关系的两个组件之间也需要通信。 以上就是我对Vue组件非父子间传值的一些理解，希望大神们可以指出错误，谢谢]]></content>
+      <categories>
+        <category>Vue</category>
+      </categories>
+      <tags>
+        <tag>Vue</tag>
+        <tag>Vue插槽</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Vue组件非父子间传值]]></title>
+    <url>%2F2017%2F03%2F28%2F26-Vue%E7%BB%84%E4%BB%B6%E9%9D%9E%E7%88%B6%E5%AD%90%E9%97%B4%E7%9A%84%E4%BC%A0%E5%80%BC%2F</url>
+    <content type="text"><![CDATA[Vue组件之间的传值不仅仅发生在父子间组件中，有时候，非父子关系的两个组件之间也需要通信。 非父子组件的传值非父子组件的传值大体上也是分为三个步骤，我还是称作三部曲 在简单的场景下，可以使用一个空的 Vue 实例作为事件总线： 第一步 创建一个 vue 作为中央线来处理 非父子关系的组件传递数据 1var bus = new Vue(); 新建一个bus.js 1234import Vue from 'Vue'var bus = new Vue(); export default bus; 第二步 在组件二中创建监听事件—-注意:监听事件一定要在发射之前,监听才有效 12345678910//使用前先导入import bus from '../bus.js';created()&#123; //created这个会在注册组件完成是执行,后面再细说 bus.$on('giveMsg',(value)=&gt;&#123; //箭头函数的this是指向外部的,所以没有问题 this.counter += value //这里的value是传递过来的值 &#125;) //可以加bind改变this的指向,普通的匿名函数的指向值bus的&#125; 第三步在组件一中发射组件 1234567methods:&#123; add()&#123; bus.$emit('giveMsg',ran) //通过bus中央线来发射组件 //giveMsg类似于事件的名称 //ran是要传递的参数 &#125;&#125; 非父子组件的传值与自定义事件的思路是类似的，写法上也大体相同 以上就是我对Vue组件非父子间传值的一些理解，希望大神们可以指出错误，谢谢]]></content>
+      <categories>
+        <category>Vue</category>
+      </categories>
+      <tags>
+        <tag>Vue</tag>
+        <tag>Vue组件传值</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Vue组件父子间传值]]></title>
+    <url>%2F2017%2F03%2F21%2F25-Vue%E7%BB%84%E4%BB%B6%E7%88%B6%E5%AD%90%E9%97%B4%E7%9A%84%E4%BC%A0%E5%80%BC%2F</url>
+    <content type="text"><![CDATA[在 Vue 中，父子组件的关系可以总结为 prop 向下传递，事件向上传递。父组件通过 prop 给子组件下发数据，子组件通过事件给父组件发送消息。看看它们是怎么工作的。 prop传值 为什么要用prop 因为组件实例的作用域是独立的，子组件的模板不能直接使用父类的，所以Vue中使用prop进行父级向子级传值，下面贴出代码 首先先创建一个Vue的实例123456789101112var app = new Vue(&#123; el:'#app', data:&#123; title:'信息记录', person:&#123; name:'金毛', job:'看家', company:'皇家护卫队', phone:'18066666666' &#125; &#125; &#125;) 创建一个模板12345678910&lt;script type="text/html" id="card"&gt; &lt;div&gt; &lt;h2&gt;&#123;&#123; title &#125;&#125;&lt;/h2&gt; 姓名: &#123;&#123; person.name &#125;&#125;&lt;br /&gt; 职位: &#123;&#123; person.job &#125;&#125;&lt;br /&gt; 公司: &#123;&#123; person.company &#125;&#125;&lt;br /&gt; 手机: &#123;&#123; person.phone &#125;&#125;&lt;br /&gt; &lt;/div&gt; &lt;/script&gt; 注册一个组件12345678910Vue.component('card',&#123; template:'#card', data()&#123; return &#123; &#125; &#125;, //相当于在data有person数据,接收从组件标签传过来的值 props: ['title','person'],&#125;) 使用组件12345&lt;div id="app"&gt; &lt;card :person = 'person' :title = 'title'&gt;&lt;/card&gt; //这里的title是 Vue实例data数据里的title,将数据通过 :title 传递到 props:['title'] //不加: 相当于直接绑定到组件上了&lt;/div&gt; 需要注意的是，在子组件中不可以修改prop传递过来的值 每次父组件更新时，子组件的所有 prop 都会更新为最新值。这意味着你不应该在子组件内部改变 prop。如果你这么做了，Vue 会在控制台给出警告。 在两种情况下，我们很容易忍不住想去修改 prop 中数据： Prop 作为初始值传入后，子组件想把它当作局部数据来用； Prop 作为原始数据传入，由子组件处理成其它数据输出。 对这两种情况，正确的应对方式是： 1.定义一个局部变量，并用 prop 的值初始化它： 1234props: ['initialCounter'],data: function() &#123; return &#123; counter: this.initialCounter &#125;&#125; 2.定义一个计算属性，处理 prop 的值并返回： 123456props: ['size'],computed: &#123; normalizedSize: function () &#123; return this.size.trim().toLowerCase() &#125;&#125; 注意在 JavaScript 中对象和数组是引用类型，指向同一个内存空间，如果 prop 是一个对象或数组，在子组件内部改变它会影响父组件的状态。 prop属性验证–对传入的值指定类型我们可以为组件的 prop 指定验证规则。如果传入的数据不符合要求，Vue 会发出警告。这对于开发给他人使用的组件非常有用。 要指定验证规则，需要用对象的形式来定义 prop，而不能用字符串数组： 123456789101112131415161718props:&#123; //propA 键名,传过来的属性---Number,指定为数值类型 propA:Number, //可以多种类型 propB:[Boolean,Number], propC: &#123; type: String, required: true &#125;, //默认值 propD: &#123; type: Number, default: 100 &#125; &#125; 我们知道，父组件使用 prop 传递数据给子组件。但子组件怎么跟父组件通信呢？这个时候 Vue 的自定义事件系统就派得上用场了。 自定义事件自定义事件大体上分为三个步骤，我把它叫做三步曲 每个 Vue 实例都实现了事件接口，即： 父组件可以在使用子组件的地方直接用 v-on 来监听子组件触发的事件。子组件使用 $emit(eventName)来触发事件。 第一步:监听自定义事件123456&lt;div id="app"&gt; //组件如果想添加原生的事件 需要使用 .native &lt;counter @to-parent="received" @click.native='show'&gt;&lt;/counter&gt; //to-parent 是自己定义的一个事件,在第二步触发 //received 是Vue实例 里的一个函数名&lt;/div&gt; 第二步:触发自定义事件12345methods:&#123; add()&#123; this.$emit('to-parent',ran) //这里的ran是传递的参数 &#125;&#125; 第三步:传递过来的值进行计算123456789101112131415var app = new Vue(&#123; el:&apos;#app&apos;, data:&#123; total:0 &#125;, methods:&#123; received(value)&#123; this.total += value //这里的value就是传递过来的值 &#125;, show()&#123; alert(&apos;显示出来吧&apos;) &#125; &#125;&#125;) 自定义组件的 v-modelVue 2.2.0 新增的自定义组件的 v-model，默认情况下，一个组件的 v-model 会使用 value prop 和 input 事件。但是诸如单选框、复选框之类的输入类型可能把 value 用作了别的目的。model 选项可以避免这样的冲突，官网给出了相应的例子， 有兴趣的小伙伴可以研究一下 以上就是我对Vue组件父子间传值的一些理解，希望大神们可以指出错误，谢谢]]></content>
+      <categories>
+        <category>Vue</category>
+      </categories>
+      <tags>
+        <tag>Vue</tag>
+        <tag>Vue组件传值</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Vue组件使用]]></title>
     <url>%2F2017%2F03%2F15%2F24-Vue%E7%BB%84%E4%BB%B6%E7%9A%84%E4%BD%BF%E7%94%A8%2F</url>
     <content type="text"><![CDATA[组件 (Component) 是 Vue.js 最强大的功能之一。组件可以扩展 HTML 元素，封装可重用的代码。在较高层面上，组件是自定义元素，Vue.js 的编译器为它添加特殊功能。在有些情况下，组件也可以表现为用 is 特性进行了扩展的原生 HTML 元素。 组件的基础全局–注册组件12345678910111213Vue.component('g-com', &#123; template: '&lt;h1&gt;你好世界&lt;/h1&gt;' data()&#123; //data 为函数 //这里目的:让每一个组件都有独立的数据,而不是使用同一个对象进行共享 return &#123; counter : 0 &#125; &#125;,&#125;)//g-com这个是html直接使用的标签//component注册组件的方法 对于自定义标签的命名 ,Vue不强制遵循 W3C 规则 (小写，并且包含一个短杠)，尽管这被认为是最佳实践。 局部–注册组件1234567891011121314var app = new Vue(&#123; el:'#app', data:&#123; message:'hello' &#125;, components:&#123; 'my-com':&#123; template:'&lt;p&gt;这个是app里的局部组件&lt;/p&gt;' &#125; &#125;&#125;)//在某一个实例中注册的组件,就只能在这个实例中使用//my-com这个是html直接使用的标签 创建组件模板时的注意点官方的文档也给了说明，但是看得有点绕，我稍微做了一点小小的总结 template 模板只会显示最外层的标签，比如使用下面这种方式创建模板： 12345&lt;script type="text/html" id="g-com"&gt; &lt;div&gt; 只会显示最外层一个标签 &lt;/div&gt;&lt;/script&gt; 在创建模板时要注意元素的限制，在浏览器解析、规范化模板之后才能获取其内容。例如：ul.ol.table.select. 这些标签限制了能被它包裹的元素 举个简单的例子： 123&lt;table&gt; &lt;my-com&gt;&lt;/my-com&gt;&lt;/table&gt; 自定义组件 会被当作无效的内容，因此会导致错误的渲染结果。变通的方案是使用特殊的 is 特性： 123&lt;table&gt; &lt;tr is="my-com"&gt;&lt;/tr&gt;&lt;/table&gt; 以上就是我对Vue组件的一些理解，希望大神们可以指出错误，谢谢]]></content>
@@ -9,6 +45,7 @@
       </categories>
       <tags>
         <tag>Vue</tag>
+        <tag>Vue组件入门</tag>
       </tags>
   </entry>
   <entry>
@@ -249,8 +286,8 @@
       </categories>
       <tags>
         <tag>javaScript</tag>
-        <tag>原型</tag>
         <tag>构造函数</tag>
+        <tag>原型</tag>
         <tag>继承</tag>
       </tags>
   </entry>
