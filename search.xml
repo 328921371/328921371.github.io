@@ -1,9 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[Vue生命周期的使用]]></title>
+    <url>%2F2017%2F05%2F02%2F32-Vue%E7%9A%84%E8%BF%87%E6%B8%A1%E5%8A%A8%E7%94%BB%2F</url>
+    <content type="text"><![CDATA[Vue 在插入、更新或者移除 DOM 时，提供多种不同方式的应用过渡效果。今天和大家分享一下学习的过程 过渡的方法可以由以下几种进行实现： 在 CSS 过渡和动画中自动应用 class 可以配合使用第三方 CSS 动画库，如 Animate.css 在过渡钩子函数中使用 JavaScript 直接操作 DOM 可以配合使用第三方 JavaScript 动画库，如 Velocity.js]]></content>
+      <categories>
+        <category>Vue</category>
+      </categories>
+      <tags>
+        <tag>Vue</tag>
+        <tag>Vue过渡动画</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Vue生命周期的使用]]></title>
+    <url>%2F2017%2F04%2F26%2F31-Vue%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%2F</url>
+    <content type="text"><![CDATA[每个 Vue 实例在被创建之前都要经过一系列的初始化过程。例如需要设置数据监听、编译模板、挂载实例到 DOM、在数据变化时更新 DOM 等。同时在这个过程中也会运行一些叫做生命周期钩子的函数，给予用户机会在一些特定的场景下添加他们自己的代码。 上面这些是官方文档给出的定义，简单的来说就是我们什么时候需要它，什么时候调用，官网的图已经写的很详细了，我这里只是稍微归纳一下 钩子函数(组件的生命周期函数) 创建之前: beforeCreate 创建之后: created –&gt;一般在这个时候进行请求数据 组件挂载之前: beforeMount –&gt;在组件挂载完成之前,组件还没有创建完成,模板还没有生成 组件挂载之后(所有组件挂载完成): mounted –&gt;生成模板,获取模板内容 组件更新之前: beforeUpdate 组件更新之后: updated 组件销毁之前: beforeDestroy –&gt; this.$refs.com1.$destroy(); 组件销毁之后: destroyed 所有的组件都是 依次 创建之前 -&gt;创建完成 -&gt; 挂载之前 -&gt; 然后等所有的组件 挂载完成 -&gt;再依次执行挂载完成函数 12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455&lt;script type="text/javascript"&gt; Vue.component('com',&#123; template:'#com', data()&#123; return &#123; &#125; &#125;, //组件创建之前, beforeCreate()&#123; console.log('组件创建之前'); &#125;, //组件创建完成 created()&#123; console.log('组件创建完成'); &#125;, //组件挂载之前 beforeMount()&#123; console.log('组件挂载之前'); &#125;, //组件挂载完成 mounted()&#123; console.log('组件挂载完成'); &#125;, //组件更新之前 beforeUpdate()&#123; console.log('组件更新之前'); &#125;, //组件更新之后 updated()&#123; console.log('组件更新之后'); &#125;, //组件销毁之前 beforeDestroy()&#123; console.log('组件销毁之前'); &#125;, //组件销毁之后 destroyed()&#123; console.log('组件销毁之后'); &#125; &#125;) new Vue(&#123; el:'#app', data:&#123; &#125;, methods:&#123; &#125; &#125;) &lt;/script&gt; 生命周期比较常用到的地方 created：一般请求数据是在这边 mounted：一些监听的方法放在这边 以上就是我对Vue生命周期的一些理解，希望大牛提出一些宝贵的意见，谢谢]]></content>
+      <categories>
+        <category>Vue</category>
+      </categories>
+      <tags>
+        <tag>Vue</tag>
+        <tag>Vue生命周期</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Vue杂项的基本使用（二）]]></title>
+    <url>%2F2017%2F04%2F20%2F30-Vue%E6%9D%82%E9%A1%B9%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%EF%BC%88%E4%BA%8C%EF%BC%89%2F</url>
+    <content type="text"><![CDATA[杂项是Vue里一个比较零散的知识点，和大家分享一下学习的过程 组件的命名约定当注册组件 (或者 prop) 时，可以使用 kebab-case (短横线分隔命名)、camelCase (驼峰式命名) 或 PascalCase (单词首字母大写命名)。 官方的文档说的挺详细的： 在组件定义中components: { // 使用 kebab-case 注册 &apos;kebab-cased-component&apos;: { /* ... */ }, // 使用 camelCase 注册 &apos;camelCasedComponent&apos;: { /* ... */ }, // 使用 PascalCase 注册 &apos;PascalCasedComponent&apos;: { /* ... */ } } 在 HTML 模板中始终使用 kebab-case&lt;kebab-cased-component&gt;&lt;/kebab-cased-component&gt; &lt;camel-cased-component&gt;&lt;/camel-cased-component&gt; &lt;pascal-cased-component&gt;&lt;/pascal-cased-component&gt; 当使用字符串模式时，可以不受 HTML 大小写不敏感的限制。 递归组件组件在它的模板内可以递归地调用自己。不过，只有当它有 name 选项时才可以这么做：当使用 Vue.component 全局注册了一个组件，全局的 ID 会被自动设置为组件的 name。 举一个简单的递归例子： 12345678//在组件内调用自己本身,一定要添加判断(v-if),否则会死循环&lt;script type="text/html" id="component"&gt; &lt;div&gt; &lt;component v-if='ran()&gt;0.1'&gt;&lt;/component&gt; 显示内容 &#123;&#123; num &#125;&#125; &lt;/div&gt; &lt;/script&gt;` 如果进入死循环，会导致一个“max stack size exceeded”错误，所以要确保递归调用有终止条件 (比如递归调用时使用 v-if 并最终解析为 false)。 组件间的循环使用官方文档举的例子其实挺详细的，通俗一点来说，其实就是组件A想调用组件B，而组件B也想调用组件A，所以引起了冲突。要解决这个问题，我们需要在其中一个组件中告诉模块化管理系统：“A 虽然最后会用到 B，但是不需要优先导入 B”。 所以要等到 beforeCreate 生命周期钩子中才去注册： 底下是官方的例子，什么是生命周期我们后面再进行分享 123beforeCreate: function () &#123; this.$options.components.TreeFolderContents = require('./tree-folder-contents.vue')&#125; 简单的理解，也就是在组件A中使用上面这一串代码，可以再之后引入组件B，从而解决冲突的问题 内联模板如果子组件有 inline-template 特性，组件将把它的内容当作它的模板，而不是把它当作分发内容。这让模板编写起来更灵活。 123456&lt;my-component inline-template&gt; &lt;div&gt; &lt;p&gt;这些将作为组件自身的模板。&lt;/p&gt; &lt;p&gt;而非父组件透传进来的内容。&lt;/p&gt; &lt;/div&gt;&lt;/my-component&gt; 但是 inline-template 让模板的作用域难以理解。使用 template 选项在组件内定义模板或者在 .vue 文件中使用 template 元素才是最佳实践。 对低开销的静态组件使用v-once尽管在 Vue 中渲染 HTML 很快，不过当组件中包含大量静态内容时，可以考虑使用 v-once 将渲染结果缓存起来，就像这样： 12345678Vue.component('terms-of-service', &#123; template: '\ &lt;div v-once&gt;\ &lt;h1&gt;Terms of Service&lt;/h1&gt;\ ...很多静态内容...\ &lt;/div&gt;\ '&#125;) 以上就是我对Vue杂项的一些理解，希望大牛提出一些宝贵的意见，谢谢]]></content>
+      <categories>
+        <category>Vue</category>
+      </categories>
+      <tags>
+        <tag>Vue</tag>
+        <tag>Vue杂项</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Vue杂项的基本使用（一）]]></title>
+    <url>%2F2017%2F04%2F15%2F29-Vue%E6%9D%82%E9%A1%B9%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%EF%BC%88%E4%B8%80%EF%BC%89%2F</url>
+    <content type="text"><![CDATA[杂项是Vue里一个比较零散的知识点，和大家分享一下学习的过程 官方文档的杂项说的挺详细的，我这里把知识点归纳一下 编写可复用组件在编写组件时，最好考虑好以后是否要进行复用。一次性组件间有紧密的耦合没关系，但是可复用组件应当定义一个清晰的公开接口，同时也不要对其使用的外层数据作出任何假设。 Vue 组件的 API 来自三部分——prop、事件和插槽： Prop 允许外部环境传递数据给组件； 事件允许从组件内触发外部环境的副作用； 插槽允许外部环境将额外的内容组合在组件中。 也就是在使用Vue的时候，将多次运用到的内容编写成可重复利用的组件，通俗的说也就是封装，利用Prop，事件或插槽进行与其他组件的交互，这样使代码看起来更为整洁 子组件引用其实主要的内容是 ref 的使用，我个人认为这个属性是非常好用的。 为什么要使用ref？ 尽管有 prop 和事件，但是有时仍然需要在 JavaScript 中直接访问子组件。为此可以使用 ref 为子组件指定一个引用 ID。 举一个简单的例子,假设com是一个我们写好的组件 1234&lt;div id="app"&gt; &lt;!--为了方面找到 组件对应的dom元素,通过ref指定一个名称--&gt; &lt;com ref='com'&gt;&lt;/com&gt;&lt;/div&gt; 这样子就为com这个组件赋予了一个名为com的ref的属性，来看一下他的作用 找到页面中的Dom元素 app.$refs 得到页面中所有设置的ref ,返回的是一个对象 app.$refs.com 得到对应的组件 ,是一个对象 app.$refs.com.$el 得到组件的 dom元素 修改组件数据 假设com组件的data中有msg这个属性，并且使用了，那么这样做是可以直接修改他的数据的 1app.$refs.com.msg = '修改数据' 普通的元素 也可以通过ref找到 不仅仅是组件可以使用ref这个属性，普通的标签也是可以的，有兴趣的小伙伴可以自己去尝试一下，这里就不做太多的说明 refs 只在组件渲染完成后才填充，并且它是非响应式的。它仅仅是一个直接操作子组件的应急方案——应当避免在模板或计算属性中使用 refs。 异步组件官方的文档可能看的不是很明白，简单的来说，其实异步组件的目的就在于: 使用时才装入需要的组件，可以有效的提高首次装入页面的速度。比如在路由切换时 Vue.js允许将组件定义为一个工厂函数，动态地解析组件的定义。工厂函数接收一个resolve回调，成功获取组件定义时调用。也可以调用reject(reason)指示失败。 可能当当文字不是那么的好理解，我们做一个简单的测试，假设我们有两个组件Home、About。Home组件和首页同步加载，而About组件则按需加载。案例的代码有首页index.html，组件代码about.js构成。 首先是about.js代码： 123Vue.component('about', &#123; template: '&lt;div&gt;About page&lt;/div&gt;'&#125;); 接下来是index.html代码： 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960&lt;html&gt;&lt;head&gt; &lt;title&gt;Async Component test&lt;/title&gt;&lt;/head&gt;&lt;body&gt; &lt;div id="app"&gt; &lt;router-link to="/home"&gt;/home&lt;/router-link&gt; &lt;router-link to="/about"&gt;/about&lt;/router-link&gt; &lt;router-view&gt;&lt;/router-view&gt; &lt;/div&gt; &lt;script src="https://unpkg.com/vue/dist/vue.js"&gt;&lt;/script&gt; &lt;script src="https://unpkg.com/vue-router/dist/vue-router.js"&gt;&lt;/script&gt; &lt;script&gt; function load(componentName, path) &#123; return new Promise(function(resolve, reject) &#123; var script = document.createElement('script'); script.src = path; script.async = true; script.onload = function() &#123; var component = Vue.component(componentName); if (component) &#123; resolve(component); &#125; else &#123; reject(); &#125; &#125;; script.onerror = reject; document.body.appendChild(script); &#125;); &#125; var router = new VueRouter(&#123; routes: [ &#123; path: '/', redirect:'/home' &#125;, &#123; path: '/home', component: &#123; template: '&lt;div&gt;Home page&lt;/div&gt;' &#125;, &#125;, &#123; path: '/about', component: function(resolve, reject) &#123; load('about', 'about.js').then(resolve, reject); &#125; &#125; ] &#125;); var app = new Vue(&#123; el: '#app', router: router, &#125;); &lt;/script&gt;&lt;/body&gt;&lt;/html&gt; 为了加载在服务器的js文件，我们需要一个HTTP服务器。可以使用node.js的http-server实现。安装并启动一个服务器的方法： npm install http-server -g http-server 访问： http://127.0.0.1:8080 我们即可在首页看到home和about的链接，点击home可以显示home组件，点击about，如果还没有加载过，就加载about组件。 对index.html内的代码稍作解释: 组件定义为function(resolve, reject) {}函数，其内调用load函数，成功后resolve，否则reject 函数load内通过创建标签script加载指定文件，并通过onload事件当加载完成后，通过Vue.component验证组件，存在就resolve,否则reject 以上就是我对Vue杂项的一些理解，希望大牛提出一些宝贵的意见，谢谢]]></content>
+      <categories>
+        <category>Vue</category>
+      </categories>
+      <tags>
+        <tag>Vue</tag>
+        <tag>Vue杂项</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Vue动态组件的运用]]></title>
+    <url>%2F2017%2F04%2F08%2F28-Vue%E5%8A%A8%E6%80%81%E7%BB%84%E4%BB%B6%E7%9A%84%E8%BF%90%E7%94%A8%2F</url>
+    <content type="text"><![CDATA[组件在之前已经介绍过了，今天分享一下动态组件，通过使用保留的 元素，动态地绑定到它的 is 特性，我们让多个组件可以使用同一个挂载点，并动态切换 动态组件 :is的用法 首先在主页面中创建一个用来切换组件的标签 1&lt;span @mouseover="com='com2'"&gt;切换到第二个组件&lt;/span&gt; 其次，使用 元素，动态地绑定到它的 is 特性，is中的值是组件的名称12345//keep-alive 保留原来的状态&lt;keep-alive&gt; &lt;component :is='com'&gt;&lt;/component&gt; //通过 :is 属性 指明要变成的组件&lt;/keep-alive&gt; 接着在js中注册全局组件 1234567891011Vue.component('com2',&#123; template:'&lt;div&gt;组件2 &lt;input type="text" /&gt; &lt;/div&gt;' &#125;);var app = new Vue(&#123; el:'#app', data:&#123; com:'com1' &#125;&#125;) 动态组件的原理步骤 它会根据component 标签里 :is 来寻找Vue实例中 data的数据 这时com指向com1的组件,所以component的内容为com1组件的内容 span标签中 @mouseover=”com=’com2’” 可以提取Vue实例中的data数据,实现动态调整组件 以上就是我对Vue动态组件的一些理解，希望大牛提出一些宝贵的意见，谢谢]]></content>
+      <categories>
+        <category>Vue</category>
+      </categories>
+      <tags>
+        <tag>Vue</tag>
+        <tag>Vue动态组件</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Vue插槽的使用]]></title>
     <url>%2F2017%2F04%2F03%2F27-Vue%E6%8F%92%E6%A7%BD%E7%9A%84%E4%BD%BF%E7%94%A8%2F</url>
-    <content type="text"><![CDATA[Vue组件之间的传值不仅仅发生在父子间组件中，有时候，非父子关系的两个组件之间也需要通信。 以上就是我对Vue组件非父子间传值的一些理解，希望大神们可以指出错误，谢谢]]></content>
+    <content type="text"><![CDATA[为了让组件可以组合，我们需要一种方式来混合父组件的内容与子组件自己的模板。这个过程被称为内容分发 。Vue.js 实现了一个内容分发 API，参照了当前 Web Components 规范草案，使用特殊的 元素作为原始内容的插槽。 Vue 插槽的使用在注册组件中定义好标签名字，先全局注册一个组件 123456Vue.component('component',&#123; template:'#component', data()&#123; return &#123;&#125; &#125;&#125;) 在text/html中使用 slot,想要几个就写几个 1234&lt;div&gt; &lt;slot name='title'&gt;&lt;/slot&gt; //每个插槽最好都要有自己的名字，不然所有的标签都会被使用&lt;/div&gt; 在html中 可以直接使用Vue实例中的data数据 12345&lt;div id="app"&gt; &lt;component&gt; &lt;h1 slot='title'&gt;标题是:&#123;&#123; title &#125;&#125;&lt;/h1&gt; &lt;/component&gt;&lt;/div&gt; 这就是插槽最基本的使用 作用域插槽作用域插槽是一种特殊类型的插槽，用作一个 (能被传递数据的) 可重用模板，来代替已经渲染好的元素。 在父级中，具有特殊特性 slot-scope 的 元素必须存在，表示它是作用域插槽的模板。slot-scope 的值将被用作一个临时变量名，此变量接收从子组件传递过来的 prop 对象： 123456789&lt;component&gt; &lt;template slot='title' scope="props"&gt; //scope="props" 类似于可以将组件中插槽传递的数据全部获取出来进行打点调用,点的是下面:的东西 &#123;&#123;message&#125;&#125; // message 这个是Vue实例中data的数据 &#123;&#123; props&#125;&#125; &lt;/template&gt; &lt;/component&gt; 在子组件中，只需将数据传递到插槽，就像你将 prop 传递给组件一样： 12//这个是插槽将组件中data的数据传递过去&lt;slot name='title' :message='message' :title='tit'&gt;&lt;/slot&gt; 在 2.5.0+ ，slot-scope 能被用在任意元素或组件中而不再局限于 。这里演示的是2.4.*的版本，放在template中 以上就是我对Vue插槽的一些理解，还在学习中，哪里有错误请指导小生一下，谢谢]]></content>
       <categories>
         <category>Vue</category>
       </categories>
@@ -286,8 +346,8 @@
       </categories>
       <tags>
         <tag>javaScript</tag>
-        <tag>构造函数</tag>
         <tag>原型</tag>
+        <tag>构造函数</tag>
         <tag>继承</tag>
       </tags>
   </entry>

@@ -85,18 +85,18 @@
 
 
 
-<meta name="description" content="Vue组件之间的传值不仅仅发生在父子间组件中，有时候，非父子关系的两个组件之间也需要通信。">
+<meta name="description" content="为了让组件可以组合，我们需要一种方式来混合父组件的内容与子组件自己的模板。这个过程被称为内容分发 。Vue.js 实现了一个内容分发 API，参照了当前 Web Components 规范草案，使用特殊的  元素作为原始内容的插槽。">
 <meta name="keywords" content="Vue,Vue插槽">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Vue插槽的使用">
 <meta property="og:url" content="http://www.chensheng.group/2017/04/03/27-Vue插槽的使用/index.html">
 <meta property="og:site_name" content="陈先生的小前端">
-<meta property="og:description" content="Vue组件之间的传值不仅仅发生在父子间组件中，有时候，非父子关系的两个组件之间也需要通信。">
+<meta property="og:description" content="为了让组件可以组合，我们需要一种方式来混合父组件的内容与子组件自己的模板。这个过程被称为内容分发 。Vue.js 实现了一个内容分发 API，参照了当前 Web Components 规范草案，使用特殊的  元素作为原始内容的插槽。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-11-06T06:25:58.624Z">
+<meta property="og:updated_time" content="2017-11-06T08:08:24.132Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Vue插槽的使用">
-<meta name="twitter:description" content="Vue组件之间的传值不仅仅发生在父子间组件中，有时候，非父子关系的两个组件之间也需要通信。">
+<meta name="twitter:description" content="为了让组件可以组合，我们需要一种方式来混合父组件的内容与子组件自己的模板。这个过程被称为内容分发 。Vue.js 实现了一个内容分发 API，参照了当前 Web Components 规范草案，使用特殊的  元素作为原始内容的插槽。">
 
 
 
@@ -409,10 +409,29 @@
         <hr style="filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)" color="#FF0000" size="1">
 
 <blockquote>
-<p>Vue组件之间的传值不仅仅发生在父子间组件中，有时候，非父子关系的两个组件之间也需要通信。</p>
+<p>为了让组件可以组合，我们需要一种方式来混合父组件的内容与子组件自己的模板。这个过程被称为内容分发 。Vue.js 实现了一个内容分发 API，参照了当前 Web Components 规范草案，使用特殊的 <slot> 元素作为原始内容的插槽。</slot></p>
 </blockquote>
 <a id="more"></a>
-<p>以上就是我对Vue组件非父子间传值的一些理解，希望大神们可以指出错误，谢谢</p>
+<h3 id="Vue-插槽的使用"><a href="#Vue-插槽的使用" class="headerlink" title="Vue 插槽的使用"></a>Vue 插槽的使用</h3><p>在注册组件中定义好标签名字，先全局注册一个组件</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">Vue.component(<span class="string">'component'</span>,&#123;</div><div class="line">	template:<span class="string">'#component'</span>,</div><div class="line">	data()&#123;</div><div class="line">		<span class="keyword">return</span> &#123;&#125;</div><div class="line">	&#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>在text/html中使用 slot,想要几个就写几个</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;div&gt;</div><div class="line">	&lt;slot name=<span class="string">'title'</span>&gt;&lt;/slot&gt;</div><div class="line">	<span class="comment">//每个插槽最好都要有自己的名字，不然所有的标签都会被使用</span></div><div class="line">&lt;<span class="regexp">/div&gt;</span></div></pre></td></tr></table></figure>
+<p>在html中 可以直接使用Vue实例中的data数据</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;div id=<span class="string">"app"</span>&gt;			</div><div class="line">	&lt;component&gt;</div><div class="line">		&lt;h1 slot=<span class="string">'title'</span>&gt;标题是:&#123;&#123; title &#125;&#125;&lt;<span class="regexp">/h1&gt;</span></div><div class="line"><span class="regexp">	&lt;/</span>component&gt;</div><div class="line">&lt;<span class="regexp">/div&gt;</span></div></pre></td></tr></table></figure>
+<p>这就是插槽最基本的使用</p>
+<h3 id="作用域插槽"><a href="#作用域插槽" class="headerlink" title="作用域插槽"></a>作用域插槽</h3><p>作用域插槽是一种特殊类型的插槽，用作一个 (能被传递数据的) 可重用模板，来代替已经渲染好的元素。</p>
+<blockquote>
+<p>在父级中，具有特殊特性 slot-scope 的 <template> 元素必须存在，表示它是作用域插槽的模板。slot-scope 的值将被用作一个临时变量名，此变量接收从子组件传递过来的 prop 对象：</template></p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&lt;component&gt;</div><div class="line">	&lt;template slot=<span class="string">'title'</span> scope=<span class="string">"props"</span>&gt;</div><div class="line">	<span class="comment">//scope="props" 类似于可以将组件中插槽传递的数据全部获取出来进行打点调用,点的是下面:的东西</span></div><div class="line">		&#123;&#123;message&#125;&#125;</div><div class="line">	<span class="comment">// message 这个是Vue实例中data的数据</span></div><div class="line">		&#123;&#123; props&#125;&#125;</div><div class="line">	&lt;<span class="regexp">/template&gt;</span></div><div class="line"><span class="regexp">		</span></div><div class="line"><span class="regexp">&lt;/</span>component&gt;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>在子组件中，只需将数据传递到插槽，就像你将 prop 传递给组件一样：</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//这个是插槽将组件中data的数据传递过去</span></div><div class="line">&lt;slot name=<span class="string">'title'</span> :message=<span class="string">'message'</span> :title=<span class="string">'tit'</span>&gt;&lt;/slot&gt;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>在 2.5.0+ ，slot-scope 能被用在任意元素或组件中而不再局限于 <template>。这里演示的是2.4.*的版本，放在template中</template></p>
+</blockquote>
+<p>以上就是我对Vue插槽的一些理解，还在学习中，哪里有错误请指导小生一下，谢谢</p>
 
       
     </div>
@@ -498,6 +517,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2017/04/08/28-Vue动态组件的运用/" rel="prev" title="Vue动态组件的运用">
+                Vue动态组件的运用 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -576,8 +599,17 @@ var jiathis_config={
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           
             <p class="site-author-name" itemprop="name">陈晟</p>
@@ -591,7 +623,7 @@ var jiathis_config={
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">27</span>
+                <span class="site-state-item-count">32</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -613,7 +645,7 @@ var jiathis_config={
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">30</span>
+                <span class="site-state-item-count">34</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -652,6 +684,22 @@ var jiathis_config={
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Vue-插槽的使用"><span class="nav-number">1.</span> <span class="nav-text">Vue 插槽的使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#作用域插槽"><span class="nav-number">2.</span> <span class="nav-text">作用域插槽</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
