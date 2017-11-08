@@ -69,7 +69,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Vue," />
+  <meta name="keywords" content="Vue,Vue过渡动画," />
 
 
 
@@ -85,18 +85,18 @@
 
 
 
-<meta name="description" content="最近开始接触用户界面的渐进式框架-Vue。Vue采用自底向上增量开发的设计，是一个轻量级框架 。这里先给出Vue的官网">
-<meta name="keywords" content="Vue">
+<meta name="description" content="上一篇的博客写了Vue的过渡动画，今天写几个小demo来实践一下">
+<meta name="keywords" content="Vue,Vue过渡动画">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Vue的入门及介绍">
-<meta property="og:url" content="http://www.chensheng.group/2017/02/15/20-Vue的入门/index.html">
+<meta property="og:title" content="Vue过渡动画的demo">
+<meta property="og:url" content="http://www.chensheng.group/2017/05/10/33-Vue过渡动画的小例子/index.html">
 <meta property="og:site_name" content="陈先生的小前端">
-<meta property="og:description" content="最近开始接触用户界面的渐进式框架-Vue。Vue采用自底向上增量开发的设计，是一个轻量级框架 。这里先给出Vue的官网">
+<meta property="og:description" content="上一篇的博客写了Vue的过渡动画，今天写几个小demo来实践一下">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-11-03T02:16:26.213Z">
+<meta property="og:updated_time" content="2017-11-08T09:21:47.658Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Vue的入门及介绍">
-<meta name="twitter:description" content="最近开始接触用户界面的渐进式框架-Vue。Vue采用自底向上增量开发的设计，是一个轻量级框架 。这里先给出Vue的官网">
+<meta name="twitter:title" content="Vue过渡动画的demo">
+<meta name="twitter:description" content="上一篇的博客写了Vue的过渡动画，今天写几个小demo来实践一下">
 
 
 
@@ -126,13 +126,13 @@
 
 
 
-  <link rel="canonical" href="http://www.chensheng.group/2017/02/15/20-Vue的入门/"/>
+  <link rel="canonical" href="http://www.chensheng.group/2017/05/10/33-Vue过渡动画的小例子/"/>
 
 
 
 
 
-  <title>Vue的入门及介绍 | 陈先生的小前端</title>
+  <title>Vue过渡动画的demo | 陈先生的小前端</title>
   
 
 
@@ -306,7 +306,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.chensheng.group/2017/02/15/20-Vue的入门/">
+    <link itemprop="mainEntityOfPage" href="http://www.chensheng.group/2017/05/10/33-Vue过渡动画的小例子/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="陈晟">
@@ -323,7 +323,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Vue的入门及介绍</h1>
+          <h1 class="post-title" itemprop="name headline">Vue过渡动画的demo</h1>
         
 
         <div class="post-meta">
@@ -335,8 +335,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-15T09:20:11+08:00">
-                2017-02-15
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-10T16:50:02+08:00">
+                2017-05-10
               </time>
             
 
@@ -377,8 +377,8 @@
                 <i class="fa fa-comment-o"></i>
               </span>
               
-                <a href="/2017/02/15/20-Vue的入门/#SOHUCS" itemprop="discussionUrl">
-                  <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2017/02/15/20-Vue的入门/" itemprop="commentsCount"></span>
+                <a href="/2017/05/10/33-Vue过渡动画的小例子/#SOHUCS" itemprop="discussionUrl">
+                  <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2017/05/10/33-Vue过渡动画的小例子/" itemprop="commentsCount"></span>
                 </a>
               
             
@@ -409,60 +409,13 @@
         <hr style="filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)" color="#FF0000" size="1">
 
 <blockquote>
-<p>最近开始接触用户界面的渐进式框架-Vue。Vue采用自底向上增量开发的设计，是一个轻量级框架 。这里先给出<a href="https://cn.vuejs.org/" target="_blank" rel="external">Vue的官网</a></p>
+<p>上一篇的博客写了Vue的过渡动画，今天写几个小demo来实践一下</p>
 </blockquote>
 <a id="more"></a>
-<h3 id="Vue介绍"><a href="#Vue介绍" class="headerlink" title="Vue介绍"></a>Vue介绍</h3><p>Vue是JavaScript的一个框架，是国内个人开发的,虽然是轻量级,但是功能强大。</p>
-<p>渐进式框架：没有非常强的主张</p>
-<p>使用的是MVVM的模式：提供高效的数据绑定和灵活的组件系统。</p>
-<h3 id="使用Vue-使用版为2-4"><a href="#使用Vue-使用版为2-4" class="headerlink" title="使用Vue (使用版为2.4.*)"></a>使用Vue (使用版为2.4.*)</h3><p>开始学习Vue时我们先不适用Vue-cli进行搭建项目，使用cdn来引入Vue进行单页面的学习</p>
-<p>稍微介绍一下大致具有哪些属性，这里只列出常用的几种</p>
-<h3 id="模板语法"><a href="#模板语法" class="headerlink" title="模板语法"></a>模板语法</h3><ol>
-<li><p>采用双大括号插入值,原样式输出(不编译标签,纯文本) </p>
-</li>
-<li><p>v-html 插入 html内容(编译标签)</p>
-</li>
-<li><p>v-bind: 动态添加属性 (缩写: v-bind: =&gt; :)</p>
-</li>
-<li><p>v-on:click 绑定事件 (缩写: v-on:click =&gt; :@click)</p>
-</li>
-</ol>
-<blockquote>
-<p>注意：双大括号中是单个表达式，可以写入简单的javascript代码，不能使用多行的if/else，可以使用三元运算符进行判断</p>
-</blockquote>
-<p>这里先贴出Vue单页面的代码，在代码中进行介绍各个属性的含义</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">&lt;!DOCTYPE html&gt;</div><div class="line">&lt;html&gt;</div><div class="line">	&lt;head&gt;</div><div class="line">		&lt;meta charset=<span class="string">"UTF-8"</span>&gt;</div><div class="line">		&lt;title&gt;Vue的入门及介绍&lt;<span class="regexp">/title&gt;</span></div><div class="line"><span class="regexp">		&lt;script src="https:/</span><span class="regexp">/cdn.jsdelivr.net/</span>npm/vue<span class="string">" type="</span>text/javascript<span class="string">" charset="</span>utf<span class="number">-8</span><span class="string">"&gt;&lt;/script&gt;</span></div><div class="line"><span class="string">	&lt;/head&gt;</span></div><div class="line"><span class="string">	&lt;body&gt;</span></div><div class="line"><span class="string">		&lt;div id="</span>app<span class="string">"&gt;</span></div><div class="line"><span class="string">			&lt;span&gt;&#123;&#123; message &#125;&#125;&lt;/span&gt; // &#123;&#123; &#125;&#125; 用来插入值</span></div><div class="line"><span class="string">			//标签内可以插入Vue的指令</span></div><div class="line"><span class="string">		&lt;/div&gt;</span></div><div class="line"><span class="string">	&lt;/body&gt;</span></div><div class="line"><span class="string">	&lt;script type="</span>text/javascript<span class="string">"&gt;</span></div><div class="line"><span class="string">		//如果使用vue 可以创建一个Vue的实例</span></div><div class="line"><span class="string">		var app = new Vue(&#123;</span></div><div class="line"><span class="string">			el: '#app',  //el:制定模版，主模板不能指定到body</span></div><div class="line"><span class="string">			data: &#123;</span></div><div class="line"><span class="string">				message: '你好 世界' //data 里面是数据</span></div><div class="line"><span class="string">			&#125;,</span></div><div class="line"><span class="string">			methods:&#123;</span></div><div class="line"><span class="string">				//methods里面写入函数</span></div><div class="line"><span class="string">			&#125;,</span></div><div class="line"><span class="string">			filters:&#123;</span></div><div class="line"><span class="string">				//filters里面写入过滤器</span></div><div class="line"><span class="string">			&#125;,</span></div><div class="line"><span class="string">			computed:&#123;</span></div><div class="line"><span class="string">				//computed里面写入计算属性</span></div><div class="line"><span class="string">			&#125;</span></div><div class="line"><span class="string">		&#125;)</span></div><div class="line"><span class="string">	&lt;/script&gt;</span></div><div class="line"><span class="string">&lt;/html&gt;</span></div></pre></td></tr></table></figure>
-<h3 id="指令"><a href="#指令" class="headerlink" title="指令"></a>指令</h3><p>指令 (Directives) 是带有 v- 前缀的特殊属性。指令属性的值预期是单个 JavaScript 表达式 (v-for 是例外情况，稍后我们再讨论)</p>
-<ul>
-<li><p>只有指令名 (v-if=”值”)</p>
-</li>
-<li><p>带有参数的,:后面是参数 (v-bind:title)</p>
-</li>
-<li><p>带参数的,:后面是参数;带修饰符的 .后面是修饰符 (v-on:click.prevent)</p>
-</li>
-</ul>
-<p>还有很多指令，在后面会提到。</p>
-<p>给个例子，在代码中可以更直观的看出</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">&lt;div id=<span class="string">"app"</span>&gt;</div><div class="line">	&lt;!-- <span class="number">1.</span> v-<span class="keyword">if</span> 指令,当为<span class="literal">true</span>时候渲染这个标签--&gt;</div><div class="line">	&lt;p v-<span class="keyword">if</span>=<span class="string">"true"</span>&gt;能不能看到我&lt;<span class="regexp">/p&gt;</span></div><div class="line"><span class="regexp">	</span></div><div class="line"><span class="regexp">	&lt;!-- 2. v-bind 指令: 带有参数的指令 --&gt;</span></div><div class="line"><span class="regexp">	&lt;p v-bind:title="message"&gt;标签上有标题&lt;/</span>p&gt;</div><div class="line">	</div><div class="line">	&lt;!-- <span class="number">3.</span> v-on 指令 绑定事件--&gt;</div><div class="line">	&lt;button v-on:click=<span class="string">"go($event)"</span>&gt;求点击&lt;<span class="regexp">/button&gt;</span></div><div class="line"><span class="regexp">	</span></div><div class="line"><span class="regexp">	&lt;!-- 4. 需要阻止默认事件 可以使用v-on:click.prevent .prevent是修饰符 --&gt;</span></div><div class="line"><span class="regexp">	&lt;a href="http:/</span><span class="regexp">/www.baidu.com" v-on:click.prevent="go"&gt;点击进入百度&lt;/</span>a&gt;</div><div class="line"></div><div class="line">&lt;<span class="regexp">/div&gt;</span></div></pre></td></tr></table></figure>
-<blockquote>
-<p>调用方法时 加()和不加()的区别</p>
-</blockquote>
-<ul>
-<li>什么都不加,就是传递一个event事件</li>
-<li>加()什么都不写,就是不传递参数</li>
-<li>加(),()里写参数就是传递参数,$event就是传递事件</li>
-</ul>
-<h3 id="过滤器"><a href="#过滤器" class="headerlink" title="过滤器"></a>过滤器</h3><p>过滤器可以串联：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&#123;&#123; message | filterA | filterB &#125;&#125;</div></pre></td></tr></table></figure>
-<p>可以接收多个参数：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&#123;&#123; message | filterA(<span class="string">'arg1'</span>, arg2) &#125;&#125;</div></pre></td></tr></table></figure>
-<p>给个简单的例子</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;div id=<span class="string">"app"</span>&gt;</div><div class="line">	&lt;!--第一个是参数 | 第二个是方法的名字--&gt;		</div><div class="line">	</div><div class="line">	&lt;p&gt;<span class="number">2</span>的三次方等于&#123;&#123; <span class="number">2</span> | pow(<span class="number">3</span>) &#125;&#125;&lt;<span class="regexp">/p&gt;</span></div><div class="line"><span class="regexp">	</span></div><div class="line"><span class="regexp">	&lt;p&gt;2加3 加5等于&#123;&#123; 2 | add(3,5) &#125;&#125;&lt;/</span>p&gt;<span class="comment">//多个参数的时候可以直接在第二个后面跟</span></div><div class="line">	</div><div class="line">&lt;<span class="regexp">/div&gt;</span></div></pre></td></tr></table></figure>
-<blockquote>
-<p>注意!!! 过滤器函数,必须要有一个参数</p>
-</blockquote>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">filters:&#123;</div><div class="line">	pow(num1,num2)&#123;</div><div class="line">		<span class="keyword">return</span> <span class="built_in">Math</span>.pow(num1,num2)</div><div class="line">	&#125;,</div><div class="line">	add(n1,n2,n3)&#123;</div><div class="line">		<span class="keyword">return</span> n1 + n2 + n3</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>正在学习Vue中，讲的不是太详细清楚，有好的博客欢迎和我分享一下</p>
+<p>demo实现三原色的配比，废话不多说，直接上代码,复制可以直接使用</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div></pre></td><td class="code"><pre><div class="line">&lt;!DOCTYPE html&gt;</div><div class="line">&lt;html&gt;</div><div class="line">	&lt;head&gt;</div><div class="line">		&lt;meta charset=<span class="string">"UTF-8"</span>&gt;</div><div class="line">		&lt;title&gt;取色&lt;<span class="regexp">/title&gt;</span></div><div class="line"><span class="regexp">		&lt;script src="https:/</span><span class="regexp">/unpkg.com/</span>vue<span class="string">"&gt;&lt;/script&gt;</span></div><div class="line"><span class="string">		&lt;style type="</span>text/css<span class="string">"&gt;</span></div><div class="line"><span class="string">			body&#123;</span></div><div class="line"><span class="string">				text-align: center;</span></div><div class="line"><span class="string">			&#125;</span></div><div class="line"><span class="string">			#colordiv&#123;</span></div><div class="line"><span class="string">				width: 500px;</span></div><div class="line"><span class="string">				height: 500px;</span></div><div class="line"><span class="string">				margin: 0 auto;</span></div><div class="line"><span class="string">			&#125;</span></div><div class="line"><span class="string">			input[type=range] &#123;</span></div><div class="line"><span class="string">			    -webkit-appearance: none;</span></div><div class="line"><span class="string">			    width: 400px;</span></div><div class="line"><span class="string">			    border-radius: 10px; /*这个属性设置使填充进度条时的图形为圆角*/</span></div><div class="line"><span class="string">			&#125;</span></div><div class="line"><span class="string">			input[type=range]::-webkit-slider-runnable-track &#123;</span></div><div class="line"><span class="string">			    height: 15px;</span></div><div class="line"><span class="string">			    border-radius: 10px; /*将轨道设为圆角的*/</span></div><div class="line"><span class="string">			    box-shadow: 0 1px 1px #def3f8, inset 0 .125em .125em #0d1112; /*轨道内置阴影效果*/</span></div><div class="line"><span class="string">			&#125;  </span></div><div class="line"><span class="string">			input[type=range]:focus &#123;</span></div><div class="line"><span class="string">			    outline: none; </span></div><div class="line"><span class="string">			    /*滑动时去掉外边框*/</span></div><div class="line"><span class="string">			&#125;</span></div><div class="line"><span class="string">			input[type=range]::-webkit-slider-thumb &#123;</span></div><div class="line"><span class="string">			    -webkit-appearance: none;</span></div><div class="line"><span class="string">			    height: 25px;</span></div><div class="line"><span class="string">			    width: 25px;</span></div><div class="line"><span class="string">			    margin-top: -5px;/*使滑块超出轨道部分的偏移量相等*/</span></div><div class="line"><span class="string">			    background: #ffffff;</span></div><div class="line"><span class="string">			    border-radius: 50%; /*外观设置为圆形*/</span></div><div class="line"><span class="string">			    border: solid 0.125em rgba(205, 224, 230, 0.5); /*设置边框*/</span></div><div class="line"><span class="string">			    box-shadow: 0 .125em .125em #3b4547; /*添加底部阴影*/</span></div><div class="line"><span class="string">			&#125;</span></div><div class="line"><span class="string">			</span></div><div class="line"><span class="string">		&lt;/style&gt;</span></div><div class="line"><span class="string">	&lt;/head&gt;</span></div><div class="line"><span class="string">	&lt;body&gt;</span></div><div class="line"><span class="string">		</span></div><div class="line"><span class="string">		&lt;div id="</span>app<span class="string">"&gt;</span></div><div class="line"><span class="string">			</span></div><div class="line"><span class="string">			&lt;div id="</span>colordiv<span class="string">" :style="</span>color<span class="string">"&gt;&lt;/div&gt;</span></div><div class="line"><span class="string">			&lt;br /&gt;&lt;br /&gt;</span></div><div class="line"><span class="string">			红色配比:&#123;&#123; Math.floor( hong / 255 * 100) &#125;&#125;%&lt;input v-model="</span>hong<span class="string">" type="</span>range<span class="string">" name="</span>range<span class="string">" id="</span>range<span class="string">" value="</span>hong<span class="string">" max="</span><span class="number">255</span><span class="string">" step="</span><span class="number">1</span><span class="string">" :style="</span>redcolor<span class="string">" /&gt;</span></div><div class="line"><span class="string">			</span></div><div class="line"><span class="string">			&lt;br /&gt;&lt;br /&gt;</span></div><div class="line"><span class="string">			绿色配比:&#123;&#123; Math.floor( lv / 255 * 100) &#125;&#125;%&lt;input v-model="</span>lv<span class="string">" type="</span>range<span class="string">" name="</span>range<span class="string">" id="</span>range<span class="string">" value="</span>lv<span class="string">" max="</span><span class="number">255</span><span class="string">" step="</span><span class="number">1</span><span class="string">" :style="</span>lvcolor<span class="string">"/&gt;</span></div><div class="line"><span class="string">			</span></div><div class="line"><span class="string">			&lt;br /&gt;&lt;br /&gt;</span></div><div class="line"><span class="string">			蓝色配比:&#123;&#123; Math.floor( lan / 255 * 100) &#125;&#125;%&lt;input v-model="</span>lan<span class="string">" type="</span>range<span class="string">" name="</span>range<span class="string">" id="</span>range<span class="string">" value="</span>lan<span class="string">" max="</span><span class="number">255</span><span class="string">" step="</span><span class="number">1</span><span class="string">" :style="</span>lancolor<span class="string">"/&gt;</span></div><div class="line"><span class="string">			</span></div><div class="line"><span class="string">		&lt;/div&gt;</span></div><div class="line"><span class="string">		</span></div><div class="line"><span class="string">		</span></div><div class="line"><span class="string">		</span></div><div class="line"><span class="string">	&lt;/body&gt;</span></div><div class="line"><span class="string">	&lt;script type="</span>text/javascript<span class="string">"&gt;</span></div><div class="line"><span class="string">		</span></div><div class="line"><span class="string">		var div = document.getElementById('colordiv');		</span></div><div class="line"><span class="string">		</span></div><div class="line"><span class="string">		var app = new Vue(&#123;</span></div><div class="line"><span class="string">			el:'#app',</span></div><div class="line"><span class="string">			data:&#123;</span></div><div class="line"><span class="string">				hong:0,</span></div><div class="line"><span class="string">				lv:0,</span></div><div class="line"><span class="string">				lan:0,</span></div><div class="line"><span class="string">				color:&#123;</span></div><div class="line"><span class="string">					background:'black'</span></div><div class="line"><span class="string">				&#125;,</span></div><div class="line"><span class="string">				redcolor:&#123;</span></div><div class="line"><span class="string">					background: '-webkit-linear-gradient(red,red) no-repeat',</span></div><div class="line"><span class="string">					backgroundSize:' 0% 100%'</span></div><div class="line"><span class="string">				&#125;,</span></div><div class="line"><span class="string">				lvcolor:&#123;</span></div><div class="line"><span class="string">					background: '-webkit-linear-gradient(green,green) no-repeat',</span></div><div class="line"><span class="string">					backgroundSize:' 0% 100%'</span></div><div class="line"><span class="string">				&#125;,</span></div><div class="line"><span class="string">				lancolor:&#123;</span></div><div class="line"><span class="string">					background: '-webkit-linear-gradient(blue,blue) no-repeat',</span></div><div class="line"><span class="string">					backgroundSize:'0% 100%'</span></div><div class="line"><span class="string">				&#125;</span></div><div class="line"><span class="string">			&#125;,</span></div><div class="line"><span class="string">			methods:&#123;</span></div><div class="line"><span class="string">				</span></div><div class="line"><span class="string">			&#125;,</span></div><div class="line"><span class="string">			computed:&#123;</span></div><div class="line"><span class="string">				change()&#123;</span></div><div class="line"><span class="string">					this.color.background = "</span>rgb(<span class="string">" + Number(this.hong) + "</span>,<span class="string">"+ Number(this.lv) +"</span>,<span class="string">"+ Number(this.lan) +"</span>)<span class="string">";</span></div><div class="line"><span class="string">					this.redcolor.backgroundSize = Math.floor( this.hong / 255 * 100) + '% 100%';</span></div><div class="line"><span class="string">					this.lvcolor.backgroundSize = Math.floor( this.lv / 255 * 100) + '% 100%';</span></div><div class="line"><span class="string">					this.lancolor.backgroundSize = Math.floor( this.lan / 255 * 100) + '% 100%';</span></div><div class="line"><span class="string">				&#125;</span></div><div class="line"><span class="string">			&#125;,</span></div><div class="line"><span class="string">			updated()&#123;</span></div><div class="line"><span class="string">				this.change</span></div><div class="line"><span class="string">			&#125;</span></div><div class="line"><span class="string">			</span></div><div class="line"><span class="string">		&#125;)</span></div><div class="line"><span class="string">		</span></div><div class="line"><span class="string">	&lt;/script&gt;</span></div><div class="line"><span class="string">&lt;/html&gt;</span></div></pre></td></tr></table></figure>
+<p>这个demo实现81个单元格随机变化位置，样式,使用到lodash库</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div></pre></td><td class="code"><pre><div class="line">&lt;!DOCTYPE html&gt;</div><div class="line">&lt;html&gt;</div><div class="line">	&lt;head&gt;</div><div class="line">		&lt;meta charset=<span class="string">"utf-8"</span>&gt;</div><div class="line">		&lt;title&gt;Vue&lt;<span class="regexp">/title&gt;</span></div><div class="line"><span class="regexp">		&lt;meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no"&gt;</span></div><div class="line"><span class="regexp">		&lt;meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"&gt;</span></div><div class="line"><span class="regexp">		&lt;script src="https:/</span><span class="regexp">/unpkg.com/</span>vue<span class="string">"&gt;&lt;/script&gt;</span></div><div class="line"><span class="string">		&lt;!-- 导入 lodash库--&gt;</span></div><div class="line"><span class="string">		&lt;script src="</span>https:<span class="comment">//cdnjs.cloudflare.com/ajax/libs/lodash.js/4.14.1/lodash.min.js"&gt;&lt;/script&gt;</span></div><div class="line">		&lt;style type=<span class="string">"text/css"</span>&gt;</div><div class="line">			.list-box &#123;</div><div class="line">				width: <span class="number">540</span>px;</div><div class="line">				height: <span class="number">540</span>px;</div><div class="line">				margin: <span class="number">0</span> auto;</div><div class="line">				margin-top: <span class="number">30</span>px;</div><div class="line">			&#125;</div><div class="line">			</div><div class="line">			.list-box span &#123;</div><div class="line">				display: inline-block;</div><div class="line">				float: left;</div><div class="line">				border: 1px solid #ccc;</div><div class="line">				width: <span class="number">59</span>px;</div><div class="line">				height: <span class="number">59</span>px;</div><div class="line">				margin-left: <span class="number">-1</span>px;</div><div class="line">				margin-top: <span class="number">-1</span>px;</div><div class="line">				text-align: center;</div><div class="line">				line-height: <span class="number">59</span>px;</div><div class="line">			&#125;</div><div class="line">			<span class="comment">/* 平移动画 */</span></div><div class="line">			</div><div class="line">			.list-move &#123;</div><div class="line">				transition: all <span class="number">1</span>s linear;</div><div class="line">			&#125;</div><div class="line">		&lt;<span class="regexp">/style&gt;</span></div><div class="line"><span class="regexp">	&lt;/</span>head&gt;</div><div class="line"></div><div class="line">	&lt;body&gt;</div><div class="line">		&lt;div id=<span class="string">"app"</span>&gt;</div><div class="line">			&lt;button @click=<span class="string">"shuffle"</span>&gt;打乱&lt;<span class="regexp">/button&gt;</span></div><div class="line"><span class="regexp">			&lt;transition-group name="list" tag="div" class="list-box"&gt;</span></div><div class="line"><span class="regexp">				&lt;span v-for="num in nums" :key="num" :style="&#123;background: colors[num]&#125;"&gt;&#123;&#123;num + 1&#125;&#125;&lt;/</span>span&gt;</div><div class="line">			&lt;<span class="regexp">/transition-group&gt;</span></div><div class="line"><span class="regexp">		&lt;/</span>div&gt;</div><div class="line">	&lt;<span class="regexp">/body&gt;</span></div><div class="line"><span class="regexp">	&lt;script type="text/</span>javascript<span class="string">"&gt;</span></div><div class="line"><span class="string">		var app = new Vue(&#123;</span></div><div class="line"><span class="string">			el: '#app',</span></div><div class="line"><span class="string">			data: &#123;</span></div><div class="line"><span class="string">				message: 'Hello Vue!',</span></div><div class="line"><span class="string">				nums: new Array(81).fill(1).map((v, i) =&gt; i),</span></div><div class="line"><span class="string">				colors: []</span></div><div class="line"><span class="string">			&#125;,</span></div><div class="line"><span class="string">			methods: &#123;</span></div><div class="line"><span class="string">				shuffle() &#123;</span></div><div class="line"><span class="string">					this.nums = _.shuffle(this.nums)</span></div><div class="line"><span class="string">				&#125;</span></div><div class="line"><span class="string">			&#125;,</span></div><div class="line"><span class="string">			created() &#123;</span></div><div class="line"><span class="string">				// 修改颜色</span></div><div class="line"><span class="string">				this.colors = new Array(81).fill(1).map(() =&gt; &#123;</span></div><div class="line"><span class="string">					var r = Math.floor(Math.random() * 128 + 128)</span></div><div class="line"><span class="string">					var g = Math.floor(Math.random() * 128 + 128)</span></div><div class="line"><span class="string">					var b = Math.floor(Math.random() * 128 + 128)</span></div><div class="line"><span class="string">					return `rgb($&#123;r&#125;,$&#123;g&#125;,$&#123;b&#125;)`</span></div><div class="line"><span class="string">				&#125;)</span></div><div class="line"><span class="string">			&#125;,</span></div><div class="line"><span class="string">			mounted() &#123;</span></div><div class="line"><span class="string">				console.log(this.colors);</span></div><div class="line"><span class="string">				setInterval(() =&gt; &#123;</span></div><div class="line"><span class="string">					this.shuffle()</span></div><div class="line"><span class="string">				&#125;, 2000)</span></div><div class="line"><span class="string">			&#125;</span></div><div class="line"><span class="string">		&#125;)</span></div><div class="line"><span class="string">	&lt;/script&gt;</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">&lt;/html&gt;</span></div></pre></td></tr></table></figure>
 
       
     </div>
@@ -490,8 +443,8 @@
   <script src="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.min.js"></script>
   <link rel="stylesheet" type="text/css" href="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.mini.css">
   <p><span>文章作者:</span><a href="/" title="访问 陈晟 的个人博客">陈晟</a></p>
-  <p><span>原始链接:</span><a href="/2017/02/15/20-Vue的入门/" title="Vue的入门及介绍">http://www.chensheng.group/2017/02/15/20-Vue的入门/</a>
-    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://www.chensheng.group/2017/02/15/20-Vue的入门/"  aria-label="复制成功！"></i></span>
+  <p><span>原始链接:</span><a href="/2017/05/10/33-Vue过渡动画的小例子/" title="Vue过渡动画的demo">http://www.chensheng.group/2017/05/10/33-Vue过渡动画的小例子/</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://www.chensheng.group/2017/05/10/33-Vue过渡动画的小例子/"  aria-label="复制成功！"></i></span>
   </p>
   <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 </a> 转载请保留原文链接及作者。</p>  
 </div>
@@ -525,6 +478,8 @@
           
             <a href="/tags/Vue/" rel="tag"><i class="fa fa-tag"></i> Vue</a>
           
+            <a href="/tags/Vue过渡动画/" rel="tag"><i class="fa fa-tag"></i> Vue过渡动画</a>
+          
         </div>
       
 
@@ -536,8 +491,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/02/10/19-jq延时对象/" rel="next" title="jQuery延时对象deferred">
-                <i class="fa fa-chevron-left"></i> jQuery延时对象deferred
+              <a href="/2017/05/02/32-Vue的过渡动画/" rel="next" title="Vue过渡动画">
+                <i class="fa fa-chevron-left"></i> Vue过渡动画
               </a>
             
           </div>
@@ -545,10 +500,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/02/20/21-Vue的基础/" rel="prev" title="Vue的基础知识">
-                Vue的基础知识 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -628,17 +579,8 @@ var jiathis_config={
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview sidebar-panel">
+      <section class="site-overview sidebar-panel sidebar-panel-active">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           
             <p class="site-author-name" itemprop="name">陈晟</p>
@@ -713,22 +655,6 @@ var jiathis_config={
 
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Vue介绍"><span class="nav-number">1.</span> <span class="nav-text">Vue介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用Vue-使用版为2-4"><span class="nav-number">2.</span> <span class="nav-text">使用Vue (使用版为2.4.*)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模板语法"><span class="nav-number">3.</span> <span class="nav-text">模板语法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#指令"><span class="nav-number">4.</span> <span class="nav-text">指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#过滤器"><span class="nav-number">5.</span> <span class="nav-text">过滤器</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
