@@ -93,7 +93,7 @@
 <meta property="og:site_name" content="陈先生的小前端">
 <meta property="og:description" content="Vue 在插入、更新或者移除 DOM 时，提供多种不同方式的应用过渡效果。今天和大家分享一下学习的过程">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-11-07T09:19:29.079Z">
+<meta property="og:updated_time" content="2017-11-08T08:41:56.808Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Vue过渡动画">
 <meta name="twitter:description" content="Vue 在插入、更新或者移除 DOM 时，提供多种不同方式的应用过渡效果。今天和大家分享一下学习的过程">
@@ -419,6 +419,117 @@
 <li>在过渡钩子函数中使用 JavaScript 直接操作 DOM</li>
 <li>可以配合使用第三方 JavaScript 动画库，如 Velocity.js</li>
 </ol>
+<h1 id="在CSS中设置过渡效果"><a href="#在CSS中设置过渡效果" class="headerlink" title="在CSS中设置过渡效果"></a>在CSS中设置过渡效果</h1><blockquote>
+<p>transition 标签里 放入需要过渡的内容</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;transition name=<span class="string">'fade'</span>&gt;</div><div class="line">	&lt;div v-<span class="keyword">if</span>=<span class="string">"seen"</span>&gt;&lt;span&gt;我是要过渡的内容&lt;/span&gt; &lt;<span class="regexp">/div&gt;</span></div><div class="line"><span class="regexp">&lt;/</span>transition&gt;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>在style中写入过渡的内容，假设过渡的名字为fade，实现淡入淡出的效果</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">&lt;style type=<span class="string">"text/css"</span>&gt;</div><div class="line">	.fade-enter-active&#123;</div><div class="line">		<span class="comment">/* 进入完成 */</span></div><div class="line">		transition: all <span class="number">1</span>s ease;</div><div class="line">		opacity: <span class="number">1</span>; 	</div><div class="line">	&#125;</div><div class="line">	.fade-enter&#123;</div><div class="line">		<span class="comment">/* 进入之前 */</span></div><div class="line">		opacity: <span class="number">0</span>;</div><div class="line">	&#125;</div><div class="line">	</div><div class="line">	.fade-leave-active&#123;</div><div class="line">		<span class="comment">/* 离开完成 */</span></div><div class="line">		transition: all <span class="number">1</span>s linear;</div><div class="line">		opacity: <span class="number">0</span>;</div><div class="line">	&#125;</div><div class="line">	.fade-leave&#123;</div><div class="line">		<span class="comment">/* 离开之前 */</span></div><div class="line">		opacity: <span class="number">1</span>;</div><div class="line">	&#125;</div><div class="line">&lt;<span class="regexp">/style&gt;</span></div></pre></td></tr></table></figure>
+<blockquote>
+<p>原理稍微介绍一下</p>
+</blockquote>
+<ol>
+<li><p>transition 标签 vue 会自动给其加上对应的样式(v-enter v-enter-active v-leave v-leave-active),v则是我们定义的name的值</p>
+</li>
+<li><p>带 active 的样式 一定要写在对应的非 active 样式之前</p>
+</li>
+</ol>
+<h1 id="在CSS中设置动画效果"><a href="#在CSS中设置动画效果" class="headerlink" title="在CSS中设置动画效果"></a>在CSS中设置动画效果</h1><p>之前是过渡，现在我们来看一下动画是怎么实现的，方法和过渡差不多：</p>
+<p>一、首先将需要执行动画的元素放到 transition 标签内</p>
+<p>二、其次给transition标签起一个名字,transition name=’bounce’,Vue会自动为transition标签里的目标元素，在适当的添加或删除 </p>
+<blockquote>
+<p>我们来看一下Vue自动生成的类有哪些：</p>
+</blockquote>
+<ol>
+<li>v-enter: 定义进入过渡的开始状态。在元素被插入时生效，在下一个帧移除。</li>
+<li>v-enter-active: 定义过渡的状态。在元素整个过渡过程中作用，在元素被插入时生效，在 transition/animation 完成之后移除。 这个类可以被用来定义过渡的过程时间，延迟和曲线函数。</li>
+<li>v-enter-to: 2.1.8版及以上 定义进入过渡的结束状态。在元素被插入一帧后生效（于此同时 v-enter 被删除），在 transition/animation 完成之后移除。</li>
+<li>v-leave: 定义离开过渡的开始状态。在离开过渡被触发时生效，在下一个帧移除。</li>
+<li>v-leave-active: 定义过渡的状态。在元素整个过渡过程中作用，在离开过渡被触发后立即生效，在 transition/animation 完成之后移除。 这个类可以被用来定义过渡的过程时间，延迟和曲线函数。</li>
+<li>v-leave-to: 2.1.8版及以上 定义离开过渡的结束状态。在离开过渡被触发一帧后生效（于此同时 v-leave 被删除），在 transition/animation 完成之后移除。</li>
+</ol>
+<p>三、在style中定义动画 animation: bounce-in 1s ease-in; 这里只是举个例子，animation可以根据具体的情况自行定义</p>
+<p>四、再将动画补全 @keyframes bounce-in{ }，@keyframes的内容根据自身需求来写</p>
+<blockquote>
+<p>补充</p>
+</blockquote>
+<ol>
+<li>v- 是这些类名的前缀。使用 <transition name="bounce"> 可以重置前缀</transition></li>
+<li>可以在transition标签中添加 :duration=”{ enter: 500, leave: 800 }” 来控制时间</li>
+</ol>
+<h1 id="依据动画库设置动画"><a href="#依据动画库设置动画" class="headerlink" title="依据动画库设置动画"></a>依据动画库设置动画</h1><ol>
+<li>首先引入animate.css</li>
+<li>将自定义动画的动画内容 放入transition标签内</li>
+<li>将需要的动画 放在 animated后面,注意前面的class,一定要加</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;transition</div><div class="line">	name=<span class="string">'custom'</span></div><div class="line">	enter-active-<span class="class"><span class="keyword">class</span></span>=<span class="string">'animated bounceInLeft'</span></div><div class="line">	leave-active-<span class="class"><span class="keyword">class</span></span>=<span class="string">'animated bounceOutRight'</span></div><div class="line">&gt;</div></pre></td></tr></table></figure>
+<h1 id="在javascript标签中设置动画"><a href="#在javascript标签中设置动画" class="headerlink" title="在javascript标签中设置动画"></a>在javascript标签中设置动画</h1><p>这里举一个简单的例子，可以去官方文档查看一下具体的例子</p>
+<p>一、首先在transition标签中,写入响应的事件,后面’’中填写的是函数名</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;transition</div><div class="line">	name=<span class="string">'fade'</span></div><div class="line">	@before-enter=<span class="string">'beforeEnter'</span></div><div class="line">	@enter=<span class="string">'enter'</span></div><div class="line">	@before-leave=<span class="string">'beforeLeave'</span></div><div class="line">	@leave=<span class="string">"leave"</span>	</div><div class="line">&gt;</div></pre></td></tr></table></figure>
+<p>二、在Vue的实例中,methods里面写入实现相应的函数</p>
+<blockquote>
+<p>一定要注意,函数需要传入参数,在enter 和 leave 的函数中,要调用 done()，当只用 JavaScript 过渡的时候， 在 enter 和 leave 中，回调函数 done 是必须的 。否则，它们会被同步调用，过渡会立即完成</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">beforeEnter(el) &#123;</div><div class="line">	$(el).css(&#123;</div><div class="line">		opacity : <span class="number">0</span></div><div class="line">	&#125;)</div><div class="line">&#125;,</div><div class="line">enter(el,done)&#123;</div><div class="line">	$(el).animate(&#123;</div><div class="line">		opacity : <span class="number">1</span></div><div class="line">	&#125;,<span class="number">1000</span>,<span class="string">'linear'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">		done()</div><div class="line">	&#125;)	 </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>动画的效果根据实际的情况进行描写，这里只是介绍了一种动画钩子，还有很多的动画钩子有兴趣的可以去试一下，运用的原理是一样的</p>
+<h1 id="常见的javascript动画钩子有哪些"><a href="#常见的javascript动画钩子有哪些" class="headerlink" title="常见的javascript动画钩子有哪些"></a>常见的javascript动画钩子有哪些</h1><ol>
+<li>@before-enter=”beforeEnter”</li>
+<li>@enter=”enter” //调用done()</li>
+<li>@after-enter=”afterEnter”</li>
+<li>@enter-cancelled=”enterCancelled” //动画取消进入触发</li>
+<li>@before-leave=”beforeLeave”</li>
+<li>@leave=”leave”//调用done()</li>
+<li>@after-leave=”afterLeave”</li>
+<li>@leave-cancelled=”leaveCancelled” //动画取消离开触发,leaveCancelled 只用于 v-show 中</li>
+</ol>
+<h1 id="初始化渲染"><a href="#初始化渲染" class="headerlink" title="初始化渲染"></a>初始化渲染</h1><blockquote>
+<p>在transition标签中写入appear属性, vue会加上这个初始渲染动画,和过渡一样，同样也可以自定义 CSS 类名,自定义 JavaScript 钩子.</p>
+</blockquote>
+<p>定义CSS类名:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;transition</div><div class="line">  appear</div><div class="line">  appear-<span class="class"><span class="keyword">class</span></span>=<span class="string">"custom-appear-class"</span></div><div class="line">  appear-to-<span class="class"><span class="keyword">class</span></span>=<span class="string">"custom-appear-to-class"</span> (<span class="number">2.1</span><span class="number">.8</span>+)</div><div class="line">  appear-active-<span class="class"><span class="keyword">class</span></span>=<span class="string">"custom-appear-active-class"</span></div><div class="line">&gt;</div><div class="line">&lt;<span class="regexp">/transition&gt;</span></div></pre></td></tr></table></figure>
+<p>自定义 JavaScript 钩子:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">&lt;transition</div><div class="line">	appear</div><div class="line">	@before-appear=<span class="string">'beforeAppear'</span></div><div class="line">	@appear=<span class="string">'appear'</span></div><div class="line">	@before-enter=<span class="string">'beforeEnter'</span></div><div class="line">	@enter=<span class="string">'enter'</span></div><div class="line">	@before-leave=<span class="string">'beforeLeave'</span></div><div class="line">	@leave=<span class="string">'leave'</span></div><div class="line">	:css=<span class="string">'false'</span></div><div class="line">	&gt;</div><div class="line">&lt;<span class="regexp">/transition&gt;</span></div></pre></td></tr></table></figure>
+<blockquote>
+<p>分享一下学习的体会</p>
+</blockquote>
+<ol>
+<li>before-appear是初始动画之前 </li>
+<li>appear为开始初始动画,这样写的好处是不影响我们进行动画的切换</li>
+<li>css属性: 有时候有css过渡 ,如果说为false,Vue 会跳过 CSS 的检测。这也可以避免过渡过程中 CSS 的影响</li>
+</ol>
+<h1 id="多元素过渡"><a href="#多元素过渡" class="headerlink" title="多元素过渡"></a>多元素过渡</h1><p>文档给出了例子，我这里就不再重复了，归纳一下具体的一些知识点</p>
+<ul>
+<li>transition 标签中要添加 mode=”out-in” <ul>
+<li>in-out: 新元素先进行过渡，完成之后当前元素过渡离开。</li>
+<li>out-in: 当前元素先进行过渡，完成之后新元素过渡进入。</li>
+</ul>
+</li>
+<li>一般来说transition 标签只能有一个标签在最外层,但是可以用v-if来控制</li>
+<li>相同标签名进行 if else 切换,一定要加上 key且值要不一样</li>
+</ul>
+<h1 id="多组件过渡"><a href="#多组件过渡" class="headerlink" title="多组件过渡"></a>多组件过渡</h1><p>多个组件的过渡简单很多 - 我们不需要使用 key 特性。相反，我们只需要使用动态组件:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;transition name=<span class="string">"component-fade"</span> mode=<span class="string">"out-in"</span>&gt;</div><div class="line">  &lt;component :is=<span class="string">"view"</span>&gt;&lt;/component&gt;</div><div class="line">&lt;<span class="regexp">/transition&gt;</span></div></pre></td></tr></table></figure>
+<p>在CSS中写入过渡:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">.component-fade-enter-active, .component-fade-leave-active &#123;</div><div class="line">  transition: opacity <span class="number">.3</span>s ease;</div><div class="line">&#125;</div><div class="line">.component-fade-enter, .component-fade-leave-to</div><div class="line"><span class="comment">/* .component-fade-leave-active for below version 2.1.8 */</span> &#123;</div><div class="line">  opacity: <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="列表过渡"><a href="#列表过渡" class="headerlink" title="列表过渡"></a>列表过渡</h1><p>与transition不同,列表过渡使用的是:transition-group 过渡组</p>
+<blockquote>
+<p>不同于 transition标签,它会以一个真实元素呈现：默认为一个 <span>。你也可以通过 tag 特性更换为其他元素。内部元素 总是需要 提供唯一的 key 属性值,添加的class 会传递到 生成的标签上</span></p>
+</blockquote>
+<p>例如:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;transition-group name=<span class="string">"list"</span> tag=<span class="string">"div"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">'aa'</span>&gt;</div><div class="line">    &lt;span v-<span class="keyword">for</span>=<span class="string">"item in items"</span> v-bind:key=<span class="string">"item"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"list-item"</span>&gt;</div><div class="line">      &#123;&#123; item &#125;&#125;</div><div class="line">    &lt;<span class="regexp">/span&gt;</span></div><div class="line"><span class="regexp">&lt;/</span>transition-group&gt;</div></pre></td></tr></table></figure>
+<blockquote>
+<p><transition-group> 组件还有一个特殊之处。不仅可以进入和离开动画，还可以改变定位。<br>要使用这个新功能只需了解新增的 v-move 特性，它会在元素的改变定位的过程中应用</transition-group></p>
+</blockquote>
+<p>例如: </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">.list-move&#123;</div><div class="line">	transition: all <span class="number">0.4</span>s linear;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ol>
+<li>需要在 list-leave-active 中添加  position: absolute  目的是让他不占位置</li>
+<li>过渡的元素最好display: inline-block,因为transform适用所有块元素以及某些行内元素(但是不包括span)</li>
+</ol>
+<p>官方文档给出了更为详细的例子，有兴趣的小伙伴可以去看一下</p>
+<p>这篇的过渡动画写的有点略长，以上就是我对Vue过渡动画的一些理解，有哪里不对的欢迎提出</p>
 
       
     </div>
@@ -582,8 +693,17 @@ var jiathis_config={
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           
             <p class="site-author-name" itemprop="name">陈晟</p>
@@ -658,6 +778,22 @@ var jiathis_config={
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#在CSS中设置过渡效果"><span class="nav-number">1.</span> <span class="nav-text">在CSS中设置过渡效果</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#在CSS中设置动画效果"><span class="nav-number">2.</span> <span class="nav-text">在CSS中设置动画效果</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#依据动画库设置动画"><span class="nav-number">3.</span> <span class="nav-text">依据动画库设置动画</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#在javascript标签中设置动画"><span class="nav-number">4.</span> <span class="nav-text">在javascript标签中设置动画</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#常见的javascript动画钩子有哪些"><span class="nav-number">5.</span> <span class="nav-text">常见的javascript动画钩子有哪些</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#初始化渲染"><span class="nav-number">6.</span> <span class="nav-text">初始化渲染</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#多元素过渡"><span class="nav-number">7.</span> <span class="nav-text">多元素过渡</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#多组件过渡"><span class="nav-number">8.</span> <span class="nav-text">多组件过渡</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#列表过渡"><span class="nav-number">9.</span> <span class="nav-text">列表过渡</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
