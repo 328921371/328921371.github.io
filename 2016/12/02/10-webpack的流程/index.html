@@ -93,7 +93,7 @@
 <meta property="og:site_name" content="陈先生的小前端">
 <meta property="og:description" content="最近开始学习webpack打包工具，和大家分享一下webpack的具体流程">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-10-12T05:23:49.067Z">
+<meta property="og:updated_time" content="2017-11-21T07:59:25.523Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="webpack的流程">
 <meta name="twitter:description" content="最近开始学习webpack打包工具，和大家分享一下webpack的具体流程">
@@ -462,7 +462,7 @@
 <blockquote>
 <p>附上基本的 webpack.config.js 配置</p>
 </blockquote>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">    entry: <span class="string">'./entry.js'</span>,	<span class="comment">//	配置入口文件 (入口文件中可以导入其他js或css文件)(var content = require('./content.js') 和 require('./style.css');)</span></div><div class="line"></div><div class="line">    output: &#123;	<span class="comment">//	配置保存的路径</span></div><div class="line">        </div><div class="line">        path: __dirname,	<span class="comment">// 文件路径,__dirname 代表当前目录,当前文件所在的路径</span></div><div class="line">        </div><div class="line">        filename: <span class="string">'bundle.js'</span>	<span class="comment">// 打包后的文件名</span></div><div class="line">    &#125;,</div><div class="line">    </div><div class="line">    <span class="built_in">module</span>: &#123;	<span class="comment">//模块部分</span></div><div class="line">    	</div><div class="line">        loaders: [	<span class="comment">// 加载器 可以配置多个</span></div><div class="line">            &#123;</div><div class="line">            	</div><div class="line">                test: <span class="regexp">/\.css$/</span>,	<span class="comment">//匹配以 .css 结尾的文件</span></div><div class="line">                </div><div class="line">                loaders: <span class="string">'style-loader!css-loader'</span>	<span class="comment">//指定加载的</span></div><div class="line">            &#125;</div><div class="line">        ]</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">    entry: <span class="string">'./entry.js'</span>,	<span class="comment">//	配置入口文件 (入口文件中可以导入其他js或css文件)(var content = require('./content.js') 和 require('./style.css');)</span></div><div class="line"></div><div class="line">    output: &#123;	<span class="comment">//	配置保存的路径</span></div><div class="line">        </div><div class="line">        path: __dirname,	<span class="comment">// 文件路径,__dirname 代表当前目录,当前文件所在的路径</span></div><div class="line">        </div><div class="line">        filename: <span class="string">'bundle.js'</span>	<span class="comment">// 打包后的文件名</span></div><div class="line">    &#125;,</div><div class="line">    </div><div class="line">    <span class="built_in">module</span>: &#123;	<span class="comment">//模块部分</span></div><div class="line">    	</div><div class="line">        loaders: [	<span class="comment">// 加载器 可以配置多个</span></div><div class="line">            &#123;</div><div class="line">            	</div><div class="line">                test: <span class="regexp">/\.css$/</span>,	<span class="comment">//匹配以 .css 结尾的文件</span></div><div class="line">                </div><div class="line">                loaders: <span class="string">'style-loader!css-loader'</span>	<span class="comment">//指定加载的</span></div><div class="line">            &#125;</div><div class="line">        ]</div><div class="line">    &#125;,</div><div class="line">    <span class="comment">// 配置web-dev-server</span></div><div class="line">		<span class="comment">// 第一种：iframe模式 顶部带一个黑条</span></div><div class="line">			<span class="comment">// 第二种：inline模块  不带黑条 true</span></div><div class="line">    devServer: &#123;</div><div class="line">	    inline: <span class="literal">false</span> </div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h3 id="服务器相关配置"><a href="#服务器相关配置" class="headerlink" title="服务器相关配置"></a>服务器相关配置</h3><blockquote>
 <p>作用:  当文件发送变化时,会自动执行重新生成文件</p>
 </blockquote>
@@ -680,7 +680,7 @@ var jiathis_config={
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">35</span>
+                <span class="site-state-item-count">38</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -702,7 +702,7 @@ var jiathis_config={
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">36</span>
+                <span class="site-state-item-count">39</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
