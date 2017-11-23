@@ -93,7 +93,7 @@
 <meta property="og:site_name" content="陈先生的小前端">
 <meta property="og:description" content="除了使用  创建 a 标签来定义导航链接，我们还可以借助 router 的实例方法，通过编写代码来实现。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-11-23T01:12:55.872Z">
+<meta property="og:updated_time" content="2017-11-23T01:18:34.193Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Vue的编程式导航">
 <meta name="twitter:description" content="除了使用  创建 a 标签来定义导航链接，我们还可以借助 router 的实例方法，通过编写代码来实现。">
@@ -424,8 +424,8 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">const</span> userId = <span class="number">123</span></div><div class="line"></div><div class="line">router.push(&#123; <span class="attr">name</span>: <span class="string">'user'</span>, <span class="attr">params</span>: &#123; userId &#125;&#125;) <span class="comment">// -&gt; /user/123</span></div><div class="line"></div><div class="line">router.push(&#123; <span class="attr">path</span>: <span class="string">`/user/<span class="subst">$&#123;userId&#125;</span>`</span> &#125;) <span class="comment">// -&gt; /user/123</span></div><div class="line"></div><div class="line"><span class="comment">// 这里的 params 不生效</span></div><div class="line">router.push(&#123; <span class="attr">path</span>: <span class="string">'/user'</span>, <span class="attr">params</span>: &#123; userId &#125;&#125;) <span class="comment">// -&gt; /user</span></div></pre></td></tr></table></figure>
 <h2 id="router-replace"><a href="#router-replace" class="headerlink" title="router.replace"></a>router.replace</h2><p>router.replace 跟 router.push 很像，唯一的不同就是，它不会向 history 添加新记录，而是跟它的方法名一样 —— 替换掉当前的 history 记录。</p>
 <p>组件中在router-link后面添加replace就好了</p>
-<pre><code>&lt;router-link :to=&quot;...&quot; replace&gt;
-</code></pre><h2 id="router-go-n"><a href="#router-go-n" class="headerlink" title="router.go(n)"></a>router.go(n)</h2><p>这个方法的参数是一个整数，意思是在 history 记录中向前或者后退多少步，类似 window.history.go(n)。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;router-link :to=<span class="string">"..."</span> replace&gt;</div></pre></td></tr></table></figure>
+<h2 id="router-go-n"><a href="#router-go-n" class="headerlink" title="router.go(n)"></a>router.go(n)</h2><p>这个方法的参数是一个整数，意思是在 history 记录中向前或者后退多少步，类似 window.history.go(n)。</p>
 <p>举个简单的例子：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 在浏览器记录中前进一步，等同于 history.forward()</span></div><div class="line">router.go(<span class="number">1</span>)</div><div class="line"></div><div class="line"><span class="comment">// 后退一步记录，等同于 history.back()</span></div><div class="line">router.go(<span class="number">-1</span>)</div><div class="line"></div><div class="line"><span class="comment">// 前进 3 步记录</span></div><div class="line">router.go(<span class="number">3</span>)</div><div class="line"></div><div class="line"><span class="comment">// 如果 history 记录不够用，那就默默地失败呗</span></div><div class="line">router.go(<span class="number">-100</span>)</div><div class="line">router.go(<span class="number">100</span>)</div></pre></td></tr></table></figure>
 

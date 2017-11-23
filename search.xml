@@ -15,7 +15,7 @@
   <entry>
     <title><![CDATA[Vue的编程式导航]]></title>
     <url>%2F2017%2F08%2F30%2F39-Vue%E7%9A%84%E7%BC%96%E7%A8%8B%E5%BC%8F%E5%AF%BC%E8%88%AA%2F</url>
-    <content type="text"><![CDATA[除了使用 创建 a 标签来定义导航链接，我们还可以借助 router 的实例方法，通过编写代码来实现。 router.push在 Vue 实例内部，你可以通过 $router 访问路由实例。因此你可以调用 this.$router.push。 想要导航到不同的 URL，则使用 router.push 方法。这个方法会向 history 栈添加一个新的记录，所以，当用户点击浏览器后退按钮时，则回到之前的 URL。 当你点击 时，这个方法会在内部调用，所以说，点击 等同于调用 router.push(…)。 官方的文档是这样描述的，挺详细的，简单点的意思就是，系统会自动调用 router.push，我们也可以手动的使用它。 举个简单的例子 12345678// 字符串router.push('home')// 对象router.push(&#123; path: 'home' &#125;)// 命名的路由router.push(&#123; name: 'user', params: &#123; userId: 123 &#125;&#125;) 这里有个值得注意的地方，如果提供了 path，params 会被忽略，需要提供路由的 name 或手写完整的带有参数的 path： 123456789const userId = 123router.push(&#123; name: 'user', params: &#123; userId &#125;&#125;) // -&gt; /user/123router.push(&#123; path: `/user/$&#123;userId&#125;` &#125;) // -&gt; /user/123// 这里的 params 不生效router.push(&#123; path: '/user', params: &#123; userId &#125;&#125;) // -&gt; /user router.replacerouter.replace 跟 router.push 很像，唯一的不同就是，它不会向 history 添加新记录，而是跟它的方法名一样 —— 替换掉当前的 history 记录。 组件中在router-link后面添加replace就好了 &lt;router-link :to=&quot;...&quot; replace&gt; router.go(n)这个方法的参数是一个整数，意思是在 history 记录中向前或者后退多少步，类似 window.history.go(n)。 举个简单的例子： 123456789101112// 在浏览器记录中前进一步，等同于 history.forward()router.go(1)// 后退一步记录，等同于 history.back()router.go(-1)// 前进 3 步记录router.go(3)// 如果 history 记录不够用，那就默默地失败呗router.go(-100)router.go(100)]]></content>
+    <content type="text"><![CDATA[除了使用 创建 a 标签来定义导航链接，我们还可以借助 router 的实例方法，通过编写代码来实现。 router.push在 Vue 实例内部，你可以通过 $router 访问路由实例。因此你可以调用 this.$router.push。 想要导航到不同的 URL，则使用 router.push 方法。这个方法会向 history 栈添加一个新的记录，所以，当用户点击浏览器后退按钮时，则回到之前的 URL。 当你点击 时，这个方法会在内部调用，所以说，点击 等同于调用 router.push(…)。 官方的文档是这样描述的，挺详细的，简单点的意思就是，系统会自动调用 router.push，我们也可以手动的使用它。 举个简单的例子 12345678// 字符串router.push('home')// 对象router.push(&#123; path: 'home' &#125;)// 命名的路由router.push(&#123; name: 'user', params: &#123; userId: 123 &#125;&#125;) 这里有个值得注意的地方，如果提供了 path，params 会被忽略，需要提供路由的 name 或手写完整的带有参数的 path： 123456789const userId = 123router.push(&#123; name: 'user', params: &#123; userId &#125;&#125;) // -&gt; /user/123router.push(&#123; path: `/user/$&#123;userId&#125;` &#125;) // -&gt; /user/123// 这里的 params 不生效router.push(&#123; path: '/user', params: &#123; userId &#125;&#125;) // -&gt; /user router.replacerouter.replace 跟 router.push 很像，唯一的不同就是，它不会向 history 添加新记录，而是跟它的方法名一样 —— 替换掉当前的 history 记录。 组件中在router-link后面添加replace就好了 1&lt;router-link :to="..." replace&gt; router.go(n)这个方法的参数是一个整数，意思是在 history 记录中向前或者后退多少步，类似 window.history.go(n)。 举个简单的例子： 123456789101112// 在浏览器记录中前进一步，等同于 history.forward()router.go(1)// 后退一步记录，等同于 history.back()router.go(-1)// 前进 3 步记录router.go(3)// 如果 history 记录不够用，那就默默地失败呗router.go(-100)router.go(100)]]></content>
       <categories>
         <category>Vue</category>
       </categories>
@@ -442,8 +442,8 @@
       </categories>
       <tags>
         <tag>javaScript</tag>
-        <tag>原型</tag>
         <tag>构造函数</tag>
+        <tag>原型</tag>
         <tag>继承</tag>
       </tags>
   </entry>
