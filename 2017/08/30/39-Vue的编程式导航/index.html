@@ -93,7 +93,7 @@
 <meta property="og:site_name" content="陈先生的小前端">
 <meta property="og:description" content="除了使用  创建 a 标签来定义导航链接，我们还可以借助 router 的实例方法，通过编写代码来实现。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-11-23T01:18:34.193Z">
+<meta property="og:updated_time" content="2017-11-24T01:26:19.132Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Vue的编程式导航">
 <meta name="twitter:description" content="除了使用  创建 a 标签来定义导航链接，我们还可以借助 router 的实例方法，通过编写代码来实现。">
@@ -428,6 +428,7 @@
 <h2 id="router-go-n"><a href="#router-go-n" class="headerlink" title="router.go(n)"></a>router.go(n)</h2><p>这个方法的参数是一个整数，意思是在 history 记录中向前或者后退多少步，类似 window.history.go(n)。</p>
 <p>举个简单的例子：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 在浏览器记录中前进一步，等同于 history.forward()</span></div><div class="line">router.go(<span class="number">1</span>)</div><div class="line"></div><div class="line"><span class="comment">// 后退一步记录，等同于 history.back()</span></div><div class="line">router.go(<span class="number">-1</span>)</div><div class="line"></div><div class="line"><span class="comment">// 前进 3 步记录</span></div><div class="line">router.go(<span class="number">3</span>)</div><div class="line"></div><div class="line"><span class="comment">// 如果 history 记录不够用，那就默默地失败呗</span></div><div class="line">router.go(<span class="number">-100</span>)</div><div class="line">router.go(<span class="number">100</span>)</div></pre></td></tr></table></figure>
+<p>以上就是我对vue编程式导航的一些理解，有哪里不对的欢迎提出</p>
 
       
     </div>
@@ -513,8 +514,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/11/09/50-Vuex的使用/" rel="prev" title="Vuex的使用">
-                Vuex的使用 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/09/13/40-Vue的重定向与别名/" rel="prev" title="Vue的重定向与别名">
+                Vue的重定向与别名 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -619,7 +620,7 @@ var jiathis_config={
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">41</span>
+                <span class="site-state-item-count">43</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
