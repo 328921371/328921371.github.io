@@ -93,7 +93,7 @@
 <meta property="og:site_name" content="陈先生的小前端">
 <meta property="og:description" content="什么是导航守卫，简单的来说，就是路由进行跳转或改变的时候，会触发，这就是导航守卫">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-11-24T05:10:48.387Z">
+<meta property="og:updated_time" content="2018-01-08T07:15:41.752Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Vue的导航守卫">
 <meta name="twitter:description" content="什么是导航守卫，简单的来说，就是路由进行跳转或改变的时候，会触发，这就是导航守卫">
@@ -414,8 +414,8 @@
 <p>一下内容转载至官方文档，官网给的文档还是很详细的，有兴趣的可以去看一下</p>
 <p>参数或查询的改变并不会触发进入/离开的导航守卫。你可以通过观察 $route 对象来应对这些变化，或使用 beforeRouteUpdate 的组件内守卫。</p>
 <h3 id="全局守卫"><a href="#全局守卫" class="headerlink" title="全局守卫"></a>全局守卫</h3><p>你可以使用 router.beforeEach 注册一个全局前置守卫：</p>
-<p>const router = new VueRouter({ … })</p>
-<p>router.beforeEach((to, from, next) =&gt; {<br>  // …<br>})<br>当一个导航触发时，全局前置守卫按照创建顺序调用。守卫是异步解析执行，此时导航在所有守卫 resolve 完之前一直处于 等待中。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> router = <span class="keyword">new</span> VueRouter(&#123; ... &#125;)</div><div class="line"></div><div class="line">router.beforeEach(<span class="function">(<span class="params">to, <span class="keyword">from</span>, next</span>) =&gt;</span> &#123;</div><div class="line">  <span class="comment">// ...</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>当一个导航触发时，全局前置守卫按照创建顺序调用。守卫是异步解析执行，此时导航在所有守卫 resolve 完之前一直处于 等待中。</p>
 <p>每个守卫方法接收三个参数：</p>
 <ul>
 <li><p>to: Route: 即将要进入的目标 路由对象</p>
@@ -659,7 +659,7 @@ var jiathis_config={
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">44</span>
+                <span class="site-state-item-count">45</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -670,7 +670,7 @@ var jiathis_config={
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-count">12</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -681,7 +681,7 @@ var jiathis_config={
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">42</span>
+                <span class="site-state-item-count">43</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -753,7 +753,7 @@ var jiathis_config={
         <div class="copyright" >
   
   &copy;  2015 &mdash; 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
