@@ -69,7 +69,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="vue-cli," />
+  <meta name="keywords" content="Flexible," />
 
 
 
@@ -85,18 +85,18 @@
 
 
 
-<meta name="description" content="适配一直都是前端比较重视的问题，今天主要是记录一下自己的学习过程">
-<meta name="keywords" content="vue-cli">
+<meta name="description" content="适配一直都是前端比较重视的问题，今天主要是记录一下自己的学习过程，适配之前先初始化样式，我用的是Amaze UI的那一套，这个看个人喜好">
+<meta name="keywords" content="Flexible">
 <meta property="og:type" content="article">
 <meta property="og:title" content="在vue-cli中的webApp适配">
 <meta property="og:url" content="http://www.chensheng.group/2018/01/26/56-vue-cli的webApp适配/index.html">
 <meta property="og:site_name" content="陈先生的小前端">
-<meta property="og:description" content="适配一直都是前端比较重视的问题，今天主要是记录一下自己的学习过程">
+<meta property="og:description" content="适配一直都是前端比较重视的问题，今天主要是记录一下自己的学习过程，适配之前先初始化样式，我用的是Amaze UI的那一套，这个看个人喜好">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-01-26T06:20:09.189Z">
+<meta property="og:updated_time" content="2018-01-26T07:23:32.320Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="在vue-cli中的webApp适配">
-<meta name="twitter:description" content="适配一直都是前端比较重视的问题，今天主要是记录一下自己的学习过程">
+<meta name="twitter:description" content="适配一直都是前端比较重视的问题，今天主要是记录一下自己的学习过程，适配之前先初始化样式，我用的是Amaze UI的那一套，这个看个人喜好">
 
 
 
@@ -358,8 +358,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/vue-cli/" itemprop="url" rel="index">
-                    <span itemprop="name">vue-cli</span>
+                  <a href="/categories/Flexible/" itemprop="url" rel="index">
+                    <span itemprop="name">Flexible</span>
                   </a>
                 </span>
 
@@ -409,7 +409,7 @@
         <hr style="filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)" color="#FF0000" size="1">
 
 <blockquote>
-<p>适配一直都是前端比较重视的问题，今天主要是记录一下自己的学习过程</p>
+<p>适配一直都是前端比较重视的问题，今天主要是记录一下自己的学习过程，适配之前先初始化样式，我用的是Amaze UI的那一套，这个看个人喜好</p>
 </blockquote>
 <a id="more"></a>
 <p>使用Flexible实现H5页面的终端适配，先给大家一个连接，写的很详细  <a href="https://www.w3cplus.com/mobile/lib-flexible-for-html5-layout.html" target="_blank" rel="external">点我!!点我!!</a></p>
@@ -433,6 +433,9 @@
 <p>并放进 loaders 数组中</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> loaders = options.usePostCSS ? [cssLoader, postcssLoader, px2remLoader] : [cssLoader, px2remLoader]</div><div class="line"></div><div class="line"><span class="keyword">if</span> (loader) &#123;</div><div class="line">  loaders.push(&#123;</div><div class="line">    loader: loader + <span class="string">'-loader'</span>,</div><div class="line">    options: <span class="built_in">Object</span>.assign(&#123;&#125;, loaderOptions, &#123;</div><div class="line">      sourceMap: options.sourceMap</div><div class="line">    &#125;)</div><div class="line">  &#125;)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>修改配置后需要重启，然后我们在组件中写单位直接写 px，设计稿量多少就可以写多少了，舒服多了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">.selector &#123;</div><div class="line">    width: 150px;</div><div class="line">    height: 64px; /*px*/</div><div class="line">    font-size: 28px; /*px*/</div><div class="line">    border: 1px solid #ddd; /*no*/</div><div class="line">&#125;</div><div class="line"></div><div class="line">上面的/no/和/px/ 标识 不需要变成rem的一定要加上 这样最终不会把px变成rem px2rem处理之后将会变成：</div><div class="line">.selector &#123;</div><div class="line">    width: 2rem;</div><div class="line">    border: 1px solid #ddd;</div><div class="line">&#125;</div><div class="line">[data-dpr=&quot;1&quot;] .selector &#123;</div><div class="line">    height: 32px;</div><div class="line">    font-size: 14px;</div><div class="line">&#125;</div><div class="line">[data-dpr=&quot;2&quot;] .selector &#123;</div><div class="line">    height: 64px;</div><div class="line">    font-size: 28px;</div><div class="line">&#125;</div><div class="line">[data-dpr=&quot;3&quot;] .selector &#123;</div><div class="line">    height: 96px;</div><div class="line">    font-size: 42px;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>说明: </p>
+<p>font-size:26px /<em>no</em>/ px不转成rem<br>font-size:26px /<em>px</em>/ px根据设备转化<br>font-size:26px px转成rem</p>
 <p>好了，以上就是我对vue-cli的适配的一些理解，如果文章由于我学识浅薄，导致您发现有严重谬误的地方，请一定在评论中指出，我会在第一时间修正我的博文，以避免误人子弟。</p>
 
       
@@ -494,7 +497,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/vue-cli/" rel="tag"><i class="fa fa-tag"></i> vue-cli</a>
+            <a href="/tags/Flexible/" rel="tag"><i class="fa fa-tag"></i> Flexible</a>
           
         </div>
       
@@ -517,8 +520,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/01/26/58-前端的兼容问题/" rel="prev" title="前端的兼容解决方案">
-                前端的兼容解决方案 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/01/26/57-Html5-webApp适配/" rel="prev" title="Html5中的webApp适配">
+                Html5中的webApp适配 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -614,7 +617,7 @@ var jiathis_config={
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">50</span>
+                <span class="site-state-item-count">51</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -625,7 +628,7 @@ var jiathis_config={
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-count">16</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -636,7 +639,7 @@ var jiathis_config={
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">46</span>
+                <span class="site-state-item-count">47</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

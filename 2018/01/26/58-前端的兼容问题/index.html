@@ -93,7 +93,7 @@
 <meta property="og:site_name" content="陈先生的小前端">
 <meta property="og:description" content="兼容一直都是前端比较重视的问题，今天主要是记录一下自己的学习过程">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-01-26T06:41:25.518Z">
+<meta property="og:updated_time" content="2018-01-26T06:55:47.254Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="前端的兼容解决方案">
 <meta name="twitter:description" content="兼容一直都是前端比较重视的问题，今天主要是记录一下自己的学习过程">
@@ -414,10 +414,17 @@
 <a id="more"></a>
 <p>兼容性我用的是Autoprefixer这个插件，Autoprefixer是一个后处理程序，你可以同Sass，Stylus或LESS等预处理器共通使用。它适用于普通的CSS，而你无需关心要为哪些浏览器加前缀，只需使用W3C最新的规范关注于实现。</p>
 <p>我的IDE用的是HBuilder 一款适合新手的Html5开发环境，接下来说一下怎么将Autoprefixer 装在HBuilder中</p>
-<p>首先在命令行中输入  npm install autoprefixer -g </p>
+<h2 id="配置autoprefixer"><a href="#配置autoprefixer" class="headerlink" title="配置autoprefixer"></a>配置autoprefixer</h2><p>首先在命令行中输入  npm install autoprefixer -g </p>
 <p>Autoprefixer其实是postcss的插件 ，所以也要安装postcss-cli<br>npm install postcss-cli -g</p>
 <p>打开HBuilder，运行-外部工具-外部工具配置</p>
-<p>好了，以上就是我对vue-cli的适配的一些理解，如果文章由于我学识浅薄，导致您发现有严重谬误的地方，请一定在评论中指出，我会在第一时间修正我的博文，以避免误人子弟。</p>
+<p>名称填写  autoprefixer（这个随意）</p>
+<p>要执行的命令或文件填写npm安装目录  D:\Program Files\nodejs\node_global\postcss.cmd  这个目录是看自己安装在哪里</p>
+<p>工作目录填写  ${project_loc}</p>
+<p>参数填写  -u autoprefixer -o ${resource_loc} ${resource_loc}</p>
+<p>配置完后应用，运行。</p>
+<h2 id="使用autoprefixer"><a href="#使用autoprefixer" class="headerlink" title="使用autoprefixer"></a>使用autoprefixer</h2><p>点击你的css、sass文件，然后右键，依次点击外部工具-autoprefixer（此处为你新建外部工具的名称）等待编译，编译完毕即可</p>
+<h2 id="创建快捷方式"><a href="#创建快捷方式" class="headerlink" title="创建快捷方式"></a>创建快捷方式</h2><p>工具-选项-常规-快捷键，搜索autoprefixer（此处为你新建外部工具的名称），设置快捷键即可</p>
+<p>好了，以上就是我对兼容性解决的一些理解，如果文章由于我学识浅薄，导致您发现有严重谬误的地方，请一定在评论中指出，我会在第一时间修正我的博文，以避免误人子弟。</p>
 
       
     </div>
@@ -491,8 +498,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/01/26/56-vue-cli的webApp适配/" rel="next" title="在vue-cli中的webApp适配">
-                <i class="fa fa-chevron-left"></i> 在vue-cli中的webApp适配
+              <a href="/2018/01/26/57-Html5-webApp适配/" rel="next" title="Html5中的webApp适配">
+                <i class="fa fa-chevron-left"></i> Html5中的webApp适配
               </a>
             
           </div>
@@ -579,8 +586,17 @@ var jiathis_config={
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           
             <p class="site-author-name" itemprop="name">陈晟</p>
@@ -594,7 +610,7 @@ var jiathis_config={
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">50</span>
+                <span class="site-state-item-count">51</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -605,7 +621,7 @@ var jiathis_config={
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-count">16</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -616,7 +632,7 @@ var jiathis_config={
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">46</span>
+                <span class="site-state-item-count">47</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -655,6 +671,22 @@ var jiathis_config={
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#配置autoprefixer"><span class="nav-number">1.</span> <span class="nav-text">配置autoprefixer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用autoprefixer"><span class="nav-number">2.</span> <span class="nav-text">使用autoprefixer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建快捷方式"><span class="nav-number">3.</span> <span class="nav-text">创建快捷方式</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
