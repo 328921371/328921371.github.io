@@ -2,7 +2,7 @@
 <search>
   <entry>
     <title><![CDATA[前端的兼容解决方案]]></title>
-    <url>%2F2018%2F01%2F28%2F58-%E5%89%8D%E7%AB%AF%E7%9A%84%E5%85%BC%E5%AE%B9%E9%97%AE%E9%A2%98%2F</url>
+    <url>%2F2018%2F01%2F26%2F58-%E5%89%8D%E7%AB%AF%E7%9A%84%E5%85%BC%E5%AE%B9%E9%97%AE%E9%A2%98%2F</url>
     <content type="text"><![CDATA[兼容一直都是前端比较重视的问题，今天主要是记录一下自己的学习过程 兼容性我用的是Autoprefixer这个插件，Autoprefixer是一个后处理程序，你可以同Sass，Stylus或LESS等预处理器共通使用。它适用于普通的CSS，而你无需关心要为哪些浏览器加前缀，只需使用W3C最新的规范关注于实现。 我的IDE用的是HBuilder 一款适合新手的Html5开发环境，接下来说一下怎么将Autoprefixer 装在HBuilder中 首先在命令行中输入 npm install autoprefixer -g Autoprefixer其实是postcss的插件 ，所以也要安装postcss-clinpm install postcss-cli -g 打开HBuilder，运行-外部工具-外部工具配置 好了，以上就是我对vue-cli的适配的一些理解，如果文章由于我学识浅薄，导致您发现有严重谬误的地方，请一定在评论中指出，我会在第一时间修正我的博文，以避免误人子弟。]]></content>
       <categories>
         <category>兼容</category>
