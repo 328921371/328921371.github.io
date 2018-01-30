@@ -93,7 +93,7 @@
 <meta property="og:site_name" content="陈先生的小前端">
 <meta property="og:description" content="前端写样式总是一件很繁琐的事情，这时候，有人就开始为CSS加入编程元素，这被叫做”CSS预处理器”。它的基本思想是，用一种专门的编程语言，进行网页样式设计，然后再编译成正常的CSS文件。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-01-30T02:22:39.315Z">
+<meta property="og:updated_time" content="2018-01-30T02:27:03.736Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="scss的使用">
 <meta name="twitter:description" content="前端写样式总是一件很繁琐的事情，这时候，有人就开始为CSS加入编程元素，这被叫做”CSS预处理器”。它的基本思想是，用一种专门的编程语言，进行网页样式设计，然后再编译成正常的CSS文件。">
@@ -481,15 +481,9 @@
 <h4 id="定义方法-Mixin"><a href="#定义方法-Mixin" class="headerlink" title="定义方法(Mixin)"></a>定义方法(Mixin)</h4><p>使用@mixin命令，定义一个代码块。这个代码块可以重复使用,有点类似定义一个方法,可以传入参数</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">@mixin cart($vcolor,$vwidth) &#123;</div><div class="line">  display: inline-block;</div><div class="line">  width: 25%;</div><div class="line">  height: 40px;</div><div class="line">  line-height: 40px;</div><div class="line">  text-align: center;</div><div class="line">  background: &#123;</div><div class="line">    color: $vcolor;</div><div class="line">  &#125;;</div><div class="line">  border: $vwidth solid red;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>使用的时候要@include<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">.main-ul &#123;</div><div class="line">  list-style: none;</div><div class="line">  font-size: 0;</div><div class="line">    li &#123;</div><div class="line">      font-size: 10px * 2;</div><div class="line">      &amp;:nth-of-type(1)&#123;</div><div class="line">        @include cart(yellow,2px);</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h3 id="代码注释"><a href="#代码注释" class="headerlink" title="代码注释"></a>代码注释</h3><h4 id="单行注释"><a href="#单行注释" class="headerlink" title="单行注释"></a>单行注释</h4><blockquote>
-<p>// 单行注释，只保留在SASS源文件中，编译后被省略。</p>
-</blockquote>
-<h4 id="多行注释"><a href="#多行注释" class="headerlink" title="多行注释"></a>多行注释</h4><blockquote>
-<p>/<em> </em>/ 标准的CSS注释,会保留到编译后的文件</p>
-</blockquote>
-<h4 id="重要注释"><a href="#重要注释" class="headerlink" title="重要注释"></a>重要注释</h4><blockquote>
-<p>/<em>! </em>/ 后面加一个感叹号，表示这是”重要注释”。即使是压缩模式编译，也会保留这行注释，通常可以用于声明版权信息。</p>
-</blockquote>
+<h3 id="代码注释"><a href="#代码注释" class="headerlink" title="代码注释"></a>代码注释</h3><h4 id="单行注释"><a href="#单行注释" class="headerlink" title="单行注释"></a>单行注释</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">// 单行注释，只保留在SASS源文件中，编译后被省略。</div></pre></td></tr></table></figure>
+<h4 id="多行注释"><a href="#多行注释" class="headerlink" title="多行注释"></a>多行注释</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/* 标准的CSS注释,会保留到编译后的文件 */</div></pre></td></tr></table></figure>
+<h4 id="重要注释"><a href="#重要注释" class="headerlink" title="重要注释"></a>重要注释</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/*! 后面加一个感叹号，表示这是&quot;重要注释&quot;。即使是压缩模式编译，也会保留这行注释，通常可以用于声明版权信息。 */</div></pre></td></tr></table></figure>
 <h3 id="导入外部样式-这个和css一样"><a href="#导入外部样式-这个和css一样" class="headerlink" title="导入外部样式,这个和css一样"></a>导入外部样式,这个和css一样</h3><p>@import “react.css”;</p>
 <blockquote>
 <p>一定记得加分号</p>
