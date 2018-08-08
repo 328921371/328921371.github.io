@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[弹性布局深入]]></title>
+    <url>%2F2018%2F08%2F08%2F62-%E5%BC%B9%E6%80%A7%E5%B8%83%E5%B1%80%E6%B7%B1%E5%85%A5%2F</url>
+    <content type="text"><![CDATA[因为工作原因,今天才来更新一下博客,记录一下学习的过程,弹性布局的深入..(display: flex) CSS3之前,我们对面布局是怎么设计的,图文列表并排的时候,大多数都是绝对定位,浮动布局,这不失为一个好的办法,今天来讲一下新的布局,弹性布局 什么是Flex 布局Flex 是 Flexible Box 的缩写，意为”弹性布局”，用来为盒状模型提供最大的灵活性。(任何一个容器都可以指定为 Flex 布局) 基本概念采用 Flex 布局的元素，称为 Flex 容器（flex container），简称”容器”。它的所有子元素自动成为容器成员，称为 Flex 项目（flex item），简称”项目”。 容器的属性 容器属性也就是父级元素中样式设置的属性 决定主轴的方向(即项目的排列方向,横或者竖) flex-direction: row; row（默认值）：主轴为水平方向，起点在左端。 row-reverse：主轴为水平方向，起点在右端。 column：主轴为垂直方向，起点在上沿。 column-reverse：主轴为垂直方向，起点在下沿。 项目都排在一条线（又称”轴线”）上。flex-wrap属性定义，如果一条轴线排不下，如何换行。 flex-wrap: wrap; nowrap（默认）：不换行。 wrap：换行，第一行在上方。 wrap-reverse：换行，第一行在下方。 flex-flow属性是flex-direction属性和flex-wrap属性的简写形式，默认值为row nowrap。 flex-flow: row wrap; justify-content属性定义了项目在主轴(x轴)上的对齐方式。 justify-content: space-around; flex-start（默认值）：左对齐 flex-end：右对齐 center： 居中 space-between：两端对齐，项目之间的间隔都相等。 space-around：每个项目两侧的间隔相等。所以，项目之间的间隔比项目与边框的间隔大一倍。*/ align-items属性定义项目在交叉(y轴)轴上如何对齐。(总体的布局) align-items: center; stretch（默认值）：如果项目未设置高度或设为auto，将占满整个容器的高度。 flex-start：交叉轴的起点对齐。 flex-end：交叉轴的终点对齐。 center：交叉轴的中点对齐。 baseline: 项目的第一行文字的基线对齐。 align-content属性定义了多根轴线的对齐方式。如果项目只有一根轴线，该属性不起作用。 align-content: space-around; stretch（默认值）：轴线占满整个交叉轴。 flex-start：与交叉轴的起点对齐。 flex-end：与交叉轴的终点对齐。 center：与交叉轴的中点对齐。 space-between：与交叉轴两端对齐，轴线之间的间隔平均分布。 space-around：每根轴线两侧的间隔都相等。所以，轴线之间的间隔比轴线与边框的间隔大一倍。 项目属性 项目属性也就是子级元素中样式设置的属性 order属性 order属性定义项目的排列顺序。数值越小，排列越靠前，默认为0。order: 0; flex-grow属性 flex-grow属性定义项目的放大比例，默认为0，即如果存在剩余空间，也不放大。flex-grow: 0; flex-shrink属性 flex-shrink属性定义了项目的缩小比例，默认为1，即如果空间不足，该项目将缩小。flex-shrink: 1; flex-basis属性 flex-basis属性定义了在分配多余空间之前，项目占据的主轴空间（main size）。浏览器根据这个属性，计算主轴是否有多余空间。它的默认值为auto，即项目的本来大小。flex-basis: auto; flex属性 flex属性是flex-grow, flex-shrink 和 flex-basis的简写，默认值为0 1 auto。后两个属性可选。flex: 0 1 auto; align-self属性 align-self属性允许单个项目有与其他项目不一样的对齐方式，可覆盖align-items属性。默认值为auto，表示继承父元素的align-items属性，如果没有父元素，则等同于stretch。该属性可能取6个值，除了auto，其他都与align-items属性完全一致。align-self: auto; 好了，以上就是我对弹性布局的一些理解，如果文章由于我学识浅薄，导致您发现有严重谬误的地方，请一定在评论中指出，我会在第一时间修正我的博文，以避免误人子弟。]]></content>
+      <categories>
+        <category>CSS3</category>
+      </categories>
+      <tags>
+        <tag>CSS3</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[hexo 部署报错]]></title>
     <url>%2F2018%2F03%2F15%2F61-hexo%E9%83%A8%E7%BD%B2%E6%8A%A5%E9%94%99%2F</url>
     <content type="text"><![CDATA[今年的1月份还一切正常,二月份的时候,当我部署当github上时,发现报错了:fatal: could not read Username for ‘GitHub’ 解决办法: 修改配置文件： 根目录下的_config.yml，修改deploy节点。 原来的配置为： 1234deploy: type: git repo: https://github.com/yourname/yourname.github.io.git branch: master 修改为如下： 1234deploy: type: git repo: https://yourname:yourpassword@github.com/yourname/yourname.github.io.git branch: master 好了，成功,如果不行,再去找找其他的解决办法把]]></content>
@@ -599,8 +610,8 @@
       </categories>
       <tags>
         <tag>javaScript</tag>
-        <tag>构造函数</tag>
         <tag>原型</tag>
+        <tag>构造函数</tag>
         <tag>继承</tag>
       </tags>
   </entry>
