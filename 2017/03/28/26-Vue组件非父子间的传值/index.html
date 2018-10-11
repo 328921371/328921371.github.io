@@ -93,7 +93,7 @@
 <meta property="og:site_name" content="陈先生的小前端">
 <meta property="og:description" content="Vue组件之间的传值不仅仅发生在父子间组件中，有时候，非父子关系的两个组件之间也需要通信。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-11-06T06:24:28.459Z">
+<meta property="og:updated_time" content="2018-10-11T02:51:27.725Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Vue组件非父子间传值">
 <meta name="twitter:description" content="Vue组件之间的传值不仅仅发生在父子间组件中，有时候，非父子关系的两个组件之间也需要通信。">
@@ -417,13 +417,12 @@
 <h4 id="第一步"><a href="#第一步" class="headerlink" title="第一步"></a>第一步</h4><blockquote>
 <p>创建一个 vue 作为中央线来处理 非父子关系的组件传递数据</p>
 </blockquote>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> bus = <span class="keyword">new</span> Vue();</div></pre></td></tr></table></figure>
 <p>新建一个bus.js</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">'Vue'</span></div><div class="line"></div><div class="line"><span class="keyword">var</span> bus = <span class="keyword">new</span> Vue();	</div><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> bus;</div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">'Vue'</span></div><div class="line"></div><div class="line"><span class="keyword">var</span> bus = <span class="keyword">new</span> Vue();</div><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> bus;</div></pre></td></tr></table></figure>
 <h4 id="第二步"><a href="#第二步" class="headerlink" title="第二步"></a>第二步</h4><blockquote>
 <p>在组件二中创建监听事件—-注意:监听事件一定要在发射之前,监听才有效</p>
 </blockquote>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">//使用前先导入</span></div><div class="line"><span class="keyword">import</span> bus <span class="keyword">from</span> <span class="string">'../bus.js'</span>;</div><div class="line"></div><div class="line">created()&#123;	<span class="comment">//created这个会在注册组件完成是执行,后面再细说	</span></div><div class="line">	bus.$on(<span class="string">'giveMsg'</span>,(value)=&gt;&#123; <span class="comment">//箭头函数的this是指向外部的,所以没有问题</span></div><div class="line">		<span class="keyword">this</span>.counter += value</div><div class="line">		<span class="comment">//这里的value是传递过来的值</span></div><div class="line">	&#125;)	<span class="comment">//可以加bind改变this的指向,普通的匿名函数的指向值bus的</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">//使用前先导入</span></div><div class="line"><span class="keyword">import</span> bus <span class="keyword">from</span> <span class="string">'../bus.js'</span>;</div><div class="line"></div><div class="line">created()&#123;	<span class="comment">//created这个会在注册组件完成是执行,后面再细说</span></div><div class="line">	bus.$on(<span class="string">'giveMsg'</span>,(value)=&gt;&#123; <span class="comment">//箭头函数的this是指向外部的,所以没有问题</span></div><div class="line">		<span class="keyword">this</span>.counter += value</div><div class="line">		<span class="comment">//这里的value是传递过来的值</span></div><div class="line">	&#125;)	<span class="comment">//可以加bind改变this的指向,普通的匿名函数的指向值bus的</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h4 id="第三步"><a href="#第三步" class="headerlink" title="第三步"></a>第三步</h4><p>在组件一中发射组件</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">methods:&#123;</div><div class="line">	add()&#123;</div><div class="line">		bus.$emit(<span class="string">'giveMsg'</span>,ran) <span class="comment">//通过bus中央线来发射组件</span></div><div class="line">		<span class="comment">//giveMsg类似于事件的名称</span></div><div class="line">		<span class="comment">//ran是要传递的参数</span></div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>非父子组件的传值与自定义事件的思路是类似的，写法上也大体相同</p>
@@ -593,7 +592,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">55</span>
+                <span class="site-state-item-count">56</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -604,7 +603,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-count">20</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -615,7 +614,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">50</span>
+                <span class="site-state-item-count">51</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

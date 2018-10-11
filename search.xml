@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[前端跨域深入]]></title>
+    <url>%2F2018%2F10%2F10%2F63-%E5%89%8D%E7%AB%AF%E8%B7%A8%E5%9F%9F%E6%B7%B1%E5%85%A5%2F</url>
+    <content type="text"><![CDATA[跨域想必大家都不陌生,解决的方法之前的博客也有提到,今天来一起学习一下,跨域的时候,浏览器做了哪些操作,后台的服务器能否收到前端在跨域时发出的参数 跨域的原因就不在重复的描述了,今天了解一下两点,浏览器同源政策及跨域资源共享 浏览器同源政策同源政策的目的，是为了保证用户信息的安全，防止恶意的网站窃取数据。 同源政策共有三种行为受到限制 Cookie、LocalStorage 和 IndexDB 无法读取。 DOM 无法获得。 AJAX 请求不能发送。 提交表单不受同源政策的限制。 其实很好理解的,如果 Cookie 包含隐私（比如存款总额），这些信息就会泄漏。更可怕的是，Cookie 往往用来保存用户的登录状态，如果用户没有退出登录，其他网站就可以冒充用户，为所欲为。由此可见，”同源政策”是必需的，否则 Cookie 可以共享，互联网就毫无安全可言了。 跨域资源共享CORS（Cross-origin resource sharing）它允许浏览器向跨源服务器，发出XMLHttpRequest请求，从而克服了AJAX只能同源使用的限制。稍后通过一些例子来具体说明 CORS请求 浏览器将CORS请求分成两类：简单请求（simple request）和非简单请求（not-so-simple request）。 一丶请求方法是以下三种方法之一 HEAD GET POST 二丶HTTP的头信息不超出以下几种字段 Accept Accept-Language Content-Language Last-Event-ID Content-Type：只限于三个值application/x-www-form-urlencoded、multipart/form-data、text/plain 凡是不同时满足上面两个条件，就属于非简单请求。浏览器对这两种请求的处理，是不一样的。 简单请求假设有一个post请求,是一个简单请求 123456789101112$.post(&#123; url: 'http://127.0.0.1:3000/ceshi', data: &#123; name: '我是谁' &#125;, success: function(resData) &#123; console.log(resData); &#125;, error:function(resData)&#123; console.log(resData); &#125;&#125;) 对应的服务端代码为(详细的代码就不贴出来了,之前的博客有) 1234567app.post('/ceshi',function(req,res)&#123; console.log(req.body) res.send(&#123; code:'success', message:'你好' &#125;)&#125;) 这时服务器并没有设置允许跨域,前端浏览器发现跨域,返回了提示,但是,后端的服务器是可以接受到前端传过来的值的 非简单请求将上面的请求稍微改一下,添加一个contentType: ‘application/json’ 12345678910111213$.post(&#123; url: 'http://127.0.0.1:3000/ceshi', contentType: 'application/json', data: &#123; name: '我是谁' &#125;, success: function(resData) &#123; console.log(resData); &#125;, error:function(resData)&#123; console.log(resData); &#125;&#125;) 服务器就接受不到前端传递的参数了,这是为什么呢,同样都是跨域,为什么一个收的到,一个却不行 因为非简单请求是那种对服务器有特殊要求的请求，比如请求方法是PUT或DELETE，或者Content-Type字段的类型是application/json。 非简单请求的CORS请求，会在正式通信之前，增加一次HTTP查询请求，称为”预检”请求（preflight）。 浏览器先询问服务器，当前网页所在的域名是否在服务器的许可名单之中，以及可以使用哪些HTTP动词和头信息字段。只有得到肯定答复，浏览器才会发出正式的XMLHttpRequest请求，否则就报错。 当服务端允许跨域后 12345678app.all('*', function(req, res, next) &#123; res.header("Access-Control-Allow-Origin", "*"); res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept"); res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS"); res.header("X-Powered-By",' 3.2.1') res.header("Content-Type", "application/json;charset=utf-8"); next();&#125;); 服务器返回的响应，会多出几个头信息字段。 Access-Control-Allow-Origin: *Access-Control-Allow-Credentials: trueAccess-Control-Expose-Headers: Origin, X-Requested-With, Content-Type, AcceptContent-Type: text/html; charset=utf-8 好了，以上就是我对跨域的一些理解，如果文章由于我学识浅薄，导致您发现有严重谬误的地方，请一定在评论中指出，我会在第一时间修正我的博文，以避免误人子弟。]]></content>
+      <categories>
+        <category>javascript</category>
+      </categories>
+      <tags>
+        <tag>javascript</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[弹性布局深入]]></title>
     <url>%2F2018%2F08%2F08%2F62-%E5%BC%B9%E6%80%A7%E5%B8%83%E5%B1%80%E6%B7%B1%E5%85%A5%2F</url>
     <content type="text"><![CDATA[因为工作原因,今天才来更新一下博客,记录一下学习的过程,弹性布局的深入..(display: flex) CSS3之前,我们对面布局是怎么设计的,图文列表并排的时候,大多数都是绝对定位,浮动布局,这不失为一个好的办法,今天来讲一下新的布局,弹性布局 什么是Flex 布局Flex 是 Flexible Box 的缩写，意为”弹性布局”，用来为盒状模型提供最大的灵活性。(任何一个容器都可以指定为 Flex 布局) 基本概念采用 Flex 布局的元素，称为 Flex 容器（flex container），简称”容器”。它的所有子元素自动成为容器成员，称为 Flex 项目（flex item），简称”项目”。 容器的属性 容器属性也就是父级元素中样式设置的属性 决定主轴的方向(即项目的排列方向,横或者竖) flex-direction: row; row（默认值）：主轴为水平方向，起点在左端。 row-reverse：主轴为水平方向，起点在右端。 column：主轴为垂直方向，起点在上沿。 column-reverse：主轴为垂直方向，起点在下沿。 项目都排在一条线（又称”轴线”）上。flex-wrap属性定义，如果一条轴线排不下，如何换行。 flex-wrap: wrap; nowrap（默认）：不换行。 wrap：换行，第一行在上方。 wrap-reverse：换行，第一行在下方。 flex-flow属性是flex-direction属性和flex-wrap属性的简写形式，默认值为row nowrap。 flex-flow: row wrap; justify-content属性定义了项目在主轴(x轴)上的对齐方式。 justify-content: space-around; flex-start（默认值）：左对齐 flex-end：右对齐 center： 居中 space-between：两端对齐，项目之间的间隔都相等。 space-around：每个项目两侧的间隔相等。所以，项目之间的间隔比项目与边框的间隔大一倍。*/ align-items属性定义项目在交叉(y轴)轴上如何对齐。(总体的布局) align-items: center; stretch（默认值）：如果项目未设置高度或设为auto，将占满整个容器的高度。 flex-start：交叉轴的起点对齐。 flex-end：交叉轴的终点对齐。 center：交叉轴的中点对齐。 baseline: 项目的第一行文字的基线对齐。 align-content属性定义了多根轴线的对齐方式。如果项目只有一根轴线，该属性不起作用。 align-content: space-around; stretch（默认值）：轴线占满整个交叉轴。 flex-start：与交叉轴的起点对齐。 flex-end：与交叉轴的终点对齐。 center：与交叉轴的中点对齐。 space-between：与交叉轴两端对齐，轴线之间的间隔平均分布。 space-around：每根轴线两侧的间隔都相等。所以，轴线之间的间隔比轴线与边框的间隔大一倍。 项目属性 项目属性也就是子级元素中样式设置的属性 order属性 order属性定义项目的排列顺序。数值越小，排列越靠前，默认为0。order: 0; flex-grow属性 flex-grow属性定义项目的放大比例，默认为0，即如果存在剩余空间，也不放大。flex-grow: 0; flex-shrink属性 flex-shrink属性定义了项目的缩小比例，默认为1，即如果空间不足，该项目将缩小。flex-shrink: 1; flex-basis属性 flex-basis属性定义了在分配多余空间之前，项目占据的主轴空间（main size）。浏览器根据这个属性，计算主轴是否有多余空间。它的默认值为auto，即项目的本来大小。flex-basis: auto; flex属性 flex属性是flex-grow, flex-shrink 和 flex-basis的简写，默认值为0 1 auto。后两个属性可选。flex: 0 1 auto; align-self属性 align-self属性允许单个项目有与其他项目不一样的对齐方式，可覆盖align-items属性。默认值为auto，表示继承父元素的align-items属性，如果没有父元素，则等同于stretch。该属性可能取6个值，除了auto，其他都与align-items属性完全一致。align-self: auto; 好了，以上就是我对弹性布局的一些理解，如果文章由于我学识浅薄，导致您发现有严重谬误的地方，请一定在评论中指出，我会在第一时间修正我的博文，以避免误人子弟。]]></content>
@@ -339,7 +350,7 @@
   <entry>
     <title><![CDATA[Vue组件非父子间传值]]></title>
     <url>%2F2017%2F03%2F28%2F26-Vue%E7%BB%84%E4%BB%B6%E9%9D%9E%E7%88%B6%E5%AD%90%E9%97%B4%E7%9A%84%E4%BC%A0%E5%80%BC%2F</url>
-    <content type="text"><![CDATA[Vue组件之间的传值不仅仅发生在父子间组件中，有时候，非父子关系的两个组件之间也需要通信。 非父子组件的传值非父子组件的传值大体上也是分为三个步骤，我还是称作三部曲 在简单的场景下，可以使用一个空的 Vue 实例作为事件总线： 第一步 创建一个 vue 作为中央线来处理 非父子关系的组件传递数据 1var bus = new Vue(); 新建一个bus.js 1234import Vue from 'Vue'var bus = new Vue(); export default bus; 第二步 在组件二中创建监听事件—-注意:监听事件一定要在发射之前,监听才有效 12345678910//使用前先导入import bus from '../bus.js';created()&#123; //created这个会在注册组件完成是执行,后面再细说 bus.$on('giveMsg',(value)=&gt;&#123; //箭头函数的this是指向外部的,所以没有问题 this.counter += value //这里的value是传递过来的值 &#125;) //可以加bind改变this的指向,普通的匿名函数的指向值bus的&#125; 第三步在组件一中发射组件 1234567methods:&#123; add()&#123; bus.$emit('giveMsg',ran) //通过bus中央线来发射组件 //giveMsg类似于事件的名称 //ran是要传递的参数 &#125;&#125; 非父子组件的传值与自定义事件的思路是类似的，写法上也大体相同 以上就是我对Vue组件非父子间传值的一些理解，希望大神们可以指出错误，谢谢]]></content>
+    <content type="text"><![CDATA[Vue组件之间的传值不仅仅发生在父子间组件中，有时候，非父子关系的两个组件之间也需要通信。 非父子组件的传值非父子组件的传值大体上也是分为三个步骤，我还是称作三部曲 在简单的场景下，可以使用一个空的 Vue 实例作为事件总线： 第一步 创建一个 vue 作为中央线来处理 非父子关系的组件传递数据 新建一个bus.js 1234import Vue from 'Vue'var bus = new Vue();export default bus; 第二步 在组件二中创建监听事件—-注意:监听事件一定要在发射之前,监听才有效 12345678910//使用前先导入import bus from '../bus.js';created()&#123; //created这个会在注册组件完成是执行,后面再细说 bus.$on('giveMsg',(value)=&gt;&#123; //箭头函数的this是指向外部的,所以没有问题 this.counter += value //这里的value是传递过来的值 &#125;) //可以加bind改变this的指向,普通的匿名函数的指向值bus的&#125; 第三步在组件一中发射组件 1234567methods:&#123; add()&#123; bus.$emit('giveMsg',ran) //通过bus中央线来发射组件 //giveMsg类似于事件的名称 //ran是要传递的参数 &#125;&#125; 非父子组件的传值与自定义事件的思路是类似的，写法上也大体相同 以上就是我对Vue组件非父子间传值的一些理解，希望大神们可以指出错误，谢谢]]></content>
       <categories>
         <category>Vue</category>
       </categories>
@@ -610,8 +621,8 @@
       </categories>
       <tags>
         <tag>javaScript</tag>
-        <tag>原型</tag>
         <tag>构造函数</tag>
+        <tag>原型</tag>
         <tag>继承</tag>
       </tags>
   </entry>
