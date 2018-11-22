@@ -93,7 +93,7 @@
 <meta property="og:site_name" content="陈先生的小前端">
 <meta property="og:description" content="什么是导航守卫，简单的来说，就是路由进行跳转或改变的时候，会触发，这就是导航守卫">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-01-24T06:14:26.120Z">
+<meta property="og:updated_time" content="2018-11-22T05:15:07.462Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Vue的导航守卫">
 <meta name="twitter:description" content="什么是导航守卫，简单的来说，就是路由进行跳转或改变的时候，会触发，这就是导航守卫">
@@ -441,7 +441,7 @@
 <h3 id="全局后置钩子"><a href="#全局后置钩子" class="headerlink" title="全局后置钩子"></a>全局后置钩子</h3><p>你也可以注册全局后置钩子，然而和守卫不同的是，这些钩子不会接受 next 函数也不会改变导航本身：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">router.afterEach(<span class="function">(<span class="params">to, <span class="keyword">from</span></span>) =&gt;</span> &#123;</div><div class="line">  <span class="comment">// ...</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
 <h3 id="路由独享的守卫"><a href="#路由独享的守卫" class="headerlink" title="路由独享的守卫"></a>路由独享的守卫</h3><p>你可以在路由配置上直接定义 beforeEnter 守卫：</p>
-<p>const router = new VueRouter({<br>  routes: [<br>    {<br>      path: ‘/foo’,<br>      component: Foo,<br>      beforeEnter: (to, from, next) =&gt; {<br>        // …<br>      }<br>    }<br>  ]<br>})</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">const router = new VueRouter(&#123;</div><div class="line">  routes: [</div><div class="line">    &#123;</div><div class="line">      path: &apos;/foo&apos;,</div><div class="line">      component: Foo,</div><div class="line">      beforeEnter: (to, from, next) =&gt; &#123;</div><div class="line">        // ...</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">  ]</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
 <h3 id="组件内的守卫"><a href="#组件内的守卫" class="headerlink" title="组件内的守卫"></a>组件内的守卫</h3><p>可以在路由组件内直接定义以下路由导航守卫：</p>
 <ol>
 <li>beforeRouteEnter</li>
