@@ -69,7 +69,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="javaScript,数组去重," />
+  <meta name="keywords" content="javaScript,对象合并," />
 
 
 
@@ -85,18 +85,18 @@
 
 
 
-<meta name="description" content="javaScript的数组去重有很多种方法，我分享一下我学习过程中的小demo">
-<meta name="keywords" content="javaScript,数组去重">
+<meta name="description" content="javaScript的对象合并也是一个比较重要的知识点，分为浅复制和深复制，现在和大家分享一下我的学习过程">
+<meta name="keywords" content="javaScript,对象合并">
 <meta property="og:type" content="article">
-<meta property="og:title" content="JavaScript数组去重">
-<meta property="og:url" content="http://www.chensheng.group/2016/10/23/07-数组去重/index.html">
+<meta property="og:title" content="JavaScript对象合并">
+<meta property="og:url" content="http://www.chensheng.group/2016/10/05/06-JavaScript对象合并/index.html">
 <meta property="og:site_name" content="陈先生的小前端">
-<meta property="og:description" content="javaScript的数组去重有很多种方法，我分享一下我学习过程中的小demo">
+<meta property="og:description" content="javaScript的对象合并也是一个比较重要的知识点，分为浅复制和深复制，现在和大家分享一下我的学习过程">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-11-02T05:32:46.746Z">
+<meta property="og:updated_time" content="2017-11-02T05:31:41.902Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="JavaScript数组去重">
-<meta name="twitter:description" content="javaScript的数组去重有很多种方法，我分享一下我学习过程中的小demo">
+<meta name="twitter:title" content="JavaScript对象合并">
+<meta name="twitter:description" content="javaScript的对象合并也是一个比较重要的知识点，分为浅复制和深复制，现在和大家分享一下我的学习过程">
 
 
 
@@ -126,13 +126,13 @@
 
 
 
-  <link rel="canonical" href="http://www.chensheng.group/2016/10/23/07-数组去重/"/>
+  <link rel="canonical" href="http://www.chensheng.group/2016/10/05/06-JavaScript对象合并/"/>
 
 
 
 
 
-  <title>JavaScript数组去重 | 陈先生的小前端</title>
+  <title>JavaScript对象合并 | 陈先生的小前端</title>
   
 
 
@@ -306,7 +306,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.chensheng.group/2016/10/23/07-数组去重/">
+    <link itemprop="mainEntityOfPage" href="http://www.chensheng.group/2016/10/05/06-JavaScript对象合并/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="陈晟">
@@ -323,7 +323,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">JavaScript数组去重</h1>
+          <h1 class="post-title" itemprop="name headline">JavaScript对象合并</h1>
         
 
         <div class="post-meta">
@@ -335,8 +335,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-10-23T19:22:12+08:00">
-                2016-10-23
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-10-05T11:42:12+08:00">
+                2016-10-05
               </time>
             
 
@@ -377,8 +377,8 @@
                 <i class="fa fa-comment-o"></i>
               </span>
               
-                <a href="/2016/10/23/07-数组去重/#SOHUCS" itemprop="discussionUrl">
-                  <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2016/10/23/07-数组去重/" itemprop="commentsCount"></span>
+                <a href="/2016/10/05/06-JavaScript对象合并/#SOHUCS" itemprop="discussionUrl">
+                  <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2016/10/05/06-JavaScript对象合并/" itemprop="commentsCount"></span>
                 </a>
               
             
@@ -409,39 +409,17 @@
         <hr style="filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)" color="#FF0000" size="1">
 
 <blockquote>
-<p>javaScript的数组去重有很多种方法，我分享一下我学习过程中的小demo</p>
+<p>javaScript的对象合并也是一个比较重要的知识点，分为浅复制和深复制，现在和大家分享一下我的学习过程</p>
 </blockquote>
 <a id="more"></a>
-<p>原理比较简单，我直接在下面贴出例子</p>
-<p>假设有一个arr1的数组</p>
-<h3 id="去重代码"><a href="#去重代码" class="headerlink" title="去重代码"></a>去重代码</h3><p>第一种： </p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">way1</span>(<span class="params"></span>) </span>&#123;</div><div class="line">	<span class="keyword">var</span> newArr = [];<span class="comment">//创建新数组</span></div><div class="line">	</div><div class="line">	<span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; arr1.length; i++) &#123;　</div><div class="line">	</div><div class="line">		<span class="keyword">if</span>(newArr.indexOf(arr1[i]) == <span class="number">-1</span>) &#123;<span class="comment">//判断是否有这个值　</span></div><div class="line">			newArr.push(arr1[i]);　　</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	<span class="built_in">console</span>.log(newArr)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>第二种： </p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">way2</span>(<span class="params"></span>)</span>&#123;</div><div class="line"></div><div class="line">　　<span class="keyword">var</span> arr2 = arr1.sort();	<span class="comment">//对数组排序</span></div><div class="line">	</div><div class="line">　　<span class="keyword">var</span> res = [];		</div><div class="line">　　<span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;arr2.length;i++)&#123;</div><div class="line">　　　　<span class="keyword">if</span>(arr2[i] !== res[res.length<span class="number">-1</span>])&#123;	</div><div class="line">　　　　　　res.push(arr2[i]);		</div><div class="line">　　　　&#125;	</div><div class="line">　　&#125;	</div><div class="line">　　<span class="built_in">console</span>.log(res);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>第三种： </p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> setObj = <span class="keyword">new</span> <span class="built_in">Set</span>();</div><div class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; arr1.length; i++) &#123;</div><div class="line">	setObj.add(arr1[i]);</div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> arr4 = [];</div><div class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i <span class="keyword">of</span> setObj)&#123;</div><div class="line">	arr4.push(i)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>第四种：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">way4</span>(<span class="params">arr</span>)</span>&#123;</div><div class="line">　　<span class="keyword">var</span> res =[];		</div><div class="line">　　<span class="keyword">var</span> obj = &#123;&#125;;		</div><div class="line">　　<span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;arr1.length;i++)&#123;	</div><div class="line">　　　　<span class="keyword">if</span>(!obj[arr1[i]])&#123;		</div><div class="line">　　　　　　res.push(arr1[i]);		</div><div class="line">　　　　　　obj[arr1[i]] = <span class="number">1</span>;		</div><div class="line">　　　　&#125;		</div><div class="line">　　&#125;		</div><div class="line">　　<span class="built_in">console</span>.log(res)		</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>第五种：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">way5</span>(<span class="params"></span>)</span>&#123;</div><div class="line">      	<span class="keyword">var</span> arr=[];</div><div class="line">      	<span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>;i&lt;arr1.length;i++)&#123;</div><div class="line">      		<span class="comment">//判断当前位置的数字首次出现的位置是不是当前的位置</span></div><div class="line">      		<span class="keyword">if</span>(arr1.indexOf(arr1[i]) == i)&#123;</div><div class="line">      			</div><div class="line">      			arr.push(arr1[i])</div><div class="line">      		&#125;</div><div class="line">      		</div><div class="line">      	&#125;</div><div class="line">      	<span class="built_in">console</span>.log(arr)</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
-<p>第六种：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">way6</span>(<span class="params"></span>) </span>&#123;</div><div class="line">       <span class="keyword">var</span> r = [];</div><div class="line">       <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>;i &lt; arr1.length; i++) &#123;</div><div class="line">           <span class="keyword">for</span> (<span class="keyword">var</span> j = i + <span class="number">1</span>; j &lt; arr1.length; j++)&#123;</div><div class="line">           	<span class="keyword">if</span> (arr1[i] === arr1[j]) j = ++i;</div><div class="line">           &#125;</div><div class="line">           r.push(arr1[i]);	            	</div><div class="line">       &#125;</div><div class="line">       <span class="built_in">console</span>.log(r);</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
-<h3 id="去重原理"><a href="#去重原理" class="headerlink" title="去重原理"></a>去重原理</h3><p>我简单的说一下具体的原理</p>
-<p>第一种:</p>
-<p>创建一个空数组arr<br>用for循环<br>判断 arr indexOf (这里是要判断的数组的元素) == -1<br>如果是,就push进去</p>
-<p>第二种:</p>
-<p>先排序<br>    arr2[i] !== res[res.length-1]<br>判断前后是否一致<br>这里的res是新数组</p>
-<p>第三种:</p>
-<p>创建一个集合,将数组所有的都加入到集合中<br>    setObj.add(arr1[i]);</p>
-<p>第四种:</p>
-<p>创建空的[]和{}<br>将数组值当做{}的键<br>判断对象上是否有键<br>没有的话就在空数组push</p>
-<p>第五种:</p>
-<p>判断当前位置的数字首次出现的位置是不是当前的位置<br>    arr1.indexOf(arr1[i]) == i</p>
-<p>第六种:</p>
-<p>两个for循环进行判断<br>假如有个数组[1,2,5,2,4,3,1];</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>;i &lt; arr1.length; i++) &#123;</div><div class="line">       <span class="keyword">for</span> (<span class="keyword">var</span> j = i + <span class="number">1</span>; j &lt; arr1.length; j++)&#123;</div><div class="line">       	<span class="keyword">if</span> (arr1[i] === arr1[j]) j = ++i;</div><div class="line">       &#125;</div><div class="line">       r.push(arr1[i]);	            	</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>当遇到一样的数值时，就跳过判断下一个，没有的话第二个for循环会执行结束<br>这样就可以push进去了..[5,2,4,3,1]</p>
-<p>以上就是我对数组去重的一些理解,不足之处希望大牛们多提一些意见,感激不尽</p>
+<h3 id="浅复制"><a href="#浅复制" class="headerlink" title="浅复制"></a>浅复制</h3><p>在之前的博客中有提到过，由于对象赋值是实际上赋值地址，所以赋值后修改新对象，会导致原来的对象也被修改举个简单的例子</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">externalCopy</span>(<span class="params">original,current</span>)</span>&#123;</div><div class="line">	<span class="keyword">for</span>(<span class="keyword">var</span> i <span class="keyword">in</span> original)&#123;</div><div class="line">		current[i] = original[i];</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">return</span> current;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="深复制"><a href="#深复制" class="headerlink" title="深复制"></a>深复制</h3><p>解决这种问题常用的有两种方法</p>
+<p>第一种： </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">deepCopy</span>(<span class="params">original, current</span>) </span>&#123;<span class="comment">//这里传递两个对象，被复制的，复制的</span></div><div class="line">	<span class="keyword">for</span>(<span class="keyword">var</span> i <span class="keyword">in</span> original)&#123;<span class="comment">//遍历要复制的对象</span></div><div class="line">		<span class="keyword">if</span>(<span class="keyword">typeof</span> original[i] === <span class="string">"object"</span>) &#123;<span class="comment">//判断是否为引用类型</span></div><div class="line">			<span class="comment">//引用类型的话，数组就给一个新的[]，这样指向新地址，对象给&#123;&#125;</span></div><div class="line">			current[i] = (<span class="built_in">Object</span>.prototype.toString.call(original[i]) === <span class="string">"[object Array]"</span>) ? [] : &#123;&#125;;</div><div class="line">			<span class="comment">//这时候重新调用本身，也就是递归函数，将[]或&#123;&#125;传入到current这个参数，</span></div><div class="line">			<span class="comment">//original在上面重新循环，这时候循环的是他的属性值，实现值的复制</span></div><div class="line">			deepCopy(original[i], current[i]);</div><div class="line">		&#125; <span class="keyword">else</span> &#123;</div><div class="line">			<span class="comment">//基本类型直接复制</span></div><div class="line">			current[i] = original[i];</div><div class="line">		&#125;				</div><div class="line">	&#125;</div><div class="line"><span class="keyword">return</span> current;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>第二种使用 $.extend()进行深复制</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> newobj = $.extend(<span class="literal">true</span>,&#123;&#125;, obj1, obj2);</div></pre></td></tr></table></figure>
+<p>以上就是我对对象复制的一些理解,不足之处希望大牛们多提一些意见,感激不尽</p>
 
       
     </div>
@@ -469,8 +447,8 @@
   <script src="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.min.js"></script>
   <link rel="stylesheet" type="text/css" href="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.mini.css">
   <p><span>文章作者:</span><a href="/" title="访问 陈晟 的个人博客">陈晟</a></p>
-  <p><span>原始链接:</span><a href="/2016/10/23/07-数组去重/" title="JavaScript数组去重">http://www.chensheng.group/2016/10/23/07-数组去重/</a>
-    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://www.chensheng.group/2016/10/23/07-数组去重/"  aria-label="复制成功！"></i></span>
+  <p><span>原始链接:</span><a href="/2016/10/05/06-JavaScript对象合并/" title="JavaScript对象合并">http://www.chensheng.group/2016/10/05/06-JavaScript对象合并/</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://www.chensheng.group/2016/10/05/06-JavaScript对象合并/"  aria-label="复制成功！"></i></span>
   </p>
   <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 </a> 转载请保留原文链接及作者。</p>  
 </div>
@@ -504,7 +482,7 @@
           
             <a href="/tags/javaScript/" rel="tag"><i class="fa fa-tag"></i> javaScript</a>
           
-            <a href="/tags/数组去重/" rel="tag"><i class="fa fa-tag"></i> 数组去重</a>
+            <a href="/tags/对象合并/" rel="tag"><i class="fa fa-tag"></i> 对象合并</a>
           
         </div>
       
@@ -517,8 +495,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/10/05/06-js对象合并/" rel="next" title="JavaScript对象合并">
-                <i class="fa fa-chevron-left"></i> JavaScript对象合并
+              <a href="/2016/09/24/05-This的指向问题与闭包/" rel="next" title="This的指向问题与闭包">
+                <i class="fa fa-chevron-left"></i> This的指向问题与闭包
               </a>
             
           </div>
@@ -527,8 +505,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/10/30/08-template的基本语法/" rel="prev" title="artTemplate的基本语法">
-                artTemplate的基本语法 <i class="fa fa-chevron-right"></i>
+              <a href="/2016/10/23/07-JavaScript数组去重/" rel="prev" title="JavaScript数组去重">
+                JavaScript数组去重 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -607,7 +585,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">57</span>
+                <span class="site-state-item-count">58</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -678,7 +656,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#去重代码"><span class="nav-number">1.</span> <span class="nav-text">去重代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#去重原理"><span class="nav-number">2.</span> <span class="nav-text">去重原理</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#浅复制"><span class="nav-number">1.</span> <span class="nav-text">浅复制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#深复制"><span class="nav-number">2.</span> <span class="nav-text">深复制</span></a></li></ol></div>
             
 
           </div>

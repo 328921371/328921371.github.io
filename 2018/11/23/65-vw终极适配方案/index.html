@@ -69,7 +69,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="javaScript,对象合并," />
+  <meta name="keywords" content="前端适配," />
 
 
 
@@ -85,18 +85,18 @@
 
 
 
-<meta name="description" content="javaScript的对象合并也是一个比较重要的知识点，分为浅复制和深复制，现在和大家分享一下我的学习过程">
-<meta name="keywords" content="javaScript,对象合并">
+<meta name="description" content="这篇文章,主要摘录大漠老师的文章,地址在上篇博客有提到,记录学习一下现在H5适配的主流方向">
+<meta name="keywords" content="前端适配">
 <meta property="og:type" content="article">
-<meta property="og:title" content="JavaScript对象合并">
-<meta property="og:url" content="http://www.chensheng.group/2016/10/05/06-js对象合并/index.html">
+<meta property="og:title" content="vw终极适配方案">
+<meta property="og:url" content="http://www.chensheng.group/2018/11/23/65-vw终极适配方案/index.html">
 <meta property="og:site_name" content="陈先生的小前端">
-<meta property="og:description" content="javaScript的对象合并也是一个比较重要的知识点，分为浅复制和深复制，现在和大家分享一下我的学习过程">
+<meta property="og:description" content="这篇文章,主要摘录大漠老师的文章,地址在上篇博客有提到,记录学习一下现在H5适配的主流方向">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-11-02T05:31:41.902Z">
+<meta property="og:updated_time" content="2018-11-23T06:04:49.006Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="JavaScript对象合并">
-<meta name="twitter:description" content="javaScript的对象合并也是一个比较重要的知识点，分为浅复制和深复制，现在和大家分享一下我的学习过程">
+<meta name="twitter:title" content="vw终极适配方案">
+<meta name="twitter:description" content="这篇文章,主要摘录大漠老师的文章,地址在上篇博客有提到,记录学习一下现在H5适配的主流方向">
 
 
 
@@ -126,13 +126,13 @@
 
 
 
-  <link rel="canonical" href="http://www.chensheng.group/2016/10/05/06-js对象合并/"/>
+  <link rel="canonical" href="http://www.chensheng.group/2018/11/23/65-vw终极适配方案/"/>
 
 
 
 
 
-  <title>JavaScript对象合并 | 陈先生的小前端</title>
+  <title>vw终极适配方案 | 陈先生的小前端</title>
   
 
 
@@ -306,7 +306,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.chensheng.group/2016/10/05/06-js对象合并/">
+    <link itemprop="mainEntityOfPage" href="http://www.chensheng.group/2018/11/23/65-vw终极适配方案/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="陈晟">
@@ -323,7 +323,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">JavaScript对象合并</h1>
+          <h1 class="post-title" itemprop="name headline">vw终极适配方案</h1>
         
 
         <div class="post-meta">
@@ -335,8 +335,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-10-05T11:42:12+08:00">
-                2016-10-05
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-23T11:33:22+08:00">
+                2018-11-23
               </time>
             
 
@@ -358,8 +358,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/javaScript/" itemprop="url" rel="index">
-                    <span itemprop="name">javaScript</span>
+                  <a href="/categories/前端适配/" itemprop="url" rel="index">
+                    <span itemprop="name">前端适配</span>
                   </a>
                 </span>
 
@@ -377,8 +377,8 @@
                 <i class="fa fa-comment-o"></i>
               </span>
               
-                <a href="/2016/10/05/06-js对象合并/#SOHUCS" itemprop="discussionUrl">
-                  <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2016/10/05/06-js对象合并/" itemprop="commentsCount"></span>
+                <a href="/2018/11/23/65-vw终极适配方案/#SOHUCS" itemprop="discussionUrl">
+                  <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2018/11/23/65-vw终极适配方案/" itemprop="commentsCount"></span>
                 </a>
               
             
@@ -409,17 +409,76 @@
         <hr style="filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)" color="#FF0000" size="1">
 
 <blockquote>
-<p>javaScript的对象合并也是一个比较重要的知识点，分为浅复制和深复制，现在和大家分享一下我的学习过程</p>
+<p>这篇文章,主要摘录大漠老师的文章,地址在上篇博客有提到,记录学习一下现在H5适配的主流方向</p>
 </blockquote>
 <a id="more"></a>
-<h3 id="浅复制"><a href="#浅复制" class="headerlink" title="浅复制"></a>浅复制</h3><p>在之前的博客中有提到过，由于对象赋值是实际上赋值地址，所以赋值后修改新对象，会导致原来的对象也被修改举个简单的例子</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">externalCopy</span>(<span class="params">original,current</span>)</span>&#123;</div><div class="line">	<span class="keyword">for</span>(<span class="keyword">var</span> i <span class="keyword">in</span> original)&#123;</div><div class="line">		current[i] = original[i];</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">return</span> current;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="深复制"><a href="#深复制" class="headerlink" title="深复制"></a>深复制</h3><p>解决这种问题常用的有两种方法</p>
-<p>第一种： </p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">deepCopy</span>(<span class="params">original, current</span>) </span>&#123;<span class="comment">//这里传递两个对象，被复制的，复制的</span></div><div class="line">	<span class="keyword">for</span>(<span class="keyword">var</span> i <span class="keyword">in</span> original)&#123;<span class="comment">//遍历要复制的对象</span></div><div class="line">		<span class="keyword">if</span>(<span class="keyword">typeof</span> original[i] === <span class="string">"object"</span>) &#123;<span class="comment">//判断是否为引用类型</span></div><div class="line">			<span class="comment">//引用类型的话，数组就给一个新的[]，这样指向新地址，对象给&#123;&#125;</span></div><div class="line">			current[i] = (<span class="built_in">Object</span>.prototype.toString.call(original[i]) === <span class="string">"[object Array]"</span>) ? [] : &#123;&#125;;</div><div class="line">			<span class="comment">//这时候重新调用本身，也就是递归函数，将[]或&#123;&#125;传入到current这个参数，</span></div><div class="line">			<span class="comment">//original在上面重新循环，这时候循环的是他的属性值，实现值的复制</span></div><div class="line">			deepCopy(original[i], current[i]);</div><div class="line">		&#125; <span class="keyword">else</span> &#123;</div><div class="line">			<span class="comment">//基本类型直接复制</span></div><div class="line">			current[i] = original[i];</div><div class="line">		&#125;				</div><div class="line">	&#125;</div><div class="line"><span class="keyword">return</span> current;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>第二种使用 $.extend()进行深复制</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> newobj = $.extend(<span class="literal">true</span>,&#123;&#125;, obj1, obj2);</div></pre></td></tr></table></figure>
-<p>以上就是我对对象复制的一些理解,不足之处希望大牛们多提一些意见,感激不尽</p>
+<p>大漠老师自己也提到了,现在已经弃用了Flexible的布局方案,开始彻底拥抱vw适配方案,当然到目前为止不管是哪一种方案，都还存在一定的缺陷。言外之意，还没有哪一个方案是完美的</p>
+<p>废话不多说,直接进入正题,vue-cli中如何使用vw来适配webApp页面</p>
+<p>首先,我们需要用到这些工具</p>
+<ul>
+<li>NodeJs</li>
+<li>NPM</li>
+<li>Webpack</li>
+<li>Vue-cli</li>
+<li>postcss-import</li>
+<li>postcss-url</li>
+<li>postcss-aspect-ratio-mini</li>
+<li>postcss-cssnext</li>
+<li>autoprefixer</li>
+<li>postcss-px-to-viewport</li>
+<li>postcss-write-svg</li>
+<li>cssnano</li>
+</ul>
+<p>好了,后面会说这些都是干嘛用的,进入项目</p>
+<h3 id="构建项目"><a href="#构建项目" class="headerlink" title="构建项目"></a>构建项目</h3><p><code>vue init webpack project</code></p>
+<blockquote>
+<p>通过Vue-cli构建的项目，在项目的根目录下有一个.postcssrc.js,我们来看看他们具体都是干什么的</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">module.exports = &#123;</div><div class="line">  &quot;plugins&quot;: &#123;</div><div class="line">    // postcss-import主要功有是解决@import引入路径问题。使用这个插件，可以让你很轻易的使用本地文件、node_modules或者web_modules的文件。这个插件配合postcss-url让你引入文件变得更轻松。</div><div class="line">    &quot;postcss-import&quot;: &#123;&#125;,</div><div class="line">    // 该插件主要用来处理文件，比如图片文件、字体文件等引用路径的处理。在Vue项目中，vue-loader已具有类似的功能，只需要配置中将vue-loader配置进去。</div><div class="line">    &quot;postcss-url&quot;: &#123;&#125;,</div><div class="line">    // autoprefixer插件是用来自动处理浏览器前缀的一个插件。如果你配置了postcss-cssnext，其中就已具备了autoprefixer的功能。在配置的时候，未显示的配置相关参数的话，表示使用的是Browserslist指定的列表参数，你也可以像这样来指定last 2 versions 或者 &gt; 5%。如此一来，你在编码时不再需要考虑任何浏览器前缀的问题，可以专心撸码。这也是PostCSS最常用的一个插件之一。</div><div class="line">    &quot;autoprefixer&quot;: &#123;&#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="安装插件"><a href="#安装插件" class="headerlink" title="安装插件"></a>安装插件</h3><p>我们需要的插件,vue-cli已经默认帮我们安装了三个了,接下来按照剩下的插件</p>
+<p><code>npm i postcss-aspect-ratio-mini postcss-px-to-viewport postcss-write-svg postcss-cssnext cssnano --S</code></p>
+<p>安装失败的小伙伴就多安装几次</p>
+<blockquote>
+<p>注意!注意!注意! 敲黑板了! cssnano的版本一定要3.10.0的, 4.0的版本不兼容报错</p>
+</blockquote>
+<p>安装成功后,package.json里面应该是这样的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">&quot;dependencies&quot;: &#123;</div><div class="line">  &quot;cssnano&quot;: &quot;^3.10.0&quot;,</div><div class="line">  &quot;cssnano-preset-advanced&quot;: &quot;^4.0.5&quot;,</div><div class="line">  &quot;postcss-aspect-ratio-mini&quot;: &quot;0.0.2&quot;,</div><div class="line">  &quot;postcss-cssnext&quot;: &quot;^3.1.0&quot;,</div><div class="line">  &quot;postcss-px-to-viewport&quot;: &quot;0.0.3&quot;,</div><div class="line">  &quot;postcss-write-svg&quot;: &quot;^3.0.1&quot;,</div><div class="line">  &quot;vue&quot;: &quot;^2.5.2&quot;,</div><div class="line">  &quot;vue-router&quot;: &quot;^3.0.1&quot;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h3><blockquote>
+<p>接下来在.postcssrc.js文件对新安装的PostCSS插件进行配置</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">module.exports = &#123;</div><div class="line">  &quot;plugins&quot;: &#123;</div><div class="line">    &quot;postcss-import&quot;: &#123;&#125;,</div><div class="line">    &quot;postcss-url&quot;: &#123;&#125;,</div><div class="line">    &quot;postcss-aspect-ratio-mini&quot;: &#123;&#125;,</div><div class="line">    &quot;postcss-write-svg&quot;: &#123;</div><div class="line">      utf8: false</div><div class="line">    &#125;,</div><div class="line">    // postcss-cssnext: postcss-cssnext其实就是cssnext。该插件可以让我们使用CSS未来的特性，其会对这些特性做相关的兼容性处理</div><div class="line">    &quot;postcss-cssnext&quot;: &#123;&#125;,</div><div class="line">    // postcss-px-to-viewport: postcss-px-to-viewport插件主要用来把px单位转换为vw、vh、vmin或者vmax这样的视窗单位</div><div class="line">    &quot;postcss-px-to-viewport&quot;: &#123;</div><div class="line">      viewportWidth: 750, // 视窗的宽度，对应的是我们设计稿的宽度，一般是750</div><div class="line">      viewportHeight: 1334, // 视窗的高度，根据750设备的宽度来指定，一般指定1334，也可以不配置</div><div class="line">      unitPrecision: 3, // 指定`px`转换为视窗单位值的小数位数（很多时候无法整除）</div><div class="line">      viewportUnit: &apos;vw&apos;, // 指定需要转换成的视窗单位，建议使用vw</div><div class="line">      selectorBlackList: [&apos;.ignore&apos;, &apos;.hairlines&apos;], // 指定不转换为视窗单位的类，可以自定义，可以无限添加,建议定义一至两个通用的类名。</div><div class="line">      minPixelValue: 1, // 小于或等于`1px`不转换为视窗单位，你也可以设置为你想要的值。</div><div class="line">      mediaQuery: false // 允许在媒体查询中转换`px`</div><div class="line">    &#125;,</div><div class="line">    // cssnano: cssnano主要用来压缩和清理CSS代码。在Webpack中，cssnano和css-loader捆绑在一起，所以不需要自己加载它。不过你也可以使用postcss-loader显式的使用cssnano</div><div class="line">    &quot;cssnano&quot;: &#123;</div><div class="line">      preset: &quot;advanced&quot;,</div><div class="line">      autoprefixer: false,</div><div class="line">      &quot;postcss-zindex&quot;: false</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>特别声明：由于cssnext和cssnano都具有autoprefixer,事实上只需要一个，所以把默认的autoprefixer删除掉，然后把cssnano中的autoprefixer设置为false。对于其他的插件使用，代码中的注释都做了简单的介绍。</p>
+</blockquote>
+<p>在cssnano的配置中，使用了preset: “advanced”，所以我们需要另外安装</p>
+<p><code>npm i cssnano-preset-advanced --save-dev</code></p>
+<p>cssnano集成了一些其他的PostCSS插件，如果你想禁用cssnano中的某个插件的时候，可以像下面这样操作：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&quot;cssnano&quot;: &#123;</div><div class="line">  preset: &quot;advanced&quot;,</div><div class="line">  autoprefixer: false,</div><div class="line">  &quot;postcss-zindex&quot;: false</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>上面的代码把autoprefixer和postcss-zindex禁掉了。前者是有重复调用，后者是一个讨厌的东东。只要启用了这个插件，z-index的值就会重置为1。这是一个天坑，千万记得将postcss-zindex设置为false。</p>
+</blockquote>
+<p>到此,配置结束,可以开始撸代码了,直接按照设计稿的大小写样式,编译后会自动转化为vw</p>
+<blockquote>
+<p>在不想要把px转换为vw的时候，首先在对应的元素（html）中添加配置中指定的类名.ignore或.hairlines(.hairlines一般用于设置border-width:0.5px的元素中)</p>
+</blockquote>
+<p>类似这样:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;div class=&quot;box ignore&quot;&gt;&lt;/div&gt;</div><div class="line"></div><div class="line">// ignore 的类,里面的样式不会被转变,这样一个div中,box的类为想要转变的内容,ignore不转变</div><div class="line"></div><div class="line">.ignore &#123;</div><div class="line">  margin: 10px;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>大漠老师还用到了postcss-aspect-ratio-mini</p>
+<p>postcss-aspect-ratio-mini主要用来处理元素容器宽高比。在实际使用的时候，具有一个默认的结构。</p>
+<p>简单的来说就是自定义属性吧</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;div aspectratio w-188-246&gt;</div><div class="line">  &lt;div aspectratio-content&gt;&lt;/div&gt;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>有一点需要特别注意：aspect-ratio属性不能和其他属性写在一起，否则编译出来的属性只会留下aspect-ratio的值</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">[aspectratio] &#123;</div><div class="line">  position: relative;</div><div class="line">&#125;</div><div class="line"></div><div class="line">[aspectratio]::before &#123;</div><div class="line">  content: &apos;&apos;;</div><div class="line">  display: block;</div><div class="line">  width: 1px;</div><div class="line">  margin-left: -1px;</div><div class="line">  height: 0;</div><div class="line">&#125;</div><div class="line"></div><div class="line">[aspectratio-content] &#123;</div><div class="line">  position: absolute;</div><div class="line">  top: 0;</div><div class="line">  left: 0;</div><div class="line">  right: 0;</div><div class="line">  bottom: 0;</div><div class="line">  width: 100%;</div><div class="line">  height: 100%;</div><div class="line">&#125;</div><div class="line"></div><div class="line">[w-188-246] &#123;</div><div class="line">  aspect-ratio: &apos;188:246&apos;;</div><div class="line">&#125;</div><div class="line">[w-188-246] &#123;</div><div class="line">  width: 188px;</div><div class="line">  background-color: red;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>我个人觉得用起来不大习惯…</p>
+<h3 id="1px适配"><a href="#1px适配" class="headerlink" title="1px适配"></a>1px适配</h3><p>postcss-write-svg插件主要用来处理移动端1px的解决方案。该插件主要使用的是border-image和background来做1px的相关处理。</p>
+<p>这里和大漠老师的方法有点不太一样,原理是一样的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">@svg 1px-border &#123;</div><div class="line">  width: 4px;</div><div class="line">  height: 4px;</div><div class="line">  @rect &#123;</div><div class="line">    fill: transparent;  /*content为透明*/</div><div class="line">    width: 100%;  /*宽度为4px * 100%*/</div><div class="line">    height: 100%;  /*高度为4px * 100%*/</div><div class="line">    stroke-width: 25%;  /*边框宽度 4px * 25%(即1px)*/</div><div class="line">    stroke: var(--color, black);  /*颜色*/</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">.example &#123;</div><div class="line">  border: 1px solid;</div><div class="line">  border-image: svg(1px-border param(--color red)) 1 1 stretch;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="关于字体"><a href="#关于字体" class="headerlink" title="关于字体"></a>关于字体</h3><p>字体的话,大漠老师说了可以直接使用vw适配,如果有小伙伴感觉字体不想变动太大,可以这样子</p>
+<p><code>font-size: calc(18px + 0.25vw)</code></p>
+<p>差不多了,现阶段前端的适配就是这么多了,溜了溜了</p>
+<p>以上就是我对webApp适配的一些理解，如果文章由于我学识浅薄，导致您发现有严重谬误的地方，请一定在评论中指出，我会在第一时间修正我的博文，以避免误人子弟。</p>
 
       
     </div>
@@ -447,8 +506,8 @@
   <script src="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.min.js"></script>
   <link rel="stylesheet" type="text/css" href="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.mini.css">
   <p><span>文章作者:</span><a href="/" title="访问 陈晟 的个人博客">陈晟</a></p>
-  <p><span>原始链接:</span><a href="/2016/10/05/06-js对象合并/" title="JavaScript对象合并">http://www.chensheng.group/2016/10/05/06-js对象合并/</a>
-    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://www.chensheng.group/2016/10/05/06-js对象合并/"  aria-label="复制成功！"></i></span>
+  <p><span>原始链接:</span><a href="/2018/11/23/65-vw终极适配方案/" title="vw终极适配方案">http://www.chensheng.group/2018/11/23/65-vw终极适配方案/</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://www.chensheng.group/2018/11/23/65-vw终极适配方案/"  aria-label="复制成功！"></i></span>
   </p>
   <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 </a> 转载请保留原文链接及作者。</p>  
 </div>
@@ -480,9 +539,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/javaScript/" rel="tag"><i class="fa fa-tag"></i> javaScript</a>
-          
-            <a href="/tags/对象合并/" rel="tag"><i class="fa fa-tag"></i> 对象合并</a>
+            <a href="/tags/前端适配/" rel="tag"><i class="fa fa-tag"></i> 前端适配</a>
           
         </div>
       
@@ -495,8 +552,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/09/24/05-this与闭包的总结/" rel="next" title="This的指向问题与闭包">
-                <i class="fa fa-chevron-left"></i> This的指向问题与闭包
+              <a href="/2018/11/21/64-深入研究webApp适配/" rel="next" title="深入研究webApp适配">
+                <i class="fa fa-chevron-left"></i> 深入研究webApp适配
               </a>
             
           </div>
@@ -504,10 +561,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/10/23/07-数组去重/" rel="prev" title="JavaScript数组去重">
-                JavaScript数组去重 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -585,7 +638,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">57</span>
+                <span class="site-state-item-count">58</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -656,7 +709,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#浅复制"><span class="nav-number">1.</span> <span class="nav-text">浅复制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#深复制"><span class="nav-number">2.</span> <span class="nav-text">深复制</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#构建项目"><span class="nav-number">1.</span> <span class="nav-text">构建项目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装插件"><span class="nav-number">2.</span> <span class="nav-text">安装插件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置文件"><span class="nav-number">3.</span> <span class="nav-text">配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1px适配"><span class="nav-number">4.</span> <span class="nav-text">1px适配</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关于字体"><span class="nav-number">5.</span> <span class="nav-text">关于字体</span></a></li></ol></div>
             
 
           </div>

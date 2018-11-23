@@ -69,7 +69,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="JavaScript,CSS,VUE" />
+  <meta name="keywords" content="javaScript,this,闭包," />
 
 
 
@@ -85,16 +85,18 @@
 
 
 
-<meta name="description" content="请不要在最能吃苦的日子选择安逸">
-<meta property="og:type" content="website">
-<meta property="og:title" content="陈先生的小前端">
-<meta property="og:url" content="http://www.chensheng.group/tags/Flexible/index.html">
+<meta name="description" content="This的指向问题一直是JavaScript的一个容易混淆的地方，闭包与this的结合更是让人头晕，现在和大家分享一下我的学习过程">
+<meta name="keywords" content="javaScript,this,闭包">
+<meta property="og:type" content="article">
+<meta property="og:title" content="This的指向问题与闭包">
+<meta property="og:url" content="http://www.chensheng.group/2016/09/24/05-This的指向问题与闭包/index.html">
 <meta property="og:site_name" content="陈先生的小前端">
-<meta property="og:description" content="请不要在最能吃苦的日子选择安逸">
+<meta property="og:description" content="This的指向问题一直是JavaScript的一个容易混淆的地方，闭包与this的结合更是让人头晕，现在和大家分享一下我的学习过程">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-11-02T05:31:22.922Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="陈先生的小前端">
-<meta name="twitter:description" content="请不要在最能吃苦的日子选择安逸">
+<meta name="twitter:title" content="This的指向问题与闭包">
+<meta name="twitter:description" content="This的指向问题一直是JavaScript的一个容易混淆的地方，闭包与this的结合更是让人头晕，现在和大家分享一下我的学习过程">
 
 
 
@@ -124,13 +126,13 @@
 
 
 
-  <link rel="canonical" href="http://www.chensheng.group/tags/Flexible/"/>
+  <link rel="canonical" href="http://www.chensheng.group/2016/09/24/05-This的指向问题与闭包/"/>
 
 
 
 
 
-  <title>标签: Flexible | 陈先生的小前端</title>
+  <title>This的指向问题与闭包 | 陈先生的小前端</title>
   
 
 
@@ -149,7 +151,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
     
     <a href="https://github.com/328921371"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
@@ -290,110 +292,256 @@
           <div id="content" class="content">
             
 
+  <div id="posts" class="posts-expand">
+    
+
+  
+
   
   
   
-  <div class="post-block tag">
-
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>Flexible<small>标签</small>
-        </h1>
-      </div>
-
-      
-        
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.chensheng.group/2016/09/24/05-This的指向问题与闭包/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="陈晟">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="陈先生的小前端">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2018/11/21/64-深入研究webApp适配/" itemprop="url">
-              
-                <span itemprop="name">深入研究webApp适配</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">This的指向问题与闭包</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-11-21T16:29:22+08:00"
-              content="2018-11-21" >
-          11-21
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-09-24T12:42:12+08:00">
+                2016-09-24
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/javaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">javaScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2016/09/24/05-This的指向问题与闭包/#SOHUCS" itemprop="discussionUrl">
+                  <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2016/09/24/05-This的指向问题与闭包/" itemprop="commentsCount"></span>
+                </a>
+              
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/02/14/57-Html5-webApp适配/" itemprop="url">
-              
-                <span itemprop="name">Html5中的webApp适配</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-02-14T14:10:22+08:00"
-              content="2018-02-14" >
-          02-14
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+      
 
       
-        
+        <hr style="filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)" color="#FF0000" size="1">
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/02/05/56-vue-cli的webApp适配/" itemprop="url">
-              
-                <span itemprop="name">在vue-cli中的webApp适配</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-02-05T13:44:22+08:00"
-              content="2018-02-05" >
-          02-05
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+<blockquote>
+<p>This的指向问题一直是JavaScript的一个容易混淆的地方，闭包与this的结合更是让人头晕，现在和大家分享一下我的学习过程</p>
+</blockquote>
+<a id="more"></a>
+<h3 id="This的用法"><a href="#This的用法" class="headerlink" title="This的用法"></a>This的用法</h3><p>总结起来比较常用的在三个地方</p>
+<h4 id="全局中"><a href="#全局中" class="headerlink" title="全局中"></a>全局中</h4><p>全局中，函数的调用，this基本都是指向window</p>
+<h4 id="点击事件中"><a href="#点击事件中" class="headerlink" title="点击事件中"></a>点击事件中</h4><p>在点击事件中，this 指向的是当前触发事件的元素对象</p>
+<h4 id="构造函数中"><a href="#构造函数中" class="headerlink" title="构造函数中"></a>构造函数中</h4><p>在构造函数中，this 表示的是正在初始化的对象本身</p>
+<p>举个简单的例子</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> obj = &#123;</div><div class="line">	name:<span class="string">'小强'</span>,</div><div class="line">	age: <span class="number">20</span>,</div><div class="line">	run: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">		<span class="built_in">console</span>.log(<span class="keyword">this</span>);</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> fun = obj.run;</div><div class="line">fun();<span class="comment">//这样子调用，this指向的是window	</span></div><div class="line">obj.run();<span class="comment">//这样调用，this指向的是obj</span></div></pre></td></tr></table></figure>
+<h3 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h3><p>闭包的作用有两个：让外部访问函数内部的变量、另一个就是让这些变量的值始终保持在内存中。</p>
+<p>实现的方法,在函数的内部在声明一个函数,返回这个函数,就可以获取到外部的变量，举个简单的例子</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">		　<span class="function"><span class="keyword">function</span> <span class="title">f1</span>(<span class="params"></span>)</span>&#123;</div><div class="line">		　　　　<span class="keyword">var</span> n=<span class="number">999</span>;</div><div class="line">		　　　　nAdd=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;n+=<span class="number">1</span>&#125;</div><div class="line">		　　　　<span class="function"><span class="keyword">function</span> <span class="title">f2</span>(<span class="params"></span>)</span>&#123;</div><div class="line">		　　　　　　alert(n);</div><div class="line">		　　　　&#125;</div><div class="line">		　　　　<span class="keyword">return</span> f2;</div><div class="line">		　　&#125;</div><div class="line">	</div><div class="line">		　　<span class="keyword">var</span> result=f1();</div><div class="line">		　　result(); <span class="comment">// 999	</span></div><div class="line">		　　nAdd();</div><div class="line">		　　result(); <span class="comment">// 1000</span></div></pre></td></tr></table></figure>
+<p>也就是说，当内部函数的作用域，被外部引用时，就创建了该内部函数的闭包，如果内部函数引用了位于外部函数的变量，当外部函数调用完毕后，这些变量在内存中不会被释放，因为闭包需要他们</p>
+<p>有两个比较经典的关于this的指向与闭包的小demo，也和大家分享一下，如果知道了原理，this的指向就不再困扰你了</p>
+<blockquote>
+<p>第一题</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> object = &#123;</div><div class="line">	name:<span class="string">"My Object"</span>,</div><div class="line">	getNameFunc: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">		<span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">			<span class="keyword">return</span> <span class="keyword">this</span>;</div><div class="line">		&#125;;　　</div><div class="line">	&#125;</div><div class="line">&#125;;</div><div class="line"><span class="built_in">console</span>.log(object.getNameFunc()());</div></pre></td></tr></table></figure>
+<blockquote>
+<p>第二题</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> name = <span class="string">"The Window"</span>;　　</div><div class="line"><span class="keyword">var</span> object = &#123;　　　　</div><div class="line">	name: <span class="string">"My Object"</span>,</div><div class="line">	getNameFunc: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;　　　　　　</div><div class="line">		<span class="keyword">var</span> that = <span class="keyword">this</span>;　　　　　　</div><div class="line">		<span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;　　　　　　　　</div><div class="line">			<span class="keyword">return</span> that.name;　　　　　　</div><div class="line">		&#125;;　　　　</div><div class="line">	&#125;　　</div><div class="line">&#125;;　　</div><div class="line"><span class="built_in">console</span>.log(object.getNameFunc()());</div></pre></td></tr></table></figure>
+<p>以上就是我对this指向的一些理解,不足之处希望大牛们多提一些意见,感激不尽</p>
 
       
     </div>
+    
+    
+    
+	<div>
+	  
+	    <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+	  
+	</div>
+	
+	<div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
 
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script type="text/javascript" src="http://jslibs.wuxubj.cn/sweetalert_mini/jquery-1.7.1.min.js"></script>
+  <script src="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.mini.css">
+  <p><span>文章作者:</span><a href="/" title="访问 陈晟 的个人博客">陈晟</a></p>
+  <p><span>原始链接:</span><a href="/2016/09/24/05-This的指向问题与闭包/" title="This的指向问题与闭包">http://www.chensheng.group/2016/09/24/05-This的指向问题与闭包/</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://www.chensheng.group/2016/09/24/05-This的指向问题与闭包/"  aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 </a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    clipboard.on('success', $(function(){
+      $(".fa-clipboard").click(function(){
+        swal({   
+          title: "",   
+          text: '复制成功',   
+          html: false,
+          timer: 500,   
+          showConfirmButton: false
+        });
+      });
+    }));  
+</script>
+
+      
+	</div>
+		
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/javaScript/" rel="tag"><i class="fa fa-tag"></i> javaScript</a>
+          
+            <a href="/tags/this/" rel="tag"><i class="fa fa-tag"></i> this</a>
+          
+            <a href="/tags/闭包/" rel="tag"><i class="fa fa-tag"></i> 闭包</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/09/20/04-原型与原型链/" rel="next" title="原型与原型链">
+                <i class="fa fa-chevron-left"></i> 原型与原型链
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/10/05/06-JavaScript对象合并/" rel="prev" title="JavaScript对象合并">
+                JavaScript对象合并 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -401,6 +549,12 @@
 
 
           
+  <div class="comments" id="comments">
+    
+      <div id="SOHUCS"></div>
+    
+  </div>
+
 
         </div>
         
@@ -421,8 +575,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           
             <p class="site-author-name" itemprop="name">陈晟</p>
@@ -436,7 +599,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">57</span>
+                <span class="site-state-item-count">58</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -497,6 +660,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#This的用法"><span class="nav-number">1.</span> <span class="nav-text">This的用法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#全局中"><span class="nav-number">1.1.</span> <span class="nav-text">全局中</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#点击事件中"><span class="nav-number">1.2.</span> <span class="nav-text">点击事件中</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#构造函数中"><span class="nav-number">1.3.</span> <span class="nav-text">构造函数中</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#闭包"><span class="nav-number">2.</span> <span class="nav-text">闭包</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
