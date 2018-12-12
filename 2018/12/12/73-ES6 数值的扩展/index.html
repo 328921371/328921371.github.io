@@ -69,7 +69,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="JavaScript,CSS,VUE" />
+  <meta name="keywords" content="ECMAScript 6," />
 
 
 
@@ -85,16 +85,18 @@
 
 
 
-<meta name="description" content="请不要在最能吃苦的日子选择安逸">
-<meta property="og:type" content="website">
-<meta property="og:title" content="陈先生的小前端">
-<meta property="og:url" content="http://www.chensheng.group/tags/ES6/index.html">
+<meta name="description" content="ES6将数值的许多操作都封装了起来,相比较ES5,规范了许多,提供了更为简洁的最大安全值">
+<meta name="keywords" content="ECMAScript 6">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ECMAScript 6 数值的扩展">
+<meta property="og:url" content="http://www.chensheng.group/2018/12/12/73-ES6 数值的扩展/index.html">
 <meta property="og:site_name" content="陈先生的小前端">
-<meta property="og:description" content="请不要在最能吃苦的日子选择安逸">
+<meta property="og:description" content="ES6将数值的许多操作都封装了起来,相比较ES5,规范了许多,提供了更为简洁的最大安全值">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-12-12T09:37:24.103Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="陈先生的小前端">
-<meta name="twitter:description" content="请不要在最能吃苦的日子选择安逸">
+<meta name="twitter:title" content="ECMAScript 6 数值的扩展">
+<meta name="twitter:description" content="ES6将数值的许多操作都封装了起来,相比较ES5,规范了许多,提供了更为简洁的最大安全值">
 
 
 
@@ -124,13 +126,13 @@
 
 
 
-  <link rel="canonical" href="http://www.chensheng.group/tags/ES6/"/>
+  <link rel="canonical" href="http://www.chensheng.group/2018/12/12/73-ES6 数值的扩展/"/>
 
 
 
 
 
-  <title>标签: ES6 | 陈先生的小前端</title>
+  <title>ECMAScript 6 数值的扩展 | 陈先生的小前端</title>
   
 
 
@@ -149,7 +151,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
     
     <a href="https://github.com/328921371"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
@@ -290,82 +292,290 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block tag">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>ES6<small>标签</small>
-        </h1>
-      </div>
+  
 
-      
-        
+  
+  
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.chensheng.group/2018/12/12/73-ES6 数值的扩展/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="陈晟">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="陈先生的小前端">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2018/12/04/69-ES6变量声明/" itemprop="url">
-              
-                <span itemprop="name">ES6变量声明</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">ECMAScript 6 数值的扩展</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-12-04T14:24:11+08:00"
-              content="2018-12-04" >
-          12-04
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-12T17:19:24+08:00">
+                2018-12-12
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ECMAScript-6/" itemprop="url" rel="index">
+                    <span itemprop="name">ECMAScript 6</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2018/12/12/73-ES6 数值的扩展/#SOHUCS" itemprop="discussionUrl">
+                  <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2018/12/12/73-ES6 数值的扩展/" itemprop="commentsCount"></span>
+                </a>
+              
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-        
+      
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+      
+        <hr style="filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)" color="#FF0000" size="1">
 
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/12/04/70-ES6解构赋值/" itemprop="url">
-              
-                <span itemprop="name">ES6解构赋值</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-12-04T14:24:11+08:00"
-              content="2018-12-04" >
-          12-04
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+<blockquote>
+<p>ES6将数值的许多操作都封装了起来,相比较ES5,规范了许多,提供了更为简洁的最大安全值</p>
+</blockquote>
+<a id="more"></a>
+<p>文章主要参考阮一峰老师的 ECMAScript 6入门,站在巨人的肩膀上看世界…</p>
+<h2 id="二进制与八进制"><a href="#二进制与八进制" class="headerlink" title="二进制与八进制"></a>二进制与八进制</h2><p>这个其实不算是ES6的语法,只是ES6规范了写法,顺便提一下</p>
+<blockquote>
+<p>二进制声明：二进制的英文单词是Binary,二进制的开始是0（零），然后第二个位置是b（注意这里大小写都可以实现），然后跟上二进制的值就可以了。</p>
+<p>八进制声明：八进制的英文单词是Octal，也是以0（零）开始的，然后第二个位置是O（欧），然后跟上八进制的值就可以了。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">//二进制声明Binary</div><div class="line">let binary = 0B010101</div><div class="line">console.log(binary)</div><div class="line"></div><div class="line">// 八进制声明Octal</div><div class="line">let octal = 0O777</div><div class="line">console.log(octal)</div></pre></td></tr></table></figure>
+<h2 id="判断数值"><a href="#判断数值" class="headerlink" title="判断数值"></a>判断数值</h2><blockquote>
+<p>使用Number.isFinite()来进行数字验证，只要是数字，不论是浮点型还是整形都会返回true，其他时候会返回false。</p>
+</blockquote>
+<p>阮一峰老师是这样解释的: Number.isFinite()用来检查一个数值是否为有限的（finite），即不是Infinity。<br>需要注意,这里的无限指的不是无限循环的小数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">// 如果参数类型不是数值，Number.isFinite一律返回false。</div><div class="line">Number.isFinite(10/3) // true</div><div class="line">Number.isFinite(NaN); // false</div><div class="line">Number.isFinite(Infinity); // false</div><div class="line">Number.isFinite(-Infinity); // false</div><div class="line">Number.isFinite(&apos;foo&apos;); // false</div><div class="line">Number.isFinite(&apos;15&apos;); // false</div><div class="line">Number.isFinite(true); // false</div></pre></td></tr></table></figure>
+<blockquote>
+<p>Number.isNaN()用来检查一个值是否为NaN。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">// 如果参数类型不是NaN，Number.isNaN一律返回false。</div><div class="line">Number.isNaN(NaN) // true</div><div class="line">Number.isNaN(15) // false</div><div class="line">Number.isNaN(&apos;15&apos;) // false</div><div class="line">Number.isNaN(true) // false</div><div class="line">Number.isNaN(9/NaN) // true</div><div class="line">Number.isNaN(&apos;true&apos; / 0) // true</div><div class="line">Number.isNaN(&apos;true&apos; / &apos;true&apos;) // true</div></pre></td></tr></table></figure>
+<blockquote>
+<p>注意!!! isFinite() 和 Number.isFinite() 是不一样的,前者是先将非数值的转为数值,再进行判断</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">isFinite(25) // true</div><div class="line">isFinite(&quot;25&quot;) // true</div><div class="line">Number.isFinite(25) // true</div><div class="line">Number.isFinite(&quot;25&quot;) // false</div></pre></td></tr></table></figure>
+<blockquote>
+<p>Number.isInteger()用来判断一个数值是否为整数。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Number.isInteger(25) // true</div><div class="line">Number.isInteger(25.1) // false</div></pre></td></tr></table></figure>
+<h2 id="类型转化"><a href="#类型转化" class="headerlink" title="类型转化"></a>类型转化</h2><p>和ES5的区别不大,只是移植到Number对象上面,逐步减少全局性方法，使得语言逐步模块化。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">// ES6的写法</div><div class="line">Number.parseInt(&apos;12.34&apos;) // 12</div><div class="line">Number.parseFloat(&apos;123.45#&apos;) // 123.45</div></pre></td></tr></table></figure>
+<h2 id="最小进度"><a href="#最小进度" class="headerlink" title="最小进度"></a>最小进度</h2><p>Number.EPSILON实际上是 JavaScript 能够表示的最小精度。误差如果小于这个值，就可以认为已经没有意义了，即不存在误差了。</p>
+<p>这也是javaScript上经典的 0.1 + 0.2 === 0.3 //false 的原因了</p>
+<p>写个代码解释一下..<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">0.1 + 0.2</div><div class="line">// 0.30000000000000004</div><div class="line"></div><div class="line">0.1 + 0.2 - 0.3</div><div class="line">// 5.551115123125783e-17</div><div class="line"></div><div class="line">5.551115123125783e-17.toFixed(20)</div><div class="line">// &apos;0.00000000000000005551&apos;</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p>Number.EPSILON可以用来设置“能够接受的误差范围”。比如，误差范围设为 2 的-50 次方（即Number.EPSILON * Math.pow(2, 2)），即如果两个浮点数的差小于这个值，我们就认为这两个浮点数相等。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">function withinErrorMargin (left, right) &#123;</div><div class="line">  return Math.abs(left - right) &lt; Number.EPSILON * Math.pow(2, 2);</div><div class="line">&#125;</div><div class="line"></div><div class="line">0.1 + 0.2 === 0.3 // false</div><div class="line">withinErrorMargin(0.1 + 0.2, 0.3) // true</div><div class="line"></div><div class="line">1.1 + 1.3 === 2.4 // false</div><div class="line">withinErrorMargin(1.1 + 1.3, 2.4) // true</div></pre></td></tr></table></figure>
+<h2 id="安全整数"><a href="#安全整数" class="headerlink" title="安全整数"></a>安全整数</h2><p>整数的操作是有一个取值范围的，它的取值范围就是2的53次方。,ES6 引入了Number.MAX_SAFE_INTEGER和Number.MIN_SAFE_INTEGER这两个常量，用来表示这个范围的上下限。</p>
+<p><code>Math.pow(2, 53) // 9007199254740992</code></p>
+<blockquote>
+<p>Number.isSafeInteger()则是用来判断一个整数是否落在这个范围之内。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Number.isSafeInteger(9007199254740990) // true</div><div class="line">Number.isSafeInteger(9007199254740992) // false</div></pre></td></tr></table></figure>
+<h2 id="取整"><a href="#取整" class="headerlink" title="取整"></a>取整</h2><blockquote>
+<p>Math.trunc方法用于去除一个数的小数部分，返回整数部分。</p>
+</blockquote>
+<p>这不是四舍五入 !!!</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">Math.trunc(4.1) // 4</div><div class="line">Math.trunc(4.9) // 4</div><div class="line">Math.trunc(-4.1) // -4</div><div class="line">Math.trunc(-4.9) // -4</div><div class="line">Math.trunc(-0.1234) // -0</div></pre></td></tr></table></figure>
+<p>对于非数值，Math.trunc内部使用Number方法将其先转为数值。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Math.trunc(&apos;123.456&apos;) // 123</div><div class="line">Math.trunc(true) //1</div><div class="line">Math.trunc(false) // 0</div><div class="line">Math.trunc(null) // 0</div></pre></td></tr></table></figure>
+<p>对于空值和无法截取整数的值，返回NaN。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Math.trunc(NaN);      // NaN</div><div class="line">Math.trunc(&apos;foo&apos;);    // NaN</div><div class="line">Math.trunc();         // NaN</div><div class="line">Math.trunc(undefined) // NaN</div></pre></td></tr></table></figure>
+<h2 id="判断正负"><a href="#判断正负" class="headerlink" title="判断正负"></a>判断正负</h2><blockquote>
+<p>Math.sign方法用来判断一个数到底是正数、负数、还是零。对于非数值，会先将其转换为数值。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">Math.sign(-5) // -1</div><div class="line">Math.sign(5) // +1</div><div class="line">Math.sign(0) // +0</div><div class="line">Math.sign(-0) // -0</div><div class="line">Math.sign(NaN) // NaN</div><div class="line">Math.sign(&apos;&apos;)  // 0</div><div class="line">Math.sign(true)  // +1</div><div class="line">Math.sign(false)  // 0</div><div class="line">Math.sign(null)  // 0</div><div class="line">Math.sign(&apos;9&apos;)  // +1</div><div class="line">Math.sign(&apos;foo&apos;)  // NaN</div><div class="line">Math.sign()  // NaN</div><div class="line">Math.sign(undefined)  // NaN</div></pre></td></tr></table></figure>
+<h2 id="指数运算符"><a href="#指数运算符" class="headerlink" title="指数运算符"></a>指数运算符</h2><blockquote>
+<p>ES2016 新增了一个指数运算符（**）</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">2 ** 2 // 4</div><div class="line">2 ** 3 // 8</div></pre></td></tr></table></figure>
+<p>这个运算符的一个特点是右结合，而不是常见的左结合。多个指数运算符连用时，是从最右边开始计算的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">// 相当于 2 * * (3 * * 2)</div><div class="line">2 * * 3 * * 2</div><div class="line">// 512</div></pre></td></tr></table></figure>
+<blockquote>
+<p>注意，V8 引擎的指数运算符与Math.pow的实现不相同，对于特别大的运算结果，两者会有细微的差异。</p>
+</blockquote>
+<p>以上就是我对ECMAScript 6数值扩展的一些理解，如果文章由于我学识浅薄，导致您发现有严重谬误的地方，请一定在评论中指出，我会在第一时间修正我的博文，以避免误人子弟。</p>
 
       
     </div>
+    
+    
+    
+	<div>
+	  
+	    <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+	  
+	</div>
+	
+	<div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
 
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script type="text/javascript" src="http://jslibs.wuxubj.cn/sweetalert_mini/jquery-1.7.1.min.js"></script>
+  <script src="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.mini.css">
+  <p><span>文章作者:</span><a href="/" title="访问 陈晟 的个人博客">陈晟</a></p>
+  <p><span>原始链接:</span><a href="/2018/12/12/73-ES6 数值的扩展/" title="ECMAScript 6 数值的扩展">http://www.chensheng.group/2018/12/12/73-ES6 数值的扩展/</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://www.chensheng.group/2018/12/12/73-ES6 数值的扩展/"  aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 </a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    clipboard.on('success', $(function(){
+      $(".fa-clipboard").click(function(){
+        swal({   
+          title: "",   
+          text: '复制成功',   
+          html: false,
+          timer: 500,   
+          showConfirmButton: false
+        });
+      });
+    }));  
+</script>
+
+      
+	</div>
+		
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/ECMAScript-6/" rel="tag"><i class="fa fa-tag"></i> ECMAScript 6</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/08/72-ES6 字符串的扩展/" rel="next" title="ECMAScript 6 字符串的扩展">
+                <i class="fa fa-chevron-left"></i> ECMAScript 6 字符串的扩展
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -373,6 +583,12 @@
 
 
           
+  <div class="comments" id="comments">
+    
+      <div id="SOHUCS"></div>
+    
+  </div>
+
 
         </div>
         
@@ -393,8 +609,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           
             <p class="site-author-name" itemprop="name">陈晟</p>
@@ -408,7 +633,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">63</span>
+                <span class="site-state-item-count">66</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -419,7 +644,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">21</span>
+                <span class="site-state-item-count">17</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -430,7 +655,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">52</span>
+                <span class="site-state-item-count">48</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -469,6 +694,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#二进制与八进制"><span class="nav-number">1.</span> <span class="nav-text">二进制与八进制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#判断数值"><span class="nav-number">2.</span> <span class="nav-text">判断数值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类型转化"><span class="nav-number">3.</span> <span class="nav-text">类型转化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最小进度"><span class="nav-number">4.</span> <span class="nav-text">最小进度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安全整数"><span class="nav-number">5.</span> <span class="nav-text">安全整数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#取整"><span class="nav-number">6.</span> <span class="nav-text">取整</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#判断正负"><span class="nav-number">7.</span> <span class="nav-text">判断正负</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#指数运算符"><span class="nav-number">8.</span> <span class="nav-text">指数运算符</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

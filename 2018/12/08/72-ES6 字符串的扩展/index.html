@@ -69,7 +69,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="JavaScript,CSS,VUE" />
+  <meta name="keywords" content="ECMAScript 6," />
 
 
 
@@ -85,16 +85,18 @@
 
 
 
-<meta name="description" content="请不要在最能吃苦的日子选择安逸">
-<meta property="og:type" content="website">
-<meta property="og:title" content="陈先生的小前端">
-<meta property="og:url" content="http://www.chensheng.group/categories/服务器/index.html">
+<meta name="description" content="ES6 提供了许多对字符串的方法,让我们一起学习一下">
+<meta name="keywords" content="ECMAScript 6">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ECMAScript 6 字符串的扩展">
+<meta property="og:url" content="http://www.chensheng.group/2018/12/08/72-ES6 字符串的扩展/index.html">
 <meta property="og:site_name" content="陈先生的小前端">
-<meta property="og:description" content="请不要在最能吃苦的日子选择安逸">
+<meta property="og:description" content="ES6 提供了许多对字符串的方法,让我们一起学习一下">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-12-12T09:27:30.734Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="陈先生的小前端">
-<meta name="twitter:description" content="请不要在最能吃苦的日子选择安逸">
+<meta name="twitter:title" content="ECMAScript 6 字符串的扩展">
+<meta name="twitter:description" content="ES6 提供了许多对字符串的方法,让我们一起学习一下">
 
 
 
@@ -124,13 +126,13 @@
 
 
 
-  <link rel="canonical" href="http://www.chensheng.group/categories/服务器/"/>
+  <link rel="canonical" href="http://www.chensheng.group/2018/12/08/72-ES6 字符串的扩展/"/>
 
 
 
 
 
-  <title>分类: 服务器 | 陈先生的小前端</title>
+  <title>ECMAScript 6 字符串的扩展 | 陈先生的小前端</title>
   
 
 
@@ -149,7 +151,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
     
     <a href="https://github.com/328921371"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
@@ -290,55 +292,257 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block category">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>服务器<small>分类</small>
-        </h1>
-      </div>
+  
 
-      
-        
+  
+  
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.chensheng.group/2018/12/08/72-ES6 字符串的扩展/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="陈晟">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="陈先生的小前端">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2018/01/19/54-反向代理解决跨域问题/" itemprop="url">
-              
-                <span itemprop="name">反向代理解决跨域问题</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">ECMAScript 6 字符串的扩展</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-01-19T15:00:22+08:00"
-              content="2018-01-19" >
-          01-19
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-08T21:52:24+08:00">
+                2018-12-08
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ECMAScript-6/" itemprop="url" rel="index">
+                    <span itemprop="name">ECMAScript 6</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2018/12/08/72-ES6 字符串的扩展/#SOHUCS" itemprop="discussionUrl">
+                  <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2018/12/08/72-ES6 字符串的扩展/" itemprop="commentsCount"></span>
+                </a>
+              
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <hr style="filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)" color="#FF0000" size="1">
+
+<blockquote>
+<p>ES6 提供了许多对字符串的方法,让我们一起学习一下</p>
+</blockquote>
+<a id="more"></a>
+<p>文章主要参考阮一峰老师的 ECMAScript 6入门,站在巨人的肩膀上看世界…</p>
+<p>字符串的方法新增了很多种,我挑几个我认为常用的来分享</p>
+<h2 id="字符串模板"><a href="#字符串模板" class="headerlink" title="字符串模板"></a>字符串模板</h2><p>别的先不说,先来看一下字符串模板,是我认为的都ES6中比较好用的一个功能了</p>
+<p>我们之前拼接字符串的时候 都是用”+”号,并且拼接的时候还不能换行,容易出错.ES6引入了字符串模板 ``,解决了这一个问题</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">let key = &apos;chensheng&apos;</div><div class="line">let a = 1</div><div class="line">let b = 2</div><div class="line"></div><div class="line">function fn() &#123;</div><div class="line">  return &quot;Hello World&quot;;</div><div class="line">&#125;</div><div class="line"></div><div class="line">// trim()可以去掉 ``前后的空格</div><div class="line">let htmlMsg = `&lt;b&gt;我是$&#123;key&#125;&lt;/b&gt;,输出$&#123;1+2&#125;,$&#123;fn()&#125;`.trim()</div></pre></td></tr></table></figure>
+<blockquote>
+<p>字符串不仅可以换行,还可以进行简单的运算,调用函数,使用el表达式可以将参数添加到字符串当中</p>
+</blockquote>
+<h2 id="字符串查找"><a href="#字符串查找" class="headerlink" title="字符串查找"></a>字符串查找</h2><ul>
+<li>includes()：返回布尔值，表示是否找到了参数字符串。</li>
+<li>startsWith()：返回布尔值，表示参数字符串是否在原字符串的头部。</li>
+<li>endsWith()：返回布尔值，表示参数字符串是否在原字符串的尾部。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">let str = &apos;Hello world!&apos;;</div><div class="line"></div><div class="line">str.startsWith(&apos;Hello&apos;) // true</div><div class="line">str.endsWith(&apos;!&apos;) // true</div><div class="line">str.includes(&apos;o&apos;) // true</div></pre></td></tr></table></figure>
+<blockquote>
+<p>相比较已经用indexOf,includes将代码更简洁化了</p>
+</blockquote>
+<h2 id="复制字符串"><a href="#复制字符串" class="headerlink" title="复制字符串"></a>复制字符串</h2><p>repeat方法返回一个新字符串，表示将原字符串重复n次。</p>
+<p>使用起来也是很简单,具体什么时候用,还是看项目需求</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&apos;x&apos;.repeat(3) // &quot;xxx&quot;</div><div class="line">&apos;hello&apos;.repeat(2) // &quot;hellohello&quot;</div><div class="line">&apos;na&apos;.repeat(0) // &quot;&quot;</div></pre></td></tr></table></figure>
+<p>有几个地方需要注意一下的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">// 参数如果是小数，会被取整。</div><div class="line">&apos;na&apos;.repeat(2.9) // &quot;nana&quot;</div><div class="line"></div><div class="line">// 如果repeat的参数是负数会报错。</div><div class="line">&apos;na&apos;.repeat(-1) // 报错</div><div class="line"></div><div class="line">// 但是，如果参数是 0 到-1 之间的小数，则等同于 0，这是因为会先进行取整运算。0 到-1 之间的小数，取整以后等于-0，repeat视同为 0。</div><div class="line">&apos;na&apos;.repeat(-0.9) // &quot;&quot;</div><div class="line"></div><div class="line">// 参数NaN等同于 0。</div><div class="line">&apos;na&apos;.repeat(NaN) // &quot;&quot;</div></pre></td></tr></table></figure>
+<h2 id="字符串补全"><a href="#字符串补全" class="headerlink" title="字符串补全"></a>字符串补全</h2><p>如果某个字符串不够指定长度，会在头部或尾部补全。padStart()用于头部补全，padEnd()用于尾部补全。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">// padStart()和padEnd()一共接受两个参数，第一个参数是字符串补全生效的最大长度，第二个参数是用来补全的字符串。</div><div class="line"></div><div class="line">&apos;x&apos;.padStart(5, &apos;ab&apos;) // &apos;ababx&apos;</div><div class="line">&apos;x&apos;.padStart(4, &apos;ab&apos;) // &apos;abax&apos;</div><div class="line"></div><div class="line">&apos;x&apos;.padEnd(5, &apos;ab&apos;) // &apos;xabab&apos;</div><div class="line">&apos;x&apos;.padEnd(4, &apos;ab&apos;) // &apos;xaba&apos;</div><div class="line"></div><div class="line"></div><div class="line">// 如果省略第二个参数，默认使用空格补全长度。</div><div class="line">&apos;x&apos;.padStart(4) // &apos;   x&apos;</div><div class="line">&apos;x&apos;.padEnd(4) // &apos;x   &apos;</div></pre></td></tr></table></figure>
+<p>以上就是我对ECMAScript 6字符串扩展的一些理解，如果文章由于我学识浅薄，导致您发现有严重谬误的地方，请一定在评论中指出，我会在第一时间修正我的博文，以避免误人子弟。</p>
 
       
     </div>
+    
+    
+    
+	<div>
+	  
+	    <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+	  
+	</div>
+	
+	<div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
 
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script type="text/javascript" src="http://jslibs.wuxubj.cn/sweetalert_mini/jquery-1.7.1.min.js"></script>
+  <script src="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.mini.css">
+  <p><span>文章作者:</span><a href="/" title="访问 陈晟 的个人博客">陈晟</a></p>
+  <p><span>原始链接:</span><a href="/2018/12/08/72-ES6 字符串的扩展/" title="ECMAScript 6 字符串的扩展">http://www.chensheng.group/2018/12/08/72-ES6 字符串的扩展/</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://www.chensheng.group/2018/12/08/72-ES6 字符串的扩展/"  aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 </a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    clipboard.on('success', $(function(){
+      $(".fa-clipboard").click(function(){
+        swal({   
+          title: "",   
+          text: '复制成功',   
+          html: false,
+          timer: 500,   
+          showConfirmButton: false
+        });
+      });
+    }));  
+</script>
+
+      
+	</div>
+		
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/ECMAScript-6/" rel="tag"><i class="fa fa-tag"></i> ECMAScript 6</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/07/71-ES6运算符扩展/" rel="next" title="ECMAScript 6 扩展运算符">
+                <i class="fa fa-chevron-left"></i> ECMAScript 6 扩展运算符
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/12/73-ES6 数值的扩展/" rel="prev" title="ECMAScript 6 数值的扩展">
+                ECMAScript 6 数值的扩展 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -346,6 +550,12 @@
 
 
           
+  <div class="comments" id="comments">
+    
+      <div id="SOHUCS"></div>
+    
+  </div>
+
 
         </div>
         
@@ -366,8 +576,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           
             <p class="site-author-name" itemprop="name">陈晟</p>
@@ -381,7 +600,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">63</span>
+                <span class="site-state-item-count">66</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -392,7 +611,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">21</span>
+                <span class="site-state-item-count">17</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -403,7 +622,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">52</span>
+                <span class="site-state-item-count">48</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -442,6 +661,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#字符串模板"><span class="nav-number">1.</span> <span class="nav-text">字符串模板</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字符串查找"><span class="nav-number">2.</span> <span class="nav-text">字符串查找</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#复制字符串"><span class="nav-number">3.</span> <span class="nav-text">复制字符串</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字符串补全"><span class="nav-number">4.</span> <span class="nav-text">字符串补全</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

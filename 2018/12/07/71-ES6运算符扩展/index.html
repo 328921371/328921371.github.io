@@ -69,7 +69,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="JavaScript,CSS,VUE" />
+  <meta name="keywords" content="ECMAScript 6," />
 
 
 
@@ -85,16 +85,18 @@
 
 
 
-<meta name="description" content="请不要在最能吃苦的日子选择安逸">
-<meta property="og:type" content="website">
-<meta property="og:title" content="陈先生的小前端">
-<meta property="og:url" content="http://www.chensheng.group/categories/artTemplate/index.html">
+<meta name="description" content="扩展运算符和rest运算符是ES6新推出的,大家可能比较陌生,本来我是打算放在数组扩展里面一起讲的,但是觉得他们挺好用也挺重要的,所以就提前拿出来单独分享一下">
+<meta name="keywords" content="ECMAScript 6">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ECMAScript 6 扩展运算符">
+<meta property="og:url" content="http://www.chensheng.group/2018/12/07/71-ES6运算符扩展/index.html">
 <meta property="og:site_name" content="陈先生的小前端">
-<meta property="og:description" content="请不要在最能吃苦的日子选择安逸">
+<meta property="og:description" content="扩展运算符和rest运算符是ES6新推出的,大家可能比较陌生,本来我是打算放在数组扩展里面一起讲的,但是觉得他们挺好用也挺重要的,所以就提前拿出来单独分享一下">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-12-12T09:27:34.300Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="陈先生的小前端">
-<meta name="twitter:description" content="请不要在最能吃苦的日子选择安逸">
+<meta name="twitter:title" content="ECMAScript 6 扩展运算符">
+<meta name="twitter:description" content="扩展运算符和rest运算符是ES6新推出的,大家可能比较陌生,本来我是打算放在数组扩展里面一起讲的,但是觉得他们挺好用也挺重要的,所以就提前拿出来单独分享一下">
 
 
 
@@ -124,13 +126,13 @@
 
 
 
-  <link rel="canonical" href="http://www.chensheng.group/categories/artTemplate/"/>
+  <link rel="canonical" href="http://www.chensheng.group/2018/12/07/71-ES6运算符扩展/"/>
 
 
 
 
 
-  <title>分类: artTemplate | 陈先生的小前端</title>
+  <title>ECMAScript 6 扩展运算符 | 陈先生的小前端</title>
   
 
 
@@ -149,7 +151,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
     
     <a href="https://github.com/328921371"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
@@ -290,55 +292,260 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block category">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>artTemplate<small>分类</small>
-        </h1>
-      </div>
+  
 
-      
-        
+  
+  
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.chensheng.group/2018/12/07/71-ES6运算符扩展/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="陈晟">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="陈先生的小前端">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2016/10/30/08-template的基本语法/" itemprop="url">
-              
-                <span itemprop="name">artTemplate的基本语法</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">ECMAScript 6 扩展运算符</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-10-30T23:27:33+08:00"
-              content="2016-10-30" >
-          10-30
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-07T13:41:24+08:00">
+                2018-12-07
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ECMAScript-6/" itemprop="url" rel="index">
+                    <span itemprop="name">ECMAScript 6</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2018/12/07/71-ES6运算符扩展/#SOHUCS" itemprop="discussionUrl">
+                  <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2018/12/07/71-ES6运算符扩展/" itemprop="commentsCount"></span>
+                </a>
+              
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <hr style="filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)" color="#FF0000" size="1">
+
+<blockquote>
+<p>扩展运算符和rest运算符是ES6新推出的,大家可能比较陌生,本来我是打算放在数组扩展里面一起讲的,但是觉得他们挺好用也挺重要的,所以就提前拿出来单独分享一下</p>
+</blockquote>
+<a id="more"></a>
+<p>文章主要参考阮一峰老师的 ECMAScript 6入门,站在巨人的肩膀上看世界…</p>
+<h2 id="扩展运算符"><a href="#扩展运算符" class="headerlink" title="扩展运算符"></a>扩展运算符</h2><p>扩展运算符（spread）是三个点（…），将一个数组转为分隔的参数序列。</p>
+<p>举一个简单的例子</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">let arr = [1,2,3]</div><div class="line">console.log(...arr) // 1 2 3</div><div class="line"></div><div class="line">function add(x,y,z)&#123;</div><div class="line">  return x + y + z</div><div class="line">&#125;</div><div class="line"></div><div class="line">add(...arr) // 6</div></pre></td></tr></table></figure>
+<blockquote>
+<p>注意，扩展运算符如果放在括号中，JavaScript 引擎就会认为这是函数调用，否则就会报错。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">(...[1,2]) // 报错</div><div class="line"></div><div class="line">console.log((...[1,2])) // 报错</div><div class="line"></div><div class="line">console.log(...[1,2]) // 不会报错,因为这时是函数调用。</div></pre></td></tr></table></figure>
+<p>接下来讲一下扩展运算符的基本用法</p>
+<h3 id="代替apply方法"><a href="#代替apply方法" class="headerlink" title="代替apply方法"></a>代替apply方法</h3><p>举一个求数组中最大值的例子</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">// ES5 的写法</div><div class="line">Math.max.apply(null, [14, 3, 77])</div><div class="line"></div><div class="line">// ES6 的写法</div><div class="line">Math.max(...[14, 3, 77])</div><div class="line"></div><div class="line">// 等同于</div><div class="line">Math.max(14, 3, 77);</div></pre></td></tr></table></figure>
+<blockquote>
+<p>不明白apply用法的可以看我之前的博客,<a href="https://www.chensheng.group/2016/09/15/03-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E4%B8%8E%E5%8E%9F%E5%9E%8B/">原型与原型链</a>,这篇文章有讲到apply的用法</p>
+</blockquote>
+<h3 id="复制数组"><a href="#复制数组" class="headerlink" title="复制数组"></a>复制数组</h3><p>我们之前复制数组的时候,用的是深拷贝和浅拷贝,这里我就不再说什么是深拷贝了,来看看ES6怎么复制数组</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">let a1 = [1, 2];</div><div class="line"></div><div class="line">let a2 = [...a1]; // 写法一</div><div class="line"></div><div class="line">let [...a2] = a1; // 写法二</div></pre></td></tr></table></figure>
+<h3 id="合并数组"><a href="#合并数组" class="headerlink" title="合并数组"></a>合并数组</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">let arr1 = [&#123;cs:&apos;123&apos;&#125;, &apos;b&apos;];</div><div class="line">let arr2 = [&apos;c&apos;];</div><div class="line">let arr3 = [&apos;d&apos;, &apos;e&apos;];</div><div class="line"></div><div class="line">let arr4 = [...arr1, ...arr2, ...arr3]</div><div class="line"></div><div class="line">arr1[0].cs = &apos;csing&apos;</div><div class="line"></div><div class="line">console.log(arr4) // [ &#123;cs:&apos;csing&apos;&#125;, &apos;b&apos;, &apos;c&apos;, &apos;d&apos;, &apos;e&apos; ]</div></pre></td></tr></table></figure>
+<blockquote>
+<p>注意!!! 这种方法是浅拷贝,这个坑需要注意一下</p>
+</blockquote>
+<h2 id="rest运算符"><a href="#rest运算符" class="headerlink" title="rest运算符"></a>rest运算符</h2><p>rest运算符也是用…(三个点)来表示,甚至很多时候你不用特意去区分</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">function add(one,...rest)&#123;</div><div class="line">  console.log(rest) // [2,3,4,5,6]</div><div class="line">&#125;</div><div class="line"></div><div class="line">add(1,2,3,4,5,6)</div></pre></td></tr></table></figure>
+<p>这样写的好处在于,当你不知道函数会传进来几个参数的时候,…rest可以全部接受后转为数组</p>
+<h3 id="与解构赋值结合"><a href="#与解构赋值结合" class="headerlink" title="与解构赋值结合"></a>与解构赋值结合</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">const [first, ...rest] = [1, 2, 3, 4, 5];</div><div class="line">first // 1</div><div class="line">rest  // [2, 3, 4, 5]</div><div class="line"></div><div class="line">const [first, ...rest] = [];</div><div class="line">first // undefined</div><div class="line">rest  // []</div><div class="line"></div><div class="line">const [first, ...rest] = [&quot;foo&quot;];</div><div class="line">first  // &quot;foo&quot;</div><div class="line">rest   // []</div></pre></td></tr></table></figure>
+<blockquote>
+<p>需要注意的是,如果将扩展运算符用于数组赋值,只能放在参数的最后一位,否则会报错。</p>
+</blockquote>
+<p>以上就是我对ECMAScript 6运算符扩展的一些理解，如果文章由于我学识浅薄，导致您发现有严重谬误的地方，请一定在评论中指出，我会在第一时间修正我的博文，以避免误人子弟。</p>
 
       
     </div>
+    
+    
+    
+	<div>
+	  
+	    <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+	  
+	</div>
+	
+	<div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
 
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script type="text/javascript" src="http://jslibs.wuxubj.cn/sweetalert_mini/jquery-1.7.1.min.js"></script>
+  <script src="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.mini.css">
+  <p><span>文章作者:</span><a href="/" title="访问 陈晟 的个人博客">陈晟</a></p>
+  <p><span>原始链接:</span><a href="/2018/12/07/71-ES6运算符扩展/" title="ECMAScript 6 扩展运算符">http://www.chensheng.group/2018/12/07/71-ES6运算符扩展/</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://www.chensheng.group/2018/12/07/71-ES6运算符扩展/"  aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 </a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    clipboard.on('success', $(function(){
+      $(".fa-clipboard").click(function(){
+        swal({   
+          title: "",   
+          text: '复制成功',   
+          html: false,
+          timer: 500,   
+          showConfirmButton: false
+        });
+      });
+    }));  
+</script>
+
+      
+	</div>
+		
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/ECMAScript-6/" rel="tag"><i class="fa fa-tag"></i> ECMAScript 6</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/04/70-ES6解构赋值/" rel="next" title="ECMAScript 6 解构赋值">
+                <i class="fa fa-chevron-left"></i> ECMAScript 6 解构赋值
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/08/72-ES6 字符串的扩展/" rel="prev" title="ECMAScript 6 字符串的扩展">
+                ECMAScript 6 字符串的扩展 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -346,6 +553,12 @@
 
 
           
+  <div class="comments" id="comments">
+    
+      <div id="SOHUCS"></div>
+    
+  </div>
+
 
         </div>
         
@@ -366,8 +579,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           
             <p class="site-author-name" itemprop="name">陈晟</p>
@@ -381,7 +603,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">63</span>
+                <span class="site-state-item-count">66</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -392,7 +614,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">21</span>
+                <span class="site-state-item-count">17</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -403,7 +625,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">52</span>
+                <span class="site-state-item-count">48</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -442,6 +664,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#扩展运算符"><span class="nav-number">1.</span> <span class="nav-text">扩展运算符</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#代替apply方法"><span class="nav-number">1.1.</span> <span class="nav-text">代替apply方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#复制数组"><span class="nav-number">1.2.</span> <span class="nav-text">复制数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#合并数组"><span class="nav-number">1.3.</span> <span class="nav-text">合并数组</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#rest运算符"><span class="nav-number">2.</span> <span class="nav-text">rest运算符</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#与解构赋值结合"><span class="nav-number">2.1.</span> <span class="nav-text">与解构赋值结合</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

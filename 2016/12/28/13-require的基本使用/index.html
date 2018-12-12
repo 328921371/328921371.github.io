@@ -69,7 +69,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="require,AMD," />
+  <meta name="keywords" content="javaScript,AMD," />
 
 
 
@@ -86,14 +86,14 @@
 
 
 <meta name="description" content="为什么要用到require？首先，当js文件 都引入的同一个文件下时，会导致命名冲动。其次，js文件之间存在依赖关系，因此必须严格保证加载顺序，依赖性最大的模块一定要放到最后加载，当依赖关系很复杂的时候，代码的编写和维护都会变得困难。所以require很好的解决了这个问题">
-<meta name="keywords" content="require,AMD">
+<meta name="keywords" content="javaScript,AMD">
 <meta property="og:type" content="article">
 <meta property="og:title" content="require的基本操作">
 <meta property="og:url" content="http://www.chensheng.group/2016/12/28/13-require的基本使用/index.html">
 <meta property="og:site_name" content="陈先生的小前端">
 <meta property="og:description" content="为什么要用到require？首先，当js文件 都引入的同一个文件下时，会导致命名冲动。其次，js文件之间存在依赖关系，因此必须严格保证加载顺序，依赖性最大的模块一定要放到最后加载，当依赖关系很复杂的时候，代码的编写和维护都会变得困难。所以require很好的解决了这个问题">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-11-02T05:39:44.481Z">
+<meta property="og:updated_time" content="2018-12-05T01:37:36.145Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="require的基本操作">
 <meta name="twitter:description" content="为什么要用到require？首先，当js文件 都引入的同一个文件下时，会导致命名冲动。其次，js文件之间存在依赖关系，因此必须严格保证加载顺序，依赖性最大的模块一定要放到最后加载，当依赖关系很复杂的时候，代码的编写和维护都会变得困难。所以require很好的解决了这个问题">
@@ -358,8 +358,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/require/" itemprop="url" rel="index">
-                    <span itemprop="name">require</span>
+                  <a href="/categories/javaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">javaScript</span>
                   </a>
                 </span>
 
@@ -438,10 +438,10 @@
 <li>需要依赖的js    ——–可省略</li>
 <li>回调函数</li>
 </ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">define(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">	<span class="keyword">var</span> a = <span class="number">5</span>;</div><div class="line">	<span class="keyword">var</span> b = <span class="number">10</span>;</div><div class="line">	<span class="keyword">var</span> c = <span class="number">15</span>;</div><div class="line">	<span class="keyword">var</span> num = <span class="number">20</span>;</div><div class="line">	</div><div class="line">	<span class="keyword">return</span>&#123;a,c&#125;</div><div class="line">&#125;)</div><div class="line"></div><div class="line"><span class="comment">//这里需要注意一下，因为导入了js3，所以可以使用js3中的str----这里的js3没有独立</span></div><div class="line">define([<span class="string">'js1'</span>,<span class="string">'js3'</span>],<span class="function"><span class="keyword">function</span>(<span class="params">js1</span>)</span>&#123;</div><div class="line">	<span class="function"><span class="keyword">function</span> <span class="title">fun</span>(<span class="params"></span>)</span>&#123;	</div><div class="line">		<span class="built_in">console</span>.log(<span class="string">'这是js2中的函数'</span> +  str)</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">return</span> fun</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
-<h4 id="main页面-1"><a href="#main页面-1" class="headerlink" title="main页面"></a>main页面</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">require</span>([<span class="string">'js1'</span>,<span class="string">'js2'</span>],<span class="function"><span class="keyword">function</span>(<span class="params">js1,js2</span>)</span>&#123;</div><div class="line"></div><div class="line">	<span class="comment">//js3里面的str在这里也可以被使用，因为js3没有独立，而且已经被js2导入了</span></div><div class="line">		<span class="built_in">console</span>.log(str)		</div><div class="line">	<span class="comment">//由于js1和js2已经独立了，所以在main里面只能用js1 和js2 导出的模块功能</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">define(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">	<span class="keyword">var</span> a = <span class="number">5</span>;</div><div class="line">	<span class="keyword">var</span> b = <span class="number">10</span>;</div><div class="line">	<span class="keyword">var</span> c = <span class="number">15</span>;</div><div class="line">	<span class="keyword">var</span> num = <span class="number">20</span>;</div><div class="line"></div><div class="line">	<span class="keyword">return</span>&#123;a,c&#125;</div><div class="line">&#125;)</div><div class="line"></div><div class="line"><span class="comment">//这里需要注意一下，因为导入了js3，所以可以使用js3中的str----这里的js3没有独立</span></div><div class="line">define([<span class="string">'js1'</span>,<span class="string">'js3'</span>],<span class="function"><span class="keyword">function</span>(<span class="params">js1</span>)</span>&#123;</div><div class="line">	<span class="function"><span class="keyword">function</span> <span class="title">fun</span>(<span class="params"></span>)</span>&#123;</div><div class="line">		<span class="built_in">console</span>.log(<span class="string">'这是js2中的函数'</span> +  str)</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">return</span> fun</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<h4 id="main页面-1"><a href="#main页面-1" class="headerlink" title="main页面"></a>main页面</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">require</span>([<span class="string">'js1'</span>,<span class="string">'js2'</span>],<span class="function"><span class="keyword">function</span>(<span class="params">js1,js2</span>)</span>&#123;</div><div class="line"></div><div class="line">	<span class="comment">//js3里面的str在这里也可以被使用，因为js3没有独立，而且已经被js2导入了</span></div><div class="line">		<span class="built_in">console</span>.log(str)</div><div class="line">	<span class="comment">//由于js1和js2已经独立了，所以在main里面只能用js1 和js2 导出的模块功能</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
 <h3 id="require导出模块的四种方式"><a href="#require导出模块的四种方式" class="headerlink" title="require导出模块的四种方式"></a>require导出模块的四种方式</h3><h4 id="第一种"><a href="#第一种" class="headerlink" title="第一种"></a>第一种</h4><p>定义模块：define<br>导出模块中的功能:return</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">define(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">	<span class="keyword">return</span> &#123;&#125;		</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">define(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">	<span class="keyword">return</span> &#123;&#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
 <h4 id="第二种"><a href="#第二种" class="headerlink" title="第二种"></a>第二种</h4><p>定义模块：define<br>导出模块中的功能 exports</p>
 <p>注意点:</p>
 <ol>
@@ -449,34 +449,34 @@
 <li>需要有参数</li>
 <li>导出时一个一个导出</li>
 </ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">define([<span class="string">'exports'</span>],<span class="function"><span class="keyword">function</span>(<span class="params">exports</span>)</span>&#123;</div><div class="line">	<span class="keyword">var</span> num1 = <span class="number">11</span>;			</div><div class="line">	exports.num1 = num1;</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">define([<span class="string">'exports'</span>],<span class="function"><span class="keyword">function</span>(<span class="params">exports</span>)</span>&#123;</div><div class="line">	<span class="keyword">var</span> num1 = <span class="number">11</span>;</div><div class="line">	exports.num1 = num1;</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
 <h4 id="第三种"><a href="#第三种" class="headerlink" title="第三种"></a>第三种</h4><p>定义模块：define<br>导出模块中的功能 module.exports</p>
 <p>注意点：</p>
 <ol>
 <li>这里需要导入module作为依赖项</li>
 <li>需要有参数</li>
-<li>导出时以对象的形式导出    </li>
+<li>导出时以对象的形式导出</li>
 </ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">define([<span class="string">'module'</span>],<span class="function"><span class="keyword">function</span>(<span class="params">module</span>)</span>&#123;</div><div class="line">	<span class="keyword">var</span> num1 = <span class="number">111</span>;			</div><div class="line">	<span class="built_in">module</span>.exports = &#123;num1&#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">define([<span class="string">'module'</span>],<span class="function"><span class="keyword">function</span>(<span class="params">module</span>)</span>&#123;</div><div class="line">	<span class="keyword">var</span> num1 = <span class="number">111</span>;</div><div class="line">	<span class="built_in">module</span>.exports = &#123;num1&#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
 <h4 id="第四种"><a href="#第四种" class="headerlink" title="第四种"></a>第四种</h4><p>注意点：</p>
 <ol>
 <li>这里需要导入require作为依赖项</li>
 <li>需要有参数</li>
 <li>其他与第三种方法差不多</li>
 </ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">define([<span class="string">'require'</span>],<span class="function"><span class="keyword">function</span>(<span class="params">require</span>)</span>&#123;</div><div class="line">	<span class="keyword">var</span> <span class="built_in">module</span> = <span class="built_in">require</span>(<span class="string">'module'</span>)		</div><div class="line">	<span class="keyword">var</span> num1 = <span class="number">1111</span>;	</div><div class="line">	<span class="built_in">module</span>.exports = &#123;num1&#125;			</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">define([<span class="string">'require'</span>],<span class="function"><span class="keyword">function</span>(<span class="params">require</span>)</span>&#123;</div><div class="line">	<span class="keyword">var</span> <span class="built_in">module</span> = <span class="built_in">require</span>(<span class="string">'module'</span>)</div><div class="line">	<span class="keyword">var</span> num1 = <span class="number">1111</span>;</div><div class="line">	<span class="built_in">module</span>.exports = &#123;num1&#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
 <p>之后在main文件中</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">require</span>([<span class="string">'m1'</span>,<span class="string">'m2'</span>,<span class="string">'m3'</span>,<span class="string">'m4'</span>],<span class="function"><span class="keyword">function</span>(<span class="params">m1,m2,m3,m4</span>)</span>&#123;</div><div class="line">	<span class="built_in">console</span>.log(m1);</div><div class="line">	<span class="comment">//使用什么就打点调用什么</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
 <h3 id="require的配置及define时定义名字怎么使用"><a href="#require的配置及define时定义名字怎么使用" class="headerlink" title="require的配置及define时定义名字怎么使用"></a>require的配置及define时定义名字怎么使用</h3><p>假设我们要使用一个jq全屏插件，怎么使用require进行配置依赖项</p>
 <p>这是需要用到的js文件： jquery.fullscreen.js</p>
 <p>最终实现这样的效果： $(document).fullScreen(true)</p>
 <p>变量名是随便起的，主要是介绍一下主要的知识点是什么意思</p>
-<h4 id="define-使用名字："><a href="#define-使用名字：" class="headerlink" title="define()使用名字："></a>define()使用名字：</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">define(<span class="string">'moduleA1'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;	</div><div class="line">	<span class="built_in">console</span>.log(<span class="string">'这个是a.js中的moduleA1'</span>);	</div><div class="line">	<span class="keyword">return</span> <span class="string">'这个是a.js中的moduleA1'</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<h4 id="define-使用名字："><a href="#define-使用名字：" class="headerlink" title="define()使用名字："></a>define()使用名字：</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">define(<span class="string">'moduleA1'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">	<span class="built_in">console</span>.log(<span class="string">'这个是a.js中的moduleA1'</span>);</div><div class="line">	<span class="keyword">return</span> <span class="string">'这个是a.js中的moduleA1'</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
 <p>一个js文件中可以定义多个模块，一个文件中定义多个模块的话，尽量去使用模块名称进行区分</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">define(<span class="string">'moduleA2'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;		</div><div class="line">	<span class="built_in">console</span>.log(<span class="string">'这个是a.js中的moduleA2'</span>);		</div><div class="line">	<span class="keyword">return</span> <span class="string">'这个是a.js中的moduleA2'</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
-<h4 id="在主界面main中配置require"><a href="#在主界面main中配置require" class="headerlink" title="在主界面main中配置require"></a>在主界面main中配置require</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">require</span>.config(&#123;</div><div class="line">	baseUrl:<span class="string">'lib'</span>,----- 配置基本路径，默认的是入口js文件所在的路径</div><div class="line"></div><div class="line">	paths:&#123;</div><div class="line">		test:<span class="string">'../scripts/aaa/bbb'</span>, ----配置不放在基本路径上的js的路径</div><div class="line">		test1:<span class="string">'http://cdn.jquery-3.2.1/'</span> ---含有URL协议的也可以，比如http，导入时不要写后缀.js</div><div class="line">		a:<span class="string">'../scripts/a'</span>	</div><div class="line">	&#125;,</div><div class="line">	shim:&#123;  ---------配置依赖项，当依赖的模块全部加载结束之后，才会执行当前脚本</div><div class="line">		jqueryFullscreen : [<span class="string">'jquery'</span>,<span class="string">'test'</span>]	---对象的属性为模块名（js的名字），数组中的元素一般是相对与baseUrl的路径，只不过没有文件后缀</div><div class="line">	&#125;, </div><div class="line">	bundles:&#123;--模块树，如果一个js文件中有多个模块，就可以使用这种方法来进行解决</div><div class="line">		a:[<span class="string">'moduleA1'</span>,<span class="string">'moduleA2'</span>]	---之前定义的名字在这里使用</div><div class="line">	&#125;,</div><div class="line">	waitSeconds:<span class="number">7</span> ----设置等待加载，默认<span class="number">7</span>秒</div><div class="line">	</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">define(<span class="string">'moduleA2'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">	<span class="built_in">console</span>.log(<span class="string">'这个是a.js中的moduleA2'</span>);</div><div class="line">	<span class="keyword">return</span> <span class="string">'这个是a.js中的moduleA2'</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<h4 id="在主界面main中配置require"><a href="#在主界面main中配置require" class="headerlink" title="在主界面main中配置require"></a>在主界面main中配置require</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">require</span>.config(&#123;</div><div class="line">	baseUrl:<span class="string">'lib'</span>,----- 配置基本路径，默认的是入口js文件所在的路径</div><div class="line"></div><div class="line">	paths:&#123;</div><div class="line">		test:<span class="string">'../scripts/aaa/bbb'</span>, ----配置不放在基本路径上的js的路径</div><div class="line">		test1:<span class="string">'http://cdn.jquery-3.2.1/'</span> ---含有URL协议的也可以，比如http，导入时不要写后缀.js</div><div class="line">		a:<span class="string">'../scripts/a'</span></div><div class="line">	&#125;,</div><div class="line">	shim:&#123;  ---------配置依赖项，当依赖的模块全部加载结束之后，才会执行当前脚本</div><div class="line">		jqueryFullscreen : [<span class="string">'jquery'</span>,<span class="string">'test'</span>]	---对象的属性为模块名（js的名字），数组中的元素一般是相对与baseUrl的路径，只不过没有文件后缀</div><div class="line">	&#125;,</div><div class="line">	bundles:&#123;--模块树，如果一个js文件中有多个模块，就可以使用这种方法来进行解决</div><div class="line">		a:[<span class="string">'moduleA1'</span>,<span class="string">'moduleA2'</span>]	---之前定义的名字在这里使用</div><div class="line">	&#125;,</div><div class="line">	waitSeconds:<span class="number">7</span> ----设置等待加载，默认<span class="number">7</span>秒</div><div class="line"></div><div class="line">&#125;);</div></pre></td></tr></table></figure>
 <p>配置完之后，就可以使用模块的名字了,要记得写参数</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">require</span>([<span class="string">'jqueryFullscreen'</span>,<span class="string">'moduleA1'</span>,<span class="string">'moduleA2'</span>],<span class="function"><span class="keyword">function</span>(<span class="params">a0,a1,a2</span>)</span>&#123;</div><div class="line">	<span class="built_in">console</span>.log(a1);</div><div class="line">	<span class="built_in">console</span>.log(a2);</div><div class="line">	<span class="built_in">console</span>.log($.fn.fullScreen);</div><div class="line">	<span class="built_in">console</span>.log(str);</div><div class="line">	</div><div class="line">	$(<span class="string">'div'</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">		$(<span class="built_in">document</span>).fullScreen(<span class="literal">true</span>)	</div><div class="line">	&#125;)	</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">require</span>([<span class="string">'jqueryFullscreen'</span>,<span class="string">'moduleA1'</span>,<span class="string">'moduleA2'</span>],<span class="function"><span class="keyword">function</span>(<span class="params">a0,a1,a2</span>)</span>&#123;</div><div class="line">	<span class="built_in">console</span>.log(a1);</div><div class="line">	<span class="built_in">console</span>.log(a2);</div><div class="line">	<span class="built_in">console</span>.log($.fn.fullScreen);</div><div class="line">	<span class="built_in">console</span>.log(str);</div><div class="line"></div><div class="line">	$(<span class="string">'div'</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">		$(<span class="built_in">document</span>).fullScreen(<span class="literal">true</span>)</div><div class="line">	&#125;)</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
 <p>require的知识还有许多，这里只是一些入门，如果有错，希望大牛们指点一下，感激不尽</p>
 
       
@@ -538,7 +538,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/require/" rel="tag"><i class="fa fa-tag"></i> require</a>
+            <a href="/tags/javaScript/" rel="tag"><i class="fa fa-tag"></i> javaScript</a>
           
             <a href="/tags/AMD/" rel="tag"><i class="fa fa-tag"></i> AMD</a>
           
@@ -643,7 +643,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">63</span>
+                <span class="site-state-item-count">66</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -654,7 +654,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">21</span>
+                <span class="site-state-item-count">17</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -665,7 +665,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">52</span>
+                <span class="site-state-item-count">48</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
