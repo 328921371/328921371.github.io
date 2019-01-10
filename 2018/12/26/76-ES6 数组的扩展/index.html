@@ -85,18 +85,18 @@
 
 
 
-<meta name="description" content="扩展运算符和rest运算符是ES6新推出的,大家可能比较陌生,本来我是打算放在数组扩展里面一起讲的,但是觉得他们挺好用也挺重要的,所以就提前拿出来单独分享一下">
+<meta name="description" content="数组是每天都要接触的东西,ES6添加的语法更是方便了许多,主要的运算符扩展我已经单独分一章了,接下来聊聊数组的其他语法糖">
 <meta name="keywords" content="ECMAScript 6">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ECMAScript 6 扩展运算符">
-<meta property="og:url" content="http://www.chensheng.group/2018/12/07/71-ES6运算符扩展/index.html">
+<meta property="og:title" content="ECMAScript 6 数组的扩展">
+<meta property="og:url" content="http://www.chensheng.group/2018/12/26/76-ES6 数组的扩展/index.html">
 <meta property="og:site_name" content="陈先生的小前端">
-<meta property="og:description" content="扩展运算符和rest运算符是ES6新推出的,大家可能比较陌生,本来我是打算放在数组扩展里面一起讲的,但是觉得他们挺好用也挺重要的,所以就提前拿出来单独分享一下">
+<meta property="og:description" content="数组是每天都要接触的东西,ES6添加的语法更是方便了许多,主要的运算符扩展我已经单独分一章了,接下来聊聊数组的其他语法糖">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-12-12T09:27:34.300Z">
+<meta property="og:updated_time" content="2019-01-07T07:42:51.277Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ECMAScript 6 扩展运算符">
-<meta name="twitter:description" content="扩展运算符和rest运算符是ES6新推出的,大家可能比较陌生,本来我是打算放在数组扩展里面一起讲的,但是觉得他们挺好用也挺重要的,所以就提前拿出来单独分享一下">
+<meta name="twitter:title" content="ECMAScript 6 数组的扩展">
+<meta name="twitter:description" content="数组是每天都要接触的东西,ES6添加的语法更是方便了许多,主要的运算符扩展我已经单独分一章了,接下来聊聊数组的其他语法糖">
 
 
 
@@ -126,13 +126,13 @@
 
 
 
-  <link rel="canonical" href="http://www.chensheng.group/2018/12/07/71-ES6运算符扩展/"/>
+  <link rel="canonical" href="http://www.chensheng.group/2018/12/26/76-ES6 数组的扩展/"/>
 
 
 
 
 
-  <title>ECMAScript 6 扩展运算符 | 陈先生的小前端</title>
+  <title>ECMAScript 6 数组的扩展 | 陈先生的小前端</title>
   
 
 
@@ -306,7 +306,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.chensheng.group/2018/12/07/71-ES6运算符扩展/">
+    <link itemprop="mainEntityOfPage" href="http://www.chensheng.group/2018/12/26/76-ES6 数组的扩展/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="陈晟">
@@ -323,7 +323,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">ECMAScript 6 扩展运算符</h1>
+          <h1 class="post-title" itemprop="name headline">ECMAScript 6 数组的扩展</h1>
         
 
         <div class="post-meta">
@@ -335,8 +335,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-07T13:41:24+08:00">
-                2018-12-07
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-26T16:39:05+08:00">
+                2018-12-26
               </time>
             
 
@@ -377,8 +377,8 @@
                 <i class="fa fa-comment-o"></i>
               </span>
               
-                <a href="/2018/12/07/71-ES6运算符扩展/#SOHUCS" itemprop="discussionUrl">
-                  <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2018/12/07/71-ES6运算符扩展/" itemprop="commentsCount"></span>
+                <a href="/2018/12/26/76-ES6 数组的扩展/#SOHUCS" itemprop="discussionUrl">
+                  <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2018/12/26/76-ES6 数组的扩展/" itemprop="commentsCount"></span>
                 </a>
               
             
@@ -409,37 +409,59 @@
         <hr style="filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)" color="#FF0000" size="1">
 
 <blockquote>
-<p>扩展运算符和rest运算符是ES6新推出的,大家可能比较陌生,本来我是打算放在数组扩展里面一起讲的,但是觉得他们挺好用也挺重要的,所以就提前拿出来单独分享一下</p>
+<p>数组是每天都要接触的东西,ES6添加的语法更是方便了许多,主要的运算符扩展我已经单独分一章了,接下来聊聊数组的其他语法糖</p>
 </blockquote>
 <a id="more"></a>
 <p>文章主要参考阮一峰老师的 ECMAScript 6入门,站在巨人的肩膀上看世界…</p>
-<h2 id="扩展运算符"><a href="#扩展运算符" class="headerlink" title="扩展运算符"></a>扩展运算符</h2><p>扩展运算符（spread）是三个点（…），将一个数组转为分隔的参数序列。</p>
-<p>举一个简单的例子</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">let arr = [1,2,3]</div><div class="line">console.log(...arr) // 1 2 3</div><div class="line"></div><div class="line">function add(x,y,z)&#123;</div><div class="line">  return x + y + z</div><div class="line">&#125;</div><div class="line"></div><div class="line">add(...arr) // 6</div></pre></td></tr></table></figure>
-<blockquote>
-<p>注意，扩展运算符如果放在括号中，JavaScript 引擎就会认为这是函数调用，否则就会报错。</p>
+<h2 id="数组转化"><a href="#数组转化" class="headerlink" title="数组转化"></a>数组转化</h2><h3 id="Array-from"><a href="#Array-from" class="headerlink" title="Array.from"></a>Array.from</h3><blockquote>
+<p>Array.from方法用于将类对象转为真正的数组,所谓类似数组的对象，本质特征只有一点，即必须有length属性。因此，任何有length属性的对象，都可以通过Array.from方法转为数组</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">(...[1,2]) // 报错</div><div class="line"></div><div class="line">console.log((...[1,2])) // 报错</div><div class="line"></div><div class="line">console.log(...[1,2]) // 不会报错,因为这时是函数调用。</div></pre></td></tr></table></figure>
-<p>接下来讲一下扩展运算符的基本用法</p>
-<h3 id="代替apply方法"><a href="#代替apply方法" class="headerlink" title="代替apply方法"></a>代替apply方法</h3><p>举一个求数组中最大值的例子</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">// ES5 的写法</div><div class="line">Math.max.apply(null, [14, 3, 77])</div><div class="line"></div><div class="line">// ES6 的写法</div><div class="line">Math.max(...[14, 3, 77])</div><div class="line"></div><div class="line">// 等同于</div><div class="line">Math.max(14, 3, 77);</div></pre></td></tr></table></figure>
-<blockquote>
-<p>不明白apply用法的可以看我之前的博客,<a href="https://www.chensheng.group/2016/09/15/03-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E4%B8%8E%E5%8E%9F%E5%9E%8B/">原型与原型链</a>,这篇文章有讲到apply的用法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">let  json = &#123;</div><div class="line">  &apos;0&apos;: &apos;a&apos;,</div><div class="line">  &apos;1&apos;: &apos;b&apos;,</div><div class="line">  &apos;2&apos;: &apos;c&apos;,</div><div class="line">  length: 3</div><div class="line">&#125;</div><div class="line">// 转化为arr</div><div class="line">let arr = Array.from(json);</div></pre></td></tr></table></figure>
+<p>Array.from还可以接受第二个参数，作用类似于数组的map方法，用来对每个元素进行处理，将处理后的值放入返回的数组。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">Array.from([1, 2, 3], (x) =&gt; x * x)</div><div class="line">// [1, 4, 9]</div><div class="line"></div><div class="line">Array.from([1, , 2, , 3], (n) =&gt; n || 0)</div><div class="line">// [1, 0, 2, 0, 3]</div></pre></td></tr></table></figure>
+<h3 id="Array-of"><a href="#Array-of" class="headerlink" title="Array.of()"></a>Array.of()</h3><blockquote>
+<p>Array.of方法用于将一组值，转换为数组。</p>
 </blockquote>
-<h3 id="复制数组"><a href="#复制数组" class="headerlink" title="复制数组"></a>复制数组</h3><p>我们之前复制数组的时候,用的是深拷贝和浅拷贝,这里我就不再说什么是深拷贝了,来看看ES6怎么复制数组</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">let a1 = [1, 2];</div><div class="line"></div><div class="line">let a2 = [...a1]; // 写法一</div><div class="line"></div><div class="line">let [...a2] = a1; // 写法二</div></pre></td></tr></table></figure>
-<h3 id="合并数组"><a href="#合并数组" class="headerlink" title="合并数组"></a>合并数组</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">let arr1 = [&#123;cs:&apos;123&apos;&#125;, &apos;b&apos;];</div><div class="line">let arr2 = [&apos;c&apos;];</div><div class="line">let arr3 = [&apos;d&apos;, &apos;e&apos;];</div><div class="line"></div><div class="line">let arr4 = [...arr1, ...arr2, ...arr3]</div><div class="line"></div><div class="line">arr1[0].cs = &apos;csing&apos;</div><div class="line"></div><div class="line">console.log(arr4) // [ &#123;cs:&apos;csing&apos;&#125;, &apos;b&apos;, &apos;c&apos;, &apos;d&apos;, &apos;e&apos; ]</div></pre></td></tr></table></figure>
-<blockquote>
-<p>注意!!! 这种方法是浅拷贝,这个坑需要注意一下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Array.of(3, 11, 8) // [3,11,8]</div><div class="line">Array.of(3) // [3]</div><div class="line">Array.of(3).length // 1</div></pre></td></tr></table></figure>
+<h2 id="数组查找"><a href="#数组查找" class="headerlink" title="数组查找"></a>数组查找</h2><blockquote>
+<p>数组实例的find方法，用于找出第一个符合条件的数组成员。它的参数是一个回调函数，所有数组成员依次执行该回调函数，直到找出第一个返回值为true的成员，然后返回该成员。如果没有符合条件的成员，则返回undefined。</p>
 </blockquote>
-<h2 id="rest运算符"><a href="#rest运算符" class="headerlink" title="rest运算符"></a>rest运算符</h2><p>rest运算符也是用…(三个点)来表示,甚至很多时候你不用特意去区分</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">function add(one,...rest)&#123;</div><div class="line">  console.log(rest) // [2,3,4,5,6]</div><div class="line">&#125;</div><div class="line"></div><div class="line">add(1,2,3,4,5,6)</div></pre></td></tr></table></figure>
-<p>这样写的好处在于,当你不知道函数会传进来几个参数的时候,…rest可以全部接受后转为数组</p>
-<h3 id="与解构赋值结合"><a href="#与解构赋值结合" class="headerlink" title="与解构赋值结合"></a>与解构赋值结合</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">const [first, ...rest] = [1, 2, 3, 4, 5];</div><div class="line">first // 1</div><div class="line">rest  // [2, 3, 4, 5]</div><div class="line"></div><div class="line">const [first, ...rest] = [];</div><div class="line">first // undefined</div><div class="line">rest  // []</div><div class="line"></div><div class="line">const [first, ...rest] = [&quot;foo&quot;];</div><div class="line">first  // &quot;foo&quot;</div><div class="line">rest   // []</div></pre></td></tr></table></figure>
-<blockquote>
-<p>需要注意的是,如果将扩展运算符用于数组赋值,只能放在参数的最后一位,否则会报错。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[1, 5, 10, 15].find(function(value, index, arr) &#123;</div><div class="line">  return value &gt; 9;</div><div class="line">&#125;) // 10</div></pre></td></tr></table></figure>
+<h2 id="数组填充"><a href="#数组填充" class="headerlink" title="数组填充"></a>数组填充</h2><blockquote>
+<p>fill方法使用给定值，填充一个数组。</p>
 </blockquote>
-<p>以上就是我对ECMAScript 6运算符扩展的一些理解，如果文章由于我学识浅薄，导致您发现有严重谬误的地方，请一定在评论中指出，我会在第一时间修正我的博文，以避免误人子弟。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">// fill方法从 1 号位开始，向原数组填充 7，到 2 号位之前结束。</div><div class="line">[&apos;a&apos;, &apos;b&apos;, &apos;c&apos;].fill(7, 1, 2)</div><div class="line">//[&apos;a&apos;, 7, &apos;c&apos;]</div></pre></td></tr></table></figure>
+<h2 id="数组实例的-entries-，keys-和-values"><a href="#数组实例的-entries-，keys-和-values" class="headerlink" title="数组实例的 entries()，keys() 和 values()"></a>数组实例的 entries()，keys() 和 values()</h2><p>ES6 提供三个新的方法——entries()，keys()和values()——用于遍历数组。它们都返回一个遍历器对象（详见《Iterator》一章），可以用for…of循环进行遍历，唯一的区别是keys()是对键名的遍历、values()是对键值的遍历，entries()是对键值对的遍历。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">let ary = [&apos;a&apos;, &apos;b&apos;]</div><div class="line"></div><div class="line">for (let index of ary.keys()) &#123;</div><div class="line">  console.log(index);</div><div class="line">  // 0</div><div class="line">  // 1</div><div class="line">&#125;</div><div class="line"></div><div class="line">for (let elem of ary.values()) &#123;</div><div class="line">  console.log(elem);</div><div class="line">  // &apos;a&apos;</div><div class="line">  // &apos;b&apos;</div><div class="line">&#125;</div><div class="line"></div><div class="line">for (let [index, elem] of ary.entries()) &#123;</div><div class="line">  console.log(index, elem);</div><div class="line">  // 0 &quot;a&quot;</div><div class="line">  // 1 &quot;b&quot;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>entries()实例方式生成的是Iterator形式的数组，那这种形式的好处就是可以让我们在需要时用next()手动跳转到下一个值。举一个例子</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">let letter = [&apos;a&apos;, &apos;b&apos;, &apos;c&apos;];</div><div class="line">let entries = letter.entries();</div><div class="line">console.log(entries.next().value); // [0, &apos;a&apos;]</div><div class="line">console.log(entries.next().value); // [1, &apos;b&apos;]</div><div class="line">console.log(entries.next().value); // [2, &apos;c&apos;]</div></pre></td></tr></table></figure>
+<h2 id="数组实例的-includes"><a href="#数组实例的-includes" class="headerlink" title="数组实例的 includes()"></a>数组实例的 includes()</h2><blockquote>
+<p>Array.prototype.includes方法返回一个布尔值，表示某个数组是否包含给定的值，与字符串的includes方法类似。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[1, 2, 3].includes(2) // true</div><div class="line">[1, 2, 3].includes(4) // false</div></pre></td></tr></table></figure>
+<blockquote>
+<p>该方法的第二个参数表示搜索的起始位置，默认为0。如果第二个参数为负数，则表示倒数的位置，如果这时它大于数组长度（比如第二个参数为-4，但数组长度为3），则会重置为从0开始。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[1, 2, 3].includes(3, 3);  // false</div><div class="line">[1, 2, 3].includes(3, -1); // true</div></pre></td></tr></table></figure>
+<h2 id="数组实例的-flat-，flatMap"><a href="#数组实例的-flat-，flatMap" class="headerlink" title="数组实例的 flat()，flatMap()"></a>数组实例的 flat()，flatMap()</h2><blockquote>
+<p>数组的成员有时还是数组，Array.prototype.flat()用于将嵌套的数组“拉平”，变成一维的数组。该方法返回一个新数组，对原数据没有影响。flat()默认只会“拉平”一层，如果想要“拉平”多层的嵌套数组，可以将flat()方法的参数写成一个整数，表示想要拉平的层数，默认为1。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">[1, 2, [3, [4, 5]]].flat()</div><div class="line">// [1, 2, 3, [4, 5]]</div><div class="line"></div><div class="line">[1, 2, [3, [4, 5]]].flat(2)</div><div class="line">// [1, 2, 3, 4, 5]</div><div class="line"></div><div class="line">// 如果不管有多少层嵌套，都要转成一维数组，可以用Infinity关键字作为参数。</div><div class="line">[1, [2, [3]]].flat(Infinity)</div><div class="line">// [1, 2, 3]</div><div class="line"></div><div class="line">// 如果原数组有空位，flat()方法会跳过空位。</div><div class="line">[1, 2, , 4, 5].flat()</div><div class="line">// [1, 2, 4, 5]</div></pre></td></tr></table></figure>
+<h3 id="数组空位"><a href="#数组空位" class="headerlink" title="数组空位"></a>数组空位</h3><blockquote>
+<p>由于空位的处理规则非常不统一，所以建议避免出现空位。</p>
+</blockquote>
+<p>ES5 对空位的处理，已经很不一致了，大多数情况下会忽略空位。</p>
+<ul>
+<li>forEach(), filter(), reduce(), every() 和some()都会跳过空位。</li>
+<li>map()会跳过空位，但会保留这个值</li>
+<li>join()和toString()会将空位视为undefined，而undefined和null会被处理成空字符串。</li>
+</ul>
+<blockquote>
+<p>ES6 则是明确将空位转为undefined。</p>
+</blockquote>
+<p>以上就是我对ECMAScript 6数组扩展的一些理解，如果文章由于我学识浅薄，导致您发现有严重谬误的地方，请一定在评论中指出，我会在第一时间修正我的博文，以避免误人子弟。</p>
 
       
     </div>
@@ -467,8 +489,8 @@
   <script src="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.min.js"></script>
   <link rel="stylesheet" type="text/css" href="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.mini.css">
   <p><span>文章作者:</span><a href="/" title="访问 陈晟 的个人博客">陈晟</a></p>
-  <p><span>原始链接:</span><a href="/2018/12/07/71-ES6运算符扩展/" title="ECMAScript 6 扩展运算符">http://www.chensheng.group/2018/12/07/71-ES6运算符扩展/</a>
-    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://www.chensheng.group/2018/12/07/71-ES6运算符扩展/"  aria-label="复制成功！"></i></span>
+  <p><span>原始链接:</span><a href="/2018/12/26/76-ES6 数组的扩展/" title="ECMAScript 6 数组的扩展">http://www.chensheng.group/2018/12/26/76-ES6 数组的扩展/</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://www.chensheng.group/2018/12/26/76-ES6 数组的扩展/"  aria-label="复制成功！"></i></span>
   </p>
   <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 </a> 转载请保留原文链接及作者。</p>  
 </div>
@@ -513,8 +535,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/12/04/70-ES6解构赋值/" rel="next" title="ECMAScript 6 解构赋值">
-                <i class="fa fa-chevron-left"></i> ECMAScript 6 解构赋值
+              <a href="/2018/12/25/75-ES6 函数的扩展/" rel="next" title="ECMAScript 6 函数的扩展">
+                <i class="fa fa-chevron-left"></i> ECMAScript 6 函数的扩展
               </a>
             
           </div>
@@ -523,8 +545,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/12/08/72-ES6 字符串的扩展/" rel="prev" title="ECMAScript 6 字符串的扩展">
-                ECMAScript 6 字符串的扩展 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/01/10/77-ES6 对象的扩展/" rel="prev" title="ECMAScript 6 对象的扩展">
+                ECMAScript 6 对象的扩展 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -603,7 +625,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">68</span>
+                <span class="site-state-item-count">70</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -674,7 +696,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#扩展运算符"><span class="nav-number">1.</span> <span class="nav-text">扩展运算符</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#代替apply方法"><span class="nav-number">1.1.</span> <span class="nav-text">代替apply方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#复制数组"><span class="nav-number">1.2.</span> <span class="nav-text">复制数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#合并数组"><span class="nav-number">1.3.</span> <span class="nav-text">合并数组</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#rest运算符"><span class="nav-number">2.</span> <span class="nav-text">rest运算符</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#与解构赋值结合"><span class="nav-number">2.1.</span> <span class="nav-text">与解构赋值结合</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#数组转化"><span class="nav-number">1.</span> <span class="nav-text">数组转化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Array-from"><span class="nav-number">1.1.</span> <span class="nav-text">Array.from</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Array-of"><span class="nav-number">1.2.</span> <span class="nav-text">Array.of()</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数组查找"><span class="nav-number">2.</span> <span class="nav-text">数组查找</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数组填充"><span class="nav-number">3.</span> <span class="nav-text">数组填充</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数组实例的-entries-，keys-和-values"><span class="nav-number">4.</span> <span class="nav-text">数组实例的 entries()，keys() 和 values()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数组实例的-includes"><span class="nav-number">5.</span> <span class="nav-text">数组实例的 includes()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数组实例的-flat-，flatMap"><span class="nav-number">6.</span> <span class="nav-text">数组实例的 flat()，flatMap()</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数组空位"><span class="nav-number">6.1.</span> <span class="nav-text">数组空位</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -697,7 +719,7 @@
         <div class="copyright" >
   
   &copy;  2015 &mdash; 
-  <span itemprop="copyrightYear">2018</span>
+  <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
