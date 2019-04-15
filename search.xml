@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[vue-electron 桌面应用]]></title>
+    <url>%2F2019%2F04%2F15%2F85-vue-electron%2F</url>
+    <content type="text"><![CDATA[最近项目需要一个桌面应用,于是初步了解了一下electron来打造桌面应用 electron什么是 electron? 官网里这么说：Electron提供了一个Nodejs的运行时，专注于构建桌面应用，同时使用web页面来作为应用的GUI，你可以将其看作是一个由JavaScript控制的迷你版的Chromium浏览器。 本质上，electron 就是一个带了 Chrome 浏览器的壳子（无需考虑兼容性的问题）。 具有两个进程，分别是主进程，以及渲染进程。 主进程：运行 package.json 里面 main 脚本的进程成为主进程。 渲染进程： 每个 electron 的页面都运行着自己的进程，称为渲染进程。 我们主要的页面代码就是放在渲染进程里面的 electron-vueelectron-vue 是一个结合 vue-cli 与 electron 的项目，主要避免了使用 vue 手动建立起 electron 应用程序，很方便。 安装假设电脑已经安装node.js,并且已经全局搭建好vue-cli脚手架 cd 到需要安装的目录下, vue init simulatedgreg/electron-vue project 一路回车 之后就是安装依赖了,推荐使用yarn,可以避免打包时候的一些报错 路径千万不能有中文!! 项目结构树12345678910111213141516171819202122232425262728293031323334353637my-project├─ .electron-vue &lt;= 配置文件│ └─ &lt;build/development&gt;.js files├─ build &lt;= 打包的icon,以及打包后的文件│ └─ icons/├─ dist &lt;= 编译打包│ ├─ electron/│ └─ web/├─ node_modules/ &lt;= node包├─ src│ ├─ main &lt;= 主进程配置│ │ ├─ index.dev.js│ │ └─ index.js│ ├─ renderer &lt;= 渲染进程文件│ │ ├─ components/│ │ ├─ router/│ │ ├─ store/│ │ ├─ App.vue│ │ └─ main.js│ └─ index.ejs├─ static/ &lt;= 静态资源文件├─ test│ ├─ e2e│ │ ├─ specs/│ │ ├─ index.js│ │ └─ utils.js│ ├─ unit│ │ ├─ specs/│ │ ├─ index.js│ │ └─ karma.config.js│ └─ .eslintrc├─ .babelrc├─ .eslintignore├─ .eslintrc.js├─ .gitignore├─ package.json└─ README.md 技术栈 [x] Vue [x] VueRouter [x] Vuex [x] Vue-Electron [x] iView [x] Eslint [x] Babel [x] Webpack [x] Nodejs 运行npm run dev 就可以开始运行了 这里贴一下基本的主进程的配置 123456789101112131415161718mainWindow = new BrowserWindow(&#123; width: 1200, minWidth: 1200, height: 720, minHeight: 720, resizable: true, // 窗口是否可调整大小 movable: true, // 窗口是否可移动 skipTaskbar: false, // 是否在任务栏中显示窗口。 center: true, // 在屏幕中心显示窗口 useContentSize: true, // 实际窗口的大小将包括窗口框架的大小并略大 transparent: false, // 使窗口透明 frame: false, //创建一个无框窗口 titleBarStyle: &quot;hidden&quot;, webPreferences: &#123; webSecurity: false, // 跨域 plugins: true &#125;&#125;) 这个主要是配置窗口的事件,更多的配置欢迎去官网查询 自定义窗口事件(最小化到托盘)渲染进程中12345678910111213141516171819202122// 设置点击和发送let ipc = require(&apos;electron&apos;).ipcRenderer;document.getElementById(&apos;minWin&apos;).addEventListener(&apos;click&apos;, () =&gt; &#123; ipc.send(&apos;window-min&apos;);&#125;)document.getElementById(&apos;maxWin&apos;).addEventListener(&apos;click&apos;, () =&gt; &#123; ipc.send(&apos;window-max&apos;); // this.windowMax = !this.windowMax;&#125;)document.getElementById(&apos;closeWin&apos;).addEventListener(&apos;click&apos;, () =&gt; &#123; ipc.send(&apos;window-close&apos;);&#125;)ipc.on(&apos;main-maximize&apos;, (event, arg) =&gt; &#123; this.windowMax = true&#125;);ipc.on(&apos;main-unmaximize&apos;, (event, arg) =&gt; &#123; this.windowMax = false&#125;); 主进程中123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384 import &#123; app, BrowserWindow, Tray, Menu &#125; from &apos;electron&apos; const path = require(&apos;path&apos;); const electron = require(&apos;electron&apos;) let tray = null // 在 createWindow 中监听发送 function createWindow () &#123; /** * Initial window options */ mainWindow = new BrowserWindow(&#123; width: 1200, minWidth: 1200, height: 720, minHeight: 720, resizable: true, // 窗口是否可调整大小 movable: true, // 窗口是否可移动 skipTaskbar: false, // 是否在任务栏中显示窗口。 center: true, // 在屏幕中心显示窗口 useContentSize: true, // 实际窗口的大小将包括窗口框架的大小并略大 transparent: false, // 使窗口透明 frame: false, //创建一个无框窗口 titleBarStyle: &quot;hidden&quot;, webPreferences: &#123; webSecurity: false, // 跨域 plugins: true &#125; &#125;) mainWindow.loadURL(winURL) mainWindow.on(&apos;closed&apos;, () =&gt; &#123; mainWindow = null &#125;) // 像渲染进程发送指令 mainWindow.on(&apos;maximize&apos;, () =&gt; &#123; mainWindow.webContents.send(&apos;main-maximize&apos;); &#125;) mainWindow.on(&apos;unmaximize&apos;, () =&gt; &#123; mainWindow.webContents.send(&apos;main-unmaximize&apos;); &#125;) // 自定义创建监听缩小放大关闭 const ipc = electron.ipcMain //窗口最小化 ipc.on(&apos;window-min&apos;,function()&#123; mainWindow.minimize(); &#125;) //窗口最大化 ipc.on(&apos;window-max&apos;,function()&#123; if(mainWindow.isMaximized())&#123; mainWindow.restore(); &#125;else&#123; mainWindow.maximize(); &#125; &#125;) // 当我们点击关闭时触发close事件，我们按照之前的思路在关闭时，隐藏窗口，隐藏任务栏窗口 // event.preventDefault(); 禁止关闭行为(非常必要，因为我们并不是想要关闭窗口，所以需要禁止默认行为) ipc.on(&apos;window-close&apos;,(event)=&gt;&#123; // mainWindow.close(); mainWindow.hide(); mainWindow.setSkipTaskbar(true); event.preventDefault(); &#125;) //创建系统通知区菜单 tray = new Tray(path.join(__dirname, &apos;/static/icon.ico&apos;)); const contextMenu = Menu.buildFromTemplate([ &#123;label: &apos;退出&apos;, click: () =&gt; &#123;mainWindow.destroy()&#125;&#125;,//我们需要在这里有一个真正的退出（这里直接强制退出） ]) tray.setToolTip(&apos;易家健康管理&apos;) tray.setContextMenu(contextMenu) tray.on(&apos;click&apos;, ()=&gt;&#123; //我们这里模拟桌面程序点击通知区图标实现打开关闭应用的功能 mainWindow.isVisible() ? mainWindow.hide() : mainWindow.show() mainWindow.isVisible() ? mainWindow.setSkipTaskbar(false):mainWindow.setSkipTaskbar(true); &#125;)&#125; 自定义拖动事件当默认的窗口框被关闭时,就要自己去设置拖动了. 在需要拖动的地方设置 style=&quot;-webkit-app-region: drag&quot; 在点击的地方禁止拖动 style=&quot;-webkit-app-region: no-drag;&quot; 在拖动的地方设置禁止选取文字 style=&quot;-webkit-user-select: none;&quot; 打包发布npm run build 打包这个东西,尽人事听天命… 如提示缺少vue组建，是因为registry的问题，因为国内taobao镜像没有Electron的依赖环境。应该删掉node包,重新yarn一下 打包好后,就在build文件夹底下了 后面在研究一下自动更新.. 以上就是我对vue-electron 桌面应用的一些理解，如果文章由于我学识浅薄，导致您发现有严重谬误的地方，请一定在评论中指出，我会在第一时间修正我的博文，以避免误人子弟。]]></content>
+      <categories>
+        <category>electron</category>
+      </categories>
+      <tags>
+        <tag>electron</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[ECMAScript 6 模块化操作]]></title>
     <url>%2F2019%2F02%2F25%2F84-ES6%20%E6%A8%A1%E5%9D%97%E5%8C%96%2F</url>
     <content type="text"><![CDATA[做个项目的小伙伴肯定都知道模块化操作,我这里就不细讲了,记录几点知识 模块化操作主要包括两个方面。 基本用法 export :负责进行模块化，也是模块的输出。 import : 负责把模块引，也是模块的引入操作。 1234567891011// 写法一export var m = 1;// 写法二var m = 1;export &#123;m&#125;;// 写法三var n = 1;export &#123;n as m&#125;;// as相当于别名的作用-这里相当于把n叫做m 读取的时候也遵守相应的规范 import {m as my} from &#39;./temp&#39;; 使用export导出,import导入需要写上{},后面写上相对路径,如果想要换一个名字,也可以使用as export和export default的区别export default的使用 加上default相当是一个默认的入口。在一个文件里export default只能有一个。 12var m = 1;export default m; export default 输出的时候,是可以不用加 {}的 使用export default导出的时候,import导入是可以随意取名字的 import m from &#39;./temp&#39;; 而且不用加{} 以上就是我对ECMAScript 6 模块化的一些理解，如果文章由于我学识浅薄，导致您发现有严重谬误的地方，请一定在评论中指出，我会在第一时间修正我的博文，以避免误人子弟。]]></content>
@@ -858,8 +869,8 @@
       </categories>
       <tags>
         <tag>javaScript</tag>
-        <tag>构造函数</tag>
         <tag>原型</tag>
+        <tag>构造函数</tag>
         <tag>继承</tag>
       </tags>
   </entry>
@@ -872,8 +883,8 @@
       </categories>
       <tags>
         <tag>javaScript</tag>
-        <tag>数据类型</tag>
         <tag>构造函数</tag>
+        <tag>数据类型</tag>
         <tag>对象复制</tag>
       </tags>
   </entry>
