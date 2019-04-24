@@ -93,7 +93,7 @@
 <meta property="og:site_name" content="陈先生的小前端">
 <meta property="og:description" content="javaScript的对象合并也是一个比较重要的知识点，分为浅复制和深复制，现在和大家分享一下我的学习过程">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-11-02T05:31:41.902Z">
+<meta property="og:updated_time" content="2019-04-18T03:02:36.249Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaScript对象合并">
 <meta name="twitter:description" content="javaScript的对象合并也是一个比较重要的知识点，分为浅复制和深复制，现在和大家分享一下我的学习过程">
@@ -413,12 +413,12 @@
 </blockquote>
 <a id="more"></a>
 <h3 id="浅复制"><a href="#浅复制" class="headerlink" title="浅复制"></a>浅复制</h3><p>在之前的博客中有提到过，由于对象赋值是实际上赋值地址，所以赋值后修改新对象，会导致原来的对象也被修改举个简单的例子</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">externalCopy</span>(<span class="params">original,current</span>)</span>&#123;</div><div class="line">	<span class="keyword">for</span>(<span class="keyword">var</span> i <span class="keyword">in</span> original)&#123;</div><div class="line">		current[i] = original[i];</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">return</span> current;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">function externalCopy(original,current)&#123;</div><div class="line">	for(var i in original)&#123;</div><div class="line">		current[i] = original[i];</div><div class="line">	&#125;</div><div class="line">	return current;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h3 id="深复制"><a href="#深复制" class="headerlink" title="深复制"></a>深复制</h3><p>解决这种问题常用的有两种方法</p>
-<p>第一种： </p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">deepCopy</span>(<span class="params">original, current</span>) </span>&#123;<span class="comment">//这里传递两个对象，被复制的，复制的</span></div><div class="line">	<span class="keyword">for</span>(<span class="keyword">var</span> i <span class="keyword">in</span> original)&#123;<span class="comment">//遍历要复制的对象</span></div><div class="line">		<span class="keyword">if</span>(<span class="keyword">typeof</span> original[i] === <span class="string">"object"</span>) &#123;<span class="comment">//判断是否为引用类型</span></div><div class="line">			<span class="comment">//引用类型的话，数组就给一个新的[]，这样指向新地址，对象给&#123;&#125;</span></div><div class="line">			current[i] = (<span class="built_in">Object</span>.prototype.toString.call(original[i]) === <span class="string">"[object Array]"</span>) ? [] : &#123;&#125;;</div><div class="line">			<span class="comment">//这时候重新调用本身，也就是递归函数，将[]或&#123;&#125;传入到current这个参数，</span></div><div class="line">			<span class="comment">//original在上面重新循环，这时候循环的是他的属性值，实现值的复制</span></div><div class="line">			deepCopy(original[i], current[i]);</div><div class="line">		&#125; <span class="keyword">else</span> &#123;</div><div class="line">			<span class="comment">//基本类型直接复制</span></div><div class="line">			current[i] = original[i];</div><div class="line">		&#125;				</div><div class="line">	&#125;</div><div class="line"><span class="keyword">return</span> current;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>第一种：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">function deepCopy(original, current) &#123;//这里传递两个对象，被复制的，复制的</div><div class="line">	for(var i in original)&#123;//遍历要复制的对象</div><div class="line">		if(typeof original[i] === &quot;object&quot;) &#123;//判断是否为引用类型</div><div class="line">			//引用类型的话，数组就给一个新的[]，这样指向新地址，对象给&#123;&#125;</div><div class="line">			current[i] = (Object.prototype.toString.call(original[i]) === &quot;[object Array]&quot;) ? [] : &#123;&#125;;</div><div class="line">			//这时候重新调用本身，也就是递归函数，将[]或&#123;&#125;传入到current这个参数，</div><div class="line">			//original在上面重新循环，这时候循环的是他的属性值，实现值的复制</div><div class="line">			deepCopy(original[i], current[i]);</div><div class="line">		&#125; else &#123;</div><div class="line">			//基本类型直接复制</div><div class="line">			current[i] = original[i];</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">  return current;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>第二种使用 $.extend()进行深复制</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> newobj = $.extend(<span class="literal">true</span>,&#123;&#125;, obj1, obj2);</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">var newobj = $.extend(true,&#123;&#125;, obj1, obj2);</div></pre></td></tr></table></figure>
 <p>以上就是我对对象复制的一些理解,不足之处希望大牛们多提一些意见,感激不尽</p>
 
       
@@ -585,7 +585,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">79</span>
+                <span class="site-state-item-count">80</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -596,7 +596,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-count">19</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -607,7 +607,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">49</span>
+                <span class="site-state-item-count">50</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
