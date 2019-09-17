@@ -93,7 +93,7 @@
 <meta property="og:site_name" content="陈先生的小前端">
 <meta property="og:description" content="在实际的开发过程中，我们通常会涉及到权限的问题，不同的用户进来只能看到他对应的菜单权限，页面上的菜单渲染是比较好实现的，这里就不多提，唯一比较难的就是路由的权限控制。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-04-17T09:20:23.762Z">
+<meta property="og:updated_time" content="2019-09-16T02:30:26.227Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Vue路由权限控制">
 <meta name="twitter:description" content="在实际的开发过程中，我们通常会涉及到权限的问题，不同的用户进来只能看到他对应的菜单权限，页面上的菜单渲染是比较好实现的，这里就不多提，唯一比较难的就是路由的权限控制。">
@@ -412,6 +412,7 @@
 <p>在实际的开发过程中，我们通常会涉及到权限的问题，不同的用户进来只能看到他对应的菜单权限，页面上的菜单渲染是比较好实现的，这里就不多提，唯一比较难的就是路由的权限控制。</p>
 </blockquote>
 <a id="more"></a>
+<p>本文由超级无敌帅气<code>小凯龙</code>友情赞助</p>
 <h2 id="解决思路"><a href="#解决思路" class="headerlink" title="解决思路"></a>解决思路</h2><blockquote>
 <p>目前大概有两种思路可以实现路由的权限控制：</p>
 </blockquote>
@@ -432,7 +433,6 @@
 <p>一种是在用户退出的时候，进行项目的重载：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">location.href = <span class="string">'/'</span>; <span class="comment">//这种相对来说体验就非常差了，相当于重新刷新了页面，显然也是不符合我们的需求</span></div></pre></td></tr></table></figure></p>
 <p>还有一种就是重新初始化静态路由表：<br>首先，我们要对 <code>router/index</code> 进行改造一下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">const createRouter = () =&gt; new Router(&#123;</div><div class="line">  routes: [&#123;</div><div class="line">  	path: &apos;/&apos;,</div><div class="line">  	redirect: &apos;/login&apos;</div><div class="line">  &#125;, &#123;</div><div class="line">  	path: &apos;/login&apos;,</div><div class="line">  	name: &apos;login&apos;,</div><div class="line">  	component: Login</div><div class="line">  &#125;]</div><div class="line">&#125;)</div><div class="line"></div><div class="line">const router = createRouter()</div><div class="line"></div><div class="line">//重新实例化一个新的路由表，替换之前的路由表，然后将这个方法导出</div><div class="line">export function resetRouter() &#123;</div><div class="line">  const newRouter = createRouter();</div><div class="line">  router.matcher = newRouter.matcher; // the relevant part</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>然后，我们在用户退出的时候，重新执行下 <code>resetRouter()</code> 这个方法就可以解决路由表重复累加的问题，同时也发现B账号进来之后，只能访问对应的路由权限而已。A账号的权限路由已经不存在了。</p>
-<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>这是我个人对于路由权限控制的一点理解，如果文中有错误的地方，或者还有其他更好的方案的话，欢迎提出。</p>
 
       
     </div>
@@ -598,7 +598,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">82</span>
+                <span class="site-state-item-count">90</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -669,7 +669,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#解决思路"><span class="nav-number">1.</span> <span class="nav-text">解决思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解决方案"><span class="nav-number">2.</span> <span class="nav-text">解决方案</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#路由拦截的方式"><span class="nav-number">2.1.</span> <span class="nav-text">路由拦截的方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#动态注入路由"><span class="nav-number">2.2.</span> <span class="nav-text">动态注入路由</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结语"><span class="nav-number">3.</span> <span class="nav-text">结语</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#解决思路"><span class="nav-number">1.</span> <span class="nav-text">解决思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解决方案"><span class="nav-number">2.</span> <span class="nav-text">解决方案</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#路由拦截的方式"><span class="nav-number">2.1.</span> <span class="nav-text">路由拦截的方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#动态注入路由"><span class="nav-number">2.2.</span> <span class="nav-text">动态注入路由</span></a></li></ol></li></ol></div>
             
 
           </div>
