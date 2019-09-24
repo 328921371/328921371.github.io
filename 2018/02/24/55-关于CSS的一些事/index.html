@@ -69,7 +69,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="前端适配," />
+  <meta name="keywords" content="CSS," />
 
 
 
@@ -85,18 +85,18 @@
 
 
 
-<meta name="description" content="适配一直都是前端比较重视的问题，今天主要是记录一下自己的学习过程">
-<meta name="keywords" content="前端适配">
+<meta name="description" content="今天来聊一聊CSS">
+<meta name="keywords" content="CSS">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Html5中的webApp适配">
-<meta property="og:url" content="http://www.chensheng.group/2018/02/14/57-Html5-webApp适配/index.html">
+<meta property="og:title" content="关于CSS的一些事">
+<meta property="og:url" content="http://www.chensheng.group/2018/02/24/55-关于CSS的一些事/index.html">
 <meta property="og:site_name" content="陈先生的小前端">
-<meta property="og:description" content="适配一直都是前端比较重视的问题，今天主要是记录一下自己的学习过程">
+<meta property="og:description" content="今天来聊一聊CSS">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-11-23T03:28:33.245Z">
+<meta property="og:updated_time" content="2019-09-17T08:57:23.566Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Html5中的webApp适配">
-<meta name="twitter:description" content="适配一直都是前端比较重视的问题，今天主要是记录一下自己的学习过程">
+<meta name="twitter:title" content="关于CSS的一些事">
+<meta name="twitter:description" content="今天来聊一聊CSS">
 
 
 
@@ -126,13 +126,13 @@
 
 
 
-  <link rel="canonical" href="http://www.chensheng.group/2018/02/14/57-Html5-webApp适配/"/>
+  <link rel="canonical" href="http://www.chensheng.group/2018/02/24/55-关于CSS的一些事/"/>
 
 
 
 
 
-  <title>Html5中的webApp适配 | 陈先生的小前端</title>
+  <title>关于CSS的一些事 | 陈先生的小前端</title>
   
 
 
@@ -306,7 +306,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.chensheng.group/2018/02/14/57-Html5-webApp适配/">
+    <link itemprop="mainEntityOfPage" href="http://www.chensheng.group/2018/02/24/55-关于CSS的一些事/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="陈晟">
@@ -323,7 +323,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Html5中的webApp适配</h1>
+          <h1 class="post-title" itemprop="name headline">关于CSS的一些事</h1>
         
 
         <div class="post-meta">
@@ -335,8 +335,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-14T14:10:22+08:00">
-                2018-02-14
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-24T14:19:22+08:00">
+                2018-02-24
               </time>
             
 
@@ -358,8 +358,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/前端适配/" itemprop="url" rel="index">
-                    <span itemprop="name">前端适配</span>
+                  <a href="/categories/CSS/" itemprop="url" rel="index">
+                    <span itemprop="name">CSS</span>
                   </a>
                 </span>
 
@@ -377,8 +377,8 @@
                 <i class="fa fa-comment-o"></i>
               </span>
               
-                <a href="/2018/02/14/57-Html5-webApp适配/#SOHUCS" itemprop="discussionUrl">
-                  <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2018/02/14/57-Html5-webApp适配/" itemprop="commentsCount"></span>
+                <a href="/2018/02/24/55-关于CSS的一些事/#SOHUCS" itemprop="discussionUrl">
+                  <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2018/02/24/55-关于CSS的一些事/" itemprop="commentsCount"></span>
                 </a>
               
             
@@ -409,18 +409,111 @@
         <hr style="filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)" color="#FF0000" size="1">
 
 <blockquote>
-<p>适配一直都是前端比较重视的问题，今天主要是记录一下自己的学习过程</p>
+<p>今天来聊一聊CSS</p>
 </blockquote>
 <a id="more"></a>
-<p>之前总结过vue-cli中的适配问题，今天记录一下在html5中怎么使用</p>
-<p>我们同样用到lib-flexible，可以<a href="https://codeload.github.com/amfe/lib-flexible/zip/master" target="_blank" rel="external">点击这里</a>下载相关文件。</p>
-<p>在build文件夹中找到 flexible.css 和 flexible.js 导入进来</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&lt;link rel=&quot;stylesheet&quot; href=&quot;css/flexible.css&quot; /&gt;</div><div class="line">&lt;script src=&quot;js/flexible.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;</div></pre></td></tr></table></figure>
-<p>也可以直接使用阿里CDN：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script src=&quot;http://g.tbcdn.cn/mtb/lib-flexible/&#123;&#123;version&#125;&#125;/??flexible_css.js,flexible.js&quot;&gt;&lt;/script&gt;</div></pre></td></tr></table></figure>
-<p>这样就可以了使用lib-flexible，接下来就是如何换算px了，我的IDE用的是Hbuilder的，现在就简单的说一下怎么进行换算</p>
-<p>一般是为某个项目单独设置的，我们找到项目，右键点击属性，打开代码助手设置，选中 启用px转rem提示，填写合适的 px转rem比例 和 rem小数点部分保留长度， 保存配置，记得勾选最上面的启用项目特定的配置。</p>
-<p>好了，以上就是我对Html5的适配的一些理解，如果文章由于我学识浅薄，导致您发现有严重谬误的地方，请一定在评论中指出，我会在第一时间修正我的博文，以避免误人子弟。</p>
+<p>我的博客始终没有讲到css,不是因为它不重要,而是太杂了,知识点零碎的太多了,今天说一些容易混淆的知识点</p>
+<h3 id="display-none-和-visibility-hidden的区别？"><a href="#display-none-和-visibility-hidden的区别？" class="headerlink" title="display:none 和 visibility:hidden的区别？"></a>display:none 和 visibility:hidden的区别？</h3><p>display:none  隐藏对应的元素，在文档布局中不再给它分配空间，它各边的元素会合拢，就当他从来不存在。</p>
+<p>visibility:hidden  隐藏对应的元素，但是在文档布局中仍保留原来的空间。</p>
+<p>需要注意一点,绑定元素监听的时候,display:none是可以监听到的,在vue中,v-show就是动态切换display属性,所以需要监听的元素不要使用v-if</p>
+<h3 id="CSS中-link-和-import-的区别是？"><a href="#CSS中-link-和-import-的区别是？" class="headerlink" title="CSS中 link 和@import 的区别是？"></a>CSS中 link 和@import 的区别是？</h3><ol>
+<li>link属于HTML标签，而@import是CSS提供的; </li>
+<li>页面被加载的时，link会同时被加载，而@import引用的CSS会等到页面被加载完再加载;</li>
+<li>import只在IE5以上才能识别，而link是HTML标签，无兼容问题; </li>
+<li>link方式的样式的权重 高于@import的权重.</li>
+</ol>
+<h3 id="position-absolute和float属性的异同"><a href="#position-absolute和float属性的异同" class="headerlink" title="position:absolute和float属性的异同"></a>position:absolute和float属性的异同</h3><p>A：共同点：<br>对内联元素设置<code>float</code>和<code>absolute</code>属性，可以让元素脱离文档流，并且可以设置其宽高。</p>
+<p>B：不同点：<br>float仍会占据位置，position会覆盖文档流中的其他元素。</p>
+<h3 id="box-sizing属性"><a href="#box-sizing属性" class="headerlink" title="box-sizing属性"></a>box-sizing属性</h3><p>box-sizing属性主要用来控制元素的盒模型的解析模式。默认值是content-box。</p>
+<p>content-box：让元素维持W3C的标准盒模型。元素的宽度/高度由border + padding + content的宽度/高度决定，设置width/height属性指的是content部分的宽/高</p>
+<p>border-box：让元素维持IE传统盒模型（IE6以下版本和IE6~7的怪异模式）。设置width/height属性指的是border + padding + content</p>
+<p>标准浏览器下，按照W3C规范对盒模型解析，一旦修改了元素的边框或内距，就会影响元素的盒子尺寸，就不得不重新计算元素的盒子尺寸，从而影响整个页面的布局。</p>
+<h3 id="CSS-选择符有哪些？哪些属性可以继承？优先级算法如何计算？-CSS3新增伪类有那些？"><a href="#CSS-选择符有哪些？哪些属性可以继承？优先级算法如何计算？-CSS3新增伪类有那些？" class="headerlink" title="CSS 选择符有哪些？哪些属性可以继承？优先级算法如何计算？ CSS3新增伪类有那些？"></a>CSS 选择符有哪些？哪些属性可以继承？优先级算法如何计算？ CSS3新增伪类有那些？</h3><ol>
+<li>id选择器（ # myid）</li>
+<li>类选择器（.myclassname）</li>
+<li>标签选择器（div, h1, p）</li>
+<li>相邻选择器（h1 + p）</li>
+<li>子选择器（ul &gt; li）</li>
+<li>后代选择器（li a）</li>
+<li>通配符选择器（ * ）</li>
+<li>属性选择器（a[rel = “external”]）</li>
+<li>伪类选择器（a: hover, li:nth-child）</li>
+</ol>
+<blockquote>
+<p>哪些属性可以继承</p>
+</blockquote>
+<ul>
+<li><p>可继承的样式： font-size font-family color, text-indent;</p>
+</li>
+<li><p>不可继承的样式：border padding margin width height ;</p>
+</li>
+<li><p>优先级就近原则，同权重情况下样式定义最近者为准;</p>
+</li>
+<li><p>载入样式以最后载入的定位为准;</p>
+</li>
+</ul>
+<blockquote>
+<p>优先级</p>
+</blockquote>
+<p>!important &gt; 内联 &gt; id &gt; class &gt; tag  </p>
+<blockquote>
+<p>CSS3新增伪类举例</p>
+</blockquote>
+<ul>
+<li>p:first-of-type 选择属于其父元素的首个 <p> 元素的每个 </p><p> 元素。</p></li>
+<li>p:last-of-type  选择属于其父元素的最后 <p> 元素的每个 </p><p> 元素。</p></li>
+<li>p:only-of-type  选择属于其父元素唯一的 <p> 元素的每个 </p><p> 元素。</p></li>
+<li>p:only-child    选择属于其父元素的唯一子元素的每个 <p> 元素。</p></li>
+<li>p:nth-child(2)  选择属于其父元素的第二个子元素的每个 <p> 元素。</p></li>
+<li>:enabled  :disabled 控制表单控件的禁用状态。</li>
+<li>:checked        单选框或复选框被选中。</li>
+</ul>
+<h3 id="inline-block对齐问题"><a href="#inline-block对齐问题" class="headerlink" title="inline-block对齐问题"></a>inline-block对齐问题</h3><p>出现这个问题的原因归根结底就是inline-block的特性，两个inline-block之间的布局类似两个行内元素，但是可以设置width，height，上下margin。。。<br>类似行内元素布局，两个inline-block元素并排时，没有写明vertical-align时，默认是以baseline对齐的，<br>而inlineblock元素的baseline在哪里就要分有文字和没文字的情况，没有文字的情况baseline就是“margin-bottom的那条线”<br>有文字的情况baseline就是“最后一行文本的baseline”</p>
+<h3 id="父子元素顶部重合"><a href="#父子元素顶部重合" class="headerlink" title="父子元素顶部重合"></a>父子元素顶部重合</h3><p>不知道大家有没有试过,子元素写<code>margin-top:100px;</code>,父级元素却下移了</p>
+<p>当父元素没有设置padding值以及border值时，出现了一个bug–父元素的上方与子元素的上方完全重合在了一起，无法分开。所以才会导致上述这种父元素和子元素同时向下的情况。</p>
+<p>对于这种问题解决方法有下面几种：</p>
+<ul>
+<li>给父元素添加padding-top值</li>
+<li>给父元素添加border值</li>
+<li>给父元素添加属性overflow:hidden;</li>
+<li>给父元素或者子元素声明浮动float</li>
+<li>使父元素或子元素声明为绝对定位：position:absolute;</li>
+<li>给父元素添加属性 overflow:auto; positon:relative；</li>
+</ul>
+<h3 id="CSS3有哪些新特性"><a href="#CSS3有哪些新特性" class="headerlink" title="CSS3有哪些新特性"></a>CSS3有哪些新特性</h3><p>CSS3实现圆角（border-radius），阴影（box-shadow），<br>对文字加特效（text-shadow、），线性渐变（gradient），旋转（transform）<br>transform:rotate(9deg) scale(0.85,0.90) translate(0px,-30px) skew(-9deg,0deg);//旋转,缩放,定位,倾斜<br>增加了更多的CSS选择器  多背景 rgba<br>在CSS3中唯一引入的伪元素是::selection.<br>媒体查询，多栏布局<br>border-image</p>
+<h3 id="BFC规范"><a href="#BFC规范" class="headerlink" title="BFC规范"></a>BFC规范</h3><p>BFC，块级格式化上下文，一个创建了新的BFC的盒子是独立布局的，盒子里面的子元素的样式不会影响到外面的元素。<br>在同一个BFC中的两个毗邻的块级盒在垂直方向（和布局方向有关系）的margin会发生折叠。<br>（W3C CSS 2.1 规范中的一个概念，它决定了元素如何对其内容进行布局，以及与其他元素的关系和相互作用。）</p>
+<h3 id="css中常见的兼容性问题"><a href="#css中常见的兼容性问题" class="headerlink" title="css中常见的兼容性问题"></a>css中常见的兼容性问题</h3><ul>
+<li><p>png24位的图片在iE6浏览器上出现背景，解决方案是做成PNG8.也可以引用一段脚本处理.</p>
+</li>
+<li><p>浏览器默认的margin和padding不同。解决方案是加一个全局的*{margin:0;padding:0;}来统一。</p>
+</li>
+<li><p>IE6双边距bug:块属性标签float后，又有横行的margin情况下，在ie6显示margin比设置的大。 </p>
+</li>
+<li><p>浮动ie产生的双倍距离（IE6双边距问题：在IE6下，如果对元素设置了浮动，同时又设置了margin-left或margin-right，margin值会加倍。）<br><code>#box{ float:left; width:10px; margin:0 0 0 100px;}</code></p>
+<p>这种情况之下IE会产生20px的距离，解决方案是在float的标签样式控制中加入<code>_display:inline;</code>将其转化为行内属性。(_这个符号只有ie6会识别)</p>
+</li>
+<li><p>渐进识别的方式，从总体中逐渐排除局部。 </p>
+<p>首先，巧妙的使用“\9”这一标记，将IE游览器从所有情况中分离出来。<br>接着，再次使用“+”将IE8和IE7、IE6分离开来，这样IE8已经独立识别。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">.bb&#123;</div><div class="line">  background-color:#f1ee18;/*所有识别*/</div><div class="line">  .background-color:#00deff\9; /*IE6、7、8识别*/</div><div class="line">  +background-color:#a200ff;/*IE6、7识别*/</div><div class="line">  _background-color:#1e0bd1;/*IE6识别*/ </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>IE下,可以使用获取常规属性的方法来获取自定义属性,<br>也可以使用getAttribute()获取自定义属性;<br>Firefox下,只能使用getAttribute()获取自定义属性.<br>解决方法:统一通过getAttribute()获取自定义属性.</p>
+</li>
+<li><p>IE下,event对象有x,y属性,但是没有pageX,pageY属性;<br>Firefox下,event对象有pageX,pageY属性,但是没有x,y属性.</p>
+</li>
+<li><p>解决方法：（条件注释）缺点是在IE浏览器下可能会增加额外的HTTP请求数。</p>
+</li>
+<li><p>Chrome 中文界面下默认会将小于 12px 的文本强制按照 12px 显示,<br>可通过加入 CSS 属性 -webkit-text-size-adjust: none; 解决.</p>
+</li>
+<li><p>超链接访问过后hover样式就不出现了 被点击访问过的超链接样式不在具有hover和active了解决方法是改变CSS属性的排列顺序:<br>L-V-H-A :  a:link {} a:visited {} a:hover {} a:active {}</p>
+</li>
+<li><p>怪异模式问题：漏写DTD声明，Firefox仍然会按照标准模式来解析网页，但在IE中会触发怪异模式。为避免怪异模式给我们带来不必要的麻烦，最好养成书写DTD声明的好习惯。现在可以使用<a href="http://www.w3.org/TR/html5/single-page.html" target="_blank" rel="external">html5</a>推荐的写法：<code>&lt;doctype html&gt;</code></p>
+</li>
+<li><p>上下margin重合问题<br>ie和ff都存在，相邻的两个div的margin-left和margin-right不会重合，但是margin-top和margin-bottom却会发生重合。<br>解决方法，养成良好的代码编写习惯，同时采用margin-top或者同时采用margin-bottom。</p>
+</li>
+<li><p>ie6对png图片格式支持不好(引用一段脚本处理)</p>
+</li>
+</ul>
+<h3 id="后话"><a href="#后话" class="headerlink" title="后话"></a>后话</h3><p>以后有新的在继续添加</p>
 
       
     </div>
@@ -448,8 +541,8 @@
   <script src="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.min.js"></script>
   <link rel="stylesheet" type="text/css" href="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.mini.css">
   <p><span>文章作者:</span><a href="/" title="访问 陈晟 的个人博客">陈晟</a></p>
-  <p><span>原始链接:</span><a href="/2018/02/14/57-Html5-webApp适配/" title="Html5中的webApp适配">http://www.chensheng.group/2018/02/14/57-Html5-webApp适配/</a>
-    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://www.chensheng.group/2018/02/14/57-Html5-webApp适配/"  aria-label="复制成功！"></i></span>
+  <p><span>原始链接:</span><a href="/2018/02/24/55-关于CSS的一些事/" title="关于CSS的一些事">http://www.chensheng.group/2018/02/24/55-关于CSS的一些事/</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://www.chensheng.group/2018/02/24/55-关于CSS的一些事/"  aria-label="复制成功！"></i></span>
   </p>
   <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 </a> 转载请保留原文链接及作者。</p>  
 </div>
@@ -481,7 +574,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/前端适配/" rel="tag"><i class="fa fa-tag"></i> 前端适配</a>
+            <a href="/tags/CSS/" rel="tag"><i class="fa fa-tag"></i> CSS</a>
           
         </div>
       
@@ -494,8 +587,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/02/05/52-vue-cli的webApp适配/" rel="next" title="在vue-cli中的webApp适配">
-                <i class="fa fa-chevron-left"></i> 在vue-cli中的webApp适配
+              <a href="/2018/02/23/54-前端的兼容问题/" rel="next" title="前端的兼容解决方案">
+                <i class="fa fa-chevron-left"></i> 前端的兼容解决方案
               </a>
             
           </div>
@@ -504,8 +597,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/02/23/58-前端的兼容问题/" rel="prev" title="前端的兼容解决方案">
-                前端的兼容解决方案 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/02/25/56-axios封装/" rel="prev" title="axios封装">
+                axios封装 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -560,8 +653,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           
             <p class="site-author-name" itemprop="name">陈晟</p>
@@ -575,7 +677,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">90</span>
+                <span class="site-state-item-count">97</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -586,7 +688,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">21</span>
+                <span class="site-state-item-count">24</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -597,7 +699,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">52</span>
+                <span class="site-state-item-count">55</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -636,6 +738,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#display-none-和-visibility-hidden的区别？"><span class="nav-number">1.</span> <span class="nav-text">display:none 和 visibility:hidden的区别？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CSS中-link-和-import-的区别是？"><span class="nav-number">2.</span> <span class="nav-text">CSS中 link 和@import 的区别是？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#position-absolute和float属性的异同"><span class="nav-number">3.</span> <span class="nav-text">position:absolute和float属性的异同</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#box-sizing属性"><span class="nav-number">4.</span> <span class="nav-text">box-sizing属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CSS-选择符有哪些？哪些属性可以继承？优先级算法如何计算？-CSS3新增伪类有那些？"><span class="nav-number">5.</span> <span class="nav-text">CSS 选择符有哪些？哪些属性可以继承？优先级算法如何计算？ CSS3新增伪类有那些？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#inline-block对齐问题"><span class="nav-number">6.</span> <span class="nav-text">inline-block对齐问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#父子元素顶部重合"><span class="nav-number">7.</span> <span class="nav-text">父子元素顶部重合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CSS3有哪些新特性"><span class="nav-number">8.</span> <span class="nav-text">CSS3有哪些新特性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BFC规范"><span class="nav-number">9.</span> <span class="nav-text">BFC规范</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#css中常见的兼容性问题"><span class="nav-number">10.</span> <span class="nav-text">css中常见的兼容性问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#后话"><span class="nav-number">11.</span> <span class="nav-text">后话</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
