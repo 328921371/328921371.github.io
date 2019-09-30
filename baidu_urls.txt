@@ -1,3 +1,5 @@
+https://www.chensheng.group/2019/09/29/102-内网穿透/
+https://www.chensheng.group/2019/09/26/101-制作VR全景/
 https://www.chensheng.group/2019/09/26/100-优秀的css项目/
 https://www.chensheng.group/2019/09/25/99-html带拼音的标签/
 https://www.chensheng.group/2019/09/25/98-获取url参数/
@@ -17,9 +19,9 @@ https://www.chensheng.group/2019/04/24/86-微信分享/
 https://www.chensheng.group/2019/04/15/85-electron-vue桌面应用/
 https://www.chensheng.group/2019/02/25/84-ES6 模块化/
 https://www.chensheng.group/2019/02/25/83-ES6 Class/
-https://www.chensheng.group/2019/02/19/82-ES6 Promise/
-https://www.chensheng.group/2019/02/19/80-ES6 Set/
 https://www.chensheng.group/2019/02/19/81-ES6 Map/
+https://www.chensheng.group/2019/02/19/80-ES6 Set/
+https://www.chensheng.group/2019/02/19/82-ES6 Promise/
 https://www.chensheng.group/2019/02/18/79-ES6 Proxy/
 https://www.chensheng.group/2019/01/21/43-vue路由权限控制/
 https://www.chensheng.group/2019/01/11/78-ES6 Symbol/
@@ -96,5 +98,3 @@ https://www.chensheng.group/2016/10/05/06-JavaScript对象合并/
 https://www.chensheng.group/2016/09/24/05-This的指向问题与闭包/
 https://www.chensheng.group/2016/09/20/04-原型与原型链/
 https://www.chensheng.group/2016/09/15/03-构造函数与原型/
-https://www.chensheng.group/2016/09/11/02-引用对象的复制/
-https://www.chensheng.group/2015/07/11/01-javaScript数据类型/
