@@ -1,3 +1,5 @@
+https://www.chensheng.group/2019/10/11/107-前端面试归纳/
+https://www.chensheng.group/2019/10/10/106-JS高频考题分享/
 https://www.chensheng.group/2019/10/09/105-PM2记录/
 https://www.chensheng.group/2019/10/09/104-Vue随笔记录/
 https://www.chensheng.group/2019/09/30/103-hexo搭建个人博客/
@@ -22,9 +24,9 @@ https://www.chensheng.group/2019/04/24/86-微信分享/
 https://www.chensheng.group/2019/04/15/85-electron-vue桌面应用/
 https://www.chensheng.group/2019/02/25/84-ES6 模块化/
 https://www.chensheng.group/2019/02/25/83-ES6 Class/
-https://www.chensheng.group/2019/02/19/82-ES6 Promise/
 https://www.chensheng.group/2019/02/19/81-ES6 Map/
 https://www.chensheng.group/2019/02/19/80-ES6 Set/
+https://www.chensheng.group/2019/02/19/82-ES6 Promise/
 https://www.chensheng.group/2019/02/18/79-ES6 Proxy/
 https://www.chensheng.group/2019/01/21/43-vue路由权限控制/
 https://www.chensheng.group/2019/01/11/78-ES6 Symbol/
@@ -96,5 +98,3 @@ https://www.chensheng.group/2016/12/10/11-MongoDB总结/
 https://www.chensheng.group/2016/12/02/10-webpack的流程/
 https://www.chensheng.group/2016/11/15/09-express请求处理管线/
 https://www.chensheng.group/2016/10/30/08-template的基本语法/
-https://www.chensheng.group/2016/10/23/07-JavaScript数组去重/
-https://www.chensheng.group/2016/10/05/06-JavaScript对象合并/
