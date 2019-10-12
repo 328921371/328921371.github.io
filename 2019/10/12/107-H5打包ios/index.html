@@ -69,7 +69,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="面试," />
+  <meta name="keywords" content="ios," />
 
 
 
@@ -87,18 +87,18 @@
 
 
 
-<meta name="description" content="一些基础的考点归纳总结">
-<meta name="keywords" content="面试">
+<meta name="description" content="打包成Android就不说了,直接打包安卓就好了,没有那么复杂,但是ios就不一样了">
+<meta name="keywords" content="ios">
 <meta property="og:type" content="article">
-<meta property="og:title" content="前端面试归纳">
-<meta property="og:url" content="https://www.chensheng.group/2019/10/11/107-前端面试归纳/index.html">
+<meta property="og:title" content="H5打包ios">
+<meta property="og:url" content="https://www.chensheng.group/2019/10/12/107-H5打包ios/index.html">
 <meta property="og:site_name" content="陈先生的小前端">
-<meta property="og:description" content="一些基础的考点归纳总结">
+<meta property="og:description" content="打包成Android就不说了,直接打包安卓就好了,没有那么复杂,但是ios就不一样了">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-10-11T03:08:30.225Z">
+<meta property="og:updated_time" content="2019-10-12T02:30:29.071Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="前端面试归纳">
-<meta name="twitter:description" content="一些基础的考点归纳总结">
+<meta name="twitter:title" content="H5打包ios">
+<meta name="twitter:description" content="打包成Android就不说了,直接打包安卓就好了,没有那么复杂,但是ios就不一样了">
 
 
 
@@ -128,13 +128,13 @@
 
 
 
-  <link rel="canonical" href="https://www.chensheng.group/2019/10/11/107-前端面试归纳/"/>
+  <link rel="canonical" href="https://www.chensheng.group/2019/10/12/107-H5打包ios/"/>
 
 
 
 
 
-  <title>前端面试归纳 | 陈先生的小前端</title>
+  <title>H5打包ios | 陈先生的小前端</title>
   
 
 
@@ -305,7 +305,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.chensheng.group/2019/10/11/107-前端面试归纳/">
+    <link itemprop="mainEntityOfPage" href="https://www.chensheng.group/2019/10/12/107-H5打包ios/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="陈晟">
@@ -322,7 +322,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">前端面试归纳</h1>
+          <h1 class="post-title" itemprop="name headline">H5打包ios</h1>
         
 
         <div class="post-meta">
@@ -334,8 +334,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-10-11T11:02:00+08:00">
-                2019-10-11
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-10-12T10:57:00+08:00">
+                2019-10-12
               </time>
             
 
@@ -357,8 +357,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/面试/" itemprop="url" rel="index">
-                    <span itemprop="name">面试</span>
+                  <a href="/categories/ios/" itemprop="url" rel="index">
+                    <span itemprop="name">ios</span>
                   </a>
                 </span>
 
@@ -397,9 +397,63 @@
         <hr style="filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)" color="#FF0000" size="1">
 
 <blockquote>
-<p>一些基础的考点归纳总结</p>
+<p>打包成Android就不说了,直接打包安卓就好了,没有那么复杂,但是ios就不一样了</p>
 </blockquote>
 <a id="more"></a>
+<p>我用的IDE是HBuilder,自带打包功能,以这个为例</p>
+<ol>
+<li><p>首先要先注册一个苹果账号,怎么注册就不说了</p>
+</li>
+<li><p>下载Appuploader,申请免费的证书和描述文件,这一步非常重要</p>
+</li>
+</ol>
+<p>这个是<a href="http://www.applicationloader.net/" target="_blank" rel="external">官网</a></p>
+<p>下载好之后,文档里面有教程</p>
+<h3 id="申请证书"><a href="#申请证书" class="headerlink" title="申请证书"></a>申请证书</h3><ol>
+<li>打开Appuploader，用普通苹果账号登录</li>
+<li>登录上去有个提示不用管、叉掉，选择Certification</li>
+<li>点击右下角+ADD，选择第一项 ios App development(第三个就是直接发布到appstroe)，输入名称（英文随意）、邮箱（随意）、密码后面打包ipa时要用到，要记住，123之类密码的就行。</li>
+<li>点击p12 File下载保存.p12 证书文件</li>
+</ol>
+<h3 id="申请ios描述文件"><a href="#申请ios描述文件" class="headerlink" title="申请ios描述文件"></a>申请ios描述文件</h3><ol>
+<li>返回软件，选择Profiles</li>
+<li><p>点击右下角+ADD，先选择添加Add appid 应用标识符、输入appid，格式是com.com.com这样子的，中间有两个点。</p>
+<p>像我开始输入的com.ceshi.ceshi出现错误提示，格式虽然没错，但有报错，尝试修改下不报错就行了。</p>
+<p>后面我改下如com.fen.tian，如此就ok，appid在打包ipa时要填写，记好。</p>
+</li>
+<li><p>下一步添加用来测试的手机了，先获取UUID。使用 iPhone 或 iPad 扫码选择自带的浏览器safari浏览器打开二维码里的链接，即可快速获取 UDID或者连接苹果手机助手获取到。</p>
+<p>这个一长串的就是设备的UUID</p>
+<p>04bff1010f1656cde7d60g560d7d897e2821dc88</p>
+<p>获取到UUID、点击Add Device，复制上去，输入设备名称，点击ok。</p>
+<p>可以添加多个</p>
+</li>
+</ol>
+<p>4、添加好设备后，叉掉，重新点击右下角的+ADD，选择第一项 ios App development。选择刚创建的appid  如com.fen.tian，勾选关联第一步创建的ios证书p12，选择要测试的设备，可多选。输入名称，点击ok创建。</p>
+<p>5、点击Download下载保存.mobileprovision，描述文件。</p>
+<h3 id="打包ipa"><a href="#打包ipa" class="headerlink" title="打包ipa"></a>打包ipa</h3><ol>
+<li><p>打开HBuilder工具，选择完工的项目，点击发行，选择发行为原生安装包。</p>
+</li>
+<li><p>选择iOS打包，支持的设备类型，使用苹果证书，填写AppID（刚创建的那个com.fen.tian），</p>
+<p>上传之前创建的iOS证书.p12及配置文件.mobileprovision并输入创建ios证书p12时设置的密码，点击打包。</p>
+</li>
+<li><p>打包成功后，下载保存ipa，这个ipa包就能进行测试或上传App Store了。</p>
+</li>
+</ol>
+<h3 id="安装ipa"><a href="#安装ipa" class="headerlink" title="安装ipa"></a>安装ipa</h3><ol>
+<li><p>下载爱思苹果助手，连接上手机，苹果官方的iTunes助手安装不了，不要用这个。</p>
+<p>点击应用游戏，点击导入安装，选择刚打包的ipa包。</p>
+</li>
+<li><p>ipa将自动安装，类型是越狱版，安装成功后显示个人正版，因为是个人ios证书打包，没上架App Store。</p>
+</li>
+<li><p>安装成功了第一次启动应用会出现如下提示，用测试证书或者企业证书打包的ipa都会这样，需要设置一下。</p>
+<p>点击设置、进入通用，下拉选择描述文件和设备管理。</p>
+</li>
+<li><p>点击开发者应用下面出现的账号，信任，然后就能启动应用，不在出现提示。</p>
+</li>
+</ol>
+<blockquote>
+<p>后期经过测试,只能安装三台ios手机…多了不支持,想要正式上架的话,就用交了钱的苹果账号就行</p>
+</blockquote>
 
       
     </div>
@@ -427,8 +481,8 @@
   <script src="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.min.js"></script>
   <link rel="stylesheet" type="text/css" href="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.mini.css">
   <p><span>文章作者:</span><a href="/" title="访问 陈晟 的个人博客">陈晟</a></p>
-  <p><span>原始链接:</span><a href="/2019/10/11/107-前端面试归纳/" title="前端面试归纳">https://www.chensheng.group/2019/10/11/107-前端面试归纳/</a>
-    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://www.chensheng.group/2019/10/11/107-前端面试归纳/"  aria-label="复制成功！"></i></span>
+  <p><span>原始链接:</span><a href="/2019/10/12/107-H5打包ios/" title="H5打包ios">https://www.chensheng.group/2019/10/12/107-H5打包ios/</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://www.chensheng.group/2019/10/12/107-H5打包ios/"  aria-label="复制成功！"></i></span>
   </p>
   <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 </a> 转载请保留原文链接及作者。</p>  
 </div>
@@ -489,7 +543,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/面试/" rel="tag"><i class="fa fa-tag"></i> 面试</a>
+            <a href="/tags/ios/" rel="tag"><i class="fa fa-tag"></i> ios</a>
           
         </div>
       
@@ -564,8 +618,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           
             <p class="site-author-name" itemprop="name">陈晟</p>
@@ -590,7 +653,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">26</span>
+                <span class="site-state-item-count">27</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -601,7 +664,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">57</span>
+                <span class="site-state-item-count">58</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -648,6 +711,22 @@
       </section>
 
       
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#申请证书"><span class="nav-number">1.</span> <span class="nav-text">申请证书</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#申请ios描述文件"><span class="nav-number">2.</span> <span class="nav-text">申请ios描述文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#打包ipa"><span class="nav-number">3.</span> <span class="nav-text">打包ipa</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装ipa"><span class="nav-number">4.</span> <span class="nav-text">安装ipa</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
 
       
 
@@ -678,7 +757,7 @@
     
       <div class="theme-info">
         <div class="powered-by"></div>
-        <span class="post-count">全站共 104.6k 字</span>
+        <span class="post-count">全站共 105.6k 字</span>
       </div>
     
   

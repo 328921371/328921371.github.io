@@ -96,7 +96,7 @@
 <meta property="og:description" content="Javascript的一些题目无非就是靠this的指向,但是有一些是真的十分容易混淆">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://pic2.zhimg.com/80/v2-d72350318adbfb3694510f8e2877c6b1_hd.png">
-<meta property="og:updated_time" content="2019-10-11T03:02:31.028Z">
+<meta property="og:updated_time" content="2019-10-11T06:20:00.909Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JS高频考题分享">
 <meta name="twitter:description" content="Javascript的一些题目无非就是靠this的指向,但是有一些是真的十分容易混淆">
@@ -449,7 +449,7 @@
 <p>然而，这个函数并不适用于合并大的数组，因为它需要创建一个新的数组，而这会消耗很多内存。</p>
 <p>这时，你可以使用 Array.push.apply(arr1, arr2) 来代替创建新的数组，它可以把第二个数组合并到第一个中，从而较少内存消耗。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var array1 = [1, 2, 3];</div><div class="line">var array2 = [4, 5, 6];</div><div class="line">console.log(array1.push.apply(array1, array2)); // [1, 2, 3, 4, 5, 6]</div></pre></td></tr></table></figure>
-<h3 id="Promise-的队列与-setTimeout-的队列有何关联-？"><a href="#Promise-的队列与-setTimeout-的队列有何关联-？" class="headerlink" title="Promise 的队列与 setTimeout 的队列有何关联 ？"></a>Promise 的队列与 setTimeout 的队列有何关联 ？</h3><p>setTimeout(function(){ console.log(4) }, 0);<br>new Promise(function(resolve){<br>    console.log(1)<br>    for( var i = 0 ; i &lt; 10000 ; i++ ){<br>        i == 9999 &amp;&amp; resolve()<br>    }<br>    console.log(2)<br>}).then(function(){<br>    console.log(5)<br>});<br>console.log(3);</p>
+<h3 id="Promise-的队列与-setTimeout-的队列有何关联-？"><a href="#Promise-的队列与-setTimeout-的队列有何关联-？" class="headerlink" title="Promise 的队列与 setTimeout 的队列有何关联 ？"></a>Promise 的队列与 setTimeout 的队列有何关联 ？</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">setTimeout(function()&#123; console.log(4) &#125;, 0);</div><div class="line">new Promise(function(resolve)&#123;</div><div class="line">    console.log(1)</div><div class="line">    for( var i = 0 ; i &lt; 10000 ; i++ )&#123;</div><div class="line">        i == 9999 &amp;&amp; resolve()</div><div class="line">    &#125;</div><div class="line">    console.log(2)</div><div class="line">&#125;).then(function()&#123;</div><div class="line">    console.log(5)</div><div class="line">&#125;);</div><div class="line">console.log(3);</div></pre></td></tr></table></figure>
 <p>为什么结果是：1, 2, 3, 5, 4；而不是：1, 2, 3, 4, 5 ？</p>
 <p>js 里面有宏任务（macrotask）和微任务（microtask）。</p>
 <p>因为 setTimeout 是属于 macrotask 的，而整个 script 也是属于一个 macrotask，promise.then 回调是 microtask，执行过程大概如下：</p>
@@ -462,6 +462,7 @@
 </ul>
 <h3 id="TCP-三次握手和四次挥手的理解"><a href="#TCP-三次握手和四次挥手的理解" class="headerlink" title="TCP 三次握手和四次挥手的理解"></a>TCP 三次握手和四次挥手的理解</h3><p><img src="https://pic2.zhimg.com/80/v2-d72350318adbfb3694510f8e2877c6b1_hd.png" alt="直接上图"></p>
 <p><a href="https://juejin.im/post/5c078058f265da611c26c235" target="_blank" rel="external">更详细的</a></p>
+<h3 id="找出字符串中出现最多的字符"><a href="#找出字符串中出现最多的字符" class="headerlink" title="找出字符串中出现最多的字符"></a>找出字符串中出现最多的字符</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">var str = &apos;abaasdffggghhjjkkgfddsssss3444343&apos;;</div><div class="line">// 1.将字符串转换成数组</div><div class="line">var newArr = str.split(&quot;&quot;);</div><div class="line">// 2.创建一个对象</div><div class="line">var json = &#123;&#125;;</div><div class="line">// 3. 所有字母出现的次数，判断对象中是否存在数组中的值，如果存在值 +1，不存在赋值为 1</div><div class="line">for(var i = 0; i &lt; newArr.length; i++)&#123;</div><div class="line">  // 类似：json : &#123; ‘a’: 3, ’b’: 1 &#125;</div><div class="line">  if(json[newArr[i]])&#123;</div><div class="line">    json[newArr[i]] +=1;</div><div class="line">  &#125; else &#123;</div><div class="line">    json[newArr[i]] = 1;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">// 4 定义两个变量存储字符值，字符出现的字数</div><div class="line">var num = 0 ; //次数</div><div class="line">var element = &quot;&quot;; //最多的项</div><div class="line">for(var k in json)&#123;</div><div class="line">   if(json[k] &gt; num)&#123;</div><div class="line">    num = json[k];</div><div class="line">    element = k ;</div><div class="line">   &#125;</div><div class="line">&#125;</div><div class="line">console.log(&quot;出现次数：&quot;+num +&quot;最多的字符：&quot;+ element);</div></pre></td></tr></table></figure>
 <p>感谢各位大佬的无私分享</p>
 
       
@@ -575,8 +576,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/10/11/107-前端面试归纳/" rel="prev" title="前端面试归纳">
-                前端面试归纳 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/10/12/107-H5打包ios/" rel="prev" title="H5打包ios">
+                H5打包ios <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -666,7 +667,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">26</span>
+                <span class="site-state-item-count">27</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -677,7 +678,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">57</span>
+                <span class="site-state-item-count">58</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -733,7 +734,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#运算符和this指向"><span class="nav-number">1.</span> <span class="nav-text">, = 运算符和this指向</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#从敲入-URL-到渲染完成的整个过程"><span class="nav-number">2.</span> <span class="nav-text">从敲入 URL 到渲染完成的整个过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JS-识别不同浏览器信息"><span class="nav-number">3.</span> <span class="nav-text">JS 识别不同浏览器信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#哪些常见操作会造成内存泄漏"><span class="nav-number">4.</span> <span class="nav-text">哪些常见操作会造成内存泄漏</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#new-操作符具体干了什么呢"><span class="nav-number">5.</span> <span class="nav-text">new 操作符具体干了什么呢</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#合并数组"><span class="nav-number">6.</span> <span class="nav-text">合并数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Promise-的队列与-setTimeout-的队列有何关联-？"><span class="nav-number">7.</span> <span class="nav-text">Promise 的队列与 setTimeout 的队列有何关联 ？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP-三次握手和四次挥手的理解"><span class="nav-number">8.</span> <span class="nav-text">TCP 三次握手和四次挥手的理解</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#运算符和this指向"><span class="nav-number">1.</span> <span class="nav-text">, = 运算符和this指向</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#从敲入-URL-到渲染完成的整个过程"><span class="nav-number">2.</span> <span class="nav-text">从敲入 URL 到渲染完成的整个过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JS-识别不同浏览器信息"><span class="nav-number">3.</span> <span class="nav-text">JS 识别不同浏览器信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#哪些常见操作会造成内存泄漏"><span class="nav-number">4.</span> <span class="nav-text">哪些常见操作会造成内存泄漏</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#new-操作符具体干了什么呢"><span class="nav-number">5.</span> <span class="nav-text">new 操作符具体干了什么呢</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#合并数组"><span class="nav-number">6.</span> <span class="nav-text">合并数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Promise-的队列与-setTimeout-的队列有何关联-？"><span class="nav-number">7.</span> <span class="nav-text">Promise 的队列与 setTimeout 的队列有何关联 ？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP-三次握手和四次挥手的理解"><span class="nav-number">8.</span> <span class="nav-text">TCP 三次握手和四次挥手的理解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#找出字符串中出现最多的字符"><span class="nav-number">9.</span> <span class="nav-text">找出字符串中出现最多的字符</span></a></li></ol></div>
             
 
           </div>
@@ -770,7 +771,7 @@
     
       <div class="theme-info">
         <div class="powered-by"></div>
-        <span class="post-count">全站共 104.6k 字</span>
+        <span class="post-count">全站共 105.6k 字</span>
       </div>
     
   
