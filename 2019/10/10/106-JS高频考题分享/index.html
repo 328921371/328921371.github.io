@@ -96,7 +96,7 @@
 <meta property="og:description" content="Javascript的一些题目无非就是靠this的指向,但是有一些是真的十分容易混淆">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://pic2.zhimg.com/80/v2-d72350318adbfb3694510f8e2877c6b1_hd.png">
-<meta property="og:updated_time" content="2019-10-11T06:20:00.909Z">
+<meta property="og:updated_time" content="2019-10-12T03:32:54.418Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JS高频考题分享">
 <meta name="twitter:description" content="Javascript的一些题目无非就是靠this的指向,但是有一些是真的十分容易混淆">
@@ -463,6 +463,19 @@
 <h3 id="TCP-三次握手和四次挥手的理解"><a href="#TCP-三次握手和四次挥手的理解" class="headerlink" title="TCP 三次握手和四次挥手的理解"></a>TCP 三次握手和四次挥手的理解</h3><p><img src="https://pic2.zhimg.com/80/v2-d72350318adbfb3694510f8e2877c6b1_hd.png" alt="直接上图"></p>
 <p><a href="https://juejin.im/post/5c078058f265da611c26c235" target="_blank" rel="external">更详细的</a></p>
 <h3 id="找出字符串中出现最多的字符"><a href="#找出字符串中出现最多的字符" class="headerlink" title="找出字符串中出现最多的字符"></a>找出字符串中出现最多的字符</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">var str = &apos;abaasdffggghhjjkkgfddsssss3444343&apos;;</div><div class="line">// 1.将字符串转换成数组</div><div class="line">var newArr = str.split(&quot;&quot;);</div><div class="line">// 2.创建一个对象</div><div class="line">var json = &#123;&#125;;</div><div class="line">// 3. 所有字母出现的次数，判断对象中是否存在数组中的值，如果存在值 +1，不存在赋值为 1</div><div class="line">for(var i = 0; i &lt; newArr.length; i++)&#123;</div><div class="line">  // 类似：json : &#123; ‘a’: 3, ’b’: 1 &#125;</div><div class="line">  if(json[newArr[i]])&#123;</div><div class="line">    json[newArr[i]] +=1;</div><div class="line">  &#125; else &#123;</div><div class="line">    json[newArr[i]] = 1;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">// 4 定义两个变量存储字符值，字符出现的字数</div><div class="line">var num = 0 ; //次数</div><div class="line">var element = &quot;&quot;; //最多的项</div><div class="line">for(var k in json)&#123;</div><div class="line">   if(json[k] &gt; num)&#123;</div><div class="line">    num = json[k];</div><div class="line">    element = k ;</div><div class="line">   &#125;</div><div class="line">&#125;</div><div class="line">console.log(&quot;出现次数：&quot;+num +&quot;最多的字符：&quot;+ element);</div></pre></td></tr></table></figure>
+<h3 id="alert-1-amp-amp-2-和-alert-1-0-的结果是-？"><a href="#alert-1-amp-amp-2-和-alert-1-0-的结果是-？" class="headerlink" title="alert(1 &amp;&amp; 2) 和 alert(1 || 0) 的结果是 ？"></a>alert(1 &amp;&amp; 2) 和 alert(1 || 0) 的结果是 ？</h3><p>alert(1 &amp;&amp;2 ) 的结果是 2</p>
+<ul>
+<li>只要 “&amp;&amp;” 前面是 false，无论 “&amp;&amp;” 后面是 true 还是 false，结果都将返 “&amp;&amp;” 前面的值;</li>
+<li>只要 “&amp;&amp;” 前面是 true，无论 “&amp;&amp;” 后面是 true 还是 false，结果都将返 “&amp;&amp;” 后面的值;</li>
+</ul>
+<p>alert(0 || 1) 的结果是 1</p>
+<ul>
+<li>只要 “||” 前面为 false，不管 “||” 后面是 true 还是 false，都返回 “||” 后面的值。</li>
+<li>只要 “||” 前面为 true，不管 “||” 后面是 true 还是 false，都返回 “||” 前面的值。</li>
+</ul>
+<blockquote>
+<p>只要记住 0 与 任何数都是 0，其他反推。</p>
+</blockquote>
 <p>感谢各位大佬的无私分享</p>
 
       
@@ -656,7 +669,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">107</span>
+                <span class="site-state-item-count">108</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -734,7 +747,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#运算符和this指向"><span class="nav-number">1.</span> <span class="nav-text">, = 运算符和this指向</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#从敲入-URL-到渲染完成的整个过程"><span class="nav-number">2.</span> <span class="nav-text">从敲入 URL 到渲染完成的整个过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JS-识别不同浏览器信息"><span class="nav-number">3.</span> <span class="nav-text">JS 识别不同浏览器信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#哪些常见操作会造成内存泄漏"><span class="nav-number">4.</span> <span class="nav-text">哪些常见操作会造成内存泄漏</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#new-操作符具体干了什么呢"><span class="nav-number">5.</span> <span class="nav-text">new 操作符具体干了什么呢</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#合并数组"><span class="nav-number">6.</span> <span class="nav-text">合并数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Promise-的队列与-setTimeout-的队列有何关联-？"><span class="nav-number">7.</span> <span class="nav-text">Promise 的队列与 setTimeout 的队列有何关联 ？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP-三次握手和四次挥手的理解"><span class="nav-number">8.</span> <span class="nav-text">TCP 三次握手和四次挥手的理解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#找出字符串中出现最多的字符"><span class="nav-number">9.</span> <span class="nav-text">找出字符串中出现最多的字符</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#运算符和this指向"><span class="nav-number">1.</span> <span class="nav-text">, = 运算符和this指向</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#从敲入-URL-到渲染完成的整个过程"><span class="nav-number">2.</span> <span class="nav-text">从敲入 URL 到渲染完成的整个过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JS-识别不同浏览器信息"><span class="nav-number">3.</span> <span class="nav-text">JS 识别不同浏览器信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#哪些常见操作会造成内存泄漏"><span class="nav-number">4.</span> <span class="nav-text">哪些常见操作会造成内存泄漏</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#new-操作符具体干了什么呢"><span class="nav-number">5.</span> <span class="nav-text">new 操作符具体干了什么呢</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#合并数组"><span class="nav-number">6.</span> <span class="nav-text">合并数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Promise-的队列与-setTimeout-的队列有何关联-？"><span class="nav-number">7.</span> <span class="nav-text">Promise 的队列与 setTimeout 的队列有何关联 ？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP-三次握手和四次挥手的理解"><span class="nav-number">8.</span> <span class="nav-text">TCP 三次握手和四次挥手的理解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#找出字符串中出现最多的字符"><span class="nav-number">9.</span> <span class="nav-text">找出字符串中出现最多的字符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#alert-1-amp-amp-2-和-alert-1-0-的结果是-？"><span class="nav-number">10.</span> <span class="nav-text">alert(1 && 2) 和 alert(1 || 0) 的结果是 ？</span></a></li></ol></div>
             
 
           </div>
@@ -771,7 +784,7 @@
     
       <div class="theme-info">
         <div class="powered-by"></div>
-        <span class="post-count">全站共 105.6k 字</span>
+        <span class="post-count">全站共 105.9k 字</span>
       </div>
     
   
