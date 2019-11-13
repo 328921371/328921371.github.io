@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.chensheng.group/"/>
-  <updated>2019-10-22T09:44:47.884Z</updated>
+  <updated>2019-11-13T03:25:06.267Z</updated>
   <id>https://www.chensheng.group/</id>
   
   <author>
@@ -17,29 +17,29 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Vue2.0源码学习</title>
-    <link href="https://www.chensheng.group/2019/10/22/108-Vue2.0%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/"/>
-    <id>https://www.chensheng.group/2019/10/22/108-Vue2.0源码学习/</id>
-    <published>2019-10-22T09:26:00.000Z</published>
-    <updated>2019-10-22T09:44:47.884Z</updated>
+    <title>github的部署</title>
+    <link href="https://www.chensheng.group/2019/11/13/108-%E9%83%A8%E7%BD%B2github/"/>
+    <id>https://www.chensheng.group/2019/11/13/108-部署github/</id>
+    <published>2019-11-13T03:12:00.000Z</published>
+    <updated>2019-11-13T03:25:06.267Z</updated>
     
-    <content type="html"><![CDATA[<hr style="filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)" color="#FF0000" size="1"><blockquote><p>网上的源码解析一抓一大把,这篇仅仅只是自己的一些记录</p></blockquote><a id="more"></a><p>还在学习中..告辞</p><p>为什么在data里面定义一个属性,就可以用this访问到</p><p>因为在new Vue的时候,data,prop和methods都被传入进去循环,没有重复后通过Proxy挂载当当前vm的_data的实例上,所以可以用this访问到</p>]]></content>
+    <content type="html"><![CDATA[<hr style="filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)" color="#FF0000" size="1"><blockquote><p>GitHub很早之前就已经写过了命令,但是有些小伙伴问我具体的流程,在这里做这记录</p></blockquote><a id="more"></a><ol><li><p>首先 进入Github首页，点击New repository新建一个项目,填写相应的数据就好了</p></li><li><p>然后 Clone or dowload会出现一个地址，复制这个地址。(旧项目同理)</p></li><li><p>把github上面的仓库克隆到本地,命令可以在之前的博客中找到</p></li></ol><blockquote><p>git clone git@github.com:328921371/cs.git</p></blockquote><ol><li><p>克隆后进入文件夹,当命令行那边的文件目录出现master</p></li><li><p>git add . （注：别忘记后面的）</p></li><li><p>git commit  -m  “提交信息” （注释）</p></li><li><p>git push -u origin master （将内容推送到远程仓库里，第一次要加-u,此步骤需要你输入帐号和密码）</p></li></ol><p>到这里,代码就部署到github上面了,更多的操作命令搜索我之前的博客<a href="http://www.chensheng.group/2016/12/20/12-git的使用/">戳这里</a></p><p>以上就是我对github的一些理解，如果文章由于我学识浅薄，导致您发现有严重谬误的地方，请一定在评论中指出，我会在第一时间修正我的博文，以避免误人子弟。</p>]]></content>
     
     <summary type="html">
     
       &lt;hr style=&quot;filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)&quot; color=&quot;#FF0000&quot; size=&quot;1&quot;&gt;
 
 &lt;blockquote&gt;
-&lt;p&gt;网上的源码解析一抓一大把,这篇仅仅只是自己的一些记录&lt;/p&gt;
+&lt;p&gt;GitHub很早之前就已经写过了命令,但是有些小伙伴问我具体的流程,在这里做这记录&lt;/p&gt;
 &lt;/blockquote&gt;
     
     </summary>
     
     
-      <category term="Vue" scheme="https://www.chensheng.group/categories/Vue/"/>
+      <category term="GitHub" scheme="https://www.chensheng.group/categories/GitHub/"/>
     
     
-      <category term="Vue" scheme="https://www.chensheng.group/tags/Vue/"/>
+      <category term="GitHub" scheme="https://www.chensheng.group/tags/GitHub/"/>
     
   </entry>
   
