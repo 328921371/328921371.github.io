@@ -1,4 +1,7 @@
-https://www.chensheng.group/2019/12/13/112-TypeScript基础学习/
+https://www.chensheng.group/2019/12/20/115-vue-cli4.0打包配置/
+https://www.chensheng.group/2019/12/19/114-pathRewrite什么时候使用/
+https://www.chensheng.group/2019/12/18/113-vue-cli4.0学习/
+https://www.chensheng.group/2019/12/16/112-TypeScript基础学习/
 https://www.chensheng.group/2019/12/13/111-Vue-cli使用history模式/
 https://www.chensheng.group/2019/12/09/110-表格导出Excel和打印/
 https://www.chensheng.group/2019/12/09/109-Vue转PDF模糊问题/
@@ -29,9 +32,9 @@ https://www.chensheng.group/2019/04/24/86-微信分享/
 https://www.chensheng.group/2019/04/15/85-electron-vue桌面应用/
 https://www.chensheng.group/2019/02/25/84-ES6 模块化/
 https://www.chensheng.group/2019/02/25/83-ES6 Class/
-https://www.chensheng.group/2019/02/19/80-ES6 Set/
 https://www.chensheng.group/2019/02/19/82-ES6 Promise/
 https://www.chensheng.group/2019/02/19/81-ES6 Map/
+https://www.chensheng.group/2019/02/19/80-ES6 Set/
 https://www.chensheng.group/2019/02/18/79-ES6 Proxy/
 https://www.chensheng.group/2019/01/21/43-vue路由权限控制/
 https://www.chensheng.group/2019/01/11/78-ES6 Symbol/
@@ -95,6 +98,3 @@ https://www.chensheng.group/2017/02/10/19-jq延时对象/
 https://www.chensheng.group/2017/02/05/18-js延时对象/
 https://www.chensheng.group/2017/01/27/17-自定义抛出错误/
 https://www.chensheng.group/2017/01/22/16-分线程/
-https://www.chensheng.group/2017/01/15/15-cookie与Storage的使用/
-https://www.chensheng.group/2017/01/03/14-requireJs插件的使用/
-https://www.chensheng.group/2016/12/28/13-require的基本使用/
