@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://www.chensheng.group/2019/12/18/113-vue-cli4.0%E5%AD%A6%E4%B9%A0/</loc>
+    <lastmod>2019-12-20</lastmod>
+  </url>  <url>
     <loc>https://www.chensheng.group/2017/10/02/42-vue-cli%E5%85%A5%E9%97%A8/</loc>
     <lastmod>2019-12-19</lastmod>
   </url>  <url>
@@ -26,9 +29,6 @@
     <lastmod>2019-12-19</lastmod>
   </url>  <url>
     <loc>https://www.chensheng.group/2019/12/19/114-pathRewrite%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E4%BD%BF%E7%94%A8/</loc>
-    <lastmod>2019-12-19</lastmod>
-  </url>  <url>
-    <loc>https://www.chensheng.group/2019/12/18/113-vue-cli4.0%E5%AD%A6%E4%B9%A0/</loc>
     <lastmod>2019-12-19</lastmod>
   </url>  <url>
     <loc>https://www.chensheng.group/2019/12/16/112-TypeScript%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/</loc>

@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://www.chensheng.group/about/index.html</loc>
+    
+    <lastmod>2019-12-27T07:51:57.704Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://www.chensheng.group/2019/12/18/113-vue-cli4.0%E5%AD%A6%E4%B9%A0/</loc>
+    
+    <lastmod>2019-12-20T06:25:21.246Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://www.chensheng.group/2017/10/02/42-vue-cli%E5%85%A5%E9%97%A8/</loc>
     
     <lastmod>2019-12-19T06:48:07.923Z</lastmod>
@@ -61,13 +75,6 @@
     <loc>https://www.chensheng.group/2019/12/19/114-pathRewrite%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E4%BD%BF%E7%94%A8/</loc>
     
     <lastmod>2019-12-19T06:15:29.060Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://www.chensheng.group/2019/12/18/113-vue-cli4.0%E5%AD%A6%E4%B9%A0/</loc>
-    
-    <lastmod>2019-12-19T06:15:09.120Z</lastmod>
     
   </url>
   
@@ -803,13 +810,6 @@
     <loc>https://www.chensheng.group/2017/01/15/15-cookie%E4%B8%8EStorage%E7%9A%84%E4%BD%BF%E7%94%A8/</loc>
     
     <lastmod>2017-11-02T05:42:45.148Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://www.chensheng.group/about/index.html</loc>
-    
-    <lastmod>2017-10-11T12:11:54.008Z</lastmod>
     
   </url>
   
