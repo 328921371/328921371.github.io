@@ -95,7 +95,7 @@
 <meta property="og:site_name" content="陈先生的小前端">
 <meta property="og:description" content="TypeScript现在已经越来越受到前端的使用了,和ECMAScript 6一样,慢慢的普及开来了">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-12-19T06:14:23.414Z">
+<meta property="og:updated_time" content="2020-01-10T01:39:17.833Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="TypeScript基础学习">
 <meta name="twitter:description" content="TypeScript现在已经越来越受到前端的使用了,和ECMAScript 6一样,慢慢的普及开来了">
@@ -406,17 +406,17 @@
 <ol>
 <li><p>安装插件: npm install typescript -g</p>
 </li>
-<li><p>初始化项目: 进入你的编程文件夹后,可以使用npm init -y来初始化项目,生成package。json文件。</p>
+<li><p>初始化项目: 进入你的编程文件夹后,可以使用npm init -y来初始化项目,生成package.json文件。</p>
 </li>
-<li><p>创建tsconfig。json文件: 在终端中输入tsc –init</p>
+<li><p>创建tsconfig.json文件: 在终端中输入tsc –init</p>
 </li>
 </ol>
-<p>默认情况下,tsc会使用默认的编译配置编译目录中的所有。ts文件。通过书写tsconfig。json,我们可以配置tsc的编译行为,达到想要的结果：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  &quot;compilerOptions&quot;: &#123;</div><div class="line">    &quot;module&quot;: &quot;commonjs&quot;,   //指定生成哪个模块系统代码</div><div class="line">    &quot;target&quot;: &quot;es5&quot;,        //目标代码类型</div><div class="line">    &quot;noImplicitAny&quot;: false, //在表达式和声明上有隐含的&apos;any&apos;类型时报错。</div><div class="line">    &quot;sourceMap&quot;: false,     //用于debug   </div><div class="line">    &quot;rootDir&quot;:&quot;。/src&quot;,      //仅用来控制输出的目录结构--outDir。</div><div class="line">    &quot;outDir&quot;:&quot;。/build&quot;,     //重定向输出目录。   </div><div class="line">    &quot;watch&quot;:true            //在监视模式下运行编译器。会监视输出文件,在它们改变时重新编译。</div><div class="line">  &#125;,</div><div class="line">  &quot;include&quot;:[</div><div class="line">    &quot;。/src/**/*&quot;</div><div class="line">  ],</div><div class="line">  &quot;exclude&quot;:[</div><div class="line">    &quot;views&quot;,</div><div class="line">    &quot;static&quot;</div><div class="line">  ]</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>默认情况下,tsc会使用默认的编译配置编译目录中的所有.ts文件。通过书写tsconfig.json,我们可以配置tsc的编译行为,达到想要的结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  &quot;compilerOptions&quot;: &#123;</div><div class="line">    &quot;module&quot;: &quot;commonjs&quot;,   //指定生成哪个模块系统代码</div><div class="line">    &quot;target&quot;: &quot;es5&quot;,        //目标代码类型</div><div class="line">    &quot;noImplicitAny&quot;: false, //在表达式和声明上有隐含的&apos;any&apos;类型时报错。</div><div class="line">    &quot;sourceMap&quot;: false,     //用于debug   </div><div class="line">    &quot;rootDir&quot;:&quot;./src&quot;,      //仅用来控制输出的目录结构--outDir。</div><div class="line">    &quot;outDir&quot;:&quot;./build&quot;,     //重定向输出目录。   </div><div class="line">    &quot;watch&quot;:true            //在监视模式下运行编译器。会监视输出文件,在它们改变时重新编译。</div><div class="line">  &#125;,</div><div class="line">  &quot;include&quot;:[</div><div class="line">    &quot;./src/**/*&quot;</div><div class="line">  ],</div><div class="line">  &quot;exclude&quot;:[</div><div class="line">    &quot;views&quot;,</div><div class="line">    &quot;static&quot;</div><div class="line">  ]</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <ol>
 <li><p>安装@types/node:  npm install –save-dev @types/node,这个主要是解决模块的声明文件问题。</p>
 </li>
-<li><p>写完ts文件,可以使用tsc Hello。ts 转化成 Hello。js,也可以在Vscode的任务菜单下,打开运行生成任务,然后选择tsc：构建-tsconfig。json</p>
+<li><p>写完ts文件,可以使用tsc Hello.ts 转化成 Hello.js,也可以在Vscode的任务菜单下,打开运行生成任务,然后选择tsc：构建-tsconfig.json</p>
 </li>
 </ol>
 <p>到此准备工作都已经做完了,现在开始正式的写ts</p>
@@ -441,7 +441,7 @@
 <p>一些我们常用的变量类型就不说了,说一下上面我们不经常用到的几个类型</p>
 <h4 id="enum类型"><a href="#enum类型" class="headerlink" title="enum类型"></a>enum类型</h4><p>枚举类型,我们用的比较少,什么场景下使用呢?有很多值是多个并且是固定的,比如：</p>
 <p>一年的季节：春、夏、秋、冬 有四个结果。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">enum JiJie&#123;c,x,q,d&#125;</div><div class="line">console。log(JiJie。c) // 返回0,类似数组索引</div><div class="line"></div><div class="line">// 也可以进行赋值</div><div class="line">enum JiJie&#123;</div><div class="line">  c= &apos;春&apos;,</div><div class="line">  x= &apos;夏&apos;,</div><div class="line">  q= &apos;秋&apos;,</div><div class="line">  d= &apos;冬&apos;</div><div class="line">&#125;</div><div class="line">console。log(JiJie。c) // 返回&apos;春&apos;这个字</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">enum JiJie&#123;c,x,q,d&#125;</div><div class="line">console.log(JiJie.c) // 返回0,类似数组索引</div><div class="line"></div><div class="line">// 也可以进行赋值</div><div class="line">enum JiJie&#123;</div><div class="line">  c= &apos;春&apos;,</div><div class="line">  x= &apos;夏&apos;,</div><div class="line">  q= &apos;秋&apos;,</div><div class="line">  d= &apos;冬&apos;</div><div class="line">&#125;</div><div class="line">console.log(JiJie.c) // 返回&apos;春&apos;这个字</div></pre></td></tr></table></figure>
 <h4 id="any类型"><a href="#any类型" class="headerlink" title="any类型"></a>any类型</h4><p>既然ts需要提前定义好变量类型,为什么又要有any类型呢</p>
 <p>因为一个写惯了前端的人,有时候不自觉的就分不清类型了。<br>这是个不好的习惯,也是前端的痛,就因为这个原因,JavaScript也多次被人诟病说大型项目不适合用JavaScript。<br>但是习惯一旦养成,改是需要时间和磨练的。TypeScript友好的为我们提供了一种特殊的类型any,比如我们在程序中不断变化着类型,又不想让程序报错,这时候就可以使用any了。</p>
 <h4 id="Tuple类型"><a href="#Tuple类型" class="headerlink" title="Tuple类型"></a>Tuple类型</h4><p>元祖是一种特殊的数组,元祖类型允许表示一个已知元素数量和类型的数组,各元素的类型不必相同。<br>比如,你可以定义一对值分别为string和number类型的元祖。元祖在实际开发中使用的非常少,大家了解一下就可以了,不做过多介绍。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">//声明一个元祖类型</div><div class="line">let x : [string,number]</div><div class="line">//正确的初始化</div><div class="line">x = [&apos;hello&apos;,10]</div><div class="line">//错误的初始化方法</div><div class="line">x = [10,&apos;hello&apos;]</div></pre></td></tr></table></figure></p>
@@ -456,7 +456,7 @@
 <li>大括号中是函数体。</li>
 </ol>
 <p>举个例子,我要创建一个函数,来说明自己几岁</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">function speckAge(age:number):string&#123;</div><div class="line">  return &apos;我现在&apos;+age+&apos;岁了&apos; </div><div class="line">&#125;</div><div class="line">var age:number = 18</div><div class="line">var result:string = speckAge(age)</div><div class="line">console。log(result)</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">function speckAge(age:number):string&#123;</div><div class="line">  return &apos;我现在&apos;+age+&apos;岁了&apos; </div><div class="line">&#125;</div><div class="line">var age:number = 18</div><div class="line">var result:string = speckAge(age)</div><div class="line">console.log(result)</div></pre></td></tr></table></figure>
 <blockquote>
 <p>在函数调用的时候,我们需要按照形参的规则传递实参,有几个形参就要传递几个实参,并且每一个实参的类型要与对应的形参类型一致。</p>
 </blockquote>
@@ -830,7 +830,7 @@
         <div class="copyright" >
   
   &copy;  2015 &mdash; 
-  <span itemprop="copyrightYear">2019</span>
+  <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -844,7 +844,7 @@
     
       <div class="theme-info">
         <div class="powered-by"></div>
-        <span class="post-count">全站共 114k 字</span>
+        <span class="post-count">全站共 114.4k 字</span>
       </div>
     
   
