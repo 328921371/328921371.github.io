@@ -49,6 +49,28 @@
       </tags>
   </entry>
   <entry>
+    <title>hexo更新</title>
+    <url>/2019/12/20/116-hexo%E6%9B%B4%E6%96%B0/</url>
+    <content><![CDATA[<hr style='filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)' color='#FF0000' size='1' />
+
+<blockquote>
+<p>准备更新</p>
+</blockquote>
+<a id="more"></a>
+
+
+
+
+<p>以上就是我对vue-cli 4.0 打包配置的一些理解,如果文章由于我学识浅薄,导致您发现有严重谬误的地方,请一定在评论中指出,我会在第一时间修正我的博文,以避免误人子弟。</p>
+]]></content>
+      <categories>
+        <category>hexo</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>vue-cli中proxy的pathRewrite该怎么使用</title>
     <url>/2019/12/19/114-pathRewrite%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E4%BD%BF%E7%94%A8/</url>
     <content><![CDATA[<hr style='filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)' color='#FF0000' size='1' />
