@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.chensheng.group/"/>
-  <updated>2020-01-15T08:07:39.034Z</updated>
+  <updated>2020-01-16T01:35:09.743Z</updated>
   <id>https://www.chensheng.group/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>hexo更新</title>
+    <link href="https://www.chensheng.group/2019/12/21/116-hexo%E6%9B%B4%E6%96%B0/"/>
+    <id>https://www.chensheng.group/2019/12/21/116-hexo%E6%9B%B4%E6%96%B0/</id>
+    <published>2019-12-21T08:55:00.000Z</published>
+    <updated>2020-01-16T01:35:09.743Z</updated>
+    
+    <content type="html"><![CDATA[<hr style='filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)' color='#FF0000' size='1' /><blockquote><p>准备更新</p></blockquote><a id="more"></a><p>以上就是我对vue-cli 4.0 打包配置的一些理解,如果文章由于我学识浅薄,导致您发现有严重谬误的地方,请一定在评论中指出,我会在第一时间修正我的博文,以避免误人子弟。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;hr style=&#39;filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)&#39; color=&#39;#FF0000&#39; size=&#39;1&#39; /&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;准备更新&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+    
+      <category term="hexo" scheme="https://www.chensheng.group/categories/hexo/"/>
+    
+    
+      <category term="hexo" scheme="https://www.chensheng.group/tags/hexo/"/>
+    
+  </entry>
   
   <entry>
     <title>Vue-cli 4.0 打包配置不同环境</title>
@@ -40,33 +67,6 @@
     
     
       <category term="Vue-cli" scheme="https://www.chensheng.group/tags/Vue-cli/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>hexo更新</title>
-    <link href="https://www.chensheng.group/2019/12/20/116-hexo%E6%9B%B4%E6%96%B0/"/>
-    <id>https://www.chensheng.group/2019/12/20/116-hexo%E6%9B%B4%E6%96%B0/</id>
-    <published>2019-12-20T08:55:00.000Z</published>
-    <updated>2020-01-15T09:46:18.306Z</updated>
-    
-    <content type="html"><![CDATA[<hr style='filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)' color='#FF0000' size='1' /><blockquote><p>准备更新</p></blockquote><a id="more"></a><p>以上就是我对vue-cli 4.0 打包配置的一些理解,如果文章由于我学识浅薄,导致您发现有严重谬误的地方,请一定在评论中指出,我会在第一时间修正我的博文,以避免误人子弟。</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;hr style=&#39;filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)&#39; color=&#39;#FF0000&#39; size=&#39;1&#39; /&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;准备更新&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-    
-      <category term="hexo" scheme="https://www.chensheng.group/categories/hexo/"/>
-    
-    
-      <category term="hexo" scheme="https://www.chensheng.group/tags/hexo/"/>
     
   </entry>
   
