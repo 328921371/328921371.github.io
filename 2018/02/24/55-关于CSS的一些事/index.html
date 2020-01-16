@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico?v=7.4.2">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=7.4.2">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico?v=7.4.2">
+  <link rel="mask-icon" href="/images/favicon.ico?v=7.4.2" color="#222">
+  <link rel="alternate" href="/atom.xml" title="陈先生的小前端" type="application/atom+xml">
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.2">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '7.4.2',
+    exturl: false,
+    sidebar: {"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":"mac"},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    bookmark: {"enable":true,"color":"#222","save":"auto"},
+    fancybox: true,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="今天来聊一聊CSS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="关于CSS的一些事(一)">
+<meta property="og:url" content="https://www.chensheng.group/2018/02/24/55-%E5%85%B3%E4%BA%8ECSS%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BA%8B/index.html">
+<meta property="og:site_name" content="陈先生的小前端">
+<meta property="og:description" content="今天来聊一聊CSS">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-02-24T06:19:22.000Z">
+<meta property="article:modified_time" content="2020-01-15T03:03:53.342Z">
+<meta property="article:author" content="陈晟">
+<meta property="article:tag" content="CSS">
+<meta name="twitter:card" content="summary">
+  <link rel="canonical" href="https://www.chensheng.group/2018/02/24/55-%E5%85%B3%E4%BA%8ECSS%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BA%8B/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>关于CSS的一些事(一) | 陈先生的小前端</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">陈先生的小前端</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+        
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+      
+    
+      
+      
+        
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+      
+    
+      
+      
+        
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+      
+    
+      
+      
+        
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+      
+    
+      
+      
+        
+        
+        <li class="menu-item menu-item-about">
+      
+    
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+      
+    
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger">
+          <i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+    
+  </ul>
+
+    
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.chensheng.group/2018/02/24/55-%E5%85%B3%E4%BA%8ECSS%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BA%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="陈晟">
+      <meta itemprop="description" content="请不要在最能吃苦的日子选择安逸">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="陈先生的小前端">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            关于CSS的一些事(一)
+            
+
+          
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2018-02-24 14:19:22" itemprop="dateCreated datePublished" datetime="2018-02-24T14:19:22+08:00">2018-02-24</time>
+            </span>
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/CSS/" itemprop="url" rel="index">
+                    <span itemprop="name">CSS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <hr style='filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)' color='#FF0000' size='1' />
+
+<blockquote>
+<p>今天来聊一聊CSS</p>
+</blockquote>
+<a id="more"></a>
+
+<p>我的博客始终没有讲到css,不是因为它不重要,而是太杂了,知识点零碎的太多了,今天说一些容易混淆的知识点</p>
+<h3 id="display-none-和-visibility-hidden的区别？"><a href="#display-none-和-visibility-hidden的区别？" class="headerlink" title="display:none 和 visibility:hidden的区别？"></a>display:none 和 visibility:hidden的区别？</h3><p>display:none  隐藏对应的元素，在文档布局中不再给它分配空间，它各边的元素会合拢，就当他从来不存在。</p>
+<p>visibility:hidden  隐藏对应的元素，但是在文档布局中仍保留原来的空间。</p>
+<p>需要注意一点,绑定元素监听的时候,display:none是可以监听到的,在vue中,v-show就是动态切换display属性,所以需要监听的元素不要使用v-if</p>
+<h3 id="CSS中-link-和-import-的区别是？"><a href="#CSS中-link-和-import-的区别是？" class="headerlink" title="CSS中 link 和@import 的区别是？"></a>CSS中 link 和@import 的区别是？</h3><ol>
+<li>link属于HTML标签，而@import是CSS提供的; </li>
+<li>页面被加载的时，link会同时被加载，而@import引用的CSS会等到页面被加载完再加载;</li>
+<li>import只在IE5以上才能识别，而link是HTML标签，无兼容问题; </li>
+<li>link方式的样式的权重 高于@import的权重.</li>
+</ol>
+<h3 id="position-absolute和float属性的异同"><a href="#position-absolute和float属性的异同" class="headerlink" title="position:absolute和float属性的异同"></a>position:absolute和float属性的异同</h3><p>A：共同点：<br>对内联元素设置<code>float</code>和<code>absolute</code>属性，可以让元素脱离文档流，并且可以设置其宽高。</p>
+<p>B：不同点：<br>float仍会占据位置，position会覆盖文档流中的其他元素。</p>
+<h3 id="box-sizing属性"><a href="#box-sizing属性" class="headerlink" title="box-sizing属性"></a>box-sizing属性</h3><p>box-sizing属性主要用来控制元素的盒模型的解析模式。默认值是content-box。</p>
+<p>content-box：让元素维持W3C的标准盒模型。元素的宽度/高度由border + padding + content的宽度/高度决定，设置width/height属性指的是content部分的宽/高</p>
+<p>border-box：让元素维持IE传统盒模型（IE6以下版本和IE6~7的怪异模式）。设置width/height属性指的是border + padding + content</p>
+<p>标准浏览器下，按照W3C规范对盒模型解析，一旦修改了元素的边框或内距，就会影响元素的盒子尺寸，就不得不重新计算元素的盒子尺寸，从而影响整个页面的布局。</p>
+<h3 id="CSS-选择符有哪些？哪些属性可以继承？优先级算法如何计算？-CSS3新增伪类有那些？"><a href="#CSS-选择符有哪些？哪些属性可以继承？优先级算法如何计算？-CSS3新增伪类有那些？" class="headerlink" title="CSS 选择符有哪些？哪些属性可以继承？优先级算法如何计算？ CSS3新增伪类有那些？"></a>CSS 选择符有哪些？哪些属性可以继承？优先级算法如何计算？ CSS3新增伪类有那些？</h3><ol>
+<li>id选择器（ # myid）</li>
+<li>类选择器（.myclassname）</li>
+<li>标签选择器（div, h1, p）</li>
+<li>相邻选择器（h1 + p）</li>
+<li>子选择器（ul &gt; li）</li>
+<li>后代选择器（li a）</li>
+<li>通配符选择器（ * ）</li>
+<li>属性选择器（a[rel = “external”]）</li>
+<li>伪类选择器（a: hover, li:nth-child）</li>
+</ol>
+<blockquote>
+<p>哪些属性可以继承</p>
+</blockquote>
+<ul>
+<li><p>可继承的样式： font-size font-family color, text-indent;</p>
+</li>
+<li><p>不可继承的样式：border padding margin width height ;</p>
+</li>
+<li><p>优先级就近原则，同权重情况下样式定义最近者为准;</p>
+</li>
+<li><p>载入样式以最后载入的定位为准;</p>
+</li>
+</ul>
+<blockquote>
+<p>优先级</p>
+</blockquote>
+<p>!important &gt; 内联 &gt; id &gt; class &gt; tag  </p>
+<blockquote>
+<p>CSS3新增伪类举例</p>
+</blockquote>
+<ul>
+<li>p:first-of-type 选择属于其父元素的首个 <p> 元素的每个 <p> 元素。</li>
+<li>p:last-of-type  选择属于其父元素的最后 <p> 元素的每个 <p> 元素。</li>
+<li>p:only-of-type  选择属于其父元素唯一的 <p> 元素的每个 <p> 元素。</li>
+<li>p:only-child    选择属于其父元素的唯一子元素的每个 <p> 元素。</li>
+<li>p:nth-child(2)  选择属于其父元素的第二个子元素的每个 <p> 元素。</li>
+<li>:enabled  :disabled 控制表单控件的禁用状态。</li>
+<li>:checked        单选框或复选框被选中。</li>
+</ul>
+<h3 id="inline-block对齐问题"><a href="#inline-block对齐问题" class="headerlink" title="inline-block对齐问题"></a>inline-block对齐问题</h3><p>出现这个问题的原因归根结底就是inline-block的特性，两个inline-block之间的布局类似两个行内元素，但是可以设置width，height，上下margin。。。<br>类似行内元素布局，两个inline-block元素并排时，没有写明vertical-align时，默认是以baseline对齐的，<br>而inlineblock元素的baseline在哪里就要分有文字和没文字的情况，没有文字的情况baseline就是“margin-bottom的那条线”<br>有文字的情况baseline就是“最后一行文本的baseline”</p>
+<h3 id="父子元素顶部重合"><a href="#父子元素顶部重合" class="headerlink" title="父子元素顶部重合"></a>父子元素顶部重合</h3><p>不知道大家有没有试过,子元素写<code>margin-top:100px;</code>,父级元素却下移了</p>
+<p>当父元素没有设置padding值以及border值时，出现了一个bug–父元素的上方与子元素的上方完全重合在了一起，无法分开。所以才会导致上述这种父元素和子元素同时向下的情况。</p>
+<p>对于这种问题解决方法有下面几种：</p>
+<ul>
+<li>给父元素添加padding-top值</li>
+<li>给父元素添加border值</li>
+<li>给父元素添加属性overflow:hidden;</li>
+<li>给父元素或者子元素声明浮动float</li>
+<li>使父元素或子元素声明为绝对定位：position:absolute;</li>
+<li>给父元素添加属性 overflow:auto; positon:relative；</li>
+</ul>
+<h3 id="CSS3有哪些新特性"><a href="#CSS3有哪些新特性" class="headerlink" title="CSS3有哪些新特性"></a>CSS3有哪些新特性</h3><p>CSS3实现圆角（border-radius），阴影（box-shadow），<br>对文字加特效（text-shadow、），线性渐变（gradient），旋转（transform）<br>transform:rotate(9deg) scale(0.85,0.90) translate(0px,-30px) skew(-9deg,0deg);//旋转,缩放,定位,倾斜<br>增加了更多的CSS选择器  多背景 rgba<br>在CSS3中唯一引入的伪元素是::selection.<br>媒体查询，多栏布局<br>border-image</p>
+<h3 id="BFC规范"><a href="#BFC规范" class="headerlink" title="BFC规范"></a>BFC规范</h3><p>BFC，块级格式化上下文，一个创建了新的BFC的盒子是独立布局的，盒子里面的子元素的样式不会影响到外面的元素。<br>在同一个BFC中的两个毗邻的块级盒在垂直方向（和布局方向有关系）的margin会发生折叠。<br>（W3C CSS 2.1 规范中的一个概念，它决定了元素如何对其内容进行布局，以及与其他元素的关系和相互作用。）</p>
+<h3 id="css中常见的兼容性问题"><a href="#css中常见的兼容性问题" class="headerlink" title="css中常见的兼容性问题"></a>css中常见的兼容性问题</h3><ul>
+<li><p>png24位的图片在iE6浏览器上出现背景，解决方案是做成PNG8.也可以引用一段脚本处理.</p>
+</li>
+<li><p>浏览器默认的margin和padding不同。解决方案是加一个全局的*{margin:0;padding:0;}来统一。</p>
+</li>
+<li><p>IE6双边距bug:块属性标签float后，又有横行的margin情况下，在ie6显示margin比设置的大。 </p>
+</li>
+<li><p>浮动ie产生的双倍距离（IE6双边距问题：在IE6下，如果对元素设置了浮动，同时又设置了margin-left或margin-right，margin值会加倍。）<br><code>#box{ float:left; width:10px; margin:0 0 0 100px;}</code></p>
+<p>这种情况之下IE会产生20px的距离，解决方案是在float的标签样式控制中加入<code>_display:inline;</code>将其转化为行内属性。(_这个符号只有ie6会识别)</p>
+</li>
+<li><p>渐进识别的方式，从总体中逐渐排除局部。 </p>
+<p>首先，巧妙的使用“\9”这一标记，将IE游览器从所有情况中分离出来。<br>接着，再次使用“+”将IE8和IE7、IE6分离开来，这样IE8已经独立识别。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">.bb&#123;</span><br><span class="line">  background-color:#f1ee18;&#x2F;*所有识别*&#x2F;</span><br><span class="line">  .background-color:#00deff\9; &#x2F;*IE6、7、8识别*&#x2F;</span><br><span class="line">  +background-color:#a200ff;&#x2F;*IE6、7识别*&#x2F;</span><br><span class="line">  _background-color:#1e0bd1;&#x2F;*IE6识别*&#x2F; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>IE下,可以使用获取常规属性的方法来获取自定义属性,<br>也可以使用getAttribute()获取自定义属性;<br>Firefox下,只能使用getAttribute()获取自定义属性.<br>解决方法:统一通过getAttribute()获取自定义属性.</p>
+</li>
+<li><p>IE下,event对象有x,y属性,但是没有pageX,pageY属性;<br>Firefox下,event对象有pageX,pageY属性,但是没有x,y属性.</p>
+</li>
+<li><p>解决方法：（条件注释）缺点是在IE浏览器下可能会增加额外的HTTP请求数。</p>
+</li>
+<li><p>Chrome 中文界面下默认会将小于 12px 的文本强制按照 12px 显示,<br>可通过加入 CSS 属性 -webkit-text-size-adjust: none; 解决.</p>
+</li>
+<li><p>超链接访问过后hover样式就不出现了 被点击访问过的超链接样式不在具有hover和active了解决方法是改变CSS属性的排列顺序:<br>L-V-H-A :  a:link {} a:visited {} a:hover {} a:active {}</p>
+</li>
+<li><p>怪异模式问题：漏写DTD声明，Firefox仍然会按照标准模式来解析网页，但在IE中会触发怪异模式。为避免怪异模式给我们带来不必要的麻烦，最好养成书写DTD声明的好习惯。现在可以使用<a href="http://www.w3.org/TR/html5/single-page.html" target="_blank" rel="noopener">html5</a>推荐的写法：<code>&lt;doctype html&gt;</code></p>
+</li>
+<li><p>上下margin重合问题<br>ie和ff都存在，相邻的两个div的margin-left和margin-right不会重合，但是margin-top和margin-bottom却会发生重合。<br>解决方法，养成良好的代码编写习惯，同时采用margin-top或者同时采用margin-bottom。</p>
+</li>
+<li><p>ie6对png图片格式支持不好(引用一段脚本处理)</p>
+</li>
+</ul>
+<h3 id="CSS3画图形"><a href="#CSS3画图形" class="headerlink" title="CSS3画图形"></a>CSS3画图形</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br></pre></td><td class="code"><pre><span class="line">&lt;div&gt;</span><br><span class="line">  &lt;!-- css3画三角形 --&gt;</span><br><span class="line">  &lt;div class&#x3D;&quot;sanjiao&quot;&gt;&lt;&#x2F;div&gt;</span><br><span class="line">  &lt;!-- 画对话框 --&gt;</span><br><span class="line">  &lt;div class&#x3D;&quot;duihua&quot;&gt;你好啊&lt;&#x2F;div&gt;</span><br><span class="line">  &lt;!-- 画菱形 --&gt;</span><br><span class="line">  &lt;div class&#x3D;&quot;lingxing&quot;&gt;&lt;&#x2F;div&gt;</span><br><span class="line">  &lt;!-- 画平行四边形 --&gt;</span><br><span class="line">  &lt;div class&#x3D;&quot;pingxing&quot;&gt;&lt;&#x2F;div&gt;</span><br><span class="line">  &lt;!-- 画五角星 --&gt;</span><br><span class="line">  &lt;div class&#x3D;&quot;star&quot;&gt;&lt;&#x2F;div&gt;</span><br><span class="line">  &lt;!-- 鸡蛋 --&gt;</span><br><span class="line">  &lt;div class&#x3D;&#39;egg&#39;&gt;&lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 三角形</span><br><span class="line">  .sanjiao &#123;</span><br><span class="line">    border-top: 50px solid transparent;</span><br><span class="line">    border-bottom: 50px solid transparent;</span><br><span class="line">    border-left: 0px solid yellow;</span><br><span class="line">    border-right: 50px solid blue;</span><br><span class="line">    height: 0px;</span><br><span class="line">    width: 0px;</span><br><span class="line">    margin: 50px auto;</span><br><span class="line">  &#125;</span><br><span class="line">  &#x2F;&#x2F; 对话框</span><br><span class="line">  .duihua &#123;</span><br><span class="line">    width:300px;</span><br><span class="line">    height:36px;</span><br><span class="line">    line-height: 36px;</span><br><span class="line">    text-align: center;</span><br><span class="line">    background-color: #a60;</span><br><span class="line">    border-radius: 6px;</span><br><span class="line">    color:#fff;</span><br><span class="line">    margin: 50px auto;</span><br><span class="line">    position: relative;</span><br><span class="line">  &#125;</span><br><span class="line">  .duihua::before &#123;</span><br><span class="line">    content: &#39;&#39;;</span><br><span class="line">    border-top: 10px solid transparent;</span><br><span class="line">    border-bottom: 10px solid transparent;</span><br><span class="line">    border-left: 0px solid #a60;</span><br><span class="line">    border-right: 10px solid #a60;</span><br><span class="line">    position: absolute;</span><br><span class="line">    left:-10px;</span><br><span class="line">    top:8px;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  &#x2F;&#x2F; 菱形</span><br><span class="line">  .lingxing &#123;</span><br><span class="line">    width:100px;</span><br><span class="line">    height:100px;</span><br><span class="line">    background-color: orangered;</span><br><span class="line">    margin: 50px auto;</span><br><span class="line">    transform: rotate(45deg)</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  &#x2F;&#x2F; 平行四边形</span><br><span class="line">  .pingxing &#123;</span><br><span class="line">    width:150px;</span><br><span class="line">    height:100px;</span><br><span class="line">    background-color: firebrick;</span><br><span class="line">    margin: 50px auto;</span><br><span class="line">    &#x2F;&#x2F; 第一个是X轴倾斜的角度，第二个是Y轴倾斜的角度</span><br><span class="line">    transform: skew(20deg,20deg)</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  &#x2F;&#x2F; 五角星</span><br><span class="line">  .star &#123;</span><br><span class="line">    position: relative;</span><br><span class="line">    border-top: 0px solid transparent;</span><br><span class="line">    border-bottom: 70px solid red;</span><br><span class="line">    border-left: 100px solid transparent;</span><br><span class="line">    border-right: 100px solid transparent;</span><br><span class="line">    height: 0px;</span><br><span class="line">    width: 0px;</span><br><span class="line">    margin: 50px auto;</span><br><span class="line">    transform: rotate(35deg)</span><br><span class="line">  &#125;</span><br><span class="line">  .star::before &#123;</span><br><span class="line">    content: &#39;&#39;;</span><br><span class="line">    border-top: 0px solid transparent;</span><br><span class="line">    border-bottom: 80px solid red;</span><br><span class="line">    border-left: 30px solid transparent;</span><br><span class="line">    border-right: 30px solid transparent;</span><br><span class="line">    height: 0px;</span><br><span class="line">    width: 0px;</span><br><span class="line">    position: absolute;</span><br><span class="line">    top: -45px;</span><br><span class="line">    left: -65px;</span><br><span class="line">    transform: rotate(-35deg)</span><br><span class="line">  &#125;</span><br><span class="line">  .star::after &#123;</span><br><span class="line">    content: &#39;&#39;;</span><br><span class="line">    border-top: 0px solid transparent;</span><br><span class="line">    border-bottom: 70px solid red;</span><br><span class="line">    border-left: 100px solid transparent;</span><br><span class="line">    border-right: 100px solid transparent;</span><br><span class="line">    height: 0px;</span><br><span class="line">    width: 0px;</span><br><span class="line">    position: absolute;</span><br><span class="line">    top: 3px;</span><br><span class="line">    left: -105px;</span><br><span class="line">    transform: rotate(-70deg)</span><br><span class="line">  &#125;</span><br><span class="line">  &#x2F;&#x2F; 鸡蛋</span><br><span class="line">  .egg &#123;</span><br><span class="line">    width: 126px;</span><br><span class="line">    height: 180px;</span><br><span class="line">    background-color: #fa3;</span><br><span class="line">    &#x2F;&#x2F; 斜杠之前的是设置X轴的，后面是设置Y轴的</span><br><span class="line">    border-radius: 50% 50% 50% 50% &#x2F; 60% 60% 40% 40%;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+    
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+      
+    </div>
+        
+      
+        <div class="reward-container">
+  <div>没办法,总要恰饭的嘛~~</div>
+  <button disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+        
+      
+      <div style="display: inline-block;">
+        <img src="/images/wxpay.png" alt="陈晟 微信支付">
+        <p>微信支付</p>
+      </div>
+        
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="陈晟 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+      
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>陈晟
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://www.chensheng.group/2018/02/24/55-%E5%85%B3%E4%BA%8ECSS%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BA%8B/" title="关于CSS的一些事(一)">https://www.chensheng.group/2018/02/24/55-%E5%85%B3%E4%BA%8ECSS%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BA%8B/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/CSS/" rel="tag"><i class="fa fa-tag"></i> CSS</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2018/02/23/54-%E5%89%8D%E7%AB%AF%E7%9A%84%E5%85%BC%E5%AE%B9%E9%97%AE%E9%A2%98/" rel="next" title="前端的兼容解决方案">
+                  <i class="fa fa-chevron-left"></i> 前端的兼容解决方案
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2018/02/25/56-axios%E5%B0%81%E8%A3%85/" rel="prev" title="axios封装">
+                  axios封装 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="gitalk-container"></div>
+  
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#display-none-和-visibility-hidden的区别？"><span class="nav-number">1.</span> <span class="nav-text">display:none 和 visibility:hidden的区别？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CSS中-link-和-import-的区别是？"><span class="nav-number">2.</span> <span class="nav-text">CSS中 link 和@import 的区别是？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#position-absolute和float属性的异同"><span class="nav-number">3.</span> <span class="nav-text">position:absolute和float属性的异同</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#box-sizing属性"><span class="nav-number">4.</span> <span class="nav-text">box-sizing属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CSS-选择符有哪些？哪些属性可以继承？优先级算法如何计算？-CSS3新增伪类有那些？"><span class="nav-number">5.</span> <span class="nav-text">CSS 选择符有哪些？哪些属性可以继承？优先级算法如何计算？ CSS3新增伪类有那些？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#inline-block对齐问题"><span class="nav-number">6.</span> <span class="nav-text">inline-block对齐问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#父子元素顶部重合"><span class="nav-number">7.</span> <span class="nav-text">父子元素顶部重合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CSS3有哪些新特性"><span class="nav-number">8.</span> <span class="nav-text">CSS3有哪些新特性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BFC规范"><span class="nav-number">9.</span> <span class="nav-text">BFC规范</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#css中常见的兼容性问题"><span class="nav-number">10.</span> <span class="nav-text">css中常见的兼容性问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CSS3画图形"><span class="nav-number">11.</span> <span class="nav-text">CSS3画图形</span></a></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <a href="/">
+      <img class="site-author-image" itemprop="image"
+        src="/images/touxiang.jpg"
+        alt="陈晟">
+    </a>
+  <p class="site-author-name" itemprop="name">陈晟</p>
+  <div class="site-description" itemprop="description">请不要在最能吃苦的日子选择安逸</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">116</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        <span class="site-state-item-count">58</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+</div>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/328921371" title="GitHub &amp;rarr; https:&#x2F;&#x2F;github.com&#x2F;328921371" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="mailto:328921371@qq.com" title="E-Mail &amp;rarr; mailto:328921371@qq.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+    
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    
+  
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  &copy; 2015 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">陈晟</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    
+    <span title="站点总字数">328k</span>
+</div>
+  <div class="powered-by">欢迎访问
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">
+      
+    Mr.Chen的小前端
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+      <span class="site-uv">
+        我的第 <span class="busuanzi-value" id="busuanzi_value_site_uv"></span> 位朋友，
+      </span>
+
+  
+    <span class="site-pv">
+     历经 <span class="busuanzi-value" id="busuanzi_value_site_pv"></span> 次回眸才与你相遇
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js?v=3.1.0"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+<script src="/js/utils.js?v=7.4.2.js"></script>
+
+<script src="/js/motion.js?v=7.4.2.js"></script>
+
+
+<script src="/js/schemes/muse.js?v=7.4.2.js"></script>
+
+
+
+<script src="/js/next-boot.js?v=7.4.2.js"></script>
+
+<script src="/js/bookmark.js?v=7.4.2.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+<script src="/js/local-search.js?v=7.4.2.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  <script src="/js/wobblewindow.js"></script>
+  <script>
+    if( window.innerWidth > 768  ){
+      $(document).ready(function () {
+        
+          $('.header').wobbleWindow({
+            radius: 50,
+            movementTop: false,
+            movementLeft: false,
+            movementRight: false,
+            debug: false,
+          });
+        
+
+        
+
+        
+      });
+    }
+  </script>
+
+
+
+
+  <script src="/js/activate-power-mode.min.js"></script>
+  <script>
+    POWERMODE.colorful = true;
+    POWERMODE.shake = false;
+    document.body.addEventListener('input', POWERMODE);
+  </script>
+
+
+
+
+  <script async src="/js/cursor/fireworks.js"></script>
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID: 'cca8bcf4bb1d0c5b3e58',
+      clientSecret: '3f12c94de386143391d2c23adbe4c30ae7f010a7',
+      repo: 'blogIssues',
+      owner: '328921371',
+      admin: ['328921371'],
+      id: 'bc46f5db22e834157816383d31c74ee7',
+        language: 'zh-CN',
+      
+      distractionFreeMode: 'true'
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/z16.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>
