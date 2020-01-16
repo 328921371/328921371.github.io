@@ -1221,7 +1221,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #ffe5ff;
+  background: #ff7fc8;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2359,6 +2359,9 @@ ul.breadcrumb li + li:last-child {
   position: absolute;
   top: 50%;
   transform: translate(-50%, -50%);
+}
+.menu {
+  text-align: right;
 }
 .menu-item:hover {
   background: #ddd;
