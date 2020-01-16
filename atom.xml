@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.chensheng.group/"/>
-  <updated>2020-01-16T01:35:09.743Z</updated>
+  <updated>2020-01-15T08:07:39.034Z</updated>
   <id>https://www.chensheng.group/</id>
   
   <author>
@@ -15,33 +15,6 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title>hexo更新</title>
-    <link href="https://www.chensheng.group/2019/12/21/116-hexo%E6%9B%B4%E6%96%B0/"/>
-    <id>https://www.chensheng.group/2019/12/21/116-hexo%E6%9B%B4%E6%96%B0/</id>
-    <published>2019-12-21T08:55:00.000Z</published>
-    <updated>2020-01-16T01:35:09.743Z</updated>
-    
-    <content type="html"><![CDATA[<hr style='filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)' color='#FF0000' size='1' /><blockquote><p>准备更新</p></blockquote><a id="more"></a><p>以上就是我对vue-cli 4.0 打包配置的一些理解,如果文章由于我学识浅薄,导致您发现有严重谬误的地方,请一定在评论中指出,我会在第一时间修正我的博文,以避免误人子弟。</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;hr style=&#39;filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)&#39; color=&#39;#FF0000&#39; size=&#39;1&#39; /&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;准备更新&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-    
-      <category term="hexo" scheme="https://www.chensheng.group/categories/hexo/"/>
-    
-    
-      <category term="hexo" scheme="https://www.chensheng.group/tags/hexo/"/>
-    
-  </entry>
   
   <entry>
     <title>Vue-cli 4.0 打包配置不同环境</title>
@@ -553,6 +526,33 @@
     
     
       <category term="CSS" scheme="https://www.chensheng.group/tags/CSS/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Vue中directives的用法</title>
+    <link href="https://www.chensheng.group/2019/09/19/96-Vue%E4%B8%ADdirectives%E7%9A%84%E7%94%A8%E6%B3%95/"/>
+    <id>https://www.chensheng.group/2019/09/19/96-Vue%E4%B8%ADdirectives%E7%9A%84%E7%94%A8%E6%B3%95/</id>
+    <published>2019-09-19T01:08:00.000Z</published>
+    <updated>2020-01-15T03:03:54.011Z</updated>
+    
+    <content type="html"><![CDATA[<hr style='filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)' color='#FF0000' size='1' /><blockquote><p>在Vue-cli总结的时候我就聊到了directives的用法,今天把它用在实战里面</p></blockquote><a id="more"></a><p>在main.js中 </p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;** 权限指令,对按钮权限的控制 **&#x2F;</span><br><span class="line">Vue.directive(&#39;has&#39;, &#123;</span><br><span class="line">  bind: function(el, binding) &#123;</span><br><span class="line">    if (!Vue.prototype.$_has(binding.value)) &#123;</span><br><span class="line">setTimeout(()&#x3D;&gt;&#123;</span><br><span class="line">el.parentNode.removeChild(el)</span><br><span class="line">&#125;,0)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line">&#x2F;&#x2F; 权限检查方法（且把该方法添加到vue原型中）</span><br><span class="line">Vue.prototype.$_has &#x3D; function(value) &#123;</span><br><span class="line">  let isExist &#x3D; false</span><br><span class="line">  &#x2F;&#x2F; 从浏览器缓存中获取权限数组（该数组在登入成功后拉取用户的权限信息时保存在浏览器的缓存中</span><br><span class="line"></span><br><span class="line">var buttonpermsStr &#x3D; JSON.parse(sessionStorage.getItem(&#39;ButtonList&#39;))</span><br><span class="line">&#x2F;&#x2F; console.log(buttonpermsStr)</span><br><span class="line">  if (buttonpermsStr &#x3D;&#x3D;&#x3D; undefined || buttonpermsStr &#x3D;&#x3D; null) &#123;</span><br><span class="line">    return false</span><br><span class="line">  &#125;</span><br><span class="line">  if (buttonpermsStr.indexOf(value) &gt;&#x3D; 0) &#123;</span><br><span class="line">    &#x2F;&#x2F; 若在按钮中定义的权限字段能在后端返回的权限数组中能找到，则该按钮可显示</span><br><span class="line">    isExist &#x3D; true</span><br><span class="line">  &#125;</span><br><span class="line">  return isExist</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>用的时候在页面中写</p><p><code>&lt;Button v-has=&quot;&#39;这里写需要判断的值&#39;&quot; type=&quot;primary&quot; size=&quot;large&quot; @click=&quot;AddListButton&quot;&gt;新增&lt;/Button&gt;</code></p><p>以上就是我对Vue中directives用法的一些理解，如果文章由于我学识浅薄，导致您发现有严重谬误的地方，请一定在评论中指出，我会在第一时间修正我的博文，以避免误人子弟。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;hr style=&#39;filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)&#39; color=&#39;#FF0000&#39; size=&#39;1&#39; /&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;在Vue-cli总结的时候我就聊到了directives的用法,今天把它用在实战里面&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+    
+      <category term="Vue-cli" scheme="https://www.chensheng.group/categories/Vue-cli/"/>
+    
+    
+      <category term="Vue-cli" scheme="https://www.chensheng.group/tags/Vue-cli/"/>
     
   </entry>
   
