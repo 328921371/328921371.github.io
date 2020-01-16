@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico?v=7.4.2">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=7.4.2">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico?v=7.4.2">
+  <link rel="mask-icon" href="/images/favicon.ico?v=7.4.2" color="#222">
+  <link rel="alternate" href="/atom.xml" title="陈先生的小前端" type="application/atom+xml">
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.2">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '7.4.2',
+    exturl: false,
+    sidebar: {"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":"mac"},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    bookmark: {"enable":true,"color":"#222","save":"auto"},
+    fancybox: true,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="WebSocket提供了一个受欢迎的技术，以替代我们过去几年一直在用的Ajax技术。这个新的API提供了一个方法，从客户端使用简单的语法有效地推动消息到服务器。WebSocket API：它可用于客户端、服务器端。而且有一个优秀的第三方API，名为Socket.IO。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="WebSocket的使用">
+<meta property="og:url" content="https://www.chensheng.group/archives/8794cd4b/index.html">
+<meta property="og:site_name" content="陈先生的小前端">
+<meta property="og:description" content="WebSocket提供了一个受欢迎的技术，以替代我们过去几年一直在用的Ajax技术。这个新的API提供了一个方法，从客户端使用简单的语法有效地推动消息到服务器。WebSocket API：它可用于客户端、服务器端。而且有一个优秀的第三方API，名为Socket.IO。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2017-12-01T07:25:55.000Z">
+<meta property="article:modified_time" content="2020-01-15T03:03:53.274Z">
+<meta property="article:author" content="陈晟">
+<meta property="article:tag" content="WebSocket">
+<meta name="twitter:card" content="summary">
+  <link rel="canonical" href="https://www.chensheng.group/archives/8794cd4b/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>WebSocket的使用 | 陈先生的小前端</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">陈先生的小前端</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+        
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+      
+    
+      
+      
+        
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+      
+    
+      
+      
+        
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+      
+    
+      
+      
+        
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+      
+    
+      
+      
+        
+        
+        <li class="menu-item menu-item-about">
+      
+    
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+      
+    
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger">
+          <i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+    
+  </ul>
+
+    
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.chensheng.group/archives/8794cd4b/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="陈晟">
+      <meta itemprop="description" content="请不要在最能吃苦的日子选择安逸">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="陈先生的小前端">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            WebSocket的使用
+            
+
+          
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2017-12-01 15:25:55" itemprop="dateCreated datePublished" datetime="2017-12-01T15:25:55+08:00">2017-12-01</time>
+            </span>
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/WebSocket/" itemprop="url" rel="index">
+                    <span itemprop="name">WebSocket</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <hr style='filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)' color='#FF0000' size='1' />
+
+<blockquote>
+<p>WebSocket提供了一个受欢迎的技术，以替代我们过去几年一直在用的Ajax技术。这个新的API提供了一个方法，从客户端使用简单的语法有效地推动消息到服务器。WebSocket API：它可用于客户端、服务器端。而且有一个优秀的第三方API，名为Socket.IO。</p>
+</blockquote>
+<a id="more"></a>
+
+<p>其实WebSocket并不难理解，核心思想就是允许服务器主动发送信息给客户端。通过socket.on来监听，socket.emit发送，达到数据双向传递的效果</p>
+<p>我们来看一下在服务端和客户端中，WebSocket都是怎么实现的,在代码中解释可能看的会清楚一点</p>
+<blockquote>
+<p>服务端中</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//服务器及页面响应部分</span></span><br><span class="line"><span class="keyword">var</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>),</span><br><span class="line"></span><br><span class="line">    app = express(),</span><br><span class="line">    </span><br><span class="line">    server = <span class="built_in">require</span>(<span class="string">'http'</span>).createServer(app);</span><br><span class="line">    </span><br><span class="line">    io = <span class="built_in">require</span>(<span class="string">'socket.io'</span>).listen(server); <span class="comment">//引入socket.io模块并绑定到服务器</span></span><br><span class="line">    </span><br><span class="line">    users=[];<span class="comment">//保存所有在线用户的昵称</span></span><br><span class="line">    </span><br><span class="line">app.use(<span class="string">'/'</span>, express.static(__dirname + <span class="string">'/www'</span>));<span class="comment">//指定静态HTML文件的位置</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//socket部分</span></span><br><span class="line">io.on(<span class="string">'connection'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">socket</span>) </span>&#123;</span><br><span class="line">    <span class="comment">//昵称设置,接受login的一个处理</span></span><br><span class="line">    socket.on(<span class="string">'login'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">nickname</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (users.indexOf(nickname) &gt; <span class="number">-1</span>) &#123;</span><br><span class="line">            socket.emit(<span class="string">'nickExisted'</span>); <span class="comment">//判断用户名是否存在,如果存在,则向自己发送一个nickExisted事件</span></span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            socket.userIndex = users.length;</span><br><span class="line">            socket.nickname = nickname;</span><br><span class="line">            users.push(nickname);</span><br><span class="line">            socket.emit(<span class="string">'loginSuccess'</span>);</span><br><span class="line">            io.sockets.emit(<span class="string">'system'</span>, nickname, users.length, <span class="string">'login'</span>); <span class="comment">//向所有连接到服务器的客户端发送当前登陆用户的昵称 </span></span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//断开连接的事件</span></span><br><span class="line">	socket.on(<span class="string">'disconnect'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	    <span class="comment">//将断开连接的用户从users中删除</span></span><br><span class="line">	    users.splice(socket.userIndex, <span class="number">1</span>);</span><br><span class="line">	    <span class="comment">//通知除自己以外的所有人</span></span><br><span class="line">	    socket.broadcast.emit(<span class="string">'system'</span>, socket.nickname, users.length, <span class="string">'logout'</span>);</span><br><span class="line">	&#125;);</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//接收新消息</span></span><br><span class="line">    socket.on(<span class="string">'postMsg'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">msg</span>) </span>&#123;</span><br><span class="line">        <span class="comment">//将消息发送到除自己外的所有用户</span></span><br><span class="line">        socket.broadcast.emit(<span class="string">'newMsg'</span>, socket.nickname, msg);</span><br><span class="line">    &#125;);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//接收用户发来的图片</span></span><br><span class="line">	socket.on(<span class="string">'img'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">imgData</span>) </span>&#123;</span><br><span class="line">	    <span class="comment">//通过一个newImg事件分发到除自己外的每个用户</span></span><br><span class="line">	    socket.broadcast.emit(<span class="string">'newImg'</span>, socket.nickname, imgData);</span><br><span class="line">	&#125;);</span><br><span class="line">	</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">/*需要解释一下的是，在connection事件的回调函数中，socket表示的是当前连接到服务器的那个客户端。</span></span><br><span class="line"><span class="comment">所以代码socket.emit('foo')则只有自己收得到这个事件，而socket.broadcast.emit('foo')则</span></span><br><span class="line"><span class="comment">表示向除自己外的所有人发送该事件，另外，上面代码中，io表示服务器整个socket连接，所以代码</span></span><br><span class="line"><span class="comment">io.sockets.emit('foo')表示所有人都可以收到该事件。*/</span></span><br><span class="line"></span><br><span class="line">server.listen(process.env.PORT || <span class="number">8080</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'服务器开启成功'</span>)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>客户端中</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">//实例并初始化我们的hichat程序</span></span><br><span class="line">    <span class="keyword">var</span> hichat = <span class="keyword">new</span> HiChat();</span><br><span class="line">    hichat.init();</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//定义我们的hichat类</span></span><br><span class="line"><span class="keyword">var</span> HiChat = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.socket = <span class="literal">null</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//向原型添加业务方法</span></span><br><span class="line">HiChat.prototype = &#123;</span><br><span class="line">    init: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;<span class="comment">//此方法初始化程序</span></span><br><span class="line">        <span class="keyword">var</span> that = <span class="keyword">this</span>;</span><br><span class="line">        <span class="comment">//建立到服务器的socket连接</span></span><br><span class="line">        <span class="keyword">this</span>.socket = io.connect();</span><br><span class="line">        <span class="comment">//监听socket的connect事件，此事件表示连接已经建立</span></span><br><span class="line">        <span class="keyword">this</span>.socket.on(<span class="string">'connect'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="comment">//连接到服务器后，显示昵称输入框</span></span><br><span class="line">            <span class="built_in">document</span>.getElementById(<span class="string">'info'</span>).textContent = <span class="string">'请输入你的名称 '</span>;</span><br><span class="line">            <span class="built_in">document</span>.getElementById(<span class="string">'nickWrapper'</span>).style.display = <span class="string">'block'</span>;</span><br><span class="line">            <span class="built_in">document</span>.getElementById(<span class="string">'nicknameInput'</span>).focus();</span><br><span class="line">        &#125;);</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//昵称设置的确定按钮</span></span><br><span class="line">		<span class="built_in">document</span>.getElementById(<span class="string">'loginBtn'</span>).addEventListener(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">		    <span class="keyword">var</span> nickName = <span class="built_in">document</span>.getElementById(<span class="string">'nicknameInput'</span>).value;</span><br><span class="line">		    <span class="comment">//检查昵称输入框是否为空</span></span><br><span class="line">		    <span class="keyword">if</span> (nickName.trim().length != <span class="number">0</span>) &#123;</span><br><span class="line">		        <span class="comment">//不为空，则发起一个login事件并将输入的昵称发送到服务器</span></span><br><span class="line">		        that.socket.emit(<span class="string">'login'</span>, nickName);</span><br><span class="line">		    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		        <span class="comment">//否则输入框获得焦点</span></span><br><span class="line">		        <span class="built_in">document</span>.getElementById(<span class="string">'nicknameInput'</span>).focus();</span><br><span class="line">		    &#125;;</span><br><span class="line">		&#125;, <span class="literal">false</span>);</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//监听nickExisted事件,判断用户名是否重复</span></span><br><span class="line">        <span class="keyword">this</span>.socket.on(<span class="string">'nickExisted'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">		    <span class="built_in">document</span>.getElementById(<span class="string">'info'</span>).textContent = <span class="string">'!nickname is taken, choose another pls'</span>; <span class="comment">//显示昵称被占用的提示</span></span><br><span class="line">		&#125;);</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//监听loginSuccess事件,登录成功</span></span><br><span class="line">		<span class="keyword">this</span>.socket.on(<span class="string">'loginSuccess'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">		    <span class="built_in">document</span>.title = <span class="string">'hichat | '</span> + <span class="built_in">document</span>.getElementById(<span class="string">'nicknameInput'</span>).value;</span><br><span class="line">		    <span class="built_in">document</span>.getElementById(<span class="string">'loginWrapper'</span>).style.display = <span class="string">'none'</span>;<span class="comment">//隐藏遮罩层显聊天界面</span></span><br><span class="line">		    <span class="built_in">document</span>.getElementById(<span class="string">'messageInput'</span>).focus();<span class="comment">//让消息输入框获得焦点</span></span><br><span class="line">		&#125;);</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">this</span>.socket.on(<span class="string">'system'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">nickName, userCount, type</span>) </span>&#123;</span><br><span class="line">		    <span class="comment">//判断用户是连接还是离开以显示不同的信息</span></span><br><span class="line">		    <span class="keyword">var</span> msg = nickName + (type == <span class="string">'login'</span> ? <span class="string">' 登录'</span> : <span class="string">' 离开'</span>);</span><br><span class="line">		 	<span class="comment">//指定系统消息显示为红色</span></span><br><span class="line">		    that._displayNewMsg(<span class="string">'system '</span>, msg, <span class="string">'red'</span>);</span><br><span class="line">		    <span class="comment">//将在线人数显示到页面顶部</span></span><br><span class="line">		    <span class="built_in">document</span>.getElementById(<span class="string">'status'</span>).textContent = userCount + <span class="string">' 用户在线'</span>;</span><br><span class="line">		&#125;);</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//监听用户发送消息</span></span><br><span class="line">		<span class="built_in">document</span>.getElementById(<span class="string">'sendBtn'</span>).addEventListener(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">		    <span class="keyword">var</span> messageInput = <span class="built_in">document</span>.getElementById(<span class="string">'messageInput'</span>),</span><br><span class="line">		        msg = messageInput.value;</span><br><span class="line">		        <span class="comment">//获取颜色值</span></span><br><span class="line">        		color = <span class="built_in">document</span>.getElementById(<span class="string">'colorStyle'</span>).value;</span><br><span class="line">		    messageInput.value = <span class="string">''</span>;</span><br><span class="line">		    messageInput.focus();</span><br><span class="line">		    <span class="keyword">if</span> (msg.trim().length != <span class="number">0</span>) &#123;</span><br><span class="line">		    	<span class="comment">//显示和发送时带上颜色值参数</span></span><br><span class="line">		        that.socket.emit(<span class="string">'postMsg'</span>, msg, color); <span class="comment">//把消息发送到服务器</span></span><br><span class="line">		        that._displayNewMsg(<span class="string">'me'</span>, msg, color); <span class="comment">//把自己的消息显示到自己的窗口中</span></span><br><span class="line">		    &#125;;</span><br><span class="line">		&#125;, <span class="literal">false</span>);</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//将监听到的消息显示出来</span></span><br><span class="line">		<span class="keyword">this</span>.socket.on(<span class="string">'newMsg'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">user, msg, color</span>) </span>&#123;</span><br><span class="line">		    that._displayNewMsg(user, msg, color);</span><br><span class="line">		&#125;);</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//将图片读取为base64格式的字符串形式进行发送。而base64格式的图片直接可以指定为图片的src，这样就可以将图片用img标签显示在页面了。</span></span><br><span class="line">		<span class="built_in">document</span>.getElementById(<span class="string">'sendImage'</span>).addEventListener(<span class="string">'change'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	    <span class="comment">//检查是否有文件被选中</span></span><br><span class="line">		    <span class="keyword">if</span> (<span class="keyword">this</span>.files.length != <span class="number">0</span>) &#123;</span><br><span class="line">		        <span class="comment">//获取文件并用FileReader进行读取</span></span><br><span class="line">		        <span class="keyword">var</span> file = <span class="keyword">this</span>.files[<span class="number">0</span>],</span><br><span class="line">		             reader = <span class="keyword">new</span> FileReader();</span><br><span class="line">		        <span class="keyword">if</span> (!reader) &#123;</span><br><span class="line">		            that._displayNewMsg(<span class="string">'system'</span>, <span class="string">'!your browser doesn\'t support fileReader'</span>, <span class="string">'red'</span>);</span><br><span class="line">		            <span class="keyword">this</span>.value = <span class="string">''</span>;</span><br><span class="line">		            <span class="keyword">return</span>;</span><br><span class="line">		        &#125;;</span><br><span class="line">		        reader.onload = <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</span><br><span class="line">		            <span class="comment">//读取成功，显示到页面并发送到服务器</span></span><br><span class="line">		            <span class="keyword">this</span>.value = <span class="string">''</span>;</span><br><span class="line">		            that.socket.emit(<span class="string">'img'</span>, e.target.result);</span><br><span class="line">		            that._displayImage(<span class="string">'me'</span>, e.target.result);</span><br><span class="line">		        &#125;;</span><br><span class="line">		        reader.readAsDataURL(file);</span><br><span class="line">		    &#125;;</span><br><span class="line">		&#125;, <span class="literal">false</span>);</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//监听返回回来的图片</span></span><br><span class="line">		<span class="keyword">this</span>.socket.on(<span class="string">'newImg'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">user, img</span>) </span>&#123;</span><br><span class="line">		    that._displayImage(user, img);</span><br><span class="line">		&#125;);</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//载入表情包</span></span><br><span class="line">		<span class="keyword">this</span>._initialEmoji();</span><br><span class="line">		<span class="built_in">document</span>.getElementById(<span class="string">'emoji'</span>).addEventListener(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</span><br><span class="line">		    <span class="keyword">var</span> emojiwrapper = <span class="built_in">document</span>.getElementById(<span class="string">'emojiWrapper'</span>);</span><br><span class="line">		    emojiwrapper.style.display = <span class="string">'block'</span>;</span><br><span class="line">		    e.stopPropagation();</span><br><span class="line">		&#125;, <span class="literal">false</span>);</span><br><span class="line">		<span class="built_in">document</span>.body.addEventListener(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</span><br><span class="line">		    <span class="keyword">var</span> emojiwrapper = <span class="built_in">document</span>.getElementById(<span class="string">'emojiWrapper'</span>);</span><br><span class="line">		    <span class="keyword">if</span> (e.target != emojiwrapper) &#123;</span><br><span class="line">		        emojiwrapper.style.display = <span class="string">'none'</span>;</span><br><span class="line">		    &#125;;</span><br><span class="line">		&#125;);</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//监听哪个表情被点击了</span></span><br><span class="line">		<span class="built_in">document</span>.getElementById(<span class="string">'emojiWrapper'</span>).addEventListener(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</span><br><span class="line">		    <span class="comment">//获取被点击的表情</span></span><br><span class="line">		    <span class="keyword">var</span> target = e.target;</span><br><span class="line">		    <span class="keyword">if</span> (target.nodeName.toLowerCase() == <span class="string">'img'</span>) &#123;</span><br><span class="line">		        <span class="keyword">var</span> messageInput = <span class="built_in">document</span>.getElementById(<span class="string">'messageInput'</span>);</span><br><span class="line">		        messageInput.focus();</span><br><span class="line">		        messageInput.value = messageInput.value + <span class="string">'[emoji:'</span> + target.title + <span class="string">']'</span>;</span><br><span class="line">		    &#125;;</span><br><span class="line">		&#125;, <span class="literal">false</span>);</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//监听输入名称按钮,按回车</span></span><br><span class="line">		<span class="built_in">document</span>.getElementById(<span class="string">'nicknameInput'</span>).addEventListener(<span class="string">'keyup'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</span><br><span class="line">		    <span class="keyword">if</span> (e.keyCode == <span class="number">13</span>) &#123;</span><br><span class="line">		        <span class="keyword">var</span> nickName = <span class="built_in">document</span>.getElementById(<span class="string">'nicknameInput'</span>).value;</span><br><span class="line">		        <span class="keyword">if</span> (nickName.trim().length != <span class="number">0</span>) &#123;</span><br><span class="line">		            that.socket.emit(<span class="string">'login'</span>, nickName);</span><br><span class="line">		        &#125;;</span><br><span class="line">		    &#125;;</span><br><span class="line">		&#125;, <span class="literal">false</span>);</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//监听发送信息按钮,按回车</span></span><br><span class="line">		<span class="built_in">document</span>.getElementById(<span class="string">'messageInput'</span>).addEventListener(<span class="string">'keyup'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</span><br><span class="line">		    <span class="keyword">var</span> messageInput = <span class="built_in">document</span>.getElementById(<span class="string">'messageInput'</span>),</span><br><span class="line">		        msg = messageInput.value,</span><br><span class="line">		        color = <span class="built_in">document</span>.getElementById(<span class="string">'colorStyle'</span>).value;</span><br><span class="line">		    <span class="keyword">if</span> (e.keyCode == <span class="number">13</span> &amp;&amp; msg.trim().length != <span class="number">0</span>) &#123;</span><br><span class="line">		        messageInput.value = <span class="string">''</span>;</span><br><span class="line">		        that.socket.emit(<span class="string">'postMsg'</span>, msg, color);</span><br><span class="line">		        that._displayNewMsg(<span class="string">'me'</span>, msg, color);</span><br><span class="line">		    &#125;;</span><br><span class="line">		&#125;, <span class="literal">false</span>);</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//清除聊天记录</span></span><br><span class="line">		<span class="built_in">document</span>.getElementById(<span class="string">'clearBtn'</span>).addEventListener(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="built_in">document</span>.getElementById(<span class="string">'historyMsg'</span>).innerHTML = <span class="string">''</span>;</span><br><span class="line">        &#125;, <span class="literal">false</span>);</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">//创建聊天信息</span></span><br><span class="line">    _displayNewMsg: <span class="function"><span class="keyword">function</span>(<span class="params">user, msg, color</span>) </span>&#123;</span><br><span class="line">    	<span class="comment">//获取聊天框</span></span><br><span class="line">        <span class="keyword">var</span> container = <span class="built_in">document</span>.getElementById(<span class="string">'historyMsg'</span>),</span><br><span class="line">        <span class="comment">//创建聊天发送消息的标签</span></span><br><span class="line">        msgToDisplay = <span class="built_in">document</span>.createElement(<span class="string">'p'</span>),</span><br><span class="line">        <span class="comment">//创建时间</span></span><br><span class="line">        date = <span class="keyword">new</span> <span class="built_in">Date</span>().toTimeString().substr(<span class="number">0</span>, <span class="number">8</span>);</span><br><span class="line">        <span class="comment">//将消息中的表情转换为图片</span></span><br><span class="line">        msg = <span class="keyword">this</span>._showEmoji(msg);</span><br><span class="line">        <span class="comment">//字体颜色  </span></span><br><span class="line">        msgToDisplay.style.color = color || <span class="string">'#000'</span>;</span><br><span class="line">        <span class="comment">//加入信息</span></span><br><span class="line">        msgToDisplay.innerHTML = user + <span class="string">'&lt;span class="timespan"&gt;('</span> + date + <span class="string">'): &lt;/span&gt;'</span> + msg;</span><br><span class="line">        <span class="comment">//加入到聊天框中</span></span><br><span class="line">        container.appendChild(msgToDisplay);</span><br><span class="line">        container.scrollTop = container.scrollHeight;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">//创建图片信息</span></span><br><span class="line">    _displayImage: <span class="function"><span class="keyword">function</span>(<span class="params">user, imgData, color</span>) </span>&#123;</span><br><span class="line">	    <span class="keyword">var</span> container = <span class="built_in">document</span>.getElementById(<span class="string">'historyMsg'</span>),</span><br><span class="line">	        msgToDisplay = <span class="built_in">document</span>.createElement(<span class="string">'p'</span>),</span><br><span class="line">	        date = <span class="keyword">new</span> <span class="built_in">Date</span>().toTimeString().substr(<span class="number">0</span>, <span class="number">8</span>);</span><br><span class="line">	    msgToDisplay.style.color = color || <span class="string">'#000'</span>;</span><br><span class="line">	    msgToDisplay.innerHTML = user + <span class="string">'&lt;span class="timespan"&gt;('</span> + date + <span class="string">'): &lt;/span&gt; &lt;br/&gt;'</span> + <span class="string">'&lt;img src="'</span> + imgData + <span class="string">'"/&gt;'</span>;</span><br><span class="line">	    container.appendChild(msgToDisplay);</span><br><span class="line">	    container.scrollTop = container.scrollHeight;</span><br><span class="line">	&#125;,</span><br><span class="line">	<span class="comment">//创建表情</span></span><br><span class="line">	_initialEmoji: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	    <span class="keyword">var</span> emojiContainer = <span class="built_in">document</span>.getElementById(<span class="string">'emojiWrapper'</span>),</span><br><span class="line">	        docFragment = <span class="built_in">document</span>.createDocumentFragment();</span><br><span class="line">	    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">69</span>; i &gt; <span class="number">0</span>; i--) &#123;</span><br><span class="line">	        <span class="keyword">var</span> emojiItem = <span class="built_in">document</span>.createElement(<span class="string">'img'</span>);</span><br><span class="line">	        emojiItem.src = <span class="string">'../content/emoji/'</span> + i + <span class="string">'.gif'</span>;</span><br><span class="line">	        emojiItem.title = i;</span><br><span class="line">	        docFragment.appendChild(emojiItem);</span><br><span class="line">	    &#125;;</span><br><span class="line">	    emojiContainer.appendChild(docFragment);</span><br><span class="line">	&#125;,</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//判断消息文本中是否含有表情符号，如果有，则转换为图片，最后再显示到页面</span></span><br><span class="line">	_showEmoji: <span class="function"><span class="keyword">function</span>(<span class="params">msg</span>) </span>&#123;<span class="comment">//正则搜索其中的表情符号，将其替换为img标签，最后返回处理好的文本消息。</span></span><br><span class="line">	    <span class="keyword">var</span> match, result = msg,</span><br><span class="line">	        reg = <span class="regexp">/\[emoji:\d+\]/g</span>,</span><br><span class="line">	        emojiIndex,</span><br><span class="line">	        totalEmojiNum = <span class="built_in">document</span>.getElementById(<span class="string">'emojiWrapper'</span>).children.length;</span><br><span class="line">	    <span class="keyword">while</span> (match = reg.exec(msg)) &#123;</span><br><span class="line">	        emojiIndex = match[<span class="number">0</span>].slice(<span class="number">7</span>, <span class="number">-1</span>);</span><br><span class="line">	        <span class="keyword">if</span> (emojiIndex &gt; totalEmojiNum) &#123;</span><br><span class="line">	            result = result.replace(match[<span class="number">0</span>], <span class="string">'[X]'</span>);</span><br><span class="line">	        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">	            result = result.replace(match[<span class="number">0</span>], <span class="string">'&lt;img class="emoji" src="../content/emoji/'</span> + emojiIndex + <span class="string">'.gif" /&gt;'</span>);</span><br><span class="line">	        &#125;;</span><br><span class="line">	    &#125;;</span><br><span class="line">	    <span class="keyword">return</span> result;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+<p>核心的代码就是这些，源码在我的github中有，以上就是我对WebSocket的一些理解看法，十分感觉各位大神对代码无私的分享，如果文章由于我学识浅薄，导致您发现有严重谬误的地方，请一定在评论中指出，我会在第一时间修正我的博文，以避免误人子弟。</p>
+
+    </div>
+
+    
+    
+    
+    
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+      
+    </div>
+        
+      
+        <div class="reward-container">
+  <div>没办法,总要恰饭的嘛~~</div>
+  <button disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+        
+      
+      <div style="display: inline-block;">
+        <img src="/images/wxpay.png" alt="陈晟 微信支付">
+        <p>微信支付</p>
+      </div>
+        
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="陈晟 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+      
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>陈晟
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://www.chensheng.group/archives/8794cd4b/" title="WebSocket的使用">https://www.chensheng.group/archives/8794cd4b/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/WebSocket/" rel="tag"><i class="fa fa-tag"></i> WebSocket</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/archives/cbebe10d/" rel="next" title="SessionStorage的共享">
+                  <i class="fa fa-chevron-left"></i> SessionStorage的共享
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/archives/f9274624/" rel="prev" title="for循环的异步操作">
+                  for循环的异步操作 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="gitalk-container"></div>
+  
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <a href="/">
+      <img class="site-author-image" itemprop="image"
+        src="/images/touxiang.jpg"
+        alt="陈晟">
+    </a>
+  <p class="site-author-name" itemprop="name">陈晟</p>
+  <div class="site-description" itemprop="description">请不要在最能吃苦的日子选择安逸</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">116</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        <span class="site-state-item-count">58</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+</div>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/328921371" title="GitHub &amp;rarr; https:&#x2F;&#x2F;github.com&#x2F;328921371" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="mailto:328921371@qq.com" title="E-Mail &amp;rarr; mailto:328921371@qq.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+    
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    
+  
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  &copy; 2015 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">陈晟</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    
+    <span title="站点总字数">328k</span>
+</div>
+  <div class="powered-by">欢迎访问
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">
+      
+    Mr.Chen的小前端
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+      <span class="site-uv">
+        我的第 <span class="busuanzi-value" id="busuanzi_value_site_uv"></span> 位朋友，
+      </span>
+
+  
+    <span class="site-pv">
+     历经 <span class="busuanzi-value" id="busuanzi_value_site_pv"></span> 次回眸才与你相遇
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js?v=3.1.0"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+<script src="/js/utils.js?v=7.4.2.js"></script>
+
+<script src="/js/motion.js?v=7.4.2.js"></script>
+
+
+<script src="/js/schemes/muse.js?v=7.4.2.js"></script>
+
+
+
+<script src="/js/next-boot.js?v=7.4.2.js"></script>
+
+<script src="/js/bookmark.js?v=7.4.2.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+<script src="/js/local-search.js?v=7.4.2.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  <script src="/js/wobblewindow.js"></script>
+  <script>
+    if( window.innerWidth > 768  ){
+      $(document).ready(function () {
+        
+          $('.header').wobbleWindow({
+            radius: 50,
+            movementTop: false,
+            movementLeft: false,
+            movementRight: false,
+            debug: false,
+          });
+        
+
+        
+
+        
+      });
+    }
+  </script>
+
+
+
+
+  <script src="/js/activate-power-mode.min.js"></script>
+  <script>
+    POWERMODE.colorful = true;
+    POWERMODE.shake = false;
+    document.body.addEventListener('input', POWERMODE);
+  </script>
+
+
+
+
+  <script async src="/js/cursor/fireworks.js"></script>
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID: 'cca8bcf4bb1d0c5b3e58',
+      clientSecret: '3f12c94de386143391d2c23adbe4c30ae7f010a7',
+      repo: 'blogIssues',
+      owner: '328921371',
+      admin: ['328921371'],
+      id: '22131d60de5c42c015c5cda8249aeb17',
+        language: 'zh-CN',
+      
+      distractionFreeMode: 'true'
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/z16.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>
