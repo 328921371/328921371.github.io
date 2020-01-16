@@ -1221,7 +1221,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #c6fbf6;
+  background: #ff7ae9;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2360,6 +2360,9 @@ ul.breadcrumb li + li:last-child {
   top: 50%;
   transform: translate(-50%, -50%);
 }
+.menu-item:hover {
+  background: #ddd;
+}
 .posts-expand .home {
   padding: 25px;
   padding-bottom: 30px;
@@ -2514,11 +2517,6 @@ hr {
   .site-nav {
     transform: translateY(10px);
   }
-}
-.menu-item-active a,
-.menu .menu-item a:hover,
-.menu .menu-item span.exturl:hover {
-  background: #ddd;
 }
 .menu {
   margin: 0;
