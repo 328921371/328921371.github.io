@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico?v=7.4.2">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=7.4.2">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico?v=7.4.2">
+  <link rel="mask-icon" href="/images/favicon.ico?v=7.4.2" color="#222">
+  <link rel="alternate" href="/atom.xml" title="陈先生的小前端" type="application/atom+xml">
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.2">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '7.4.2',
+    exturl: false,
+    sidebar: {"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":"mac"},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    bookmark: {"enable":true,"color":"#222","save":"auto"},
+    fancybox: true,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="ES6中,函数新增了几个功能,特别是箭头函数和参数默认值,在实际项目中经常用到">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ECMAScript 6 函数的扩展">
+<meta property="og:url" content="https://www.chensheng.group/2018/12/25/75-ES6%20%E5%87%BD%E6%95%B0%E7%9A%84%E6%89%A9%E5%B1%95/index.html">
+<meta property="og:site_name" content="陈先生的小前端">
+<meta property="og:description" content="ES6中,函数新增了几个功能,特别是箭头函数和参数默认值,在实际项目中经常用到">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-12-25T07:36:05.000Z">
+<meta property="article:modified_time" content="2020-01-15T03:03:53.641Z">
+<meta property="article:author" content="陈晟">
+<meta property="article:tag" content="ECMAScript 6">
+<meta name="twitter:card" content="summary">
+  <link rel="canonical" href="https://www.chensheng.group/2018/12/25/75-ES6%20%E5%87%BD%E6%95%B0%E7%9A%84%E6%89%A9%E5%B1%95/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>ECMAScript 6 函数的扩展 | 陈先生的小前端</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">陈先生的小前端</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+        
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+      
+    
+      
+      
+        
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+      
+    
+      
+      
+        
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+      
+    
+      
+      
+        
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+      
+    
+      
+      
+        
+        
+        <li class="menu-item menu-item-about">
+      
+    
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+      
+    
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger">
+          <i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+    
+  </ul>
+
+    
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.chensheng.group/2018/12/25/75-ES6%20%E5%87%BD%E6%95%B0%E7%9A%84%E6%89%A9%E5%B1%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="陈晟">
+      <meta itemprop="description" content="请不要在最能吃苦的日子选择安逸">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="陈先生的小前端">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            ECMAScript 6 函数的扩展
+            
+
+          
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2018-12-25 15:36:05" itemprop="dateCreated datePublished" datetime="2018-12-25T15:36:05+08:00">2018-12-25</time>
+            </span>
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ECMAScript-6/" itemprop="url" rel="index">
+                    <span itemprop="name">ECMAScript 6</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <hr style='filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)' color='#FF0000' size='1' />
+
+<blockquote>
+<p>ES6中,函数新增了几个功能,特别是箭头函数和参数默认值,在实际项目中经常用到</p>
+</blockquote>
+<a id="more"></a>
+
+<p>文章主要参考阮一峰老师的 ECMAScript 6入门,站在巨人的肩膀上看世界…</p>
+<h2 id="函数参数的默认值"><a href="#函数参数的默认值" class="headerlink" title="函数参数的默认值"></a>函数参数的默认值</h2><p>简单来说,就是在函数的形参中可以添加默认值了,举个例子看了就明白了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">function add(a &#x3D; 1)&#123;</span><br><span class="line">  var num &#x3D; 1 + a;</span><br><span class="line">  console.log(num)</span><br><span class="line">&#125;</span><br><span class="line">add()  &#x2F;&#x2F; 2</span><br><span class="line">add(5) &#x2F;&#x2F; 6</span><br></pre></td></tr></table></figure>
+
+<p>没有数值的时候就使用默认值,使用起来便于优化,代码一目了然.</p>
+<blockquote>
+<p>需要注意的是,这个形参是函数默认声明的,在函数体中，不能用let或const再次声明，否则会报错。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">  function foo(x &#x3D; 5) &#123;</span><br><span class="line">  let x &#x3D; 1; &#x2F;&#x2F; error</span><br><span class="line">  const x &#x3D; 2; &#x2F;&#x2F; error</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>使用参数默认值时，函数不能有同名参数。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 不报错</span><br><span class="line">function foo(x, x, y) &#123;</span><br><span class="line">  &#x2F;&#x2F; ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 报错</span><br><span class="line">function foo(x, x, y &#x3D; 1) &#123;</span><br><span class="line">  &#x2F;&#x2F; ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注意!!!!参数默认值不是传值的，而是每次都重新计算默认值表达式的值。也就是说，参数默认值是惰性求值的。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">let x &#x3D; 99;</span><br><span class="line">function foo(p &#x3D; x + 1) &#123;</span><br><span class="line">  console.log(p);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">foo() &#x2F;&#x2F; 100</span><br><span class="line"></span><br><span class="line">x &#x3D; 100;</span><br><span class="line">foo() &#x2F;&#x2F; 101</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>如果传入undefined，将触发该参数等于默认值，null则没有这个效果。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function foo(x &#x3D; 5, y &#x3D; 6) &#123;</span><br><span class="line">  console.log(x, y);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">foo(undefined, null) &#x2F;&#x2F; 5 null</span><br></pre></td></tr></table></figure>
+
+<h3 id="与解构赋值默认值结合使用"><a href="#与解构赋值默认值结合使用" class="headerlink" title="与解构赋值默认值结合使用"></a>与解构赋值默认值结合使用</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">function foo(&#123;x, y &#x3D; 5&#125;) &#123;</span><br><span class="line">  console.log(x, y);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 个人的理解是类似于参数为一个对象,所以需要传入一个对象</span><br><span class="line">&#x2F;&#x2F; 就算x是有值的,也会报错,假如参数是 &#123;x &#x3D; 2, y &#x3D; 5&#125;,不传&#123;&#125;一样是会报错的</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">foo(&#123;&#125;) &#x2F;&#x2F; undefined 5</span><br><span class="line">foo(&#123;x: 1&#125;) &#x2F;&#x2F; 1 5</span><br><span class="line">foo(&#123;x: 1, y: 2&#125;) &#x2F;&#x2F; 1 2</span><br><span class="line">foo() &#x2F;&#x2F; TypeError: Cannot read property &#39;x&#39; of undefined</span><br></pre></td></tr></table></figure>
+
+<p>但是通过提供函数参数的默认值，就可以避免这种情况</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function foo(&#123;x, y &#x3D; 5&#125; &#x3D; &#123;&#125;) &#123;</span><br><span class="line">  console.log(x, y);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">foo() &#x2F;&#x2F; undefined 5</span><br></pre></td></tr></table></figure>
+
+<p>再来看一个例子,来弄清楚函数形参中的解构赋值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 写法一</span><br><span class="line">function m1(&#123;x &#x3D; 0, y &#x3D; 0&#125; &#x3D; &#123;&#125;) &#123;</span><br><span class="line">  return [x, y];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 写法二</span><br><span class="line">function m2(&#123;x, y&#125; &#x3D; &#123; x: 0, y: 0 &#125;) &#123;</span><br><span class="line">  return [x, y];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 函数没有参数的情况</span><br><span class="line">m1() &#x2F;&#x2F; [0, 0]</span><br><span class="line">m2() &#x2F;&#x2F; [0, 0]</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; x 和 y 都有值的情况</span><br><span class="line">m1(&#123;x: 3, y: 8&#125;) &#x2F;&#x2F; [3, 8]</span><br><span class="line">m2(&#123;x: 3, y: 8&#125;) &#x2F;&#x2F; [3, 8]</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; x 有值，y 无值的情况</span><br><span class="line">m1(&#123;x: 3&#125;) &#x2F;&#x2F; [3, 0]</span><br><span class="line">m2(&#123;x: 3&#125;) &#x2F;&#x2F; [3, undefined]</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; x 和 y 都无值的情况</span><br><span class="line">m1(&#123;&#125;) &#x2F;&#x2F; [0, 0];</span><br><span class="line">m2(&#123;&#125;) &#x2F;&#x2F; [undefined, undefined]</span><br><span class="line"></span><br><span class="line">m1(&#123;z: 3&#125;) &#x2F;&#x2F; [0, 0]</span><br><span class="line">m2(&#123;z: 3&#125;) &#x2F;&#x2F; [undefined, undefined]</span><br></pre></td></tr></table></figure>
+
+<h3 id="参数默认值的位置"><a href="#参数默认值的位置" class="headerlink" title="参数默认值的位置"></a>参数默认值的位置</h3><p>通常情况下，定义了默认值的参数，应该是函数的尾参数。因为这样比较容易看出来，到底省略了哪些参数。如果非尾部的参数设置默认值，实际上这个参数是没法省略的。</p>
+<p>举几个例子</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 例一</span><br><span class="line">function f(x &#x3D; 1, y) &#123;</span><br><span class="line">  return [x, y];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">f() &#x2F;&#x2F; [1, undefined]</span><br><span class="line">f(2) &#x2F;&#x2F; [2, undefined])</span><br><span class="line">f(, 1) &#x2F;&#x2F; 报错</span><br><span class="line">f(undefined, 1) &#x2F;&#x2F; [1, 1]</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 例二</span><br><span class="line">function f(x, y &#x3D; 5, z) &#123;</span><br><span class="line">  return [x, y, z];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">f() &#x2F;&#x2F; [undefined, 5, undefined]</span><br><span class="line">f(1) &#x2F;&#x2F; [1, 5, undefined]</span><br><span class="line">f(1, ,2) &#x2F;&#x2F; 报错</span><br><span class="line">f(1, undefined, 2) &#x2F;&#x2F; [1, 5, 2]</span><br></pre></td></tr></table></figure>
+
+<h3 id="函数参数的-length-属性"><a href="#函数参数的-length-属性" class="headerlink" title="函数参数的 length 属性"></a>函数参数的 length 属性</h3><p>指定了默认值以后，函数的length属性，将返回没有指定默认值的参数个数。也就是说，指定了默认值后，length属性将失真。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(function (a) &#123;&#125;).length &#x2F;&#x2F; 1</span><br><span class="line">(function (a &#x3D; 5) &#123;&#125;).length &#x2F;&#x2F; 0</span><br><span class="line">(function (a, b, c &#x3D; 5) &#123;&#125;).length &#x2F;&#x2F; 2</span><br></pre></td></tr></table></figure>
+
+<h3 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h3><p>利用参数默认值，可以指定某一个参数不得省略，如果省略就抛出一个错误。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">function throwIfMissing() &#123;</span><br><span class="line">  throw new Error(&#39;Missing parameter&#39;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function foo(mustBeProvided &#x3D; throwIfMissing()) &#123;</span><br><span class="line">  return mustBeProvided;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">foo()</span><br><span class="line">&#x2F;&#x2F; Error: Missing parameter</span><br></pre></td></tr></table></figure>
+
+<p>另外，可以将参数默认值设为undefined，表明这个参数是可以省略的。</p>
+<p><code>function foo(optional = undefined) { ··· }</code></p>
+<h2 id="rest-参数"><a href="#rest-参数" class="headerlink" title="rest 参数"></a>rest 参数</h2><p>不需要使用arguments对象了。rest 参数搭配的变量是一个数组，该变量将多余的参数放入数组中。也可以用到当做函数的参数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">function add(...values) &#123;</span><br><span class="line">  let sum &#x3D; 0;</span><br><span class="line"></span><br><span class="line">  for (var val of values) &#123;</span><br><span class="line">    sum +&#x3D; val;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  return sum;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">add(2, 5, 3) &#x2F;&#x2F; 10</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注意!! 函数的length属性，不包括 rest 参数。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(function(a) &#123;&#125;).length  &#x2F;&#x2F; 1</span><br><span class="line">(function(...a) &#123;&#125;).length  &#x2F;&#x2F; 0</span><br><span class="line">(function(a, ...b) &#123;&#125;).length  &#x2F;&#x2F; 1</span><br></pre></td></tr></table></figure>
+
+<h2 id="箭头函数"><a href="#箭头函数" class="headerlink" title="箭头函数"></a>箭头函数</h2><p>这个是我认为这次ES6最好用的功能之一, 如果你会C#或者Java，你肯定知道lambda表达式，ES6中新增的箭头操作符=&gt;便有异曲同工之妙。它简化了函数的书写。操作符左边为输入的参数，而右边则是进行的操作以及返回的值Inputs=&gt;outputs。最直观体现在函数中的this指向不同,箭头函数的this指向上下文</p>
+<p>代码我就不贴出来了,就是简单的 =&gt; ,说一下注意点</p>
+<ol>
+<li>函数体内的this对象，就是定义时所在的对象，而不是使用时所在的对象。</li>
+<li>不可以当作构造函数，也就是说，不可以使用new命令，否则会抛出一个错误。</li>
+<li>不可以使用arguments对象，该对象在函数体内不存在。如果要用，可以用 rest 参数代替。</li>
+<li>不可以使用yield命令，因此箭头函数不能用作 Generator 函数。</li>
+</ol>
+<p>比较容易出错的应该就是第一点了,举个例子</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">function Timer() &#123;</span><br><span class="line">  this.s1 &#x3D; 0;</span><br><span class="line">  this.s2 &#x3D; 0;</span><br><span class="line">  &#x2F;&#x2F; 箭头函数</span><br><span class="line">  setInterval(() &#x3D;&gt; this.s1++, 1000);</span><br><span class="line">  &#x2F;&#x2F; 普通函数</span><br><span class="line">  setInterval(function () &#123;</span><br><span class="line">    this.s2++;</span><br><span class="line">  &#125;, 1000);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var timer &#x3D; new Timer();</span><br><span class="line"></span><br><span class="line">setTimeout(() &#x3D;&gt; console.log(&#39;s1: &#39;, timer.s1), 3100);</span><br><span class="line">setTimeout(() &#x3D;&gt; console.log(&#39;s2: &#39;, timer.s2), 3100);</span><br><span class="line">&#x2F;&#x2F; s1: 3</span><br><span class="line">&#x2F;&#x2F; s2: 0</span><br></pre></td></tr></table></figure>
+
+<h2 id="尾递归"><a href="#尾递归" class="headerlink" title="尾递归"></a>尾递归</h2><p>平常的递归是这样的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 计算n的阶乘，最多需要保存n个调用记录，复杂度 O(n)</span><br><span class="line"></span><br><span class="line">function factorial(n) &#123;</span><br><span class="line">  if (n &#x3D;&#x3D;&#x3D; 1) return 1;</span><br><span class="line">  return n * factorial(n - 1);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">factorial(5) &#x2F;&#x2F; 120</span><br></pre></td></tr></table></figure>
+
+<p>尾递归是这样的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 只保留一个调用记录，复杂度 O(1) 。</span><br><span class="line"></span><br><span class="line">function factorial(n, total &#x3D; 1) &#123;</span><br><span class="line">  if (n &#x3D;&#x3D;&#x3D; 1) return total;</span><br><span class="line">  return factorial(n - 1, n * total);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">factorial(5) &#x2F;&#x2F; 120</span><br></pre></td></tr></table></figure>
+
+
+<p>还有一个比较著名的例子，就是计算 Fibonacci 数列，也能充分说明尾递归优化的重要性。</p>
+<p>简单的介绍一下Fibonacci 数列</p>
+<p>斐波那契数列 外文名 Fibonacci sequence<br>别称  黄金分割数列、兔子数列</p>
+<p>指的是这样一个数列：1、1、2、3、5、8、13、21、34、……<br>在数学上，斐波纳契数列以如下被以递归的方法定义：<br>F(0)=0，F(1)=1, F(n)=F(n-1)+F(n-2)（n&gt;=3，n∈N*）</p>
+<p>index:0  1 2 3 4 5 6 7 8 9 10<br>value:0  1 1 2 3 5 8 13 21 34 55</p>
+<p>最简单是这样写的,就是算多的时候,就开始卡主了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function Fibonacci (n) &#123;</span><br><span class="line">  if (n &#x3D;&#x3D; 1 || n &#x3D;&#x3D;2) &#123;return 1&#125;;</span><br><span class="line"></span><br><span class="line">  return Fibonacci(n - 1) + Fibonacci(n - 2);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>以前是这样优化的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">var ary &#x3D; &#123;&#125;;</span><br><span class="line">var count &#x3D; 0;</span><br><span class="line">function fibonacci(t) &#123;</span><br><span class="line">  count++</span><br><span class="line">  if(ary[t]) &#123;</span><br><span class="line">    return ary[t]</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">    if(t &gt; 2) &#123;</span><br><span class="line">      var index &#x3D; fibonacci(t - 1) + fibonacci(t - 2);</span><br><span class="line">      ary[t] &#x3D; index;</span><br><span class="line">      return index;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      ary[t] &#x3D; 1</span><br><span class="line">      return 1</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>用尾递归的方式,就是这样子的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">function Fibonacci2 (n , ac1 &#x3D; 1 , ac2 &#x3D; 1) &#123;</span><br><span class="line">  if(n &#x3D;&#x3D; 1 || n &#x3D;&#x3D;2) &#123;return ac2&#125;;</span><br><span class="line">  return Fibonacci2 (n - 1, ac2, ac1 + ac2);</span><br><span class="line">  &#x2F;&#x2F; 当前所剩次数,当前值,下一个值</span><br><span class="line">  &#x2F;&#x2F; 所以当n为1或者2的时候,输出ac2</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>以上就是我对ECMAScript 6函数扩展的一些理解，如果文章由于我学识浅薄，导致您发现有严重谬误的地方，请一定在评论中指出，我会在第一时间修正我的博文，以避免误人子弟。</p>
+
+    </div>
+
+    
+    
+    
+    
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+      
+    </div>
+        
+      
+        <div class="reward-container">
+  <div>没办法,总要恰饭的嘛~~</div>
+  <button disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+        
+      
+      <div style="display: inline-block;">
+        <img src="/images/wxpay.png" alt="陈晟 微信支付">
+        <p>微信支付</p>
+      </div>
+        
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="陈晟 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+      
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>陈晟
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://www.chensheng.group/2018/12/25/75-ES6%20%E5%87%BD%E6%95%B0%E7%9A%84%E6%89%A9%E5%B1%95/" title="ECMAScript 6 函数的扩展">https://www.chensheng.group/2018/12/25/75-ES6%20%E5%87%BD%E6%95%B0%E7%9A%84%E6%89%A9%E5%B1%95/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/ECMAScript-6/" rel="tag"><i class="fa fa-tag"></i> ECMAScript 6</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2018/12/20/74-Web%20Storage%E7%9B%91%E5%90%AC/" rel="next" title="Web Storage监听">
+                  <i class="fa fa-chevron-left"></i> Web Storage监听
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2018/12/26/76-ES6%20%E6%95%B0%E7%BB%84%E7%9A%84%E6%89%A9%E5%B1%95/" rel="prev" title="ECMAScript 6 数组的扩展">
+                  ECMAScript 6 数组的扩展 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="gitalk-container"></div>
+  
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#函数参数的默认值"><span class="nav-number">1.</span> <span class="nav-text">函数参数的默认值</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#与解构赋值默认值结合使用"><span class="nav-number">1.1.</span> <span class="nav-text">与解构赋值默认值结合使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参数默认值的位置"><span class="nav-number">1.2.</span> <span class="nav-text">参数默认值的位置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#函数参数的-length-属性"><span class="nav-number">1.3.</span> <span class="nav-text">函数参数的 length 属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#应用"><span class="nav-number">1.4.</span> <span class="nav-text">应用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#rest-参数"><span class="nav-number">2.</span> <span class="nav-text">rest 参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#箭头函数"><span class="nav-number">3.</span> <span class="nav-text">箭头函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#尾递归"><span class="nav-number">4.</span> <span class="nav-text">尾递归</span></a></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <a href="/">
+      <img class="site-author-image" itemprop="image"
+        src="/images/touxiang.jpg"
+        alt="陈晟">
+    </a>
+  <p class="site-author-name" itemprop="name">陈晟</p>
+  <div class="site-description" itemprop="description">请不要在最能吃苦的日子选择安逸</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">118</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        <span class="site-state-item-count">59</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+</div>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/328921371" title="GitHub &amp;rarr; https:&#x2F;&#x2F;github.com&#x2F;328921371" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="mailto:328921371@qq.com" title="E-Mail &amp;rarr; mailto:328921371@qq.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+    
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    
+  
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  &copy; 2016 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">陈晟</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    
+    <span title="站点总字数">341k</span>
+</div>
+  <div class="powered-by">欢迎访问
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">
+      
+    Mr.Chen的小前端
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+      <span class="site-uv">
+        我的第 <span class="busuanzi-value" id="busuanzi_value_site_uv"></span> 位朋友，
+      </span>
+
+  
+    <span class="site-pv">
+     历经 <span class="busuanzi-value" id="busuanzi_value_site_pv"></span> 次回眸才与你相遇
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js?v=3.1.0"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+<script src="/js/utils.js?v=7.4.2.js"></script>
+
+<script src="/js/motion.js?v=7.4.2.js"></script>
+
+
+<script src="/js/schemes/muse.js?v=7.4.2.js"></script>
+
+
+
+<script src="/js/next-boot.js?v=7.4.2.js"></script>
+
+<script src="/js/bookmark.js?v=7.4.2.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+<script src="/js/local-search.js?v=7.4.2.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  <script src="/js/wobblewindow.js"></script>
+  <script>
+    if( window.innerWidth > 768  ){
+      $(document).ready(function () {
+        
+          $('.header').wobbleWindow({
+            radius: 50,
+            movementTop: false,
+            movementLeft: false,
+            movementRight: false,
+            debug: false,
+          });
+        
+
+        
+
+        
+      });
+    }
+  </script>
+
+
+
+
+  <script src="/js/activate-power-mode.min.js"></script>
+  <script>
+    POWERMODE.colorful = true;
+    POWERMODE.shake = false;
+    document.body.addEventListener('input', POWERMODE);
+  </script>
+
+
+
+
+  <script async src="/js/cursor/fireworks.js"></script>
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID: 'cca8bcf4bb1d0c5b3e58',
+      clientSecret: '3f12c94de386143391d2c23adbe4c30ae7f010a7',
+      repo: 'blogIssues',
+      owner: '328921371',
+      admin: ['328921371'],
+      id: '77a7b17e1e8b9e56b421060915ce47a9',
+        language: 'zh-CN',
+      
+      distractionFreeMode: 'false'
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/z16.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>
