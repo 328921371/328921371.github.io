@@ -1,8 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>weex打包.apk或.aar</title>
+    <url>/2020/01/31/121-weex%E6%89%93%E5%8C%85aar/</url>
+    <content><![CDATA[<hr style='filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)' color='#FF0000' size='1' />
+
+<blockquote>
+<p>weex打包成apk我就不说了,android-studio的build上面可以构建,现在记录一下打包成.arr需要哪些步骤,也就是我们通常说的sdk</p>
+</blockquote>
+<a id="more"></a>
+
+<p>首先,在文件夹project-app-build-outputs-apk中删除.apk</p>
+<p>因为android-studio在运行的时候默认就生成了一个.apk的安装包</p>
+<h3 id="相关文件改造"><a href="#相关文件改造" class="headerlink" title="相关文件改造"></a>相关文件改造</h3><h4 id="build-gradle文件改造"><a href="#build-gradle文件改造" class="headerlink" title="build.gradle文件改造"></a>build.gradle文件改造</h4><p>把构建插件由</p>
+<p>apply plugin: ‘com.android.application’</p>
+<p>换成</p>
+<p>apply plugin:’com.android.library’</p>
+<p>如果定义 applicationId ,也要注释掉</p>
+<p>将下面一段代码也注释掉</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;    applicationVariants.all &#123; variant -&gt;</span><br><span class="line">&#x2F;&#x2F;        variant.outputs.each &#123; output -&gt;</span><br><span class="line">&#x2F;&#x2F;            def outputFile &#x3D; output.outputFile</span><br><span class="line">&#x2F;&#x2F;            if (outputFile !&#x3D; null &amp;&amp; outputFile.name.equals(&#39;app-debug.apk&#39;)) &#123;</span><br><span class="line">&#x2F;&#x2F;                def fileName &#x3D; outputFile.name.replace(&quot;app-debug.apk&quot;, &quot;weex-app.apk&quot;)</span><br><span class="line">&#x2F;&#x2F;                output.outputFile &#x3D; new File(outputFile.parent, fileName)</span><br><span class="line">&#x2F;&#x2F;            &#125;</span><br><span class="line">&#x2F;&#x2F;        &#125;</span><br><span class="line">&#x2F;&#x2F;    &#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="AndroidManifest-xml文件改造"><a href="#AndroidManifest-xml文件改造" class="headerlink" title="AndroidManifest.xml文件改造"></a>AndroidManifest.xml文件改造</h4><p>在文件夹project-app-src-main-AndroidManifest.xml</p>
+<p>主窗口调用按需要去掉，不去会在桌面多出一个快捷方式，直接调用aar原来主窗口</p>
+<p>去掉Application 中icon,label,theme,name属性，防止跟调用应用冲突</p>
+<p>主入口也要注释,就是注释下面这段</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"> &lt;intent-filter&gt;</span><br><span class="line">	&lt;action android:name&#x3D;&quot;android.intent.action.MAIN&quot;&#x2F;&gt;</span><br><span class="line">	&lt;category android:name&#x3D;&quot;android.intent.category.LAUNCHER&quot;&#x2F;&gt;</span><br><span class="line">&lt;&#x2F;intent-filter&gt;</span><br></pre></td></tr></table></figure>
+
+
+<p>该页面上面的android:name=”com.weex.app.SplashActivity”的SplashActivity,就是以后调用这个aar的包名</p>
+<p>去掉switch</p>
+<p>在project-app-src-main-java-com.weex.app-WXPageActivity.java中,去掉switch,改成if else,改成这样</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">if(item.getItemId()&#x3D;&#x3D;R.id.action_refresh)&#123;</span><br><span class="line">    createWeexInstance();</span><br><span class="line">    renderPage();</span><br><span class="line">  &#125;else if(item.getItemId()&#x3D;&#x3D;R.id.action_scan)&#123;</span><br><span class="line">    IntentIntegrator integrator &#x3D; new IntentIntegrator(this);</span><br><span class="line">    integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE_TYPES);</span><br><span class="line">    integrator.setPrompt(&quot;Scan a barcode&quot;);</span><br><span class="line">    &#x2F;&#x2F;integrator.setCameraId(0);  &#x2F;&#x2F; Use a specific camera of the device</span><br><span class="line">    integrator.setBeepEnabled(true);</span><br><span class="line">    integrator.setOrientationLocked(false);</span><br><span class="line">    integrator.setBarcodeImageEnabled(true);</span><br><span class="line">    integrator.setPrompt(getString(R.string.capture_qrcode_prompt));</span><br><span class="line">    integrator.initiateScan();</span><br><span class="line">  &#125;else if(item.getItemId()&#x3D;&#x3D;R.id.home)&#123;</span><br><span class="line">    finish();</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="遇到的问题-weex-plugin-does-not-exist"><a href="#遇到的问题-weex-plugin-does-not-exist" class="headerlink" title="遇到的问题 weex_plugin does not exist."></a>遇到的问题 weex_plugin does not exist.</h3><p>将 apply plugin: ‘com.taobao.android.weex.plugin.gradle’ 也注释掉</p>
+<p>这样android调用我们weex的插件,需要自己再手动添加依赖</p>
+<p>以上就是我对weex打包成.arr的一些理解,如果文章由于我学识浅薄,导致您发现有严重谬误的地方,请一定在评论中指出,我会在第一时间修正我的博文,以避免误人子弟。</p>
+]]></content>
+      <categories>
+        <category>weex</category>
+      </categories>
+      <tags>
+        <tag>weex</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>weex环境部署</title>
+    <url>/2020/01/30/120-weex%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/</url>
+    <content><![CDATA[<hr style='filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)' color='#FF0000' size='1' />
+
+<blockquote>
+<p>在家无聊,打算把跨端的Flutter,RN和weex都看一遍,记录一下weex</p>
+</blockquote>
+<a id="more"></a>
+
+<p>配置环境是一件很麻烦的事情,我安装了两三个小时,可能是网速或者没有翻墙的问题</p>
+<h3 id="node，npm，git"><a href="#node，npm，git" class="headerlink" title="node，npm，git"></a>node，npm，git</h3><p>需要安装的 node，npm，git,这个三个我就不说了,一般的前端都安装好了,没有安装的去我之前的博客搜一下就有</p>
+<h3 id="java环境"><a href="#java环境" class="headerlink" title="java环境"></a>java环境</h3><p>安装java环境 下载地址：<a href="http://www.java.com/zh_CN/" target="_blank" rel="noopener">http://www.java.com/zh_CN/</a></p>
+<h3 id="weex-toolkit"><a href="#weex-toolkit" class="headerlink" title="weex-toolkit"></a>weex-toolkit</h3><p>安装weex-toolkit  npm install weex-toolkit -g   检查一下weex -v</p>
+<p>安装 webpack npm install webpack -g 检查一下 webpack -v</p>
+<p>安装前先检查一下，如果有的话就不用安装了 </p>
+<h3 id="android-studio"><a href="#android-studio" class="headerlink" title="android-studio"></a>android-studio</h3><p>安装 android-studio 记住那个sdk的路径，默认安装在 </p>
+<p>C:\Users\CS\AppData\Local\Android\Sdk</p>
+<h3 id="配置环境变量"><a href="#配置环境变量" class="headerlink" title="配置环境变量"></a>配置环境变量</h3><p>配置环境变量：打开环境变量路径：控制面板-&gt;系统和安全-&gt;系统-&gt;高级系统设置-&gt;环境变量。</p>
+<p>新建：ANDROID_HOME 并把我们刚才赋值的sdk路径作为值插入。</p>
+<p>添加platform-tools和tools到path下</p>
+<p>AndroidStudio配置：在AndroidStudio的欢迎界面，你需要点击右下方的Configure进行老版本的SDK tool配置，</p>
+<p>步骤：Configure-&gt;SDKManager-&gt;SDK Tools-&gt;勾选show Package Details -&gt;勾选23.0.2</p>
+<p>然后进入安装。</p>
+<h3 id="初始化构建weex项目"><a href="#初始化构建weex项目" class="headerlink" title="初始化构建weex项目"></a>初始化构建weex项目</h3><p>初始化构建项目 weex create helloWeex，一路自己选择，和vue-cli差不多</p>
+<p>添加Android应用支持： weex platform add android</p>
+<h3 id="AVD虚拟机"><a href="#AVD虚拟机" class="headerlink" title="AVD虚拟机"></a>AVD虚拟机</h3><p>AVD虚拟机的安装： 菜单栏上有一个 AVD，鼠标悬停显示，找一找，然后点击Create Virtual Device</p>
+<p>选择一个适合的分辨率，推荐480*800的 不会太大，然后选一个安卓版本下载，下载后选择安装完成，安装完成后点击运行就可以了</p>
+<p>到这里,weex环境搭建,weex与android-studio创建联系,都已经完成了</p>
+]]></content>
+      <categories>
+        <category>weex</category>
+      </categories>
+      <tags>
+        <tag>weex</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>博客写作技巧篇</title>
-    <url>/2020/01/20/118-%E5%8D%9A%E5%AE%A2%E5%86%99%E4%BD%9C%E6%8A%80%E5%B7%A7%E7%AF%87/</url>
+    <url>/2020/01/27/119-%E5%8D%9A%E5%AE%A2%E5%86%99%E4%BD%9C%E6%8A%80%E5%B7%A7%E7%AF%87/</url>
     <content><![CDATA[<hr style='filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)' color='#FF0000' size='1' />
 
 <blockquote>
@@ -15,7 +95,7 @@
 <blockquote class="blockquote-center"><p>谢谢你 </p>
 </blockquote>
 
-<h3 id="代码块进阶用法"><a href="#代码块进阶用法" class="headerlink" title="代码块进阶用法"></a>代码块进阶用法</h3><figure class="highlight plain"><figcaption><span>写作技巧</span><a href="http://127.0.0.1:4000/2020/01/20/118-%E5%8D%9A%E5%AE%A2%E5%86%99%E4%BD%9C%E6%8A%80%E5%B7%A7%E7%AF%87/" target="_blank" rel="noopener">链接地址</a></figcaption><table><tr><td class="code"><pre><span class="line">点击右上方的链接地址就可以打开这篇博客</span><br></pre></td></tr></table></figure>
+<h3 id="代码块进阶用法"><a href="#代码块进阶用法" class="headerlink" title="代码块进阶用法"></a>代码块进阶用法</h3><figure class="highlight plain"><figcaption><span>写作技巧</span><a href="https://www.chensheng.group/2020/01/20/118-博客写作技巧篇/">链接地址</a></figcaption><table><tr><td class="code"><pre><span class="line">点击右上方的链接地址就可以打开这篇博客</span><br></pre></td></tr></table></figure>
 
 <p>代码块进阶语法规则：</p>
 <div class="note ">
@@ -93,6 +173,87 @@
 <p>具体效果如下:</p>
 <div class="tabs" id=""><ul class="nav-tabs"><li class="tab active"><a href="#-1">第一页</a></li><li class="tab"><a href="#-2">第二页</a></li><li class="tab"><a href="#-3">第三页</a></li></ul><div class="tab-content"><div class="tab-pane active" id="-1"><p>  标签页1文本内容</p></div><div class="tab-pane" id="-2"><p>  标签页2文本内容</p></div><div class="tab-pane" id="-3"><p>  标签页3文本内容</p></div></div></div>
 
+]]></content>
+      <categories>
+        <category>hexo</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Next主题升级</title>
+    <url>/2020/01/24/118-Next%E4%B8%BB%E9%A2%98%E5%8D%87%E7%BA%A7/</url>
+    <content><![CDATA[<hr style='filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)' color='#FF0000' size='1' />
+
+<blockquote>
+<p>突然发现,hexo和next升级了好几个版本,新增了一些小功能,记录一下升级的过程</p>
+</blockquote>
+<a id="more"></a>
+
+<p>hexo升级比较简单,<code>npm i hexo-cli -g</code>,重新升级一下就好,主要来看看Next修改了哪些功能</p>
+<h3 id="下载新版Next"><a href="#下载新版Next" class="headerlink" title="下载新版Next"></a>下载新版Next</h3><p><code>Git clone https://github.com/theme-next/hexo-theme-next themes/next</code> 下载到/themes的文件夹目录下,假设名字为next-v7.4.2</p>
+<h3 id="修改根目录的-config-yml"><a href="#修改根目录的-config-yml" class="headerlink" title="修改根目录的_config.yml"></a>修改根目录的_config.yml</h3><ol>
+<li>language改为: language: zh-CN</li>
+<li>theme改为: theme: next-v7.4.2 # 这里的名字对应目录下的名字</li>
+</ol>
+<h3 id="配置Next主题文件夹的-config-yml"><a href="#配置Next主题文件夹的-config-yml" class="headerlink" title="配置Next主题文件夹的_config.yml"></a>配置Next主题文件夹的_config.yml</h3><p>关于这个配置,我也是看别人的博客一点一点改的,可是版本就算一样,也有可能不信,所以最好大家改的时候多试几个版本</p>
+<h4 id="主题修改"><a href="#主题修改" class="headerlink" title="主题修改"></a>主题修改</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># Schemes</span><br><span class="line">#scheme: Muse</span><br><span class="line">scheme: Mist</span><br><span class="line">#scheme: Pisces</span><br><span class="line">#scheme: Gemini</span><br></pre></td></tr></table></figure>
+
+<h3 id="设置菜单及对应页面"><a href="#设置菜单及对应页面" class="headerlink" title="设置菜单及对应页面"></a>设置菜单及对应页面</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">menu:</span><br><span class="line">  home: &#x2F; || home</span><br><span class="line">  tags: &#x2F;tags&#x2F; || tags</span><br><span class="line">  categories: &#x2F;categories&#x2F; || th</span><br><span class="line">  archives: &#x2F;archives&#x2F; || archive</span><br><span class="line">  about: &#x2F;about&#x2F; || user</span><br><span class="line">  #comments: &#x2F;comments&#x2F; || comments</span><br><span class="line">  #schedule: &#x2F;schedule&#x2F; || calendar</span><br><span class="line">  #sitemap: &#x2F;sitemap.xml || sitemap</span><br><span class="line">  #commonweal: &#x2F;404&#x2F; || heartbeat</span><br></pre></td></tr></table></figure>
+
+<p>新增的菜单需要修改中文的,在/languages的zh-CN.yml中自行修改</p>
+<h3 id="配置底部显示"><a href="#配置底部显示" class="headerlink" title="配置底部显示"></a>配置底部显示</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">footer:</span><br><span class="line">  # 配置年份</span><br><span class="line">  since: 2016</span><br><span class="line"></span><br><span class="line">  # 配置图标</span><br><span class="line">  icon:</span><br><span class="line">    # 样式</span><br><span class="line">    name: heart</span><br><span class="line">    # 动画</span><br><span class="line">    animated: true</span><br><span class="line">    # 颜色</span><br><span class="line">    color: &quot;#ff0000&quot;</span><br><span class="line"></span><br><span class="line">  # 作者</span><br><span class="line">  copyright: 陈晟</span><br><span class="line"></span><br><span class="line">  powered:</span><br><span class="line">    # 显示驱动</span><br><span class="line">    enable: true</span><br><span class="line">    # 不显示版本</span><br><span class="line">    version: false</span><br><span class="line"></span><br><span class="line">  theme:</span><br><span class="line">    # 显示主题</span><br><span class="line">    enable: true</span><br><span class="line">    # 不显示版本</span><br><span class="line">    version: false</span><br></pre></td></tr></table></figure>
+
+<p>然后在/languages的zh-CN.yml中修改 </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">footer:</span><br><span class="line">  powered: &quot;欢迎访问&quot;</span><br><span class="line">  theme: Mr.Chen的小前端</span><br></pre></td></tr></table></figure>
+
+<h3 id="开启文章版权信息"><a href="#开启文章版权信息" class="headerlink" title="开启文章版权信息"></a>开启文章版权信息</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">creative_commons:</span><br><span class="line">  license: by-nc-sa</span><br><span class="line">  sidebar: true</span><br><span class="line">  post: true</span><br><span class="line">  language:</span><br></pre></td></tr></table></figure>
+
+<h3 id="Tag-标签前图标修改"><a href="#Tag-标签前图标修改" class="headerlink" title="Tag 标签前图标修改"></a>Tag 标签前图标修改</h3><p>tag_icon: true</p>
+<h3 id="站点访问量统计"><a href="#站点访问量统计" class="headerlink" title="站点访问量统计"></a>站点访问量统计</h3><p>新版的Next已经自动集成了不蒜子统计</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">busuanzi_count:</span><br><span class="line">  enable: true #设true 开启</span><br><span class="line">  total_visitors: true  #总阅读人数 uv数</span><br><span class="line">  total_visitors_icon: user  #阅读总人数的图标</span><br><span class="line">  total_views: true #总阅读次数 pv数</span><br><span class="line">  total_views_icon: eye #阅读总次数的图标</span><br><span class="line">  post_views: false #开启内容阅读次数</span><br><span class="line">  post_views_icon: eye #内容页阅读数的图标</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>高阶用法：通过修改代码来自定义统计文案</p>
+</blockquote>
+<p>编辑themes/next-v-7.4.2/layout/_partials/analytics/busuanzi-counter.swig,修改为下面这样</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;%- if theme.busuanzi_count.enable %&#125;</span><br><span class="line">&lt;div class&#x3D;&quot;busuanzi-count&quot;&gt;</span><br><span class="line">  &lt;script&#123;&#123; pjax &#125;&#125; async src&#x3D;&quot;https:&#x2F;&#x2F;busuanzi.ibruce.info&#x2F;busuanzi&#x2F;2.3&#x2F;busuanzi.pure.mini.js&quot;&gt;&lt;&#x2F;script&gt;</span><br><span class="line"></span><br><span class="line">  &#123;%- if theme.busuanzi_count.total_visitors %&#125;</span><br><span class="line">      &lt;span class&#x3D;&quot;site-uv&quot;&gt;</span><br><span class="line">        &#123;&#123; __(&#39;footer.total_visitors&#39;, &#39;&lt;span class&#x3D;&quot;busuanzi-value&quot; id&#x3D;&quot;busuanzi_value_site_uv&quot;&gt;&lt;&#x2F;span&gt;&#39;) &#125;&#125;</span><br><span class="line">      &lt;&#x2F;span&gt;</span><br><span class="line"></span><br><span class="line">  &#123;%- endif %&#125;</span><br><span class="line"></span><br><span class="line">  &#123;%- if theme.busuanzi_count.total_views %&#125;</span><br><span class="line">    &lt;span class&#x3D;&quot;site-pv&quot;&gt;</span><br><span class="line">     &#123;&#123; __(&#39;footer.total_views&#39;, &#39;&lt;span class&#x3D;&quot;busuanzi-value&quot; id&#x3D;&quot;busuanzi_value_site_pv&quot;&gt;&lt;&#x2F;span&gt;&#39;) &#125;&#125;</span><br><span class="line">    &lt;&#x2F;span&gt;</span><br><span class="line">  &#123;% endif %&#125;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br><span class="line">&#123;%- endif %&#125;</span><br></pre></td></tr></table></figure>
+
+<p>编辑：themes\next-v-7.4.2\languages\zh-CN.yml</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">footer:</span><br><span class="line">  total_views: &quot;历经 %s 次回眸才与你相遇&quot;</span><br><span class="line">  total_visitors: &quot;我的第 %s 位朋友，&quot;</span><br></pre></td></tr></table></figure>
+
+<p>在自定义样式文件中添加如下样式：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;修改不蒜子数据颜色</span><br><span class="line">.busuanzi-value &#123;</span><br><span class="line">  color: #1890ff;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<div class="note info">
+            <p>新版本的Next主题说是在<code>custom_file_path</code>字段配置一下,然后再对应的文件夹下新增目录_data,写文件样式就可以了,但是我试过之后不行,所以我在<code>/source/css/_custom</code>下新增<code>_custom/.styl</code>,在外层的main.styl中引入<code>@import &quot;_custom/custom&quot;;</code></p>
+          </div>
+
+<h3 id="站点及文章字数统计"><a href="#站点及文章字数统计" class="headerlink" title="站点及文章字数统计"></a>站点及文章字数统计</h3><p>新版本也自动集成了</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">symbols_count_time:</span><br><span class="line">  separated_meta: false</span><br><span class="line">  item_text_post: false</span><br><span class="line">  item_text_total: true</span><br><span class="line">  awl: 4</span><br><span class="line">  wpm: 275</span><br></pre></td></tr></table></figure>
+
+<h3 id="站内搜索"><a href="#站内搜索" class="headerlink" title="站内搜索"></a>站内搜索</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">local_search:</span><br><span class="line">  enable: true</span><br><span class="line">  # If auto, trigger search by changing input.</span><br><span class="line">  # If manual, trigger search by pressing enter key or search button.</span><br><span class="line">  trigger: auto</span><br><span class="line">  # Show top n results per article, show all results by setting to -1</span><br><span class="line">  top_n_per_article: 1</span><br><span class="line">  # Unescape html strings to the readable one.</span><br><span class="line">  unescape: false</span><br><span class="line">  # Preload the search data when the page loads.</span><br><span class="line">  preload: false</span><br></pre></td></tr></table></figure>
+
+<h3 id="添加打赏功能"><a href="#添加打赏功能" class="headerlink" title="添加打赏功能"></a>添加打赏功能</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">reward_settings:</span><br><span class="line">  # If true, reward would be displayed in every article by default.</span><br><span class="line">  # You can show or hide reward in a specific article throuth &#96;reward: true | false&#96; in Front-matter.</span><br><span class="line">  enable: true</span><br><span class="line">  animation: false</span><br><span class="line">  comment: 没办法,总要恰饭的嘛~~</span><br><span class="line"></span><br><span class="line">reward:</span><br><span class="line">  wechatpay: &#x2F;images&#x2F;wxpay.png</span><br><span class="line">  alipay: &#x2F;images&#x2F;alipay.png</span><br><span class="line">  #bitcoin: &#x2F;images&#x2F;bitcoin.png</span><br></pre></td></tr></table></figure>
+
+<h3 id="添加图片灯箱"><a href="#添加图片灯箱" class="headerlink" title="添加图片灯箱"></a>添加图片灯箱</h3><blockquote>
+<p>添加灯箱功能，实现点击图片后放大聚焦图片，并支持幻灯片播放、全屏播放、缩略图、快速分享到社交媒体等，该功能由 fancyBox 提供</p>
+</blockquote>
+<p>在根目录下执行以下命令安装相关依赖：</p>
+<p><code>git clone https://github.com/theme-next/theme-next-fancybox3 themes/next/source/lib/fancybox</code></p>
+<p>在主题配置文件中设置 <code>fancybox: true</code></p>
+<h3 id="新增gittalk评论"><a href="#新增gittalk评论" class="headerlink" title="新增gittalk评论"></a>新增gittalk评论</h3><p>之前评论用畅言的,但是会给我塞广告,所以打算换成gittalk</p>
+<p>新增Next也集成了!! 这就是为什么我要升级到新版本的原因</p>
+<p>首先建立评论仓库</p>
+<p>很简单建立一个名blogIssues的评论仓库</p>
+<p>在git中github沿路径setting/Developer setting/OAuth Apps，新建自己的OAuth Apps</p>
+<p>url都填写自己的域名,建立完成后可以看到client_id和client_secret,就可以记录下来</p>
+<p>然后再主题文件中进行配置</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">gitalk:</span><br><span class="line">  enable: true</span><br><span class="line">  github_id: 328921371 # GitHub repo owner</span><br><span class="line">  repo: blogIssues # Repository name to store issues</span><br><span class="line">  client_id: 你的client_id # GitHub Application Client ID</span><br><span class="line">  client_secret: 你的client_secret # GitHub Application Client Secret</span><br><span class="line">  admin_user: 328921371 # GitHub repo owner and collaborators, only these guys can initialize gitHub issues</span><br><span class="line">  distraction_free_mode: false # Facebook-like distraction free mode</span><br><span class="line">  redirect_uri: https:&#x2F;&#x2F;www.chensheng.group</span><br><span class="line">  id: location.pathname</span><br><span class="line">  # Gitalk&#39;s display language depends on user&#39;s browser or system environment</span><br><span class="line">  # If you want everyone visiting your site to see a uniform language, you can set a force language value</span><br><span class="line">  # Available values: en | es-ES | fr | ru | zh-CN | zh-TW</span><br><span class="line">  language: zh-CN</span><br></pre></td></tr></table></figure>
+
+<p>初始化的时候我也遇到过问题,点击按钮的时候一直返回首页,应该是标题太长的问题,后来又可以了,我也不知道原因</p>
+<h3 id="彩蛋"><a href="#彩蛋" class="headerlink" title="彩蛋"></a>彩蛋</h3><p>博客中,边缘波动,打字礼花等有趣的,等着你们自己挖掘吧,自己建博客,享受的就是这个过程</p>
 ]]></content>
       <categories>
         <category>hexo</category>
@@ -2466,6 +2627,40 @@
       </tags>
   </entry>
   <entry>
+    <title>ECMAScript 6 Map</title>
+    <url>/2019/02/19/81-ES6%20Map/</url>
+    <content><![CDATA[<hr style='filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)' color='#FF0000' size='1' />
+
+<blockquote>
+<p>Map是一种灵活，简单的适合一对一查找的数据结构。我们知道的数据结构，已经有了json和set。那map有什么特点。</p>
+</blockquote>
+<a id="more"></a>
+
+<p>文章主要参考阮一峰老师的 ECMAScript 6入门,站在巨人的肩膀上看世界…</p>
+<p>JavaScript 的对象（Object），本质上是键值对的集合（Hash 结构），但是传统上只能用字符串当作键。这给它的使用带来了很大的限制。</p>
+<p>为了解决这个问题，ES6 提供了 Map 数据结构。它类似于对象，也是键值对的集合，但是“键”的范围不限于字符串，各种类型的值（包括对象）都可以当作键。也就是说，Object 结构提供了“字符串—值”的对应，Map 结构提供了“值—值”的对应，是一种更完善的 Hash 结构实现。如果你需要“键值对”的数据结构，Map 比 Object 更合适。</p>
+<p>举个简单的例子</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let json &#x3D; &#123;</span><br><span class="line">  name:&#39;csing&#39;,</span><br><span class="line">  skill:&#39;web&#39;</span><br><span class="line">&#125;</span><br><span class="line">console.log(json.name);</span><br><span class="line">var map&#x3D;new Map();</span><br><span class="line">map.set(json,&#39;iam&#39;);</span><br><span class="line">console.log(map);</span><br></pre></td></tr></table></figure>
+
+<p>你的key可以设置成对象，值也可以设置成字符串，让它不规律对应起来,当然也可key字符串，value是对象。我们调换一下位置，依然是符合map的数据结构规范的。</p>
+<h2 id="Map值的增加"><a href="#Map值的增加" class="headerlink" title="Map值的增加"></a>Map值的增加</h2><p>上面的代码就已经体现了Map值的增加了</p>
+<p><code>map.set(&#39;csing&#39;,json);</code></p>
+<h2 id="Map值的获取"><a href="#Map值的获取" class="headerlink" title="Map值的获取"></a>Map值的获取</h2><p><code>map.get(json)</code></p>
+<h2 id="Map值的删除"><a href="#Map值的删除" class="headerlink" title="Map值的删除"></a>Map值的删除</h2><p><code>map.delete(json);</code></p>
+<h2 id="Map值的size属性"><a href="#Map值的size属性" class="headerlink" title="Map值的size属性"></a>Map值的size属性</h2><p><code>console.log(map.size);</code></p>
+<h2 id="查找是否存在has"><a href="#查找是否存在has" class="headerlink" title="查找是否存在has"></a>查找是否存在has</h2><p><code>map.has(&#39;csing&#39;)</code></p>
+<h2 id="清楚所有元素clear"><a href="#清楚所有元素clear" class="headerlink" title="清楚所有元素clear"></a>清楚所有元素clear</h2><p><code>map.clear()</code></p>
+<p>Map在现在开发中已经经常使用，它的灵活性和高效性是我们喜欢的。</p>
+<p>以上就是我对ECMAScript 6 Map的一些理解，如果文章由于我学识浅薄，导致您发现有严重谬误的地方，请一定在评论中指出，我会在第一时间修正我的博文，以避免误人子弟。</p>
+]]></content>
+      <categories>
+        <category>ECMAScript 6</category>
+      </categories>
+      <tags>
+        <tag>ECMAScript 6</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>ECMAScript 6 Promise</title>
     <url>/2019/02/19/82-ES6%20Promise/</url>
     <content><![CDATA[<hr style='filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)' color='#FF0000' size='1' />
@@ -2562,40 +2757,6 @@
 
 <p>在实际开发中Set用的比较多，WeakSet用的并不多，但是他对传入值必须是对象作了很好的判断，我们灵活应用还是有一定的用处的。</p>
 <p>以上就是我对ECMAScript 6 Set的一些理解，如果文章由于我学识浅薄，导致您发现有严重谬误的地方，请一定在评论中指出，我会在第一时间修正我的博文，以避免误人子弟。</p>
-]]></content>
-      <categories>
-        <category>ECMAScript 6</category>
-      </categories>
-      <tags>
-        <tag>ECMAScript 6</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>ECMAScript 6 Map</title>
-    <url>/2019/02/19/81-ES6%20Map/</url>
-    <content><![CDATA[<hr style='filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)' color='#FF0000' size='1' />
-
-<blockquote>
-<p>Map是一种灵活，简单的适合一对一查找的数据结构。我们知道的数据结构，已经有了json和set。那map有什么特点。</p>
-</blockquote>
-<a id="more"></a>
-
-<p>文章主要参考阮一峰老师的 ECMAScript 6入门,站在巨人的肩膀上看世界…</p>
-<p>JavaScript 的对象（Object），本质上是键值对的集合（Hash 结构），但是传统上只能用字符串当作键。这给它的使用带来了很大的限制。</p>
-<p>为了解决这个问题，ES6 提供了 Map 数据结构。它类似于对象，也是键值对的集合，但是“键”的范围不限于字符串，各种类型的值（包括对象）都可以当作键。也就是说，Object 结构提供了“字符串—值”的对应，Map 结构提供了“值—值”的对应，是一种更完善的 Hash 结构实现。如果你需要“键值对”的数据结构，Map 比 Object 更合适。</p>
-<p>举个简单的例子</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let json &#x3D; &#123;</span><br><span class="line">  name:&#39;csing&#39;,</span><br><span class="line">  skill:&#39;web&#39;</span><br><span class="line">&#125;</span><br><span class="line">console.log(json.name);</span><br><span class="line">var map&#x3D;new Map();</span><br><span class="line">map.set(json,&#39;iam&#39;);</span><br><span class="line">console.log(map);</span><br></pre></td></tr></table></figure>
-
-<p>你的key可以设置成对象，值也可以设置成字符串，让它不规律对应起来,当然也可key字符串，value是对象。我们调换一下位置，依然是符合map的数据结构规范的。</p>
-<h2 id="Map值的增加"><a href="#Map值的增加" class="headerlink" title="Map值的增加"></a>Map值的增加</h2><p>上面的代码就已经体现了Map值的增加了</p>
-<p><code>map.set(&#39;csing&#39;,json);</code></p>
-<h2 id="Map值的获取"><a href="#Map值的获取" class="headerlink" title="Map值的获取"></a>Map值的获取</h2><p><code>map.get(json)</code></p>
-<h2 id="Map值的删除"><a href="#Map值的删除" class="headerlink" title="Map值的删除"></a>Map值的删除</h2><p><code>map.delete(json);</code></p>
-<h2 id="Map值的size属性"><a href="#Map值的size属性" class="headerlink" title="Map值的size属性"></a>Map值的size属性</h2><p><code>console.log(map.size);</code></p>
-<h2 id="查找是否存在has"><a href="#查找是否存在has" class="headerlink" title="查找是否存在has"></a>查找是否存在has</h2><p><code>map.has(&#39;csing&#39;)</code></p>
-<h2 id="清楚所有元素clear"><a href="#清楚所有元素clear" class="headerlink" title="清楚所有元素clear"></a>清楚所有元素clear</h2><p><code>map.clear()</code></p>
-<p>Map在现在开发中已经经常使用，它的灵活性和高效性是我们喜欢的。</p>
-<p>以上就是我对ECMAScript 6 Map的一些理解，如果文章由于我学识浅薄，导致您发现有严重谬误的地方，请一定在评论中指出，我会在第一时间修正我的博文，以避免误人子弟。</p>
 ]]></content>
       <categories>
         <category>ECMAScript 6</category>
