@@ -1,6 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>SourceTree的使用</title>
+    <url>/2020/05/01/123-SourceTree%E7%9A%84%E4%BD%BF%E7%94%A8/</url>
+    <content><![CDATA[<hr style='filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)' color='#FF0000' size='1' />
+
+<blockquote>
+<p>之前介绍了git命令行操作,今天介绍一下git的可视化工具SourceTree的操作</p>
+</blockquote>
+<a id="more"></a>
+
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>先去官网下载一下<a href="https://www.sourcetreeapp.com" target="_blank" rel="noopener">戳我戳我</a></p>
+<p>之后直接开始安装,安装的时候需要一个Bitbucket的账号,安装他的步骤一步步注册就行,这里就不强调了</p>
+<h3 id="clone"><a href="#clone" class="headerlink" title="clone"></a>clone</h3><p>安装成功之后,我们就可以打开clone页面了,可以选择一个地址进行clone,假设这个地址是正确的,就会有提示</p>
+<p><img src="https://csblogimage.oss-cn-hangzhou.aliyuncs.com/123-1-SourceTree.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,size_16,text_Qnku6ZmI5YWI55Sf55qE5bCP5YmN56uv,color_FFFFFF,shadow_50,t_100,g_se,x_10,y_10" alt="SourceTree页面"></p>
+<p>选择一个文件夹开始clone</p>
+<p>成功clone下来后,当前默认实在master主分支上,显示这个页面,并且可以显示这个项目之前的流程节点</p>
+<p><img src="https://csblogimage.oss-cn-hangzhou.aliyuncs.com/123-2-SourceTree.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,size_16,text_Qnku6ZmI5YWI55Sf55qE5bCP5YmN56uv,color_FFFFFF,shadow_50,t_100,g_se,x_10,y_10" alt="SourceTree历史记录页面"></p>
+<h3 id="新建分支"><a href="#新建分支" class="headerlink" title="新建分支"></a>新建分支</h3><p>项目clone下来后,就可以开始敲代码了,但是,最好不要直接在主分支上修改代码,我们应该新建一个分支去写代码</p>
+<p>现在来看看如何在SourceTree页面上新建分支</p>
+<p>点击上面的分支按钮,就会弹出这样的界面</p>
+<p><img src="https://csblogimage.oss-cn-hangzhou.aliyuncs.com/123-3-SourceTree.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,size_16,text_Qnku6ZmI5YWI55Sf55qE5bCP5YmN56uv,color_FFFFFF,shadow_50,t_100,g_se,x_10,y_10" alt="SourceTree新建分支"></p>
+<p>点击创建分支,当分支新建好之后,会自动帮我们切换到我们刚刚新建的分支上,这时候我们就可以开始写代码了</p>
+<h3 id="提交"><a href="#提交" class="headerlink" title="提交"></a>提交</h3><p>现在我们开始写代码了,比如我新增一个A.txt文件,随便写一点东西</p>
+<p><img src="https://csblogimage.oss-cn-hangzhou.aliyuncs.com/123-4-SourceTree.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,size_16,text_Qnku6ZmI5YWI55Sf55qE5bCP5YmN56uv,color_FFFFFF,shadow_50,t_100,g_se,x_10,y_10" alt="SourceTree新"></p>
+<p>这时候我写的内容,还只是在本地的工作区中,我们需要提交并推送到远程的分支上</p>
+<p><img src="https://csblogimage.oss-cn-hangzhou.aliyuncs.com/123-5-SourceTree.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,size_16,text_Qnku6ZmI5YWI55Sf55qE5bCP5YmN56uv,color_FFFFFF,shadow_50,t_100,g_se,x_10,y_10" alt="SourceTree新"></p>
+<p>先点击上方的提交按钮,告诉SourceTree我们准备提交了,然后将工作区中有修改的文件全部暂存,在下方写好我们这次提交的内容,就可以点击提交了</p>
+<h3 id="推送"><a href="#推送" class="headerlink" title="推送"></a>推送</h3><p>现在,我们需要把已经提交好的推送到远程分支上,点击上方的推送按钮</p>
+<p><img src="https://csblogimage.oss-cn-hangzhou.aliyuncs.com/123-6-SourceTree.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,size_16,text_Qnku6ZmI5YWI55Sf55qE5bCP5YmN56uv,color_FFFFFF,shadow_50,t_100,g_se,x_10,y_10" alt="SourceTree新"></p>
+<p>由于是第一次推送到远程分支上,所以SourceTree并没有给你一个你需要推送的提示,如果是后续的话,当你提交成功后,他就会提示你需要推送了</p>
+<h3 id="获取他人上传的代码"><a href="#获取他人上传的代码" class="headerlink" title="获取他人上传的代码"></a>获取他人上传的代码</h3><p>假如我们要看看其他人的代码呢,我们先将上面的步骤重复一遍,模拟一个B</p>
+<p>现在B也推送了他自己的分支,叫B_dev,我们首先点击上方获取的按钮</p>
+<p><img src="https://csblogimage.oss-cn-hangzhou.aliyuncs.com/123-7-SourceTree.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,size_16,text_Qnku6ZmI5YWI55Sf55qE5bCP5YmN56uv,color_FFFFFF,shadow_50,t_100,g_se,x_10,y_10" alt="SourceTree新"></p>
+<p>可以看到,当前我们看到的远程分支中并没有B_dev,现在我们点击一下确定,将所有的远程分支获取下来</p>
+<p><img src="https://csblogimage.oss-cn-hangzhou.aliyuncs.com/123-8-SourceTree.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,size_16,text_Qnku6ZmI5YWI55Sf55qE5bCP5YmN56uv,color_FFFFFF,shadow_50,t_100,g_se,x_10,y_10" alt="SourceTree新"></p>
+<p>我们看到已经有B_dev分支了,点击右键,检出到本地分支中</p>
+<p>这时候你们可以自己切换两个分支,看看文件的变化</p>
+<h3 id="合并"><a href="#合并" class="headerlink" title="合并"></a>合并</h3><p>假设这时候A的代码写完了,需要合并到主分支,应该怎么操作呢</p>
+<p>我们先切换到master主分支上,右键cs_dev,选择合并到当前分支就可以了</p>
+<p><img src="https://csblogimage.oss-cn-hangzhou.aliyuncs.com/123-9-SourceTree.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,size_16,text_Qnku6ZmI5YWI55Sf55qE5bCP5YmN56uv,color_FFFFFF,shadow_50,t_100,g_se,x_10,y_10" alt="SourceTree新"></p>
+<h3 id="解决冲突"><a href="#解决冲突" class="headerlink" title="解决冲突"></a>解决冲突</h3><p>假设A和B都已经获取到master上最新的代码了,两个人都有A,B 两个文件了,于是他们同时修改了A文件,一个全是写AAA,一个全是写BBB</p>
+<p>当A推送之后当然没有冲突,可是当B提交的时候,需要先拉取A提交的代码,这时候,就发生冲突了</p>
+<p><img src="https://csblogimage.oss-cn-hangzhou.aliyuncs.com/123-10-SourceTree.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,size_16,text_Qnku6ZmI5YWI55Sf55qE5bCP5YmN56uv,color_FFFFFF,shadow_50,t_100,g_se,x_10,y_10" alt="SourceTree新"></p>
+<p>有冲突我们就解决对吧,右键点击冲突的文件,选择一个进行修改</p>
+<p>到这里,SourceTree的使用就差不多了,至于上面的Git工作流,有兴趣可以先研究一下,我下次再一起分享</p>
+<p>以上就是我对SourceTree的一些理解,如果文章由于我学识浅薄,导致您发现有严重谬误的地方,请一定在评论中指出,我会在第一时间修正我的博文,以避免误人子弟。</p>
+]]></content>
+      <categories>
+        <category>GitHub</category>
+      </categories>
+      <tags>
+        <tag>GitHub</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>实现微信语言识别</title>
     <url>/2020/04/09/122-%E5%AE%9E%E7%8E%B0%E5%BE%AE%E4%BF%A1%E8%AF%AD%E8%A8%80%E8%AF%86%E5%88%AB/</url>
     <content><![CDATA[<hr style='filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)' color='#FF0000' size='1' />
@@ -359,10 +413,10 @@
 <p><a href="https://cloud.baidu.com/campaign/Annualceremony-2020/index.html?track=cp:nsem|pf:pc|pp:npinzhuan-biaoti|pu:wenzineirong|ci:2020ndsd|kw:2180026" target="_blank" rel="noopener">官方网站</a></p>
 <p>2、创建人脸识别应用</p>
 <p>进入页面后,在侧边栏选择人脸识别,在应用列表中创建一个新的应用,填写【应用名称】和【应用描述】,其他的使用默认值就可以了</p>
-<p><img src="http://q3vcvgneb.bkt.clouddn.com/116-1-%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB" alt=""></p>
+<p><img src="https://csblogimage.oss-cn-hangzhou.aliyuncs.com/116-1-%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB.jpg?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,size_16,text_Qnku6ZmI5YWI55Sf55qE5bCP5YmN56uv,color_FFFFFF,shadow_50,t_100,g_se,x_10,y_10" alt=""></p>
 <p>3、获取秘钥</p>
 <p>应用创建成功后,记录下自己的API Key、Secret Key</p>
-<p><img src="http://q3vcvgneb.bkt.clouddn.com/116-2-%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB.jpg" alt=""></p>
+<p><img src="https://csblogimage.oss-cn-hangzhou.aliyuncs.com/116-2-%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB.jpg?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,size_16,text_Qnku6ZmI5YWI55Sf55qE5bCP5YmN56uv,color_FFFFFF,shadow_50,t_100,g_se,x_10,y_10" alt=""></p>
 <p>根据百度文档的API,第一次需要讲API Key、Secret Key传过去,用来获取Access Token,之后每一次请求都将这个token传递过去就可以了</p>
 <p>4、创建人脸库</p>
 <p>新建应用后,在人脸库管理中新增一个库,用来保存人脸识别的图片,这里图片就不贴出来了</p>
@@ -427,7 +481,7 @@
 
 <p>完整的代码中包含了,人脸识别认证后自动截图,自动关闭摄像头等功能</p>
 <p>示意图,如果有人脸,是会有紫色的框框,这里因为没有人脸,所以没有</p>
-<p><img src="http://q3vcvgneb.bkt.clouddn.com/116-3-%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB.jpg" alt=""></p>
+<p><img src="https://csblogimage.oss-cn-hangzhou.aliyuncs.com/116-3-%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB.jpg?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,size_16,text_Qnku6ZmI5YWI55Sf55qE5bCP5YmN56uv,color_FFFFFF,shadow_50,t_100,g_se,x_10,y_10" alt=""></p>
 <div class="note warning">
             <p>需要注意的是,在移动端,由于安全策略的原因,摄像头不能开启成功,录音等audio自动播放因为安全策略也都是不可以的.</p>
           </div>
@@ -542,7 +596,7 @@
 <p>由于我的项目还有很多是vue-cli 2 的..所以我希望在vue-cli3的版本也可以使用它,再安装一个桥接工具插件</p>
 <p><code>npm install -g @vue/cli-init</code></p>
 <p>好了,输入 <code>vue -V</code> 查看版本</p>
-<p><img src="http://q3vcvgneb.bkt.clouddn.com/113-vue4.0.jpg" alt="版本号"></p>
+<p><img src="https://csblogimage.oss-cn-hangzhou.aliyuncs.com/113-vue4.0.jpg?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,size_16,text_Qnku6ZmI5YWI55Sf55qE5bCP5YmN56uv,color_FFFFFF,shadow_50,t_100,g_se,x_10,y_10" alt="版本号"></p>
 <p>我草草草草草草… 最近只顾着看技术了，没发现10月16日官方已经宣布 vue-cli4.0 已经正式发布了! ! !</p>
 <p>有没有搞错，我 vue-cli3.0 都还没用,已经升级到 4.0了,那就直接开始搞 vue-cli4.0 吧!</p>
 <h3 id="搭建项目"><a href="#搭建项目" class="headerlink" title="搭建项目"></a>搭建项目</h3><p>vue-cli3.0 以后项目创建的命令变成了下面这样</p>
@@ -1316,14 +1370,13 @@
 <p>继续 <code>npm install hexo --save</code></p>
 <p>然后 <code>hexo -v</code>一下</p>
 <p>看到下图的图片,就说明安装成功了</p>
-<p><img src="http://q3vcvgneb.bkt.clouddn.com/103-hexo.png" alt="版本图片"></p>
+<p><img src="https://csblogimage.oss-cn-hangzhou.aliyuncs.com/103-hexo.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,size_16,text_Qnku6ZmI5YWI55Sf55qE5bCP5YmN56uv,color_FFFFFF,shadow_50,t_100,g_se,x_10,y_10" alt="版本图片"></p>
 <h3 id="初始化Hexo"><a href="#初始化Hexo" class="headerlink" title="初始化Hexo"></a>初始化Hexo</h3><p>既然安装好了脚手架,现在开始初始化一下</p>
 <p><code>hexo init</code> 之后再 <code>npm install</code></p>
 <p>感觉怎么和搭建vue-cli一样……</p>
 <p>继续操作 <code>hexo g</code></p>
 <p>然后可以启动啦 <code>hexo s</code>,命令行会提示<code>INFO Hexo is running at http://0.0.0.0:4000/. Press Ctrl+C to stop.</code></p>
-<p>我们打开本地的<code>http://0.0.0.0:4000</code>就可以看到了</p>
-<p><img src="https://raw.githubusercontent.com/gdutxiaoxu/blog_pic/master/19_06/9fe4afa0gw1falkk5mnsvj211y0lcten.jpg" alt="一张图片"></p>
+<p>我们打开本地的<code>http://0.0.0.0:4000</code>就可以看到页面了</p>
 <h3 id="hexo同步git"><a href="#hexo同步git" class="headerlink" title="hexo同步git"></a>hexo同步git</h3><ol>
 <li>设置Git的user name和email：(如果是第一次的话)</li>
 </ol>
@@ -1688,7 +1741,7 @@
 <h3 id="新建项目"><a href="#新建项目" class="headerlink" title="新建项目"></a>新建项目</h3><p>虽然是用vue-cli搭的项目,当我们上传组件的时候就不在原来的项目上做了,新建一个项目来弄</p>
 <p><code>vue init webpack-simple ruler(项目名)</code></p>
 <p>项目的基本结构如下</p>
-<p><img src="http://q3vcvgneb.bkt.clouddn.com/95-rule.png" alt="项目结构图"></p>
+<p><img src="https://csblogimage.oss-cn-hangzhou.aliyuncs.com/95-rule.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,size_16,text_Qnku6ZmI5YWI55Sf55qE5bCP5YmN56uv,color_FFFFFF,shadow_50,t_100,g_se,x_10,y_10" alt="项目结构图"></p>
 <h3 id="本地调试"><a href="#本地调试" class="headerlink" title="本地调试"></a>本地调试</h3><p>在App.vue中直接引入本地的组件</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import ruler from &#39;.&#x2F;page&#x2F;ruler.vue&#39;</span><br></pre></td></tr></table></figure>
 
@@ -1903,7 +1956,7 @@
 <p>全局安装 <code>npm install vue-cli -g</code></p>
 <p>初始化项目 <code>vue init webpack project</code></p>
 <p>过程我就不细说了,直接看看项目结构</p>
-<p><img src="http://q3vcvgneb.bkt.clouddn.com/45-projectImg.png" alt="项目结构图"></p>
+<p><img src="https://csblogimage.oss-cn-hangzhou.aliyuncs.com/45-projectImg.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,size_16,text_Qnku6ZmI5YWI55Sf55qE5bCP5YmN56uv,color_FFFFFF,shadow_50,t_100,g_se,x_10,y_10" alt="项目结构图"></p>
 <h1 id="Vue基础语法"><a href="#Vue基础语法" class="headerlink" title="Vue基础语法"></a>Vue基础语法</h1><h2 id="插值"><a href="#插值" class="headerlink" title="插值"></a>插值</h2><ul>
 <li>数据绑定最常见的形式就是使用 “Mustache” 语法（双大括号）的文本插值</li>
 <li>v-once 能执行一次性地插值,当数据改变时,插值处的内容不会更新。</li>
@@ -2286,7 +2339,7 @@
 <p>可以执行cnpm install –global –production windows-build-tools 一键安装上面所需的依赖</p>
 </blockquote>
 <p>全部安装好了就是这个样子,会显示 ALL down,耐心等待一下,之后敲一下python,看看环境变量是否已经配置好了,如果没有的话,就要手动配置了</p>
-<p><img src="http://q3vcvgneb.bkt.clouddn.com/91-python.png" alt="图片"></p>
+<p><img src="https://csblogimage.oss-cn-hangzhou.aliyuncs.com/91-python.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,size_16,text_Qnku6ZmI5YWI55Sf55qE5bCP5YmN56uv,color_FFFFFF,shadow_50,t_100,g_se,x_10,y_10" alt="图片"></p>
 <h4 id="安装node-gyp"><a href="#安装node-gyp" class="headerlink" title="安装node-gyp"></a>安装node-gyp</h4><p>接下来就可以安装 node-gyp</p>
 <blockquote>
 <p>cnpm install node-gyp -g</p>
@@ -2294,7 +2347,7 @@
 <h4 id="正式安装ffi了"><a href="#正式安装ffi了" class="headerlink" title="正式安装ffi了"></a>正式安装ffi了</h4><blockquote>
 <p>cnpm install ffi –save</p>
 </blockquote>
-<p><img src="http://q3vcvgneb.bkt.clouddn.com/91-2-ffiWaring.png" alt="ffi错误警告"></p>
+<p><img src="https://csblogimage.oss-cn-hangzhou.aliyuncs.com/91-2-ffiWaring.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,size_16,text_Qnku6ZmI5YWI55Sf55qE5bCP5YmN56uv,color_FFFFFF,shadow_50,t_100,g_se,x_10,y_10" alt="ffi错误警告"></p>
 <p>出现这一些黄色警告,也不知道以后会不会有影响</p>
 <p>在项目中导入一下ffi</p>
 <blockquote>
@@ -2517,15 +2570,15 @@
 <h2 id="流程步骤"><a href="#流程步骤" class="headerlink" title="流程步骤"></a>流程步骤</h2><p>第一步、我们需要知道, H5调用微信分享需要后端传递<code>生成签名的时间戳</code>,<code>生成签名的随机串</code>,<code>签名</code>,<code>公众号的唯一标识</code>,所以我们需要一个后端来配合我们</p>
 <p>第二步、求人不如求几,自己搭建一个Node服务器,去请求微信分享接口所需要的签名</p>
 <p>第三步、请求的时候发现需要在微信公众号配置IP白名单,才可以进行请求,顺手添加一下</p>
-<p><img src="http://q3vcvgneb.bkt.clouddn.com/86-1-%E5%BE%AE%E4%BF%A1IP%E7%99%BD%E5%90%8D%E5%8D%95.png" alt="微信IP白名单"></p>
+<p><img src="https://csblogimage.oss-cn-hangzhou.aliyuncs.com/86-1-%E5%BE%AE%E4%BF%A1IP%E7%99%BD%E5%90%8D%E5%8D%95.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,size_16,text_Qnku6ZmI5YWI55Sf55qE5bCP5YmN56uv,color_FFFFFF,shadow_50,t_100,g_se,x_10,y_10" alt="微信IP白名单"></p>
 <p>第四步、我们的后台就可以开始请求了,<code>获取token</code>,<code>获取jsapiticket</code>,<code>获取签名</code>,具体代码下面会贴出</p>
 <p>第五步、我们发现当前请求的页面和分享链接的域名需要在微信公众号中设置<code>微信JS接口安全域名</code></p>
-<p><img src="http://q3vcvgneb.bkt.clouddn.com/86-2-%E5%BE%AE%E4%BF%A1JS%E6%8E%A5%E5%8F%A3%E5%AE%89%E5%85%A8%E5%9F%9F%E5%90%8D.png" alt="微信JS接口安全域名"></p>
+<p><img src="https://csblogimage.oss-cn-hangzhou.aliyuncs.com/86-2-%E5%BE%AE%E4%BF%A1JS%E6%8E%A5%E5%8F%A3%E5%AE%89%E5%85%A8%E5%9F%9F%E5%90%8D.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,size_16,text_Qnku6ZmI5YWI55Sf55qE5bCP5YmN56uv,color_FFFFFF,shadow_50,t_100,g_se,x_10,y_10" alt="微信JS接口安全域名"></p>
 <p>But,它需要备案的域名…一般都是公司企业进行备案,所以我使用到了<code>Natapp</code>进行内网映射外网,这里就不多做介绍了</p>
 <p>到这里,备案的域名我们就绕过去了</p>
 <p>第六步、可以开始写前端代码了,在<code>wx.config</code>中配置好后,<code>wx.ready</code>中就可以开始进行分享了,具体代码下面会贴出</p>
 <p>第七步、将页面放到微信开发工具上,打开debug模式,测试一下看看,咦…,配置都对,为什么还是不能分享?找找万能的百度</p>
-<p><img src="http://q3vcvgneb.bkt.clouddn.com/86-3-%E5%BE%AE%E4%BF%A1%E5%88%86%E4%BA%AB1.png" alt="微信分享1"><br><img src="http://q3vcvgneb.bkt.clouddn.com/86-4-%E5%BE%AE%E4%BF%A1%E5%88%86%E4%BA%AB2.png" alt="微信分享2"><br><img src="http://q3vcvgneb.bkt.clouddn.com/86-5-%E5%BE%AE%E4%BF%A1%E5%88%86%E4%BA%AB3.png" alt="微信分享3"></p>
+<p><img src="https://csblogimage.oss-cn-hangzhou.aliyuncs.com/86-3-%E5%BE%AE%E4%BF%A1%E5%88%86%E4%BA%AB.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,size_16,text_Qnku6ZmI5YWI55Sf55qE5bCP5YmN56uv,color_FFFFFF,shadow_50,t_100,g_se,x_10,y_10" alt="微信分享1"><br><img src="https://csblogimage.oss-cn-hangzhou.aliyuncs.com/86-4-%E5%BE%AE%E4%BF%A1%E5%88%86%E4%BA%AB.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,size_16,text_Qnku6ZmI5YWI55Sf55qE5bCP5YmN56uv,color_FFFFFF,shadow_50,t_100,g_se,x_10,y_10" alt="微信分享2"><br><img src="https://csblogimage.oss-cn-hangzhou.aliyuncs.com/86-5-%E5%BE%AE%E4%BF%A1%E5%88%86%E4%BA%AB.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,size_16,text_Qnku6ZmI5YWI55Sf55qE5bCP5YmN56uv,color_FFFFFF,shadow_50,t_100,g_se,x_10,y_10" alt="微信分享3"></p>
 <p>绕过了备案,绕不过认证,要钱的…散了吧…最终还是已失败告终</p>
 <h2 id="核心代码"><a href="#核心代码" class="headerlink" title="核心代码"></a>核心代码</h2><p>首先安装 <code>weixin-js-sdk</code> ,之后引入进来 <code>import wx from &#39;weixin-js-sdk&#39;</code>我们看看具体是怎么实现的</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">this.$axios.get(&#39;http:&#x2F;&#x2F;127.0.0.1:3000&#x2F;wxapi&#39;, &#123;</span><br><span class="line">	params: &#123;</span><br><span class="line">		&#39;url&#39;: window.location.href</span><br><span class="line">	&#125;</span><br><span class="line">&#125;).then((res) &#x3D;&gt; &#123;</span><br><span class="line">	console.log(res)</span><br><span class="line">	wx.config(&#123;</span><br><span class="line">		debug: true, &#x2F;&#x2F; 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。</span><br><span class="line">		appId: res.data.appId, &#x2F;&#x2F; 必填，公众号的唯一标识</span><br><span class="line">		timestamp: res.data.timestamp, &#x2F;&#x2F; 必填，生成签名的时间戳</span><br><span class="line">		nonceStr: res.data.nonceStr, &#x2F;&#x2F; 必填，生成签名的随机串</span><br><span class="line">		signature: res.data.signature, &#x2F;&#x2F; 必填，签名</span><br><span class="line">		&#x2F;&#x2F; 需要分享的列表项:发送给朋友,分享到朋友圈,分享到QQ,分享到QQ空间</span><br><span class="line">		jsApiList: [&#39;onMenuShareTimeline&#39;, &#39;onMenuShareAppMessage&#39;, &#39;updateTimelineShareData&#39;] &#x2F;&#x2F; 必填，需要使用的JS接口列表</span><br><span class="line">	&#125;);</span><br><span class="line"></span><br><span class="line">	wx.error(function(result) &#123;</span><br><span class="line">		alert(&#39;报错&#39;)</span><br><span class="line">		&#x2F;&#x2F; config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。</span><br><span class="line">		alert(result + &#39;测试报错，上线后就可以修复&#39;);</span><br><span class="line">	&#125;);</span><br><span class="line">	wx.ready(function() &#123;</span><br><span class="line">		&#x2F;&#x2F; 分享到朋友圈</span><br><span class="line">		&#x2F;&#x2F; config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后，config是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在ready函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在ready函数中。</span><br><span class="line">		alert(&#39;ready成功&#39;)</span><br><span class="line"></span><br><span class="line">		&#x2F;&#x2F;认证JsApi</span><br><span class="line">		wx.checkJsApi(&#123;</span><br><span class="line">			jsApiList: [&quot;onMenuShareTimeline&quot;],</span><br><span class="line">		&#125;);</span><br><span class="line"></span><br><span class="line">		&#x2F;&#x2F;分享到朋友圈</span><br><span class="line">		wx.updateTimelineShareData(&#123;</span><br><span class="line">			title: &quot;陈先生分享一下&quot;, &#x2F;&#x2F; 分享标题</span><br><span class="line">			desc: &quot;没什么好描述的&quot;, &#x2F;&#x2F;分享描述</span><br><span class="line">			link: &#39;http:&#x2F;&#x2F;n9gtsp.natappfree.cc&#39;, &#x2F;&#x2F; 分享链接,域名和路径必须与js安全域名的一致</span><br><span class="line">			imgUrl: &#39;https:&#x2F;&#x2F;timgsa.baidu.com&#x2F;timg?image&amp;quality&#x3D;80&amp;size&#x3D;b9999_10000&amp;sec&#x3D;1555931928218&amp;di&#x3D;c510b8f413124ec54a1c15adaa8830b9&amp;imgtype&#x3D;0&amp;src&#x3D;http%3A%2F%2Fimg.gifhome.com%2Fgif%2Femoji%2F2018%2Ff5f3d4c76dc94fdb8a0d2e6cf7f02904.jpg&#39; &#x2F;&#x2F; 分享图标</span><br><span class="line">		&#125;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">		&#x2F;&#x2F;分享给朋友</span><br><span class="line">		wx.updateAppMessageShareData(&#123;</span><br><span class="line">			title: &quot;陈先生分享一下&quot;, &#x2F;&#x2F; 分享标题</span><br><span class="line">			desc: &quot;没什么好描述的&quot;, &#x2F;&#x2F;分享描述</span><br><span class="line">			link: &#39;http:&#x2F;&#x2F;n9gtsp.natappfree.cc&#39;, &#x2F;&#x2F; 分享链接,域名和路径必须与js安全域名的一致</span><br><span class="line">			imgUrl: &#39;https:&#x2F;&#x2F;timgsa.baidu.com&#x2F;timg?image&amp;quality&#x3D;80&amp;size&#x3D;b9999_10000&amp;sec&#x3D;1555931928218&amp;di&#x3D;c510b8f413124ec54a1c15adaa8830b9&amp;imgtype&#x3D;0&amp;src&#x3D;http%3A%2F%2Fimg.gifhome.com%2Fgif%2Femoji%2F2018%2Ff5f3d4c76dc94fdb8a0d2e6cf7f02904.jpg&#39; &#x2F;&#x2F; 分享图标</span><br><span class="line">		&#125;);</span><br><span class="line">	&#125;)</span><br><span class="line"></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>

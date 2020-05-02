@@ -66,15 +66,15 @@
 <meta property="og:site_name" content="陈先生的小前端">
 <meta property="og:description" content="2020年的第一篇博客,手把手教你在vue中使用百度AI开放平台的百度人脸识别能力">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://q3vcvgneb.bkt.clouddn.com/116-1-%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB">
-<meta property="og:image" content="http://q3vcvgneb.bkt.clouddn.com/116-2-%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB.jpg">
-<meta property="og:image" content="http://q3vcvgneb.bkt.clouddn.com/116-3-%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB.jpg">
+<meta property="og:image" content="https://csblogimage.oss-cn-hangzhou.aliyuncs.com/116-1-%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB.jpg?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,size_16,text_Qnku6ZmI5YWI55Sf55qE5bCP5YmN56uv,color_FFFFFF,shadow_50,t_100,g_se,x_10,y_10">
+<meta property="og:image" content="https://csblogimage.oss-cn-hangzhou.aliyuncs.com/116-2-%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB.jpg?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,size_16,text_Qnku6ZmI5YWI55Sf55qE5bCP5YmN56uv,color_FFFFFF,shadow_50,t_100,g_se,x_10,y_10">
+<meta property="og:image" content="https://csblogimage.oss-cn-hangzhou.aliyuncs.com/116-3-%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB.jpg?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,size_16,text_Qnku6ZmI5YWI55Sf55qE5bCP5YmN56uv,color_FFFFFF,shadow_50,t_100,g_se,x_10,y_10">
 <meta property="article:published_time" content="2020-01-20T02:28:00.000Z">
-<meta property="article:modified_time" content="2020-01-20T09:30:31.323Z">
+<meta property="article:modified_time" content="2020-05-01T03:51:00.389Z">
 <meta property="article:author" content="陈晟">
 <meta property="article:tag" content="人脸识别">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://q3vcvgneb.bkt.clouddn.com/116-1-%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB">
+<meta name="twitter:image" content="https://csblogimage.oss-cn-hangzhou.aliyuncs.com/116-1-%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB.jpg?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,size_16,text_Qnku6ZmI5YWI55Sf55qE5bCP5YmN56uv,color_FFFFFF,shadow_50,t_100,g_se,x_10,y_10">
   <link rel="canonical" href="https://www.chensheng.group/2020/01/20/116-%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB/">
 
 
@@ -348,10 +348,10 @@
 <p><a href="https://cloud.baidu.com/campaign/Annualceremony-2020/index.html?track=cp:nsem|pf:pc|pp:npinzhuan-biaoti|pu:wenzineirong|ci:2020ndsd|kw:2180026" target="_blank" rel="noopener">官方网站</a></p>
 <p>2、创建人脸识别应用</p>
 <p>进入页面后,在侧边栏选择人脸识别,在应用列表中创建一个新的应用,填写【应用名称】和【应用描述】,其他的使用默认值就可以了</p>
-<p><img src="http://q3vcvgneb.bkt.clouddn.com/116-1-%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB" alt=""></p>
+<p><img src="https://csblogimage.oss-cn-hangzhou.aliyuncs.com/116-1-%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB.jpg?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,size_16,text_Qnku6ZmI5YWI55Sf55qE5bCP5YmN56uv,color_FFFFFF,shadow_50,t_100,g_se,x_10,y_10" alt=""></p>
 <p>3、获取秘钥</p>
 <p>应用创建成功后,记录下自己的API Key、Secret Key</p>
-<p><img src="http://q3vcvgneb.bkt.clouddn.com/116-2-%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB.jpg" alt=""></p>
+<p><img src="https://csblogimage.oss-cn-hangzhou.aliyuncs.com/116-2-%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB.jpg?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,size_16,text_Qnku6ZmI5YWI55Sf55qE5bCP5YmN56uv,color_FFFFFF,shadow_50,t_100,g_se,x_10,y_10" alt=""></p>
 <p>根据百度文档的API,第一次需要讲API Key、Secret Key传过去,用来获取Access Token,之后每一次请求都将这个token传递过去就可以了</p>
 <p>4、创建人脸库</p>
 <p>新建应用后,在人脸库管理中新增一个库,用来保存人脸识别的图片,这里图片就不贴出来了</p>
@@ -416,7 +416,7 @@
 
 <p>完整的代码中包含了,人脸识别认证后自动截图,自动关闭摄像头等功能</p>
 <p>示意图,如果有人脸,是会有紫色的框框,这里因为没有人脸,所以没有</p>
-<p><img src="http://q3vcvgneb.bkt.clouddn.com/116-3-%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB.jpg" alt=""></p>
+<p><img src="https://csblogimage.oss-cn-hangzhou.aliyuncs.com/116-3-%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB.jpg?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,size_16,text_Qnku6ZmI5YWI55Sf55qE5bCP5YmN56uv,color_FFFFFF,shadow_50,t_100,g_se,x_10,y_10" alt=""></p>
 <div class="note warning">
             <p>需要注意的是,在移动端,由于安全策略的原因,摄像头不能开启成功,录音等audio自动播放因为安全策略也都是不可以的.</p>
           </div>
@@ -580,7 +580,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">122</span>
+          <span class="site-state-item-count">123</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -677,7 +677,7 @@
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">356k</span>
+    <span title="站点总字数">357k</span>
 </div>
   <div class="powered-by">欢迎访问
   </div>
