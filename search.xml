@@ -1,6 +1,222 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>vue-cli 打包优化</title>
+    <url>/2020/06/21/129-vue%E6%89%93%E5%8C%85%E4%BC%98%E5%8C%96/</url>
+    <content><![CDATA[<hr style='filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)' color='#FF0000' size='1' />
+
+<blockquote>
+<p>随着项目越来越大,打包的速度也变的很慢,甚至出现了node内存溢出,今天来一起学习一下打包的一些优化</p>
+</blockquote>
+<a id="more"></a>
+
+<h3 id="node内存溢出"><a href="#node内存溢出" class="headerlink" title="node内存溢出"></a>node内存溢出</h3><p>有些时候,打包或者编译会报这个错误: <code>FATAL ERROR: Ineffective mark-compacts near heap limit Allocation failed</code></p>
+<p>是因为Node是基于V8引擎,我们的64位电脑只能支持到1.4G的内存,超过这个就会报错,解决方法如下</p>
+<p>cnpm install -g increase-memory-limit 全局安装<code>increase-memory-limit</code></p>
+<p>进入项目文件夹,运行：<code>increase-memory-limit</code></p>
+<p>如果还是不行,在packjson中修改build命令</p>
+<p><code>&quot;build&quot;: &quot;node --max_old_space_size=8192 build/build.js&quot;</code></p>
+<blockquote>
+<p>如果是多人合作的项目,也可以直接将increase-memory-limit配置到文件当中,做法如下</p>
+</blockquote>
+<p>npm install increase-memory-limit -S<br>npm install cross-env -S</p>
+<p>在packjson中添加命令<code>&quot;fix-memory-limit&quot;: &quot;cross-env LIMIT=8192 increase-memory-limit&quot;</code></p>
+<p>直接运行 <code>npm run fix-memory-limit</code> 就可以了</p>
+<p>可以在/node_modules/.bin/文件中看到,文件被修改了运行内存</p>
+<h3 id="使用HappyPack多进程进行loader处理"><a href="#使用HappyPack多进程进行loader处理" class="headerlink" title="使用HappyPack多进程进行loader处理"></a>使用HappyPack多进程进行loader处理</h3><p>优化原理: </p>
+<ol>
+<li>由于运行在 Node.js 之上的 Webpack 是单线程模型的,所以 Webpack 需要处理的事情只能一件一件地做,不能多件事一起做。</li>
+<li>而 HappyPack 的处理思路是：将原有的 webpack 对 loader 的执行过程,从单一进程的形式扩展多进程模式,从而加速代码构建。</li>
+</ol>
+<p><code>cnpm i happypack -S</code> 安装插件</p>
+<p>修改<code>build/webpack.base.conf.js</code> 文件</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const HappyPack &#x3D; require(&#39;happypack&#39;);</span><br><span class="line">&#x2F;&#x2F; node 提供的系统操作模块</span><br><span class="line">const os &#x3D; require(&#39;os&#39;);</span><br><span class="line">&#x2F;&#x2F; 根据我的系统的内核BS数量 指定BS线程池个数 也可以其他数量</span><br><span class="line">const happyThreadPool &#x3D; HappyPack.ThreadPool(&#123; size: os.cpus().length &#125;);</span><br><span class="line"> </span><br><span class="line">module.exports &#x3D; &#123;</span><br><span class="line">  module: &#123;</span><br><span class="line">    rules: [</span><br><span class="line">      &#123;</span><br><span class="line">        test: &#x2F;\.js$&#x2F;,</span><br><span class="line">        &#x2F;&#x2F;把对.js 的文件处理交给id为happyBabel 的HappyPack 的实例执行</span><br><span class="line">        loader: &#39;happypack&#x2F;loader?id&#x3D;happyBabel&#39;,</span><br><span class="line">        include: [resolve(&#39;src&#39;)],</span><br><span class="line">        &#x2F;&#x2F;排除node_modules 目录下的文件</span><br><span class="line">        exclude: &#x2F;node_modules&#x2F;</span><br><span class="line">      &#125;,</span><br><span class="line">    ]</span><br><span class="line">  &#125;,</span><br><span class="line">  plugins: [</span><br><span class="line">    new HappyPack(&#123;</span><br><span class="line">        &#x2F;&#x2F;用id来标识 happypack处理那里类文件</span><br><span class="line">      id: &#39;happyBabel&#39;,</span><br><span class="line">      &#x2F;&#x2F;如何处理  用法和loader 的配置一样</span><br><span class="line">      loaders: [&#123;</span><br><span class="line">        loader: &#39;babel-loader?cacheDirectory&#x3D;true&#39;,</span><br><span class="line">      &#125;],</span><br><span class="line">      &#x2F;&#x2F;共享进程池</span><br><span class="line">      threadPool: happyThreadPool,</span><br><span class="line">      &#x2F;&#x2F;允许 HappyPack 输出日志</span><br><span class="line">      verbose: true,</span><br><span class="line">    &#125;)</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>如果报错的话,说明当前使用的webpack版本没有自带os,需要自己安装</p>
+</blockquote>
+<p>npm i webpack-parallel-uglify-plugin -D<br>npm i os -D</p>
+<h3 id="配置-resolve-modules"><a href="#配置-resolve-modules" class="headerlink" title="配置 resolve.modules"></a>配置 resolve.modules</h3><p>优化原理:</p>
+<ol>
+<li>webpack 的 resolve.modules 是用来配置模块库（即 node_modules）所在的位置。当 js 里出现 import ‘vue’ 这样不是相对、也不是绝对路径的写法时,它便会到 node_modules 目录下去找。</li>
+<li>在默认配置下,webpack 会采用向上递归搜索的方式去寻找。但通常项目目录里只有一个 node_modules,且是在项目根目录。为了减少搜索范围,可我们以直接写明 node_modules 的全路径。</li>
+</ol>
+<p>修改<code>build/webpack.base.conf.js</code> 文件</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">module.exports &#x3D; &#123;</span><br><span class="line">  resolve: &#123;</span><br><span class="line">    extensions: [&#39;.js&#39;, &#39;.vue&#39;, &#39;.json&#39;],</span><br><span class="line">    modules: [</span><br><span class="line">      resolve(&#39;src&#39;),</span><br><span class="line">      resolve(&#39;node_modules&#39;)</span><br><span class="line">    ],</span><br><span class="line">    alias: &#123;</span><br><span class="line">      &#39;vue$&#39;: &#39;vue&#x2F;dist&#x2F;vue.esm.js&#39;,</span><br><span class="line">      &#39;@&#39;: resolve(&#39;src&#39;),</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="查看打包后的文件体积"><a href="#查看打包后的文件体积" class="headerlink" title="查看打包后的文件体积"></a>查看打包后的文件体积</h3><p>打包的时候 <code>npm run build --report</code></p>
+<h3 id="使用webpack-parallel-uglify-plugin多线程压缩JS"><a href="#使用webpack-parallel-uglify-plugin多线程压缩JS" class="headerlink" title="使用webpack-parallel-uglify-plugin多线程压缩JS"></a>使用webpack-parallel-uglify-plugin多线程压缩JS</h3><p>优化原理:</p>
+<ol>
+<li>默认情况下 webpack 使用 UglifyJS 插件进行代码压缩,但由于其采用单线程压缩,速度很慢。</li>
+<li>我们可以改用 webpack-parallel-uglify-plugin 插件,它可以并行运行 UglifyJS 插件,从而更加充分、合理的使用 CPU 资源,从而大大减少构建时间。</li>
+</ol>
+<p><code>npm i webpack-parallel-uglify-plugin</code> 安装</p>
+<p>修改<code>build/webpack.prod.conf.js</code> 文件</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const ParallelUglifyPlugin &#x3D; require(&#39;webpack-parallel-uglify-plugin&#39;);</span><br><span class="line">&#x2F;&#x2F; 删掉webpack提供的UglifyJS插件</span><br><span class="line">&#x2F;&#x2F;new UglifyJsPlugin(&#123;</span><br><span class="line">&#x2F;&#x2F;  uglifyOptions: &#123;</span><br><span class="line">&#x2F;&#x2F;    compress: &#123;</span><br><span class="line">&#x2F;&#x2F;      warnings: false</span><br><span class="line">&#x2F;&#x2F;    &#125;</span><br><span class="line">&#x2F;&#x2F;  &#125;,</span><br><span class="line">&#x2F;&#x2F;  sourceMap: config.build.productionSourceMap,</span><br><span class="line">&#x2F;&#x2F;  parallel: true</span><br><span class="line">&#x2F;&#x2F;&#125;),</span><br><span class="line">&#x2F;&#x2F; 增加 webpack-parallel-uglify-plugin来替换</span><br><span class="line">  new ParallelUglifyPlugin(&#123;</span><br><span class="line">    cacheDir: &#39;.cache&#x2F;&#39;,</span><br><span class="line">    uglifyJS:&#123;</span><br><span class="line">      output: &#123;</span><br><span class="line">        comments: false</span><br><span class="line">      &#125;,</span><br><span class="line">      warnings: false</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br></pre></td></tr></table></figure>
+
+<p>可能打包后会报错:</p>
+<p>ERROR in Encountered an error while minifying static/js/vendor.js:<br>Maximum call stack size exceeded</p>
+<p>不要紧,是因为vendor.js这个文件太大了,导致压缩失败,继续往下走,后面把第三方库抽离出来后就不会报错了</p>
+<h3 id="去出map文件-并开启gzip打包"><a href="#去出map文件-并开启gzip打包" class="headerlink" title="去出map文件,并开启gzip打包"></a>去出map文件,并开启gzip打包</h3><p><code>cnpm install --save-dev compression-webpack-plugin@1.1.11</code>安装,这里一定要带版本号安装,否则会报错</p>
+<p>在config/index中修改</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">build: &#123;</span><br><span class="line">  productionSourceMap: false,</span><br><span class="line">  productionGzip: true</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用-DllPlugin-和-DllReferencePlugin-预编译资源模块"><a href="#使用-DllPlugin-和-DllReferencePlugin-预编译资源模块" class="headerlink" title="使用 DllPlugin 和 DllReferencePlugin 预编译资源模块"></a>使用 DllPlugin 和 DllReferencePlugin 预编译资源模块</h3><p>优化原理:</p>
+<ol>
+<li>我们的项目依赖中通常会引用大量的 npm 包,而这些包在正常的开发过程中并不会进行修改,但是在每一次构建过程中却需要反复的将其解析,而下面介绍的两个插件就是用来规避此类损耗的：<ul>
+<li>DllPlugin 插件：作用是预先编译一些模块。</li>
+<li>DllReferencePlugin 插件：它的所用则是把这些预先编译好的模块引用起来。</li>
+</ul>
+</li>
+<li>注意：DllPlugin 必须要在 DllReferencePlugin 执行前先执行一次,dll 这个概念应该也是借鉴了 windows 程序开发中的 dll 文件的设计理念。</li>
+</ol>
+<p>实践: </p>
+<p>新建一个配置文件，比如build/webpack.dll.conf.js</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const path &#x3D; require(&#39;path&#39;)</span><br><span class="line">const webpack &#x3D; require(&#39;webpack&#39;)</span><br><span class="line">module.exports &#x3D; &#123;</span><br><span class="line">  entry: &#123;</span><br><span class="line">    vendor: [&#39;vue&#39;,&#39;vue-router&#39;]</span><br><span class="line">  &#125;,</span><br><span class="line">  output: &#123;</span><br><span class="line">    path: path.join(__dirname, &#39;..&#x2F;static&#39;),</span><br><span class="line">    filename: &#39;dll.[name].js&#39;,</span><br><span class="line">    library: &#39;[name]&#39;</span><br><span class="line">  &#125;,</span><br><span class="line">  plugins: [</span><br><span class="line">    new webpack.DllPlugin(&#123;</span><br><span class="line">      path: path.join(__dirname, &#39;..&#x2F;&#39;, &#39;[name]-manifest.json&#39;),</span><br><span class="line">      context: __dirname, &#x2F;&#x2F;必填，不然在web网页中找不到 &#39;_dll_[name]&#39;，会报错</span><br><span class="line">      name: &#39;[name]&#39;</span><br><span class="line">    &#125;)</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>vendor里面就是第三方库</p>
+</blockquote>
+<p>编辑 package.json 文件,添加一条编译命令</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&quot;dll&quot;: &quot;webpack --config build&#x2F;webpack.dll.conf.js&quot;</span><br></pre></td></tr></table></figure>
+
+<p>npm run dll 成功以后，static下会有dll.vendor.js，根目录下会有vendor.manifest.json</p>
+<p>ok，到这里，抽离依赖库的事情就完成了，那么接下来问题就是怎么引用呢，怎么在dev和build跑呢？</p>
+<p>这里补了一点dll和commonsChunk概念上的区别，commonsChunk之所以慢和大，是因为每次run的时候，都会去做一次打包，而实际上我们不会一直去更新我们引用的依赖库，所以dll的做法就等于是，事先先打包好依赖库，然后只对每次都修改的js做打包。</p>
+<p>好了,继续</p>
+<p>修改build/webpack.base.conf.js，添加DllReferencePlugin的配置</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const webpack &#x3D; require(&#39;webpack&#39;);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;.....</span><br><span class="line">plugins: [</span><br><span class="line">   &#x2F;&#x2F; 添加DllReferencePlugin插件</span><br><span class="line">   new webpack.DllReferencePlugin(&#123;</span><br><span class="line">     context: path.resolve(__dirname, &#39;..&#39;),</span><br><span class="line">     manifest: require(&#39;.&#x2F;vendor-manifest.json&#39;)</span><br><span class="line">   &#125;),</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<p>到这里,vue打包优化配置基本结束</p>
+]]></content>
+      <categories>
+        <category>Vue-cli</category>
+      </categories>
+      <tags>
+        <tag>Vue-cli</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>vue-cli 打包删除console.log</title>
+    <url>/2020/06/05/128-vue%E6%89%93%E5%8C%85%E5%8E%BB%E9%99%A4log/</url>
+    <content><![CDATA[<hr style='filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)' color='#FF0000' size='1' />
+
+<blockquote>
+<p>项目打包的时候想要删除console.log,但是又不想手动删除,万一编译的时候还要用,这时候就要自己开始配置了</p>
+</blockquote>
+<a id="more"></a>
+
+<h3 id="vue-cli-2-版本-并且-webpack-3-版本"><a href="#vue-cli-2-版本-并且-webpack-3-版本" class="headerlink" title="vue-cli 2 版本 并且 webpack 3 版本"></a>vue-cli 2 版本 并且 webpack 3 版本</h3><p>打开webpack.prod.conf.js文件</p>
+<p>找到 UglifyJsPlugin, 添加<code>drop_console: true</code> 就可以了</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">new UglifyJsPlugin(&#123;</span><br><span class="line">  uglifyOptions: &#123;</span><br><span class="line">    compress: &#123;</span><br><span class="line">      warnings: false,</span><br><span class="line">      drop_debugger: true,</span><br><span class="line">      drop_console: true</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  sourceMap: config.build.productionSourceMap,</span><br><span class="line">  parallel: true</span><br><span class="line">&#125;),</span><br></pre></td></tr></table></figure>
+
+<h3 id="vue-cli-3-4-版本"><a href="#vue-cli-3-4-版本" class="headerlink" title="vue-cli 3 || 4 版本"></a>vue-cli 3 || 4 版本</h3><p>由于这个版本的webpack被简化了,所以我们的项目中没有build文件夹,所以可以在vue.config.js的文件中进行配置</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">configureWebpack: (config) &#x3D;&gt; &#123;</span><br><span class="line">  &#x2F;&#x2F; 覆盖webpack默认配置的都在这里</span><br><span class="line">  if (process.env.NODE_ENV &#x3D;&#x3D;&#x3D; &quot;production&quot;) &#123;</span><br><span class="line">    config.optimization.minimizer[0].options.terserOptions.compress.warnings &#x3D; false;</span><br><span class="line">    config.optimization.minimizer[0].options.terserOptions.compress.drop_console &#x3D; true;</span><br><span class="line">    config.optimization.minimizer[0].options.terserOptions.compress.drop_debugger &#x3D; true;</span><br><span class="line">    config.optimization.minimizer[0].options.terserOptions.compress.pure_funcs &#x3D; [</span><br><span class="line">      &quot;console.log&quot;</span><br><span class="line">    ];</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>有看到其他用插件的,什么安装<code>babel-plugin-transform-remove-console</code>,安装<code>terser-webpack-plugin</code>, 都太麻烦了,webpack中有自带的,用它的就行</p>
+<p>以上就是我对eslink配置的一些理解,如果文章由于我学识浅薄,导致您发现有严重谬误的地方,请一定在评论中指出,我会在第一时间修正我的博文,以避免误人子弟。</p>
+]]></content>
+      <categories>
+        <category>Vue-cli</category>
+      </categories>
+      <tags>
+        <tag>Vue-cli</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>vue源码学习-响应式原理</title>
+    <url>/2020/05/31/127-vue%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0-%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86/</url>
+    <content><![CDATA[<hr style='filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)' color='#FF0000' size='1' />
+
+<blockquote>
+<p>响应式原理是什么?为什么vue能监听到data里面的变化?为什么一定要把变量写在data里?为什么有时候数组监听不到?一起来学习一下吧</p>
+</blockquote>
+<a id="more"></a>
+
+<h3 id="响应式核心"><a href="#响应式核心" class="headerlink" title="响应式核心"></a>响应式核心</h3><p>我们都知道vue是MVVM模式,数据驱动视图,那么他的响应式是如何实现的呢?</p>
+<p>面试的时候也经常会这么问,一般我们都会回答一下根据<code>Object.defineProperty</code>来实现响应式原理,这也就够了,但是具体是怎么实现的呢</p>
+<p>Vue在初始化数据的时候,会默认把data里面的值进行遍历,内部会使用<code>Object.defineProperty</code>重新定义所有属性</p>
+<p>而<code>Object.defineProperty</code>的特点,可以使数据的设置(set)或者获取(get)都增加一个拦截的功能</p>
+<p>当页面取到对应属性时,会进行<code>依赖收集(收集当前组件的watcher)</code>,当属性发生变化时,就会通知相关的依赖进行更新操作</p>
+<p>举个例子,我们在页面上渲染一个数据,我们就会对这个数据进行取值,取值的时候我们就可以把当前的渲染watcher给存起来,当数据变化的时候,就会告诉对应的watcher进行更新,这样就实现了响应式数据原理</p>
+<h3 id="Vue实现响应式原理"><a href="#Vue实现响应式原理" class="headerlink" title="Vue实现响应式原理"></a>Vue实现响应式原理</h3><p>那Vue的源码是如何实现上面这些步骤的呢(下面的方法都是vue源码定义的)</p>
+<ol>
+<li>initData</li>
+</ol>
+<p>当Vue初始化数据的时候,会调用一个initdata方法,获取当前data传入的数据</p>
+<ol start="2">
+<li>new Observer</li>
+</ol>
+<p>创建一个观测类,观测获取到的数据</p>
+<ol start="3">
+<li>this.walk(value)</li>
+</ol>
+<p>如果数据是一个对象(非数组),就会调用this.walk这个方法,内部会重新遍历这些数据,用defineReactive重新定义(使用Object.defineProperty)</p>
+<ol start="4">
+<li>defineReactive(循环对象属性定义响应式变化)</li>
+<li>Object.defineProperty(使用Object.defineProperty重新定义数据)</li>
+</ol>
+<p>由于我们传入的data必定是个对象,所以一定会观测到数据变化</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">new Vue(&#123;</span><br><span class="line">  data: &#123;&#125;</span><br><span class="line">  &#x2F;&#x2F; 不能是 data: &#39;&#39;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>这也是为什么data传入的一定是个对象,不能是字符串;如果对象中嵌套对象,内部会进行递归遍历</p>
+<p>但是如果data中的属性是后面添加进行去,Vue就无法对他进行响应式更新,举个例子</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">new Vue(&#123;</span><br><span class="line">  data:&#123;</span><br><span class="line">    a:1</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; &#96;vm.a&#96; 是响应式的</span><br><span class="line"></span><br><span class="line">vm.b &#x3D; 2</span><br><span class="line">&#x2F;&#x2F; &#96;vm.b&#96; 是非响应式的</span><br></pre></td></tr></table></figure>
+
+<p>因为初始化我们initData的时候,没有获取到他的值,但是我们可以这样操作</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">this.$set(this.someObject,&#39;b&#39;,2)</span><br></pre></td></tr></table></figure>
+
+<p>这也是在对象中如何重新定义一个新的属性来被Vue检查到的方法</p>
+<h3 id="大致的源码解析"><a href="#大致的源码解析" class="headerlink" title="大致的源码解析"></a>大致的源码解析</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function observe (obj) &#123; &#x2F;&#x2F; 我们来用它使对象变成可观察的</span><br><span class="line">  &#x2F;&#x2F; 判断类型</span><br><span class="line">  if (!obj || typeof obj !&#x3D;&#x3D; &#39;object&#39;) &#123;</span><br><span class="line">    return</span><br><span class="line">  &#125;</span><br><span class="line">  Object.keys(obj).forEach(key &#x3D;&gt; &#123;</span><br><span class="line">    defineReactive(obj, key, obj[key])</span><br><span class="line">  &#125;)</span><br><span class="line">  function defineReactive (obj, key, value) &#123;</span><br><span class="line">    &#x2F;&#x2F; 递归子属性</span><br><span class="line">    observe(value)</span><br><span class="line">    Object.defineProperty(obj, key, &#123;</span><br><span class="line">      enumerable: true, &#x2F;&#x2F;可枚举（可以遍历）</span><br><span class="line">      configurable: true, &#x2F;&#x2F;可配置（比如可以删除）</span><br><span class="line">      get: function reactiveGetter () &#123;</span><br><span class="line">        const value &#x3D; getter ? getter.call(obj) : val</span><br><span class="line">        if (Dep.target) &#123;</span><br><span class="line">          dep.depend() &#x2F;&#x2F; ** 收集依赖 ** &#x2F;        </span><br><span class="line">          if (childOb) &#123;</span><br><span class="line">            childOb.dep.depend()</span><br><span class="line">            if (Array.isArray(value)) &#123;</span><br><span class="line">              dependArray(value)</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return value</span><br><span class="line">      &#125;,</span><br><span class="line">      set: function reactiveSetter (newVal) &#123;</span><br><span class="line">        const value &#x3D; getter ? getter.call(obj) : val</span><br><span class="line">        if (newVal &#x3D;&#x3D;&#x3D; value || (newVal !&#x3D;&#x3D; newVal &amp;&amp; value !&#x3D;&#x3D; value)) &#123;</span><br><span class="line">          return</span><br><span class="line">        &#125; </span><br><span class="line">        if (process.env.NODE_ENV !&#x3D;&#x3D; &#39;production&#39; &amp;&amp; customSetter) &#123;</span><br><span class="line">          customSetter()</span><br><span class="line">        &#125;</span><br><span class="line">        val &#x3D; newVal</span><br><span class="line">        childOb &#x3D; !shallow &amp;&amp; observe(newVal) &#x2F;&#x2F;如果赋值是一个对象，也要递归子属性</span><br><span class="line">        dep.notify() &#x2F;**通知相关依赖进行更新**&#x2F;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="vue如何检测数组变化"><a href="#vue如何检测数组变化" class="headerlink" title="vue如何检测数组变化"></a>vue如何检测数组变化</h3><p>数组更新的方法有七种,pop/push/reverse/shift/sort/splice/unshift,Vue使用函数劫持的方式,重写了数组的方法,进行了原型链的重写,指向了自己定义的数组原型方法</p>
+<p>这样当调用数组api的时候,可以通知依赖更新,如果数组中包含着引用类型,会对数组中的引用类型再次进行监控</p>
+<ol>
+<li>initData</li>
+<li>new Observer</li>
+<li>protoAugment(将数组的原型方法指向重写的原型)</li>
+<li>observeArray(深度观察数组中的每一项,如果是对象的话,会进一步观测)</li>
+</ol>
+<p>为什么只监听七种方法呢,因为只有这七种方法才可以改变我们的数组,这也是为什么我们直接通过角标修改数组,视图不能及时的响应更新,当这并不是绝对的,举个例子</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; 假设有一个数组</span><br><span class="line">let ary &#x3D; [ &#123; a: 1 &#125;, &#39;csing&#39;];</span><br><span class="line"></span><br><span class="line">ary[0].a &#x3D; 2; &#x2F;&#x2F; 可以监听到</span><br><span class="line">ary[1] &#x3D; &#39;chensheng&#39;; &#x2F;&#x2F; 监听不到</span><br></pre></td></tr></table></figure>
+
+<p>因为observeArray方法会深度观察数组中的每一项,所以如果是对象的话,还是会进行defineReactive定义响应式变化</p>
+<p>所以如果需要修改数组中的字符串,需要<code>this.$set(vm.items, indexOfItem, newValue)</code></p>
+<h3 id="大致的源码解析-1"><a href="#大致的源码解析-1" class="headerlink" title="大致的源码解析"></a>大致的源码解析</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const arrayProto &#x3D; Array.prototype </span><br><span class="line">export const arrayMethods &#x3D; Object.create(arrayProto) </span><br><span class="line">const methodsToPatch &#x3D; [&#39;push&#39;,  &#39;pop&#39;,  &#39;shift&#39;,  &#39;unshift&#39;,  &#39;splice&#39;,  &#39;sort&#39;,  &#39;reverse&#39;] </span><br><span class="line"></span><br><span class="line">methodsToPatch.forEach(function (method) &#123; &#x2F;&#x2F; 重写原型方法</span><br><span class="line">  const original &#x3D; arrayProto[method] &#x2F;&#x2F; 调用原数组的方法</span><br><span class="line">  def(arrayMethods, method, function mutator (...args) &#123;</span><br><span class="line">    const result &#x3D; original.apply(this, args)</span><br><span class="line">    const ob &#x3D; this.__ob__</span><br><span class="line">    let inserted</span><br><span class="line">    switch (method) &#123;</span><br><span class="line">      case &#39;push&#39;:</span><br><span class="line">      case &#39;unshift&#39;:</span><br><span class="line">        inserted &#x3D; args</span><br><span class="line">        break</span><br><span class="line">    case &#39;splice&#39;:</span><br><span class="line">      inserted &#x3D; args.slice(2)</span><br><span class="line">      break</span><br><span class="line">    &#125; </span><br><span class="line">     if (inserted) ob.observeArray(inserted)</span><br><span class="line">    &#x2F;&#x2F; notify change</span><br><span class="line">    ob.dep.notify() &#x2F;&#x2F; 当调用数组方法后，手动通知视图更新</span><br><span class="line">    return result</span><br><span class="line">  &#125;) </span><br><span class="line">&#125;)</span><br><span class="line">this.observeArray(value) &#x2F;&#x2F; 进行深度监控</span><br></pre></td></tr></table></figure>
+
+<p>以上就是我对vue响应式原理的一些理解,如果文章由于我学识浅薄,导致您发现有严重谬误的地方,请一定在评论中指出,我会在第一时间修正我的博文,以避免误人子弟。</p>
+]]></content>
+      <categories>
+        <category>Vue</category>
+      </categories>
+      <tags>
+        <tag>Vue</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>eslink配置记录</title>
+    <url>/2020/05/23/126-eslink%E9%85%8D%E7%BD%AE/</url>
+    <content><![CDATA[<hr style='filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)' color='#FF0000' size='1' />
+
+<blockquote>
+<p>项目中都有使用到eslink,怎么安装我就不说了,现在vue-cli4.0初始化的时候,都会提示你是否直接安装</p>
+</blockquote>
+<a id="more"></a>
+
+<p>本篇记录一下自己经常用到的一些eslink的配置,一些vue风格的没有配置,类似规定组件大小写之类的,有兴趣的可以自己加上</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const isPro &#x3D; process.env.NODE_ENV &#x3D;&#x3D;&#x3D; &quot;production&quot;;</span><br><span class="line">module.exports &#x3D; &#123;</span><br><span class="line">  root: true,</span><br><span class="line">  parserOptions: &#123;</span><br><span class="line">    parser: &quot;babel-eslint&quot;,</span><br><span class="line">    ecmaVersion:true</span><br><span class="line">  &#125;,</span><br><span class="line">  env: &#123;</span><br><span class="line">    browser: true,</span><br><span class="line">    es6: true,</span><br><span class="line">  &#125;,</span><br><span class="line">  extends: [&#39;plugin:vue&#x2F;essential&#39;],</span><br><span class="line">  plugins: [&quot;vue&quot;],</span><br><span class="line">  &#x2F;&#x2F; &quot;off&quot;或者0    关闭规则关闭</span><br><span class="line">  &#x2F;&#x2F; &quot;warn&quot;或者1   在打开的规则作为警告（不影响退出代码）</span><br><span class="line">  &#x2F;&#x2F; &quot;error&quot;或者2  把规则作为一个错误（退出代码触发时为1）</span><br><span class="line">  rules: &#123;</span><br><span class="line">    &#x2F;&#x2F; 代码风格规范</span><br><span class="line">    &quot;quotes&quot;: [2, &quot;single&quot;], &#x2F;&#x2F;字符串使用单引号</span><br><span class="line">    &quot;space-infix-ops&quot;: 2, &#x2F;&#x2F; 操作符周围要有空格</span><br><span class="line">    &quot;spaced-comment&quot;: 2, &#x2F;&#x2F;注释风格要有空格</span><br><span class="line">    &quot;comma-spacing&quot;: 2, &#x2F;&#x2F;逗号后要有空格</span><br><span class="line">    &quot;comma-style&quot;: [2, &quot;last&quot;], &#x2F;&#x2F;逗号风格，换行时在行首还是行尾</span><br><span class="line">    &quot;consistent-this&quot;: [2, &quot;_this&quot;], &#x2F;&#x2F;this别名</span><br><span class="line">    &quot;curly&quot;: [2, &quot;all&quot;], &#x2F;&#x2F;必须使用 if()&#123;&#125; 中的&#123;&#125;</span><br><span class="line">    &quot;brace-style&quot;: [2, &quot;1tbs&quot;], &#x2F;&#x2F; 大括号和关键字在同一行</span><br><span class="line">    &quot;no-unused-vars&quot;: [0, &#123;&quot;vars&quot;: &quot;all&quot;, &quot;args&quot;: &quot;after-used&quot;&#125;], &#x2F;&#x2F;不能有声明后未被使用的变量或参数</span><br><span class="line">    &quot;no-use-before-define&quot;: 0, &#x2F;&#x2F;未定义前不能使用</span><br><span class="line">    &quot;arrow-parens&quot;: 2, &#x2F;&#x2F;箭头函数用小括号括起来</span><br><span class="line">    &quot;no-multiple-empty-lines&quot;: [1, &#123;&quot;max&quot;: 2&#125;], &#x2F;&#x2F;空行最多不能超过2行</span><br><span class="line">    &quot;operator-linebreak&quot;: [2, &quot;after&quot;], &#x2F;&#x2F;换行时运算符在行尾还是行首</span><br><span class="line">    &quot;indent&quot;: [2, 2], &#x2F;&#x2F;缩进风格,缩进两格</span><br><span class="line">    &quot;comma-dangle&quot;: [2, &quot;never&quot;], &#x2F;&#x2F;对象字面量项尾不能有逗号</span><br><span class="line">    &quot;dot-location&quot;: 2, &#x2F;&#x2F;对象访问符的位置，换行的时候在行首还是行尾</span><br><span class="line">    &quot;func-call-spacing&quot;: 2, &#x2F;&#x2F;函数调用不要空格</span><br><span class="line">    &quot;key-spacing&quot;: [2, &#123; &quot;afterColon&quot;: true, &quot;mode&quot;: &quot;strict&quot; &#125;], &#x2F;&#x2F; key的冒号后面要有空格</span><br><span class="line">    &quot;no-dupe-keys&quot;: 2,&#x2F;&#x2F;在创建对象字面量时不允许键重复 &#123;a:1,a:1&#125;</span><br><span class="line">    &quot;no-duplicate-case&quot;: 2,&#x2F;&#x2F;switch中的case标签不能重复</span><br><span class="line">    &quot;no-floating-decimal&quot;: 2,&#x2F;&#x2F;禁止省略浮点数中的0 .5 3.</span><br><span class="line">    &quot;no-multi-spaces&quot;: 2,&#x2F;&#x2F;不能用多余的空格</span><br><span class="line">    &quot;no-multi-str&quot;: 2, &#x2F;&#x2F;字符串不能用\换行</span><br><span class="line">    &quot;object-property-newline&quot;: 2, &#x2F;&#x2F;对象属性换行时注意统一代码风格。</span><br><span class="line">    &quot;padded-blocks&quot;: 0,&#x2F;&#x2F;块语句内行首行尾是否要空行</span><br><span class="line">    &quot;vue&#x2F;v-bind-style&quot;: [&quot;error&quot;, &quot;shorthand&quot;],</span><br><span class="line">    &quot;vue&#x2F;v-on-style&quot;: [&quot;error&quot;, &quot;shorthand&quot;],</span><br><span class="line">    &quot;prefer-destructuring&quot;: 0,</span><br><span class="line">    &quot;class-methods-use-this&quot;: 0,</span><br><span class="line">    &quot;no-mixed-operators&quot;: 0,</span><br><span class="line">    &quot;max-len&quot;: 0, &#x2F;&#x2F;字符串最大长度</span><br><span class="line">    &quot;no-unused-expressions&quot;: 2, &#x2F;&#x2F;禁止无用的表达式</span><br><span class="line">    &quot;import&#x2F;no-dynamic-require&quot;: 0,</span><br><span class="line">    &quot;func-names&quot;: 0, &#x2F;&#x2F;函数表达式必须有名字</span><br><span class="line">    &quot;no-underscore-dangle&quot;: 0, &#x2F;&#x2F;标识符不能以_开头或结尾</span><br><span class="line">    &quot;no-restricted-properties&quot;: 0,</span><br><span class="line">    &quot;no-restricted-syntax&quot;: 0,</span><br><span class="line">    &quot;no-prototype-builtins&quot;: 0,</span><br><span class="line">    &quot;no-plusplus&quot;: 0, &#x2F;&#x2F;禁止使用++，--</span><br><span class="line">    &quot;one-var&quot;: 0, &#x2F;&#x2F;连续声明</span><br><span class="line">    &quot;no-tabs&quot;: 0,</span><br><span class="line">    &quot;prefer-const&quot;: 0, &#x2F;&#x2F;首选const</span><br><span class="line">    &quot;global-require&quot;: 0,</span><br><span class="line">    &quot;guard-for-in&quot;: 0, &#x2F;&#x2F;for in循环要用if语句过滤</span><br><span class="line">    &quot;import&#x2F;extensions&quot;:0,</span><br><span class="line">    &quot;no-console&quot;: 0,</span><br><span class="line">    &quot;no-return-assign&quot;: 0, &#x2F;&#x2F;return 语句中不能有赋值表达式</span><br><span class="line">    &quot;no-param-reassign&quot;: 0, &#x2F;&#x2F;禁止给参数重新赋值</span><br><span class="line">    &quot;no-nested-ternary&quot;: 0, &#x2F;&#x2F;禁止使用嵌套的三目运算</span><br><span class="line">    &quot;camelcase&quot;: 0, &#x2F;&#x2F;强制驼峰法命名</span><br><span class="line">    &quot;eqeqeq&quot;: 0,&#x2F;&#x2F;必须使用全等</span><br><span class="line">    &quot;import&#x2F;no-extraneous-dependencies&quot;: 0,</span><br><span class="line">    &quot;no-debugger&quot;: isPro ? &quot;error&quot; : &quot;off&quot;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>以上就是我对eslink配置的一些理解,如果文章由于我学识浅薄,导致您发现有严重谬误的地方,请一定在评论中指出,我会在第一时间修正我的博文,以避免误人子弟。</p>
+]]></content>
+      <categories>
+        <category>eslink</category>
+      </categories>
+      <tags>
+        <tag>eslink</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>URL生成二维码</title>
     <url>/2020/05/02/125-%E7%94%9F%E6%88%90%E4%BA%8C%E7%BB%B4%E7%A0%81/</url>
     <content><![CDATA[<hr style='filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)' color='#FF0000' size='1' />
@@ -7316,8 +7532,8 @@ person（构造函数初始化的对象）--- _proto_ ---&gt; Person.prototype�
       </categories>
       <tags>
         <tag>javaScript</tag>
-        <tag>原型</tag>
         <tag>构造函数</tag>
+        <tag>原型</tag>
         <tag>继承</tag>
       </tags>
   </entry>
