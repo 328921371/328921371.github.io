@@ -67,7 +67,7 @@
 <meta property="og:description" content="项目打包的时候想要删除console.log,但是又不想手动删除,万一编译的时候还要用,这时候就要自己开始配置了">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-06-05T11:38:00.000Z">
-<meta property="article:modified_time" content="2020-06-05T14:50:23.218Z">
+<meta property="article:modified_time" content="2020-06-26T06:48:29.137Z">
 <meta property="article:author" content="陈晟">
 <meta property="article:tag" content="Vue-cli">
 <meta name="twitter:card" content="summary">
@@ -347,7 +347,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">configureWebpack: (config) &#x3D;&gt; &#123;</span><br><span class="line">  &#x2F;&#x2F; 覆盖webpack默认配置的都在这里</span><br><span class="line">  if (process.env.NODE_ENV &#x3D;&#x3D;&#x3D; &quot;production&quot;) &#123;</span><br><span class="line">    config.optimization.minimizer[0].options.terserOptions.compress.warnings &#x3D; false;</span><br><span class="line">    config.optimization.minimizer[0].options.terserOptions.compress.drop_console &#x3D; true;</span><br><span class="line">    config.optimization.minimizer[0].options.terserOptions.compress.drop_debugger &#x3D; true;</span><br><span class="line">    config.optimization.minimizer[0].options.terserOptions.compress.pure_funcs &#x3D; [</span><br><span class="line">      &quot;console.log&quot;</span><br><span class="line">    ];</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>有看到其他用插件的,什么安装<code>babel-plugin-transform-remove-console</code>,安装<code>terser-webpack-plugin</code>, 都太麻烦了,webpack中有自带的,用它的就行</p>
-<p>以上就是我对eslink配置的一些理解,如果文章由于我学识浅薄,导致您发现有严重谬误的地方,请一定在评论中指出,我会在第一时间修正我的博文,以避免误人子弟。</p>
+<p>以上就是我对console.log配置的一些理解,如果文章由于我学识浅薄,导致您发现有严重谬误的地方,请一定在评论中指出,我会在第一时间修正我的博文,以避免误人子弟。</p>
 
     </div>
 
@@ -506,7 +506,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">129</span>
+          <span class="site-state-item-count">130</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -519,7 +519,7 @@
             <a href="/categories/">
           
         
-        <span class="site-state-item-count">30</span>
+        <span class="site-state-item-count">31</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
@@ -532,7 +532,7 @@
             <a href="/tags/">
           
         
-        <span class="site-state-item-count">61</span>
+        <span class="site-state-item-count">62</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>
@@ -603,7 +603,7 @@
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">376k</span>
+    <span title="站点总字数">391k</span>
 </div>
   <div class="powered-by">欢迎访问
   </div>
