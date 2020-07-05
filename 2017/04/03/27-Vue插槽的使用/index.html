@@ -67,10 +67,9 @@
 <meta property="og:description" content="为了让组件可以组合，我们需要一种方式来混合父组件的内容与子组件自己的模板。这个过程被称为内容分发 。Vue.js 实现了一个内容分发 API，参照了当前 Web Components 规范草案，使用特殊的  元素作为原始内容的插槽。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2017-04-03T06:25:26.000Z">
-<meta property="article:modified_time" content="2020-01-15T03:03:52.942Z">
+<meta property="article:modified_time" content="2020-07-05T14:13:02.260Z">
 <meta property="article:author" content="陈晟">
 <meta property="article:tag" content="Vue">
-<meta property="article:tag" content="Vue插槽">
 <meta name="twitter:card" content="summary">
   <link rel="canonical" href="https://www.chensheng.group/2017/04/03/27-Vue%E6%8F%92%E6%A7%BD%E7%9A%84%E4%BD%BF%E7%94%A8/">
 
@@ -353,7 +352,7 @@
 <p>这就是插槽最基本的使用</p>
 <h3 id="作用域插槽"><a href="#作用域插槽" class="headerlink" title="作用域插槽"></a>作用域插槽</h3><p>作用域插槽是一种特殊类型的插槽，用作一个 (能被传递数据的) 可重用模板，来代替已经渲染好的元素。</p>
 <blockquote>
-<p>在父级中，具有特殊特性 slot-scope 的 <template> 元素必须存在，表示它是作用域插槽的模板。slot-scope 的值将被用作一个临时变量名，此变量接收从子组件传递过来的 prop 对象：</p>
+<p>在父级中，具有特殊特性 slot-scope 的 <code>&lt;template&gt;</code> 元素必须存在，表示它是作用域插槽的模板。slot-scope 的值将被用作一个临时变量名，此变量接收从子组件传递过来的 prop 对象：</p>
 </blockquote>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;component&gt;</span><br><span class="line">	&lt;template slot=<span class="string">'title'</span> scope=<span class="string">"props"</span>&gt;</span><br><span class="line">	<span class="comment">//scope="props" 类似于可以将组件中插槽传递的数据全部获取出来进行打点调用,点的是下面:的东西</span></span><br><span class="line">		&#123;&#123;message&#125;&#125;</span><br><span class="line">	<span class="comment">// message 这个是Vue实例中data的数据</span></span><br><span class="line">		&#123;&#123; props&#125;&#125;</span><br><span class="line">	&lt;<span class="regexp">/template&gt;</span></span><br><span class="line"><span class="regexp">		</span></span><br><span class="line"><span class="regexp">&lt;/</span>component&gt;</span><br></pre></td></tr></table></figure>
 
@@ -363,7 +362,7 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//这个是插槽将组件中data的数据传递过去</span></span><br><span class="line">&lt;slot name=<span class="string">'title'</span> :message=<span class="string">'message'</span> :title=<span class="string">'tit'</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">slot</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
 
 <blockquote>
-<p>在 2.5.0+ ，slot-scope 能被用在任意元素或组件中而不再局限于 <template>。这里演示的是2.4.*的版本，放在template中</p>
+<p>在 2.5.0+ ，slot-scope 能被用在任意元素或组件中而不再局限于 <code>&lt;template&gt;</code>。这里演示的是2.4.*的版本，放在template中</p>
 </blockquote>
 <p>以上就是我对Vue插槽的一些理解，还在学习中，哪里有错误请指导小生一下，谢谢</p>
 
@@ -433,8 +432,6 @@
           <div class="post-tags">
             
               <a href="/tags/Vue/" rel="tag"><i class="fa fa-tag"></i> Vue</a>
-            
-              <a href="/tags/Vue%E6%8F%92%E6%A7%BD/" rel="tag"><i class="fa fa-tag"></i> Vue插槽</a>
             
           </div>
         
@@ -526,7 +523,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">130</span>
+          <span class="site-state-item-count">133</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -539,7 +536,7 @@
             <a href="/categories/">
           
         
-        <span class="site-state-item-count">31</span>
+        <span class="site-state-item-count">33</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
@@ -552,7 +549,7 @@
             <a href="/tags/">
           
         
-        <span class="site-state-item-count">62</span>
+        <span class="site-state-item-count">63</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>
@@ -623,7 +620,7 @@
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">391k</span>
+    <span title="站点总字数">403k</span>
 </div>
   <div class="powered-by">欢迎访问
   </div>
