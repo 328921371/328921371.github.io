@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.chensheng.group/"/>
-  <updated>2020-07-05T14:06:40.047Z</updated>
+  <updated>2020-07-27T13:20:37.889Z</updated>
   <id>https://www.chensheng.group/</id>
   
   <author>
@@ -15,6 +15,60 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>hexo添加看板娘</title>
+    <link href="https://www.chensheng.group/2020/07/27/135-hexo%E7%9C%8B%E6%9D%BF%E5%A8%98/"/>
+    <id>https://www.chensheng.group/2020/07/27/135-hexo%E7%9C%8B%E6%9D%BF%E5%A8%98/</id>
+    <published>2020-07-27T13:10:00.000Z</published>
+    <updated>2020-07-27T13:20:37.889Z</updated>
+    
+    <content type="html"><![CDATA[<hr style='filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)' color='#FF0000' size='1' /><blockquote><p>何如给我们的博客添加一个会说话的看板娘呢</p></blockquote><a id="more"></a><h3 id="简易版"><a href="#简易版" class="headerlink" title="简易版"></a>简易版</h3><p>先安装插件</p><p>npm install –save hexo-helper-live2d</p><p><a href="https://github.com/summerscar/live2dDemo" target="_blank" rel="noopener">看板娘模型选择</a></p><p>选择一个看板娘的模型,继续下载 <code>npm install live2d-widget-model-z16 --save</code></p><p>然后在根目录下的_config.yml下配置live2d</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">live2d:</span><br><span class="line">  enable: true</span><br><span class="line">  scriptFrom: local</span><br><span class="line">  pluginRootPath: live2dw&#x2F;</span><br><span class="line">  pluginJsPath: lib&#x2F;</span><br><span class="line">  pluginModelPath: assets&#x2F;</span><br><span class="line">  tagMode: false</span><br><span class="line">  debug: false</span><br><span class="line">  model:</span><br><span class="line">    use: live2d-widget-model-z16</span><br><span class="line">    # live2d-widget-model-wanko</span><br><span class="line">    # live2d-widget-model-z16</span><br><span class="line">  display:</span><br><span class="line">    position: left</span><br><span class="line">    width: 150</span><br><span class="line">    height: 300</span><br><span class="line">  mobile:</span><br><span class="line">    show: true</span><br></pre></td></tr></table></figure><p>重新运行一下就好啦</p><h3 id="豪华版"><a href="#豪华版" class="headerlink" title="豪华版"></a>豪华版</h3><p>把之前的live2d卸载掉 <code>npm uninstall hexo-helper-live2d</code></p><p>下载大神的配置<a href="https://github.com/stevenjoezhang/live2d-widget" target="_blank" rel="noopener">戳我戳我</a></p><p>下载好之后,在主目录\themes\next\source目录下新建目录live2d-widget</p><p>然后修改autoload.js文件，将路径改为绝对路径</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 注意：live2d_path 参数应使用绝对路径</span><br><span class="line">&#x2F;&#x2F;const live2d_path &#x3D; &quot;https:&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;gh&#x2F;stevenjoezhang&#x2F;live2d-widget@latest&#x2F;&quot;;</span><br><span class="line">const live2d_path &#x3D; &quot;&#x2F;live2d-widget&#x2F;&quot;;</span><br></pre></td></tr></table></figure><p>之后就是引入链接了</p><p>有一些主题,路径在<code>/themes/主题名字/layout/_partial/head.ejs</code>目录下<br>我的next主题,是在<code>/themes/next/layout/_layout.swing</code>目录下</p><p>添加</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src&#x3D;&quot;https:&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;npm&#x2F;jquery&#x2F;dist&#x2F;jquery.min.js&quot;&gt;&lt;&#x2F;script&gt;</span><br><span class="line">&lt;link rel&#x3D;&quot;stylesheet&quot; href&#x3D;&quot;https:&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;npm&#x2F;font-awesome&#x2F;css&#x2F;font-awesome.min.css&quot;&#x2F;&gt;</span><br><span class="line">&lt;script src&#x3D;&quot;&#x2F;live2d-widget&#x2F;autoload.js&quot;&gt;&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure><p>想修改看板娘大小、位置、格式、文本内容等，可查看并修改 waifu-tips.js 、 waifu-tips.json 、waifu.css文件。</p><p>这样就有一个会说话,会换装的看板娘了,还可以召唤小飞机按空格键发射子弹</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;hr style=&#39;filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)&#39; color=&#39;#FF0000&#39; size=&#39;1&#39; /&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;何如给我们的博客添加一个会说话的看板娘呢&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+    
+      <category term="hexo" scheme="https://www.chensheng.group/categories/hexo/"/>
+    
+    
+      <category term="hexo" scheme="https://www.chensheng.group/tags/hexo/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>富文本编辑器</title>
+    <link href="https://www.chensheng.group/2020/07/17/134-%E5%AF%8C%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/"/>
+    <id>https://www.chensheng.group/2020/07/17/134-%E5%AF%8C%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/</id>
+    <published>2020-07-17T13:35:00.000Z</published>
+    <updated>2020-07-27T14:30:23.620Z</updated>
+    
+    <content type="html"><![CDATA[<hr style='filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)' color='#FF0000' size='1' /><blockquote><p>推荐一个好用的富文本编辑器,之前也有用过其他版本的,但是都太简易了</p></blockquote><a id="more"></a><p>安装 vue-editor-wrap</p><p>npm install vue-editor-wrap</p><p>下载大神已经处理后的UEditor,下载 地址链接: <a href="https://pan.baidu.com/s/1ds-HyhXD5EFYCcp7uen2XA" target="_blank" rel="noopener">https://pan.baidu.com/s/1ds-HyhXD5EFYCcp7uen2XA</a> 提取码: s7ry</p><p>解压, 重命名文件夹为UEditor, 放入public文件夹下(如果是旧项目对应static文件夹)</p><p>在 main.js中引入</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">import VueUeditorWrap from &#39;vue-ueditor-wrap&#39;</span><br><span class="line">Vue.component(&#39;vue-ueditor-wrap&#39;, VueUeditorWrap)</span><br></pre></td></tr></table></figure><p>然后再.vue文件中就可以使用啦</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div class&#x3D;&quot;hello&quot;&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;ueditorBox&quot;&gt;</span><br><span class="line">      &lt;vue-ueditor-wrap v-model&#x3D;&quot;msg&quot;&gt;&lt;&#x2F;vue-ueditor-wrap&gt;   </span><br><span class="line">    &lt;&#x2F;div&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;ueditorMsg&quot; v-html&#x3D;&quot;msg&quot;&gt;&lt;&#x2F;div&gt;</span><br><span class="line">  &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">  data() &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      msg: &#39;&#39;,</span><br><span class="line">      ueConfig:&#123;</span><br><span class="line">        toolbars: [</span><br><span class="line">          [</span><br><span class="line">            &#39;undo&#39;, &#x2F;&#x2F;撤销</span><br><span class="line">            &#39;bold&#39;, &#x2F;&#x2F;加粗</span><br><span class="line">            &#39;indent&#39;, &#x2F;&#x2F;首行缩进</span><br><span class="line">            &#39;italic&#39;, &#x2F;&#x2F;斜体</span><br><span class="line">            &#39;underline&#39;, &#x2F;&#x2F;下划线</span><br><span class="line">            &#39;strikethrough&#39;, &#x2F;&#x2F;删除线</span><br><span class="line">            &#39;subscript&#39;, &#x2F;&#x2F;下标</span><br><span class="line">            &#39;fontborder&#39;, &#x2F;&#x2F;字符边框</span><br><span class="line">            &#39;superscript&#39;, &#x2F;&#x2F;上标</span><br><span class="line">            &#39;formatmatch&#39;, &#x2F;&#x2F;格式刷</span><br><span class="line">            &#39;fontfamily&#39;, &#x2F;&#x2F;字体</span><br><span class="line">            &#39;fontsize&#39;, &#x2F;&#x2F;字号</span><br><span class="line">            &#39;justifyleft&#39;, &#x2F;&#x2F;居左对齐</span><br><span class="line">            &#39;justifycenter&#39;, &#x2F;&#x2F;居中对齐</span><br><span class="line">            &#39;justifyright&#39;, &#x2F;&#x2F;居右对齐</span><br><span class="line">            &#39;justifyjustify&#39;, &#x2F;&#x2F;两端对齐</span><br><span class="line">            &#39;insertorderedlist&#39;, &#x2F;&#x2F;有序列表</span><br><span class="line">            &#39;insertunorderedlist&#39;, &#x2F;&#x2F;无序列表</span><br><span class="line">            &#39;lineheight&#39;,&#x2F;&#x2F;行间距</span><br><span class="line">          ]</span><br><span class="line">        ],</span><br><span class="line">        &#39;fontfamily&#39;:[</span><br><span class="line">          &#123; label:&#39;&#39;,name:&#39;songti&#39;,val:&#39;宋体,SimSun&#39;&#125;,</span><br><span class="line">          &#123; label:&#39;仿宋&#39;,name:&#39;fangsong&#39;,val:&#39;仿宋,FangSong&#39;&#125;,</span><br><span class="line">          &#123; label:&#39;仿宋_GB2312&#39;,name:&#39;fangsong&#39;,val:&#39;仿宋_GB2312,FangSong&#39;&#125;,</span><br><span class="line">          &#123; label:&#39;&#39;,name:&#39;kaiti&#39;,val:&#39;楷体,楷体_GB2312, SimKai&#39;&#125;,</span><br><span class="line">          &#123; label:&#39;&#39;,name:&#39;yahei&#39;,val:&#39;微软雅黑,Microsoft YaHei&#39;&#125;,</span><br><span class="line">          &#123; label:&#39;&#39;,name:&#39;heiti&#39;,val:&#39;黑体, SimHei&#39;&#125;,</span><br><span class="line">          &#123; label:&#39;&#39;,name:&#39;lishu&#39;,val:&#39;隶书, SimLi&#39;&#125;,</span><br><span class="line">          &#123; label:&#39;&#39;,name:&#39;andaleMono&#39;,val:&#39;andale mono&#39;&#125;,</span><br><span class="line">          &#123; label:&#39;&#39;,name:&#39;arial&#39;,val:&#39;arial, helvetica,sans-serif&#39;&#125;,</span><br><span class="line">          &#123; label:&#39;&#39;,name:&#39;arialBlack&#39;,val:&#39;arial black,avant garde&#39;&#125;,</span><br><span class="line">          &#123; label:&#39;&#39;,name:&#39;comicSansMs&#39;,val:&#39;comic sans ms&#39;&#125;,</span><br><span class="line">          &#123; label:&#39;&#39;,name:&#39;impact&#39;,val:&#39;impact,chicago&#39;&#125;,</span><br><span class="line">          &#123; label:&#39;&#39;,name:&#39;timesNewRoman&#39;,val:&#39;times new roman&#39;&#125;</span><br><span class="line">        ],</span><br><span class="line">        &#x2F;&#x2F; 初始容器高度</span><br><span class="line">        initialFrameHeight: 300,</span><br><span class="line">        &#x2F;&#x2F; 初始容器宽度</span><br><span class="line">        initialFrameWidth: &#39;100%&#39;,</span><br><span class="line">        &#x2F;&#x2F; 上传文件接口</span><br><span class="line">        enableAutoSave: false,</span><br><span class="line">        elementPathEnable: false,</span><br><span class="line">        wordCount: false,</span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line"></span><br><span class="line">  &#125;,</span><br><span class="line">  mounted() &#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- Add &quot;scoped&quot; attribute to limit CSS to this component only --&gt;</span><br><span class="line">&lt;style scoped&gt;</span><br><span class="line">  .ueditorBox &#123;</span><br><span class="line">    display: inline-block;</span><br><span class="line">    width: 600px;</span><br><span class="line">    height: 600px;</span><br><span class="line">    border: 1px solid black;</span><br><span class="line">    vertical-align: middle;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  .ueditorMsg &#123;</span><br><span class="line">    display: inline-block;</span><br><span class="line">    width: 600px;</span><br><span class="line">    height: 600px;</span><br><span class="line">    border: 1px solid black;</span><br><span class="line">    vertical-align: middle;</span><br><span class="line">  &#125;</span><br><span class="line">&lt;&#x2F;style&gt;</span><br></pre></td></tr></table></figure><p>以上就是我对富文本插件的一些理解,如果文章由于我学识浅薄,导致您发现有严重谬误的地方,请一定在评论中指出,我会在第一时间修正我的博文,以避免误人子弟。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;hr style=&#39;filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)&#39; color=&#39;#FF0000&#39; size=&#39;1&#39; /&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;推荐一个好用的富文本编辑器,之前也有用过其他版本的,但是都太简易了&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+    
+      <category term="vue-cli" scheme="https://www.chensheng.group/categories/vue-cli/"/>
+    
+    
+      <category term="vue-cli" scheme="https://www.chensheng.group/tags/vue-cli/"/>
+    
+  </entry>
   
   <entry>
     <title>JavaScript的执行</title>
@@ -499,60 +553,6 @@
     
     
       <category term="人脸识别" scheme="https://www.chensheng.group/tags/%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Vue-cli 4.0 打包配置不同环境</title>
-    <link href="https://www.chensheng.group/2019/12/20/115-Vue-cli%204.0%E6%89%93%E5%8C%85%E9%85%8D%E7%BD%AE/"/>
-    <id>https://www.chensheng.group/2019/12/20/115-Vue-cli%204.0%E6%89%93%E5%8C%85%E9%85%8D%E7%BD%AE/</id>
-    <published>2019-12-20T08:55:00.000Z</published>
-    <updated>2020-01-15T08:07:39.034Z</updated>
-    
-    <content type="html"><![CDATA[<hr style='filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)' color='#FF0000' size='1' /><blockquote><p>在之前已经写过了vue 2.0的打包配置,今天写一下4.0的配置,略微有些区别</p></blockquote><a id="more"></a><p>相比较于之前的版本,4.0的配置显得较为简单一些</p><p>首先在根目录下创建三个文件</p><p>.env .env.test .env.production</p><ul><li><p>.env 本地环境</p><span class="label info">NODE_ENV=development</span></li><li><p>.env.test 测试环境</p><span class="label info">NODE_ENV=test</span></li><li><p>.env.production 生产环境</p><span class="label info">NODE_ENV=production</span></li></ul><p>配置好后,在api.js中就可以直接使用</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">let baseUrl&#x3D; &quot;&quot;;</span><br><span class="line">switch (process.env.NODE_ENV) &#123;</span><br><span class="line">  case &#39;development&#39;:</span><br><span class="line">    baseUrl &#x3D; &quot;&#x2F;mgr&quot; &#x2F;&#x2F;开发环境url</span><br><span class="line">    break</span><br><span class="line">  case &#39;test&#39;:</span><br><span class="line">    baseUrl &#x3D; &quot;&#x2F;test&quot; &#x2F;&#x2F;测试环境中的url</span><br><span class="line">    break</span><br><span class="line">  case &#39;production&#39;:</span><br><span class="line">    baseUrl &#x3D; &quot;&#x2F;production&quot; &#x2F;&#x2F;生产环境url</span><br><span class="line">    break</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>至于这个baseUrl,有人喜欢也在.env中文件直接配置好,这个看个人爱好</p><p>再来看看config中怎么配置</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">module.exports &#x3D; &#123;</span><br><span class="line">  &#x2F;&#x2F; 输出文件目录,默认就是dist</span><br><span class="line">  outputDir: process.env.NODE_ENV &#x3D;&#x3D;&#x3D; &quot;test&quot; ? &#39;distTest&#39; : &#39;distPro&#39;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>将测试和正式环境分开来,打包在不同的文件夹里面</p><p>最后就是配置命令了,和之前一样,在package.json中</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&quot;scripts&quot;: &#123;</span><br><span class="line">  &quot;serve&quot;: &quot;vue-cli-service serve&quot;,</span><br><span class="line">  &quot;test&quot;: &quot;vue-cli-service build --mode test&quot;,</span><br><span class="line">  &quot;build&quot;: &quot;vue-cli-service build --mode production&quot;,</span><br><span class="line">  &quot;all&quot;: &quot;npm run build &amp;&amp; npm run test&quot;,</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure><blockquote><p>注意命名要和文件名一样的</p></blockquote><p>以上就是我对vue-cli 4.0 打包配置的一些理解,如果文章由于我学识浅薄,导致您发现有严重谬误的地方,请一定在评论中指出,我会在第一时间修正我的博文,以避免误人子弟。</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;hr style=&#39;filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)&#39; color=&#39;#FF0000&#39; size=&#39;1&#39; /&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;在之前已经写过了vue 2.0的打包配置,今天写一下4.0的配置,略微有些区别&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-    
-      <category term="Vue-cli" scheme="https://www.chensheng.group/categories/Vue-cli/"/>
-    
-    
-      <category term="Vue-cli" scheme="https://www.chensheng.group/tags/Vue-cli/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>vue-cli中proxy的pathRewrite该怎么使用</title>
-    <link href="https://www.chensheng.group/2019/12/19/114-pathRewrite%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E4%BD%BF%E7%94%A8/"/>
-    <id>https://www.chensheng.group/2019/12/19/114-pathRewrite%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E4%BD%BF%E7%94%A8/</id>
-    <published>2019-12-19T06:00:00.000Z</published>
-    <updated>2020-01-15T03:03:52.822Z</updated>
-    
-    <content type="html"><![CDATA[<hr style='filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)' color='#FF0000' size='1' /><blockquote><p>很多同学明明配置好了跨域,可是接口还是返回404,不明所以</p></blockquote><a id="more"></a><p>跨域的原理我就不讲了</p><p>直接上代码显示</p><p>假如我的接口是<code>https://api.douban.com/v2/music/search?q=周杰伦</code></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">devServer: &#123;</span><br><span class="line">  proxy: &#123;</span><br><span class="line">    &#39;&#x2F;mgr&#39;: &#123;</span><br><span class="line">      target: &#39;https:&#x2F;&#x2F;api.douban.com&#39;,</span><br><span class="line">      ws: true,</span><br><span class="line">      changeOrigin: true,</span><br><span class="line">      pathRewrite:&#123;</span><br><span class="line">        &#39;^&#x2F;mgr&#39;: &#39;&#39;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure><p>那我调用时就可以将接口写成这样<code>/mgr/v2/music/search?q=周杰伦</code></p><p>那这个pathRewrite到底是干嘛用的,为什么有时候需要写,有时候不需要写</p><p>其实很简单,用代理, 首先你得有一个标识, 告诉node, 我接口只要是’/mgr’开头的才用代理.所以你的接口就要这么写 /mgr/xx/xx. 最后代理的路径就是 <a href="http://xxx.xx.com/mgr/xx/xx" target="_blank" rel="noopener">http://xxx.xx.com/mgr/xx/xx</a>.</p><p>可是不对啊, 我正确的接口路径里面没有/mgr啊. 所以就需要 pathRewrite,用<code>&#39;^/mgr&#39;:&#39;&#39;</code>, 把’/mgr’去掉, 这样既能有正确标识, 又能在请求接口的时候去掉mgr.</p><p>现在换一种不用pathRewrite的写法</p><p>接口同样不变</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">devServer: &#123;</span><br><span class="line">  proxy: &#123;</span><br><span class="line">    &#39;&#x2F;v2&#39;: &#123;</span><br><span class="line">      target: &#39;https:&#x2F;&#x2F;api.douban.com&#39;,</span><br><span class="line">      ws: true,</span><br><span class="line">      changeOrigin: true</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure><p>这时候接口就要写成这样<code>/v2/music/search?q=周杰伦</code>,因为v2是真的在接口中出现的,不能去掉</p><p>以上就是我对pathRewrite的一些理解,如果文章由于我学识浅薄,导致您发现有严重谬误的地方,请一定在评论中指出,我会在第一时间修正我的博文,以避免误人子弟。</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;hr style=&#39;filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)&#39; color=&#39;#FF0000&#39; size=&#39;1&#39; /&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;很多同学明明配置好了跨域,可是接口还是返回404,不明所以&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-    
-      <category term="Vue-cli" scheme="https://www.chensheng.group/categories/Vue-cli/"/>
-    
-    
-      <category term="Vue-cli" scheme="https://www.chensheng.group/tags/Vue-cli/"/>
     
   </entry>
   
