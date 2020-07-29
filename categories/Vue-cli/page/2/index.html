@@ -16,6 +16,16 @@
   <link rel="mask-icon" href="/images/favicon.ico?v=7.4.2" color="#222">
   <link rel="alternate" href="/atom.xml" title="陈先生的小前端" type="application/atom+xml">
 
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/d12fc2d7.js","daovoice")
+  daovoice('init', {
+    app_id: "d12fc2d7"
+  });
+  daovoice('update');
+  </script>
+
+
 <link rel="stylesheet" href="/css/main.css?v=7.4.2">
 
 
@@ -62,13 +72,13 @@
   <meta name="description" content="请不要在最能吃苦的日子选择安逸">
 <meta property="og:type" content="website">
 <meta property="og:title" content="陈先生的小前端">
-<meta property="og:url" content="https://www.chensheng.group/categories/Vue-cli/page/2/index.html">
+<meta property="og:url" content="https://www.chensheng.group/categories/vue-cli/page/2/index.html">
 <meta property="og:site_name" content="陈先生的小前端">
 <meta property="og:description" content="请不要在最能吃苦的日子选择安逸">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:author" content="陈晟">
 <meta name="twitter:card" content="summary">
-  <link rel="canonical" href="https://www.chensheng.group/categories/Vue-cli/page/2/">
+  <link rel="canonical" href="https://www.chensheng.group/categories/vue-cli/page/2/">
 
 
 <script id="page-configurations">
@@ -82,7 +92,7 @@
   };
 </script>
 
-  <title>分类: Vue-cli | 陈先生的小前端</title>
+  <title>分类: vue-cli | 陈先生的小前端</title>
   
 
 
@@ -288,7 +298,7 @@
   <div class="post-block">
     <div class="posts-collapse">
       <div class="collection-title">
-        <h2 class="collection-header">Vue-cli
+        <h2 class="collection-header">vue-cli
           <small>分类</small>
         </h2>
       </div>
@@ -303,6 +313,35 @@
     <div class="collection-year">
       <h2 class="collection-header">2018</h2>
     </div>
+  
+
+  <article itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      <div class="post-meta">
+        <time itemprop="dateCreated"
+              datetime="2018-02-04T13:44:22+08:00"
+              content="2018-02-04">
+          02-04
+        </time>
+      </div>
+
+      <h3 class="post-title">
+        
+          <a class="post-title-link" href="/2018/02/04/51-vue-cli%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E8%AF%B4%E6%98%8E/" itemprop="url">
+            <span itemprop="name">Vue-cli 2.0 配置说明</span>
+          </a>
+        
+      </h3>
+
+    </header>
+  </article>
+
+
+
+  
+  
+
   
 
   <article itemscope itemtype="http://schema.org/Article">
@@ -371,7 +410,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/categories/Vue-cli/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/categories/Vue-cli/">1</a><span class="page-number current">2</span>
+    <a class="extend prev" rel="prev" href="/categories/vue-cli/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/categories/vue-cli/">1</a><span class="page-number current">2</span>
   </nav>
 
 
@@ -421,7 +460,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">135</span>
+          <span class="site-state-item-count">136</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -434,7 +473,7 @@
             <a href="/categories/">
           
         
-        <span class="site-state-item-count">34</span>
+        <span class="site-state-item-count">33</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
@@ -447,7 +486,7 @@
             <a href="/tags/">
           
         
-        <span class="site-state-item-count">64</span>
+        <span class="site-state-item-count">53</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>
@@ -518,7 +557,7 @@
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">408k</span>
+    <span title="站点总字数">412k</span>
 </div>
   <div class="powered-by">欢迎访问
   </div>
@@ -661,5 +700,31 @@
   <script async src="/js/cursor/fireworks.js"></script>
 
 
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.includes(item);
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'jD385ICqgsSXvIPjMqMoJhn5-gzGzoHsz',
+    appKey: 'Y3pbrUp0lQbqyJK8XRjke93m',
+    placeholder: "（づ≧∀≦）づ╭❤～  客官,快来玩吖!",
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: 'zh-cn' || 'zh-cn',
+    path: location.pathname,
+    recordIP: false,
+    serverURLs: ''
+  });
+}, window.Valine);
+</script>
+
+</body>
 </html>

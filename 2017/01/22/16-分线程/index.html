@@ -16,6 +16,16 @@
   <link rel="mask-icon" href="/images/favicon.ico?v=7.4.2" color="#222">
   <link rel="alternate" href="/atom.xml" title="陈先生的小前端" type="application/atom+xml">
 
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/d12fc2d7.js","daovoice")
+  daovoice('init', {
+    app_id: "d12fc2d7"
+  });
+  daovoice('update');
+  </script>
+
+
 <link rel="stylesheet" href="/css/main.css?v=7.4.2">
 
 
@@ -326,6 +336,22 @@
           
 
           
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+        
+      
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2017/01/22/16-%E5%88%86%E7%BA%BF%E7%A8%8B/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2017/01/22/16-%E5%88%86%E7%BA%BF%E7%A8%8B/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
 
         </div>
       </header>
@@ -496,7 +522,7 @@ postMessage(&apos;传回主线程的值&apos;);</code></pre><p>五、 主线程�
           </div>
           
     
-    <div class="comments" id="gitalk-container"></div>
+    <div class="comments" id="comments"></div>
   
 
         </div>
@@ -548,7 +574,7 @@ postMessage(&apos;传回主线程的值&apos;);</code></pre><p>五、 主线程�
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">135</span>
+          <span class="site-state-item-count">136</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -561,7 +587,7 @@ postMessage(&apos;传回主线程的值&apos;);</code></pre><p>五、 主线程�
             <a href="/categories/">
           
         
-        <span class="site-state-item-count">34</span>
+        <span class="site-state-item-count">33</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
@@ -574,7 +600,7 @@ postMessage(&apos;传回主线程的值&apos;);</code></pre><p>五、 主线程�
             <a href="/tags/">
           
         
-        <span class="site-state-item-count">64</span>
+        <span class="site-state-item-count">53</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>
@@ -645,7 +671,7 @@ postMessage(&apos;传回主线程的值&apos;);</code></pre><p>五、 主线程�
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">408k</span>
+    <span title="站点总字数">412k</span>
 </div>
   <div class="powered-by">欢迎访问
   </div>
@@ -787,24 +813,32 @@ postMessage(&apos;传回主线程的值&apos;);</code></pre><p>五、 主线程�
 
   <script async src="/js/cursor/fireworks.js"></script>
 
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
 
 <script>
-  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
-    var gitalk = new Gitalk({
-      clientID: 'cca8bcf4bb1d0c5b3e58',
-      clientSecret: '3f12c94de386143391d2c23adbe4c30ae7f010a7',
-      repo: 'blogIssues',
-      owner: '328921371',
-      admin: ['328921371'],
-      id: '9050ca87bf5a5e0ac17b03f93d9a940f',
-        language: 'zh-CN',
-      
-      distractionFreeMode: 'false'
-    });
-    gitalk.render('gitalk-container');
-  }, window.Gitalk);
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.includes(item);
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'jD385ICqgsSXvIPjMqMoJhn5-gzGzoHsz',
+    appKey: 'Y3pbrUp0lQbqyJK8XRjke93m',
+    placeholder: "（づ≧∀≦）づ╭❤～  客官,快来玩吖!",
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: 'zh-cn' || 'zh-cn',
+    path: location.pathname,
+    recordIP: false,
+    serverURLs: ''
+  });
+}, window.Valine);
 </script>
 
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</body>
 </html>

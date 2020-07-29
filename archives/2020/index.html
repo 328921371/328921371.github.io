@@ -16,6 +16,16 @@
   <link rel="mask-icon" href="/images/favicon.ico?v=7.4.2" color="#222">
   <link rel="alternate" href="/atom.xml" title="陈先生的小前端" type="application/atom+xml">
 
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/d12fc2d7.js","daovoice")
+  daovoice('init', {
+    app_id: "d12fc2d7"
+  });
+  daovoice('update');
+  </script>
+
+
 <link rel="stylesheet" href="/css/main.css?v=7.4.2">
 
 
@@ -292,7 +302,7 @@
         
          
           
-        <span class="collection-header">非常好! 目前共计 135 篇日志。 继续努力。</span>
+        <span class="collection-header">非常好! 目前共计 136 篇日志。 继续努力。</span>
       </div>
       
 
@@ -306,6 +316,35 @@
     <div class="collection-year">
       <h2 class="collection-header">2020</h2>
     </div>
+  
+
+  <article itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      <div class="post-meta">
+        <time itemprop="dateCreated"
+              datetime="2020-07-29T21:19:00+08:00"
+              content="2020-07-29">
+          07-29
+        </time>
+      </div>
+
+      <h3 class="post-title">
+        
+          <a class="post-title-link" href="/2020/07/29/136-hexo%E4%BD%BF%E7%94%A8Valine%E8%AF%84%E8%AE%BA/" itemprop="url">
+            <span itemprop="name">hexo使用Valine评论</span>
+          </a>
+        
+      </h3>
+
+    </header>
+  </article>
+
+
+
+  
+  
+
   
 
   <article itemscope itemtype="http://schema.org/Article">
@@ -564,35 +603,6 @@
 
 
 
-  
-  
-
-  
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-05-23T22:32:00+08:00"
-              content="2020-05-23">
-          05-23
-        </time>
-      </div>
-
-      <h3 class="post-title">
-        
-          <a class="post-title-link" href="/2020/05/23/126-eslink%E9%85%8D%E7%BD%AE/" itemprop="url">
-            <span itemprop="name">eslink配置记录</span>
-          </a>
-        
-      </h3>
-
-    </header>
-  </article>
-
-
-
 
     </div>
   </div>
@@ -602,7 +612,7 @@
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/archives/2020/page/2/">2</a><a class="extend next" rel="next" href="/archives/2020/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/archives/2020/page/2/">2</a><a class="page-number" href="/archives/2020/page/3/">3</a><a class="extend next" rel="next" href="/archives/2020/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -652,7 +662,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">135</span>
+          <span class="site-state-item-count">136</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -665,7 +675,7 @@
             <a href="/categories/">
           
         
-        <span class="site-state-item-count">34</span>
+        <span class="site-state-item-count">33</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
@@ -678,7 +688,7 @@
             <a href="/tags/">
           
         
-        <span class="site-state-item-count">64</span>
+        <span class="site-state-item-count">53</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>
@@ -749,7 +759,7 @@
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">408k</span>
+    <span title="站点总字数">412k</span>
 </div>
   <div class="powered-by">欢迎访问
   </div>
@@ -892,5 +902,31 @@
   <script async src="/js/cursor/fireworks.js"></script>
 
 
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.includes(item);
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'jD385ICqgsSXvIPjMqMoJhn5-gzGzoHsz',
+    appKey: 'Y3pbrUp0lQbqyJK8XRjke93m',
+    placeholder: "（づ≧∀≦）づ╭❤～  客官,快来玩吖!",
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: 'zh-cn' || 'zh-cn',
+    path: location.pathname,
+    recordIP: false,
+    serverURLs: ''
+  });
+}, window.Valine);
+</script>
+
+</body>
 </html>
