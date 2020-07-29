@@ -3365,6 +3365,55 @@
       </tags>
   </entry>
   <entry>
+    <title>ECMAScript 6 Set</title>
+    <url>/2019/02/19/80-ES6%20Set/</url>
+    <content><![CDATA[<hr style='filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)' color='#FF0000' size='1' />
+
+<blockquote>
+<p>Set想必大家是不陌生的,ES6一个较为好用的方法,和Array很像但又不同</p>
+</blockquote>
+<a id="more"></a>
+
+<p>文章主要参考阮一峰老师的 ECMAScript 6入门,站在巨人的肩膀上看世界…</p>
+<blockquote>
+<p>Set和Array 的区别是Set不允许内部有重复的值，如果有只显示一个，相当于去重。虽然Set很像数组，但是他不是数组。</p>
+</blockquote>
+<blockquote>
+<p>[…new Set(array)]</p>
+</blockquote>
+<h2 id="Set的声明"><a href="#Set的声明" class="headerlink" title="Set的声明"></a>Set的声明</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let setArr &#x3D; new Set([&#39;cs&#39;,&#39;csing&#39;,&#39;web&#39;]);</span><br><span class="line">console.log(setArr);</span><br></pre></td></tr></table></figure>
+
+<h3 id="Set值的追加"><a href="#Set值的追加" class="headerlink" title="Set值的追加"></a>Set值的追加</h3><p>在使用Array的时候，可以用push进行追加值，那Set稍有不同，它用更语义化的add进行追加。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let setArr &#x3D; new Set([&#39;cs&#39;,&#39;csing&#39;,&#39;web&#39;]);</span><br><span class="line">setArr.add(&#39;hello&#39;);</span><br><span class="line">console.log(setArr);</span><br></pre></td></tr></table></figure>
+
+<h3 id="Set值的删除"><a href="#Set值的删除" class="headerlink" title="Set值的删除"></a>Set值的删除</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let setArr &#x3D; new Set([&#39;cs&#39;,&#39;csing&#39;,&#39;web&#39;]);</span><br><span class="line">setArr.delete(&#39;csing&#39;);</span><br><span class="line">console.log(setArr);</span><br></pre></td></tr></table></figure>
+
+<h3 id="Set值的查找"><a href="#Set值的查找" class="headerlink" title="Set值的查找"></a>Set值的查找</h3><p>用has进行值的查找，返回的是true或者false。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let setArr &#x3D; new Set([&#39;cs&#39;,&#39;csing&#39;,&#39;web&#39;]);</span><br><span class="line">console.log(setArr.has(&#39;csing&#39;));&#x2F;&#x2F;true</span><br></pre></td></tr></table></figure>
+
+<h3 id="Set值的删除-1"><a href="#Set值的删除-1" class="headerlink" title="Set值的删除"></a>Set值的删除</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let setArr &#x3D; new Set([&#39;cs&#39;,&#39;csing&#39;,&#39;web&#39;]);</span><br><span class="line">setArr.clear();</span><br><span class="line">console.log(setArray);&#x2F;&#x2F;true</span><br></pre></td></tr></table></figure>
+
+<h3 id="set的for…of循环"><a href="#set的for…of循环" class="headerlink" title="set的for…of循环"></a>set的for…of循环</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let setArr &#x3D; new Set([&#39;cs&#39;,&#39;csing&#39;,&#39;web&#39;]);</span><br><span class="line">for (let item of setArr)&#123;</span><br><span class="line">  console.log(item);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="set的size属性"><a href="#set的size属性" class="headerlink" title="set的size属性"></a>set的size属性</h3><p>size属性可以获得Set值的数量。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let setArr &#x3D; new Set([&#39;cs&#39;,&#39;csing&#39;,&#39;web&#39;]);</span><br><span class="line">console.log(setArr.size);</span><br></pre></td></tr></table></figure>
+
+<h3 id="set的forEach循环"><a href="#set的forEach循环" class="headerlink" title="set的forEach循环"></a>set的forEach循环</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let setArr &#x3D; new Set([&#39;cs&#39;,&#39;csing&#39;,&#39;web&#39;]);</span><br><span class="line">setArr.forEach((value)&#x3D;&gt;console.log(value));</span><br></pre></td></tr></table></figure>
+
+<h3 id="WeakSet的声明"><a href="#WeakSet的声明" class="headerlink" title="WeakSet的声明"></a>WeakSet的声明</h3><p>WeakSet 结构与 Set 类似，也是不重复的值的集合。但是，WeakSet 的成员只能是对象，而不能是其他类型的值。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let weakObj &#x3D; new WeakSet();</span><br><span class="line">let obj &#x3D; &#123;a:&#39;cs&#39;,b:&#39;csing&#39;&#125;</span><br><span class="line">weakObj.add(obj);</span><br><span class="line">console.log(weakObj);</span><br></pre></td></tr></table></figure>
+
+<p>在实际开发中Set用的比较多，WeakSet用的并不多，但是他对传入值必须是对象作了很好的判断，我们灵活应用还是有一定的用处的。</p>
+<p>以上就是我对ECMAScript 6 Set的一些理解，如果文章由于我学识浅薄，导致您发现有严重谬误的地方，请一定在评论中指出，我会在第一时间修正我的博文，以避免误人子弟。</p>
+]]></content>
+      <categories>
+        <category>ECMAScript 6</category>
+      </categories>
+      <tags>
+        <tag>ECMAScript 6</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>ECMAScript 6 Promise</title>
     <url>/2019/02/19/82-ES6%20Promise/</url>
     <content><![CDATA[<hr style='filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)' color='#FF0000' size='1' />
@@ -3412,55 +3461,6 @@
 <p>finally方法的回调函数不接受任何参数，这意味着没有办法知道，前面的 Promise 状态到底是fulfilled还是rejected。这表明，finally方法里面的操作，应该是与状态无关的，不依赖于 Promise 的执行结果。</p>
 <p>最常用到的就是这三种,更多的大家可以去看看官方的文档</p>
 <p>以上就是我对ECMAScript 6 Promise的一些理解，如果文章由于我学识浅薄，导致您发现有严重谬误的地方，请一定在评论中指出，我会在第一时间修正我的博文，以避免误人子弟。</p>
-]]></content>
-      <categories>
-        <category>ECMAScript 6</category>
-      </categories>
-      <tags>
-        <tag>ECMAScript 6</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>ECMAScript 6 Set</title>
-    <url>/2019/02/19/80-ES6%20Set/</url>
-    <content><![CDATA[<hr style='filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)' color='#FF0000' size='1' />
-
-<blockquote>
-<p>Set想必大家是不陌生的,ES6一个较为好用的方法,和Array很像但又不同</p>
-</blockquote>
-<a id="more"></a>
-
-<p>文章主要参考阮一峰老师的 ECMAScript 6入门,站在巨人的肩膀上看世界…</p>
-<blockquote>
-<p>Set和Array 的区别是Set不允许内部有重复的值，如果有只显示一个，相当于去重。虽然Set很像数组，但是他不是数组。</p>
-</blockquote>
-<blockquote>
-<p>[…new Set(array)]</p>
-</blockquote>
-<h2 id="Set的声明"><a href="#Set的声明" class="headerlink" title="Set的声明"></a>Set的声明</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let setArr &#x3D; new Set([&#39;cs&#39;,&#39;csing&#39;,&#39;web&#39;]);</span><br><span class="line">console.log(setArr);</span><br></pre></td></tr></table></figure>
-
-<h3 id="Set值的追加"><a href="#Set值的追加" class="headerlink" title="Set值的追加"></a>Set值的追加</h3><p>在使用Array的时候，可以用push进行追加值，那Set稍有不同，它用更语义化的add进行追加。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let setArr &#x3D; new Set([&#39;cs&#39;,&#39;csing&#39;,&#39;web&#39;]);</span><br><span class="line">setArr.add(&#39;hello&#39;);</span><br><span class="line">console.log(setArr);</span><br></pre></td></tr></table></figure>
-
-<h3 id="Set值的删除"><a href="#Set值的删除" class="headerlink" title="Set值的删除"></a>Set值的删除</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let setArr &#x3D; new Set([&#39;cs&#39;,&#39;csing&#39;,&#39;web&#39;]);</span><br><span class="line">setArr.delete(&#39;csing&#39;);</span><br><span class="line">console.log(setArr);</span><br></pre></td></tr></table></figure>
-
-<h3 id="Set值的查找"><a href="#Set值的查找" class="headerlink" title="Set值的查找"></a>Set值的查找</h3><p>用has进行值的查找，返回的是true或者false。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let setArr &#x3D; new Set([&#39;cs&#39;,&#39;csing&#39;,&#39;web&#39;]);</span><br><span class="line">console.log(setArr.has(&#39;csing&#39;));&#x2F;&#x2F;true</span><br></pre></td></tr></table></figure>
-
-<h3 id="Set值的删除-1"><a href="#Set值的删除-1" class="headerlink" title="Set值的删除"></a>Set值的删除</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let setArr &#x3D; new Set([&#39;cs&#39;,&#39;csing&#39;,&#39;web&#39;]);</span><br><span class="line">setArr.clear();</span><br><span class="line">console.log(setArray);&#x2F;&#x2F;true</span><br></pre></td></tr></table></figure>
-
-<h3 id="set的for…of循环"><a href="#set的for…of循环" class="headerlink" title="set的for…of循环"></a>set的for…of循环</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let setArr &#x3D; new Set([&#39;cs&#39;,&#39;csing&#39;,&#39;web&#39;]);</span><br><span class="line">for (let item of setArr)&#123;</span><br><span class="line">  console.log(item);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="set的size属性"><a href="#set的size属性" class="headerlink" title="set的size属性"></a>set的size属性</h3><p>size属性可以获得Set值的数量。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let setArr &#x3D; new Set([&#39;cs&#39;,&#39;csing&#39;,&#39;web&#39;]);</span><br><span class="line">console.log(setArr.size);</span><br></pre></td></tr></table></figure>
-
-<h3 id="set的forEach循环"><a href="#set的forEach循环" class="headerlink" title="set的forEach循环"></a>set的forEach循环</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let setArr &#x3D; new Set([&#39;cs&#39;,&#39;csing&#39;,&#39;web&#39;]);</span><br><span class="line">setArr.forEach((value)&#x3D;&gt;console.log(value));</span><br></pre></td></tr></table></figure>
-
-<h3 id="WeakSet的声明"><a href="#WeakSet的声明" class="headerlink" title="WeakSet的声明"></a>WeakSet的声明</h3><p>WeakSet 结构与 Set 类似，也是不重复的值的集合。但是，WeakSet 的成员只能是对象，而不能是其他类型的值。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let weakObj &#x3D; new WeakSet();</span><br><span class="line">let obj &#x3D; &#123;a:&#39;cs&#39;,b:&#39;csing&#39;&#125;</span><br><span class="line">weakObj.add(obj);</span><br><span class="line">console.log(weakObj);</span><br></pre></td></tr></table></figure>
-
-<p>在实际开发中Set用的比较多，WeakSet用的并不多，但是他对传入值必须是对象作了很好的判断，我们灵活应用还是有一定的用处的。</p>
-<p>以上就是我对ECMAScript 6 Set的一些理解，如果文章由于我学识浅薄，导致您发现有严重谬误的地方，请一定在评论中指出，我会在第一时间修正我的博文，以避免误人子弟。</p>
 ]]></content>
       <categories>
         <category>ECMAScript 6</category>
