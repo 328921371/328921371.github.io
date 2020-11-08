@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico?v=7.4.2">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=7.4.2">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico?v=7.4.2">
+  <link rel="mask-icon" href="/images/favicon.ico?v=7.4.2" color="#222">
+  <link rel="alternate" href="/atom.xml" title="陈先生的小前端" type="application/atom+xml">
+
+
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.2">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '7.4.2',
+    exturl: false,
+    sidebar: {"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":"mac"},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    bookmark: {"enable":true,"color":"#222","save":"auto"},
+    fancybox: true,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="由于之前发生了一些事情,并且公司的项目也很赶,碰巧孩子出生了,所以忙的不可开交,,很久没有更新博客了,今天有时间,把欠下的博客都补上">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vue源码学习-模板编译原理">
+<meta property="og:url" content="https://www.chensheng.group/2020/11/08/137-vue%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0-%E6%A8%A1%E6%9D%BF%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/index.html">
+<meta property="og:site_name" content="陈先生的小前端">
+<meta property="og:description" content="由于之前发生了一些事情,并且公司的项目也很赶,碰巧孩子出生了,所以忙的不可开交,,很久没有更新博客了,今天有时间,把欠下的博客都补上">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-11-08T07:26:00.000Z">
+<meta property="article:modified_time" content="2020-11-08T09:09:37.137Z">
+<meta property="article:author" content="陈晟">
+<meta property="article:tag" content="Vue">
+<meta name="twitter:card" content="summary">
+  <link rel="canonical" href="https://www.chensheng.group/2020/11/08/137-vue%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0-%E6%A8%A1%E6%9D%BF%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>vue源码学习-模板编译原理 | 陈先生的小前端</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+  <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css"/>
+  <script src="/live2d-widget/autoload.js"></script>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">陈先生的小前端</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+        
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+      
+    
+      
+      
+        
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+      
+    
+      
+      
+        
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+      
+    
+      
+      
+        
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+      
+    
+      
+      
+        
+        
+        <li class="menu-item menu-item-about">
+      
+    
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+      
+    
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger">
+          <i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+    
+  </ul>
+
+    
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.chensheng.group/2020/11/08/137-vue%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0-%E6%A8%A1%E6%9D%BF%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="陈晟">
+      <meta itemprop="description" content="请不要在最能吃苦的日子选择安逸">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="陈先生的小前端">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            vue源码学习-模板编译原理
+            
+
+          
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2020-11-08 15:26:00" itemprop="dateCreated datePublished" datetime="2020-11-08T15:26:00+08:00">2020-11-08</time>
+            </span>
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Vue/" itemprop="url" rel="index">
+                    <span itemprop="name">Vue</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+        
+      
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/11/08/137-vue%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0-%E6%A8%A1%E6%9D%BF%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/11/08/137-vue%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0-%E6%A8%A1%E6%9D%BF%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <hr style='filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)' color='#FF0000' size='1' />
+
+<blockquote>
+<p>由于之前发生了一些事情,并且公司的项目也很赶,碰巧孩子出生了,所以忙的不可开交,,很久没有更新博客了,今天有时间,把欠下的博客都补上</p>
+</blockquote>
+<a id="more"></a>
+
+<p>我们再学习Vue的时候,一直都说虚拟DOM,虚拟DOM,那么,什么是虚拟DOM,虚拟DOM又是怎么生成的呢?</p>
+<p>虚拟DOM的生成大致上是分为这么几步的:</p>
+<ol>
+<li><p>template 通过正则转化为ast树</p>
+</li>
+<li><p>ast树通过codegen方法,转化为render函数</p>
+</li>
+<li><p>render函数,内部调用_c方法,( _c方法就是创建el) 转化为虚拟dom</p>
+</li>
+</ol>
+<blockquote>
+<p>用一个对象来描述一个DOM元素,这就是虚拟DOM</p>
+</blockquote>
+<p>知道了大致的流程,我们再去源码中看看具体的代码是怎么实现的(源码的位置在scr/compiler/index.js中)</p>
+<p>首先,创建了一个编译器(createCompilerCreator),传入了一个 bsaeCompile函数,这个函数描述了模板是怎么转化成render函数的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">function baseCompile(template: string, options: CompilerOptions) &#123;</span><br><span class="line">  const ast &#x3D; parse(template.trim(), options) &#x2F;&#x2F; 1.将模板转化成ast语法树  </span><br><span class="line">  if (options.optimize !&#x3D;&#x3D; false) &#123; &#x2F;&#x2F; 2.优化树    </span><br><span class="line">    optimize(ast, options)</span><br><span class="line">  &#125;</span><br><span class="line">  const code &#x3D; generate(ast, options) &#x2F;&#x2F; 3.生成树  </span><br><span class="line">  return &#123;</span><br><span class="line">    ast,</span><br><span class="line">    render: code.render,</span><br><span class="line">    staticRenderFns: code.staticRenderFns</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>Vue的源码看起来有点乱,上百度找了大神整理好的,看看bsaeCompile展开后,还做了哪些操作</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br></pre></td><td class="code"><pre><span class="line">const ncname &#x3D; &#96;[a-zA-Z_][\\-\\.0-9_a-zA-Z]*&#96;;</span><br><span class="line">const qnameCapture &#x3D; &#96;((?:$&#123;ncname&#125;\\:)?$&#123;ncname&#125;)&#96;;</span><br><span class="line">const startTagOpen &#x3D; new RegExp(&#96;^&lt;$&#123;qnameCapture&#125;&#96;); &#x2F;&#x2F; 标签开头的正则 捕获的内容是 标签名 </span><br><span class="line">const endTag &#x3D; new RegExp(&#96;^&lt;\\&#x2F;$&#123;qnameCapture&#125;[^&gt;]*&gt;&#96;); &#x2F;&#x2F; 匹配标签结尾的  &lt;&#x2F;div&gt; </span><br><span class="line">const attribute &#x3D; &#x2F;^\s*([^\s&quot;&#39;&lt;&gt;\&#x2F;&#x3D;]+)(?:\s*(&#x3D;)\s*(?:&quot;([^&quot;]*)&quot;+|&#39;([^&#39;]*)&#39;+| ([^\s&quot;&#39;&#x3D;&lt;&gt;&#96;]+)))?&#x2F;; &#x2F;&#x2F; 匹配属性的 </span><br><span class="line">const startTagClose &#x3D; &#x2F;^\s*(\&#x2F;?)&gt;&#x2F;; &#x2F;&#x2F; 匹配标签结束的  &gt; </span><br><span class="line">let root;</span><br><span class="line">let currentParent;</span><br><span class="line">let stack &#x3D; []</span><br><span class="line"></span><br><span class="line">function createASTElement(tagName, attrs) &#123;</span><br><span class="line">  return &#123;</span><br><span class="line">    tag: tagName,</span><br><span class="line">    type: 1,</span><br><span class="line">    children: [],</span><br><span class="line">    attrs,</span><br><span class="line">    parent: null</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function start(tagName, attrs) &#123;</span><br><span class="line">  let element &#x3D; createASTElement(tagName, attrs);</span><br><span class="line">  if (!root) &#123;</span><br><span class="line">    root &#x3D; element;</span><br><span class="line">  &#125;</span><br><span class="line">  currentParent &#x3D; element;</span><br><span class="line">  stack.push(element);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function chars(text) &#123;</span><br><span class="line">  currentParent.children.push(&#123;</span><br><span class="line">    type: 3,</span><br><span class="line">    text</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function end(tagName) &#123;</span><br><span class="line">  const element &#x3D; stack[stack.length - 1];</span><br><span class="line">  stack.length--;</span><br><span class="line">  currentParent &#x3D; stack[stack.length - 1];</span><br><span class="line">  if (currentParent) &#123;</span><br><span class="line">    element.parent &#x3D; currentParent;</span><br><span class="line">    currentParent.children.push(element)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function parseHTML(html) &#123;</span><br><span class="line">  while (html) &#123;</span><br><span class="line">    let textEnd &#x3D; html.indexOf(&#39;&lt;&#39;);</span><br><span class="line">    if (textEnd &#x3D;&#x3D; 0) &#123;</span><br><span class="line">      const startTagMatch &#x3D; parseStartTag();</span><br><span class="line">      if (startTagMatch) &#123;</span><br><span class="line">        start(startTagMatch.tagName, startTagMatch.attrs);</span><br><span class="line">        continue;</span><br><span class="line">      &#125;</span><br><span class="line">      const endTagMatch &#x3D; html.match(endTag);</span><br><span class="line">      if (endTagMatch) &#123;</span><br><span class="line">        advance(endTagMatch[0].length);</span><br><span class="line">        end(endTagMatch[1])</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    let text;</span><br><span class="line">    if (textEnd &gt;&#x3D; 0) &#123;</span><br><span class="line">      text &#x3D; html.substring(0, textEnd)</span><br><span class="line">    &#125;</span><br><span class="line">    if (text) &#123;</span><br><span class="line">      advance(text.length);</span><br><span class="line">      chars(text);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  function advance(n) &#123;</span><br><span class="line">    html &#x3D; html.substring(n);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  function parseStartTag() &#123;</span><br><span class="line">    const start &#x3D; html.match(startTagOpen);</span><br><span class="line">    if (start) &#123;</span><br><span class="line">      const match &#x3D; &#123;</span><br><span class="line">        tagName: start[1],</span><br><span class="line">        attrs: []</span><br><span class="line">      &#125;</span><br><span class="line">      advance(start[0].length);</span><br><span class="line">      let attr, end</span><br><span class="line">      while (!(end &#x3D; html.match(startTagClose)) &amp;&amp; (attr &#x3D; html.match(attribute))) &#123;</span><br><span class="line">        advance(attr[0].length);</span><br><span class="line">        match.attrs.push(&#123;</span><br><span class="line">          name: attr[1],</span><br><span class="line">          value: attr[3]</span><br><span class="line">        &#125;)</span><br><span class="line">      &#125;</span><br><span class="line">      if (end) &#123;</span><br><span class="line">        advance(end[0].length);</span><br><span class="line">        return match</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125; &#x2F;&#x2F; 生成语法树 </span><br><span class="line">parseHTML(&#96;&lt;div id&#x3D;&quot;container&quot;&gt;&lt;p&gt;hello&lt;span&gt;zf&lt;&#x2F;span&gt;&lt;&#x2F;p&gt;&lt;&#x2F;div&gt;&#96;);</span><br><span class="line"></span><br><span class="line">function gen(node) &#123;</span><br><span class="line">  if (node.type &#x3D;&#x3D; 1) &#123;</span><br><span class="line">    return generate(node);</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">    return &#96;_v($&#123;JSON.stringify(node.text)&#125;)&#96;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function genChildren(el) &#123;</span><br><span class="line">  const children &#x3D; el.children;</span><br><span class="line">  if (el.children) &#123;</span><br><span class="line">    return &#96;[$&#123;children.map(c&#x3D;&gt;gen(c)).join(&#39;,&#39;)&#125;]&#96;</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">    return false;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function genProps(attrs) &#123;</span><br><span class="line">  let str &#x3D; &#39;&#39;;</span><br><span class="line">  for (let i &#x3D; 0; i &lt; attrs.length; i++) &#123;</span><br><span class="line">    let attr &#x3D; attrs[i];</span><br><span class="line">    str +&#x3D; &#96;$&#123;attr.name&#125;:$&#123;attr.value&#125;,&#96;;</span><br><span class="line">  &#125;</span><br><span class="line">  return &#96;&#123;attrs:&#123;$&#123;str.slice(0,-1)&#125;&#125;&#125;&#96;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function generate(el) &#123;</span><br><span class="line">  let children &#x3D; genChildren(el);</span><br><span class="line">  let code &#x3D; &#96;_c(&#39;$&#123;el.tag&#125;&#39;$&#123;el.attrs.length?&#96;,$&#123;genProps(el.attrs)&#125;&#96;:&#39;&#39;&#125;$&#123;children? &#96;,$&#123;children&#125;&#96;:&#39;&#39;&#125;)&#96;;</span><br><span class="line">  return code;</span><br><span class="line">&#125; &#x2F;&#x2F; 根据语法树生成新的代码 </span><br><span class="line">let code &#x3D; generate(root);</span><br><span class="line">let render &#x3D; &#96;with(this)&#123;return $&#123;code&#125;&#125;&#96;;</span><br><span class="line">&#x2F;&#x2F; 包装成函数 </span><br><span class="line">let renderFn &#x3D; new Function(render);</span><br><span class="line">console.log(renderFn.toString());</span><br></pre></td></tr></table></figure>
+
+<p>假设我们的template里面写了这个 <code>&lt;div id=&quot;container&quot;&gt;&lt;p&gt;hello&lt;span&gt;zf&lt;/span&gt;&lt;/p&gt;&lt;/div&gt;</code></p>
+<p>通过parseHTML函数,循环遍历里面的每一个字符串,判断是否为’&lt;’</p>
+<blockquote>
+<p>每次循环判断完之后,都会删除对应的长度</p>
+</blockquote>
+<p>匹配到了<code>&lt;div</code>后,生成一个对象,将’div’放入了tagName中,可能div会有属性,也生成一个attrs</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 就是上面代码中的这一段 --&gt;</span><br><span class="line">const match &#x3D; &#123;</span><br><span class="line">  tagName: start[1],</span><br><span class="line">  attrs: []</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>之后会继续循环匹配,看看是否是 ‘&gt;’ 关闭标签,如果不是的话,继续循环</p>
+<p>循环到了是一个 <code>id=&quot;container&quot;</code>,根据正则来判断是否是属性,放入了<code>attrs</code>中</p>
+<p>再次循环匹配到是一个 ‘&gt;’ 关闭标签,返回这个对象</p>
+<p>这时候字符串已经剩下这样的了 <code>&lt;p&gt;hello&lt;span&gt;zf&lt;/span&gt;&lt;/p&gt;&lt;/div&gt;</code>, 前面的<code>&lt;div id=&quot;container&quot;&gt;</code> 都已经判断处理完了</p>
+<p>再一次判断到是’&lt;’后,重复上面的操作</p>
+<p>不一样的是,p标签中是一个’hello’字符串,通过正则判断后,是将这个hello传入chars中,代码中也有,就不写出来了</p>
+<p>通过这样一步一步的循环遍历判断,最终会生成一个完整的对象</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  tag: &quot;div&quot;</span><br><span class="line">  type: 1,</span><br><span class="line">  children: [&#123;</span><br><span class="line">    tag: &quot;p&quot;</span><br><span class="line">    type: 1,</span><br><span class="line">    children: [&#123;</span><br><span class="line">      type: 3</span><br><span class="line">      text: &quot;hello&quot;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      tag: &quot;span&quot;</span><br><span class="line">      type: 1,</span><br><span class="line">      children: [&#123;</span><br><span class="line">        type: 3</span><br><span class="line">        text: &quot;zf&quot;</span><br><span class="line">      &#125;],</span><br><span class="line">      attrs: [],</span><br><span class="line">      parent: &#39;&#39; &#x2F;&#x2F; 父级</span><br><span class="line">    &#125;],</span><br><span class="line">    attrs: [],</span><br><span class="line">    parent: &#39;&#39; &#x2F;&#x2F; 父级</span><br><span class="line">  &#125;],</span><br><span class="line">  attrs: [&#123;</span><br><span class="line">    name: &quot;id&quot;</span><br><span class="line">    value: &quot;container&quot;</span><br><span class="line">  &#125;],</span><br><span class="line">  parent: null</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样就可以用一个对象来描述一个DOM元素</p>
+<p>以上就是我对vue模板编译的一些理解,如果文章由于我学识浅薄,导致您发现有严重谬误的地方,请一定在评论中指出,我会在第一时间修正我的博文,以避免误人子弟。</p>
+
+    </div>
+
+    
+    
+    
+    
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+      
+    </div>
+        
+      
+        <div class="reward-container">
+  <div>没办法,总要恰饭的嘛~~</div>
+  <button disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+        
+      
+      <div style="display: inline-block;">
+        <img src="/images/wxpay.png" alt="陈晟 微信支付">
+        <p>微信支付</p>
+      </div>
+        
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="陈晟 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+      
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>陈晟
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://www.chensheng.group/2020/11/08/137-vue%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0-%E6%A8%A1%E6%9D%BF%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/" title="vue源码学习-模板编译原理">https://www.chensheng.group/2020/11/08/137-vue%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0-%E6%A8%A1%E6%9D%BF%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/Vue/" rel="tag"><i class="fa fa-tag"></i> Vue</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2020/07/29/136-hexo%E4%BD%BF%E7%94%A8Valine%E8%AF%84%E8%AE%BA/" rel="next" title="hexo使用Valine评论">
+                  <i class="fa fa-chevron-left"></i> hexo使用Valine评论
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="comments"></div>
+  
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <a href="/">
+      <img class="site-author-image" itemprop="image"
+        src="/images/touxiang.jpg"
+        alt="陈晟">
+    </a>
+  <p class="site-author-name" itemprop="name">陈晟</p>
+  <div class="site-description" itemprop="description">请不要在最能吃苦的日子选择安逸</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">137</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        <span class="site-state-item-count">53</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+</div>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/328921371" title="GitHub &amp;rarr; https:&#x2F;&#x2F;github.com&#x2F;328921371" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="mailto:328921371@qq.com" title="E-Mail &amp;rarr; mailto:328921371@qq.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+    
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    
+  
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  &copy; 2016 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">陈晟</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    
+    <span title="站点总字数">418k</span>
+</div>
+  <div class="powered-by">欢迎访问
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">
+      
+    Mr.Chen的小前端
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+      <span class="site-uv">
+        我的第 <span class="busuanzi-value" id="busuanzi_value_site_uv"></span> 位朋友，
+      </span>
+
+  
+    <span class="site-pv">
+     历经 <span class="busuanzi-value" id="busuanzi_value_site_pv"></span> 次回眸才与你相遇
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js?v=3.1.0"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+<script src="/js/utils.js?v=7.4.2.js"></script>
+
+<script src="/js/motion.js?v=7.4.2.js"></script>
+
+
+<script src="/js/schemes/muse.js?v=7.4.2.js"></script>
+
+
+
+<script src="/js/next-boot.js?v=7.4.2.js"></script>
+
+<script src="/js/bookmark.js?v=7.4.2.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+<script src="/js/local-search.js?v=7.4.2.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  <script src="/js/wobblewindow.js"></script>
+  <script>
+    if( window.innerWidth > 768  ){
+      $(document).ready(function () {
+        
+          $('.header').wobbleWindow({
+            radius: 50,
+            movementTop: false,
+            movementLeft: false,
+            movementRight: false,
+            debug: false,
+          });
+        
+
+        
+
+        
+      });
+    }
+  </script>
+
+
+
+
+  <script src="/js/activate-power-mode.min.js"></script>
+  <script>
+    POWERMODE.colorful = true;
+    POWERMODE.shake = false;
+    document.body.addEventListener('input', POWERMODE);
+  </script>
+
+
+
+
+  <script async src="/js/cursor/fireworks.js"></script>
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.includes(item);
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'jD385ICqgsSXvIPjMqMoJhn5-gzGzoHsz',
+    appKey: 'Y3pbrUp0lQbqyJK8XRjke93m',
+    placeholder: "（づ≧∀≦）づ╭❤～  客官,快来玩吖!",
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: 'zh-cn' || 'zh-cn',
+    path: location.pathname,
+    recordIP: false,
+    serverURLs: ''
+  });
+}, window.Valine);
+</script>
+
+</body>
+</html>
