@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.chensheng.group/"/>
-  <updated>2021-02-11T07:11:59.054Z</updated>
+  <updated>2021-02-11T07:12:50.136Z</updated>
   <id>https://www.chensheng.group/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://www.chensheng.group/2021/02/11/139-coding%E9%85%8D%E7%BD%AE%E8%85%BE%E8%AE%AF%E4%BA%91%E8%AF%81%E4%B9%A6/"/>
     <id>https://www.chensheng.group/2021/02/11/139-coding%E9%85%8D%E7%BD%AE%E8%85%BE%E8%AE%AF%E4%BA%91%E8%AF%81%E4%B9%A6/</id>
     <published>2021-02-11T06:57:00.000Z</published>
-    <updated>2021-02-11T07:11:59.054Z</updated>
+    <updated>2021-02-11T07:12:50.136Z</updated>
     
     <content type="html"><![CDATA[<hr style='filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)' color='#FF0000' size='1' /><blockquote><p>小小的记录,以免以后忘记了</p></blockquote><a id="more"></a><p>今天写完博客,发现网站的证书过期了,以往都是coding每次免费3个月的证书,但是现在coding和腾讯云合作了,要用腾讯云的证书了</p><ol><li><p>首先在coding中静态网站上看看自定义域名是否通过,因为coding的整体升级,于是CNAME指向也改了,我的域名是在阿里云上的,所以需要在阿里云的域名解析中重新添加</p></li><li><p>通过后就可以去申请腾讯云的证书了,他有免费一年的证书,可以找一找,然后填写一下资料,自己的域名和邮箱</p></li><li><p>第二步验证的方式使用DNS验证,同样的,在阿里云的域名解析中添加验证</p></li><li><p>成功后就会签发证书,就可以进行部署了</p></li><li><p>部署的时候选择腾讯云托管证书,在证书列表中选择刚刚签发的证书,回源协议选择HTTP或者HTTPS都可以</p></li><li><p>腾讯云证书部署成功后,在第一步的coding的静态网站中重新部署一下你的网站,这样就成功了(我最后一步一直没有重新部署,所以我一直以为我的证书部署失败了)</p></li><li><p>中途如果有部署失败的,应该是你的域名也指向了github,先把指向github的给暂停</p></li></ol><p>至此,博客的证书又可以白嫖一年了</p>]]></content>
     
@@ -40,6 +40,33 @@
     
     
       <category term="SSL证书" scheme="https://www.chensheng.group/tags/SSL%E8%AF%81%E4%B9%A6/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>关于CSS的一些事(2)</title>
+    <link href="https://www.chensheng.group/2021/02/11/140-%E5%85%B3%E4%BA%8ECSS%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BA%8B(2)/"/>
+    <id>https://www.chensheng.group/2021/02/11/140-%E5%85%B3%E4%BA%8ECSS%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BA%8B(2)/</id>
+    <published>2021-02-11T06:57:00.000Z</published>
+    <updated>2021-02-17T02:46:37.952Z</updated>
+    
+    <content type="html"><![CDATA[<hr style='filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)' color='#FF0000' size='1' /><blockquote><p>记录一些实用的CSS</p></blockquote><a id="more"></a><h3 id="全屏灰色（特殊日期使用）"><a href="#全屏灰色（特殊日期使用）" class="headerlink" title="全屏灰色（特殊日期使用）"></a>全屏灰色（特殊日期使用）</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;style&gt;</span><br><span class="line">.filter &#123;</span><br><span class="line">  -webkit-filter: grayscale(100%); &#x2F;* webkit *&#x2F;</span><br><span class="line">  -moz-filter: grayscale(100%); &#x2F;*firefox*&#x2F;</span><br><span class="line">  -ms-filter: grayscale(100%); &#x2F;*ie9*&#x2F;</span><br><span class="line">  -o-filter: grayscale(100%); &#x2F;*opera*&#x2F;</span><br><span class="line">  filter: grayscale(100%);</span><br><span class="line">  filter: progid:DXImageTransform.Microsoft.BasicImage(grayscale&#x3D;1); &#x2F;*ie*&#x2F;</span><br><span class="line">  filter: gray; &#x2F;*ie9- *&#x2F;</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;style&gt;</span><br><span class="line">&lt;html class&#x3D;&quot;filter&quot;&gt;</span><br><span class="line">  &lt;img src&#x3D;&quot;https:&#x2F;&#x2F;cdn.pixabay.com&#x2F;photo&#x2F;2015&#x2F;04&#x2F;20&#x2F;17&#x2F;01&#x2F;flower-731830_960_720.jpg&quot; &#x2F;&gt;</span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure><h3 id="卡券贴"><a href="#卡券贴" class="headerlink" title="卡券贴"></a>卡券贴</h3><p>在CSS3当中，background添加了background-size属性，控制背景图片的大小，配合background-position属性，可以在一个背景下面展示多张图片。</p><p>卡券贴的核心是使用透明白色径向渐变radial-gradient，分别让4张背景图中的左下角、右下角、右上角和左下角出现缺省，再利用drop-shadow实现元素阴影，从而达到效果。</p><p>radial-gradient语法如下：</p><blockquote><p>radial-gradient(shape size at position, start-color, …, last-color)</p></blockquote><p><img src="https://pic2.zhimg.com/80/v2-0e2b43fad0beebc5c13b3c7983b5ca45_720w.jpg" alt="属性说明"></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;style&gt;</span><br><span class="line">.coupon&#123;</span><br><span class="line">  width: 200px;</span><br><span class="line">  height: 80px;</span><br><span class="line">  background: radial-gradient(circle at right bottom, transparent 10px, #ffffff 0) top right &#x2F; 50% 40px no-repeat,</span><br><span class="line">    radial-gradient(circle at left bottom, transparent 10px, #ffffff 0) top left &#x2F; 50% 40px no-repeat,</span><br><span class="line">    radial-gradient(circle at right top, transparent 10px, #ffffff 0) bottom right &#x2F; 50% 40px no-repeat,</span><br><span class="line">    radial-gradient(circle at left top, transparent 10px, #ffffff 0) bottom left &#x2F; 50% 40px no-repeat;</span><br><span class="line">  filter: drop-shadow(3px 3px 3px #c5c5c5);</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;style&gt;</span><br><span class="line"></span><br><span class="line">&lt;div class&#x3D;&quot;coupon&quot;&gt;&lt;&#x2F;div&gt;</span><br></pre></td></tr></table></figure><h3 id="文本溢出自动省略号"><a href="#文本溢出自动省略号" class="headerlink" title="文本溢出自动省略号"></a>文本溢出自动省略号</h3><p>这个在项目中经常用到,但是一直都记不住</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;style&gt;</span><br><span class="line">.ellipsis &#123;</span><br><span class="line">  width: 500px;</span><br><span class="line">  overflow: hidden;</span><br><span class="line">  text-overflow: ellipsis;</span><br><span class="line">  white-space: nowrap;</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;style&gt;</span><br><span class="line">&lt;div class&#x3D;&quot;ellipsis&quot;&gt;</span><br><span class="line">  明月几时有，把酒问青天。不知天上宫阙，今夕是何年。我欲乘风归去，又恐琼楼玉宇，高处不胜寒。起舞弄清影，何似在人间。</span><br><span class="line">  转朱阁，低绮户，照无眠。不应有恨，何事长向别时圆？人有悲欢离合，月有阴晴圆缺，此事古难全。但愿人长久，千里共婵娟。</span><br><span class="line">&lt;&#x2F;div&gt;</span><br></pre></td></tr></table></figure><h3 id="记录其他的好的链接"><a href="#记录其他的好的链接" class="headerlink" title="记录其他的好的链接"></a>记录其他的好的链接</h3><p>大神的作品,转载知乎</p><p><a href="https://zhuanlan.zhihu.com/p/158672754" target="_blank" rel="noopener">戳我跳转</a></p><p>总是记不住,但是要用到的样式 </p><p><a href="https://zhuanlan.zhihu.com/p/231014167" target="_blank" rel="noopener">戳我跳转</a></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;hr style=&#39;filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)&#39; color=&#39;#FF0000&#39; size=&#39;1&#39; /&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;记录一些实用的CSS&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+    
+      <category term="CSS" scheme="https://www.chensheng.group/categories/CSS/"/>
+    
+    
+      <category term="CSS" scheme="https://www.chensheng.group/tags/CSS/"/>
     
   </entry>
   
@@ -517,33 +544,6 @@
 
 &lt;blockquote&gt;
 &lt;p&gt;weex打包成apk我就不说了,android-studio的build上面可以构建,现在记录一下打包成.arr需要哪些步骤,也就是我们通常说的sdk&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-    
-      <category term="weex" scheme="https://www.chensheng.group/categories/weex/"/>
-    
-    
-      <category term="weex" scheme="https://www.chensheng.group/tags/weex/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>weex环境部署</title>
-    <link href="https://www.chensheng.group/2020/01/30/120-weex%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/"/>
-    <id>https://www.chensheng.group/2020/01/30/120-weex%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/</id>
-    <published>2020-01-30T02:17:00.000Z</published>
-    <updated>2020-03-02T09:15:31.250Z</updated>
-    
-    <content type="html"><![CDATA[<hr style='filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)' color='#FF0000' size='1' /><blockquote><p>在家无聊,打算把跨端的Flutter,RN和weex都看一遍,记录一下weex</p></blockquote><a id="more"></a><p>配置环境是一件很麻烦的事情,我安装了两三个小时,可能是网速或者没有翻墙的问题</p><h3 id="node，npm，git"><a href="#node，npm，git" class="headerlink" title="node，npm，git"></a>node，npm，git</h3><p>需要安装的 node，npm，git,这个三个我就不说了,一般的前端都安装好了,没有安装的去我之前的博客搜一下就有</p><h3 id="java环境"><a href="#java环境" class="headerlink" title="java环境"></a>java环境</h3><p>安装java环境 下载地址：<a href="http://www.java.com/zh_CN/" target="_blank" rel="noopener">http://www.java.com/zh_CN/</a></p><h3 id="weex-toolkit"><a href="#weex-toolkit" class="headerlink" title="weex-toolkit"></a>weex-toolkit</h3><p>安装weex-toolkit  npm install weex-toolkit -g   检查一下weex -v</p><p>安装 webpack npm install webpack -g 检查一下 webpack -v</p><p>安装前先检查一下，如果有的话就不用安装了 </p><h3 id="android-studio"><a href="#android-studio" class="headerlink" title="android-studio"></a>android-studio</h3><p>安装 android-studio 记住那个sdk的路径，默认安装在 </p><p>C:\Users\CS\AppData\Local\Android\Sdk</p><h3 id="配置环境变量"><a href="#配置环境变量" class="headerlink" title="配置环境变量"></a>配置环境变量</h3><p>配置环境变量：打开环境变量路径：控制面板-&gt;系统和安全-&gt;系统-&gt;高级系统设置-&gt;环境变量。</p><p>新建：ANDROID_HOME 并把我们刚才赋值的sdk路径作为值插入。</p><p>添加platform-tools和tools到path下</p><p>AndroidStudio配置：在AndroidStudio的欢迎界面，你需要点击右下方的Configure进行老版本的SDK tool配置，</p><p>步骤：Configure-&gt;SDKManager-&gt;SDK Tools-&gt;勾选show Package Details -&gt;勾选23.0.2</p><p>然后进入安装。</p><h3 id="初始化构建weex项目"><a href="#初始化构建weex项目" class="headerlink" title="初始化构建weex项目"></a>初始化构建weex项目</h3><p>初始化构建项目 weex create helloWeex，一路自己选择，和vue-cli差不多</p><p>添加Android应用支持： weex platform add android</p><h3 id="AVD虚拟机"><a href="#AVD虚拟机" class="headerlink" title="AVD虚拟机"></a>AVD虚拟机</h3><p>AVD虚拟机的安装： 菜单栏上有一个 AVD，鼠标悬停显示，找一找，然后点击Create Virtual Device</p><p>选择一个适合的分辨率，推荐480*800的 不会太大，然后选一个安卓版本下载，下载后选择安装完成，安装完成后点击运行就可以了</p><p>到这里,weex环境搭建,weex与android-studio创建联系,都已经完成了</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;hr style=&#39;filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)&#39; color=&#39;#FF0000&#39; size=&#39;1&#39; /&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;在家无聊,打算把跨端的Flutter,RN和weex都看一遍,记录一下weex&lt;/p&gt;
 &lt;/blockquote&gt;
     
     </summary>
