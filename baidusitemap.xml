@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://www.chensheng.group/2021/04/19/141-uniapp%E4%B8%8Ewebview%E4%B9%8B%E9%97%B4%E7%9A%84%E7%9B%B8%E4%BA%92%E4%BC%A0%E5%80%BC/</loc>
+    <lastmod>2021-06-20</lastmod>
+  </url>  <url>
+    <loc>https://www.chensheng.group/2020/07/04/133-JavaScript%E7%9A%84%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F/</loc>
+    <lastmod>2021-06-20</lastmod>
+  </url>  <url>
     <loc>https://www.chensheng.group/2021/02/11/140-%E5%85%B3%E4%BA%8ECSS%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BA%8B(2)/</loc>
     <lastmod>2021-02-17</lastmod>
   </url>  <url>
@@ -113,9 +119,6 @@
     <lastmod>2020-07-27</lastmod>
   </url>  <url>
     <loc>https://www.chensheng.group/2017/04/03/27-Vue%E6%8F%92%E6%A7%BD%E7%9A%84%E4%BD%BF%E7%94%A8/</loc>
-    <lastmod>2020-07-05</lastmod>
-  </url>  <url>
-    <loc>https://www.chensheng.group/2020/07/04/133-JavaScript%E7%9A%84%E6%89%A7%E8%A1%8C/</loc>
     <lastmod>2020-07-05</lastmod>
   </url>  <url>
     <loc>https://www.chensheng.group/2020/06/27/132-element-ui%E5%8A%A8%E6%80%81%E6%8D%A2%E8%82%A4/</loc>

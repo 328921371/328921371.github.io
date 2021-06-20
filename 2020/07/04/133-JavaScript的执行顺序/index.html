@@ -63,19 +63,19 @@
 
   <meta name="description" content="如何理解JavaScript的事件循环?什么是宏任务和微任务?怎么理解消息队列的执行顺序?">
 <meta property="og:type" content="article">
-<meta property="og:title" content="JavaScript的执行">
-<meta property="og:url" content="https://www.chensheng.group/2020/07/04/133-JavaScript%E7%9A%84%E6%89%A7%E8%A1%8C/index.html">
+<meta property="og:title" content="JavaScript的执行顺序">
+<meta property="og:url" content="https://www.chensheng.group/2020/07/04/133-JavaScript%E7%9A%84%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F/index.html">
 <meta property="og:site_name" content="陈先生的小前端">
 <meta property="og:description" content="如何理解JavaScript的事件循环?什么是宏任务和微任务?怎么理解消息队列的执行顺序?">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://csblogimage.oss-cn-hangzhou.aliyuncs.com/133-Js%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,size_16,text_Qnku6ZmI5YWI55Sf55qE5bCP5YmN56uv,color_FFFFFF,shadow_50,t_100,g_se,x_10,y_10">
 <meta property="article:published_time" content="2020-07-04T05:35:00.000Z">
-<meta property="article:modified_time" content="2020-07-05T14:06:40.047Z">
+<meta property="article:modified_time" content="2021-06-20T13:12:17.985Z">
 <meta property="article:author" content="陈晟">
 <meta property="article:tag" content="javaScript">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://csblogimage.oss-cn-hangzhou.aliyuncs.com/133-Js%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,size_16,text_Qnku6ZmI5YWI55Sf55qE5bCP5YmN56uv,color_FFFFFF,shadow_50,t_100,g_se,x_10,y_10">
-  <link rel="canonical" href="https://www.chensheng.group/2020/07/04/133-JavaScript%E7%9A%84%E6%89%A7%E8%A1%8C/">
+  <link rel="canonical" href="https://www.chensheng.group/2020/07/04/133-JavaScript%E7%9A%84%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F/">
 
 
 <script id="page-configurations">
@@ -89,7 +89,7 @@
   };
 </script>
 
-  <title>JavaScript的执行 | 陈先生的小前端</title>
+  <title>JavaScript的执行顺序 | 陈先生的小前端</title>
   
 
 
@@ -276,7 +276,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.chensheng.group/2020/07/04/133-JavaScript%E7%9A%84%E6%89%A7%E8%A1%8C/">
+    <link itemprop="mainEntityOfPage" href="https://www.chensheng.group/2020/07/04/133-JavaScript%E7%9A%84%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="陈晟">
@@ -290,7 +290,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            JavaScript的执行
+            JavaScript的执行顺序
             
 
           
@@ -339,8 +339,8 @@
       
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2020/07/04/133-JavaScript%E7%9A%84%E6%89%A7%E8%A1%8C/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/07/04/133-JavaScript%E7%9A%84%E6%89%A7%E8%A1%8C/" itemprop="commentCount"></span>
+    <a title="valine" href="/2020/07/04/133-JavaScript%E7%9A%84%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/07/04/133-JavaScript%E7%9A%84%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -508,7 +508,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://www.chensheng.group/2020/07/04/133-JavaScript%E7%9A%84%E6%89%A7%E8%A1%8C/" title="JavaScript的执行">https://www.chensheng.group/2020/07/04/133-JavaScript%E7%9A%84%E6%89%A7%E8%A1%8C/</a>
+    <a href="https://www.chensheng.group/2020/07/04/133-JavaScript%E7%9A%84%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F/" title="JavaScript的执行顺序">https://www.chensheng.group/2020/07/04/133-JavaScript%E7%9A%84%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -616,7 +616,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">140</span>
+          <span class="site-state-item-count">141</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -629,7 +629,7 @@
             <a href="/categories/">
           
         
-        <span class="site-state-item-count">34</span>
+        <span class="site-state-item-count">35</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
@@ -642,7 +642,7 @@
             <a href="/tags/">
           
         
-        <span class="site-state-item-count">54</span>
+        <span class="site-state-item-count">55</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>
@@ -713,7 +713,7 @@
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">426k</span>
+    <span title="站点总字数">431k</span>
 </div>
   <div class="powered-by">欢迎访问
   </div>
