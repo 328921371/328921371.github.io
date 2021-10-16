@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico?v=7.4.2">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=7.4.2">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico?v=7.4.2">
+  <link rel="mask-icon" href="/images/favicon.ico?v=7.4.2" color="#222">
+  <link rel="alternate" href="/atom.xml" title="陈先生的小前端" type="application/atom+xml">
+
+
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.2">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '7.4.2',
+    exturl: false,
+    sidebar: {"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":"mac"},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    bookmark: {"enable":true,"color":"#222","save":"auto"},
+    fancybox: true,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="前一阵子由于网站拿去ICP的备案,所以停了一段时间,现在备案下来了,我们来学习一下垃圾回收">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深入理解垃圾回收原理">
+<meta property="og:url" content="https://www.chensheng.group/2021/08/30/142-%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E5%8E%9F%E7%90%86/index.html">
+<meta property="og:site_name" content="陈先生的小前端">
+<meta property="og:description" content="前一阵子由于网站拿去ICP的备案,所以停了一段时间,现在备案下来了,我们来学习一下垃圾回收">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://csblogimage.oss-cn-hangzhou.aliyuncs.com/142-1-%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6.jpg">
+<meta property="og:image" content="https://csblogimage.oss-cn-hangzhou.aliyuncs.com/142-2-%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6.jpg.jpg">
+<meta property="article:published_time" content="2021-08-30T13:35:00.000Z">
+<meta property="article:modified_time" content="2021-09-03T06:54:12.698Z">
+<meta property="article:author" content="陈晟">
+<meta property="article:tag" content="javaScript">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://csblogimage.oss-cn-hangzhou.aliyuncs.com/142-1-%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6.jpg">
+  <link rel="canonical" href="https://www.chensheng.group/2021/08/30/142-%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E5%8E%9F%E7%90%86/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>深入理解垃圾回收原理 | 陈先生的小前端</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+  <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css"/>
+  <script src="/live2d-widget/autoload.js"></script>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">陈先生的小前端</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+        
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+      
+    
+      
+      
+        
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+      
+    
+      
+      
+        
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+      
+    
+      
+      
+        
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+      
+    
+      
+      
+        
+        
+        <li class="menu-item menu-item-about">
+      
+    
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+      
+    
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger">
+          <i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+    
+  </ul>
+
+    
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.chensheng.group/2021/08/30/142-%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E5%8E%9F%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="陈晟">
+      <meta itemprop="description" content="请不要在最能吃苦的日子选择安逸">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="陈先生的小前端">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            深入理解垃圾回收原理
+            
+
+          
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2021-08-30 21:35:00" itemprop="dateCreated datePublished" datetime="2021-08-30T21:35:00+08:00">2021-08-30</time>
+            </span>
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/javaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">javaScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+        
+      
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/08/30/142-%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E5%8E%9F%E7%90%86/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/08/30/142-%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E5%8E%9F%E7%90%86/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <hr style='filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)' color='#FF0000' size='1' />
+
+<blockquote>
+<p>前一阵子由于网站拿去ICP的备案,所以停了一段时间,现在备案下来了,我们来学习一下垃圾回收</p>
+</blockquote>
+<a id="more"></a>
+
+<h3 id="什么是垃圾回收"><a href="#什么是垃圾回收" class="headerlink" title="什么是垃圾回收"></a>什么是垃圾回收</h3><p>垃圾回收是一种自动的内存管理机制。当计算机上的动态内存不再需要时，就应该予以释放，以让出内存。</p>
+<p>直白点讲，就是程序是运行在内存里的，当声明一个变量、定义一个函数时都会占用内存。内存的容量是有限的，如果变量、函数等只有产生没有消亡的过程，那迟早内存有被完全占用的时候。</p>
+<p>这个时候，不仅自己的程序无法正常运行，连其他程序也会受到影响。</p>
+<p>所以，在计算机中，我们需要垃圾回收。需要注意的是，定义中的“自动”的意思是语言可以帮助我们回收内存垃圾，但并不代表我们不用关心内存管理，如果操作失当，JavaScript 中依旧会出现内存溢出的情况。</p>
+<h3 id="垃圾回收原理"><a href="#垃圾回收原理" class="headerlink" title="垃圾回收原理"></a>垃圾回收原理</h3><p>垃圾回收基于两个原理：</p>
+<ul>
+<li>考虑某个变量或对象在未来的程序运行中将不会被访问</li>
+<li>向这些对象要求归还内存</li>
+</ul>
+<p>而这两个原理中，最主要的也是最艰难的部分就是找到“所分配的内存确实已经不再需要了”。</p>
+<p>在解释这些之前,我们要先了解一下名词-GC</p>
+<h3 id="什么是GC"><a href="#什么是GC" class="headerlink" title="什么是GC"></a>什么是GC</h3><p>GC可以理解为在追踪仍然使用的所有对象，并将其余对象标记为垃圾然后进行回收，这样的一个过程称之为GC，所有的GC系统可以从如下几个方面进行实现</p>
+<ul>
+<li>GC判断策略（例如引用计数，对象可达）</li>
+<li>GC收集算法（标记清除法，标记清除整理法，标记复制清除法，分带法）</li>
+<li>GC收集器（例如Serial，Parallel，CMS，G1）</li>
+</ul>
+<h3 id="V8垃圾回收策略"><a href="#V8垃圾回收策略" class="headerlink" title="V8垃圾回收策略"></a>V8垃圾回收策略</h3><p>V8的垃圾回收策略基于分代回收机制，该机制又基于<a href="https://www.memorymanagement.org/glossary/g.html#generational%20hypothesis" target="_blank" rel="noopener">世代假说</a>。该假说有两个特点：</p>
+<ul>
+<li>大部分新生对象倾向于早死；</li>
+<li>不死的对象，会活得更久。</li>
+</ul>
+<p>基于这个理论，现代垃圾回收算法根据对象的存活时间将内存进行了分代，并对不同分代的内存采用不同的高效算法进行垃圾回收。</p>
+<h3 id="V8的内存分代"><a href="#V8的内存分代" class="headerlink" title="V8的内存分代"></a>V8的内存分代</h3><p>在V8中，将内存分为了新生代（new space）和老生代（old space）。它们特点如下：</p>
+<ul>
+<li>新生代：对象的存活时间较短。新生对象或只经过一次垃圾回收的对象。</li>
+<li>老生代：对象存活时间较长。经历过一次或多次垃圾回收的对象。</li>
+</ul>
+<blockquote>
+<p>V8堆的空间等于新生代空间加上老生代空间，默认设置下，64位系统的老生代大小为1400M，32位系统为700M。</p>
+</blockquote>
+<h3 id="垃圾回收算法"><a href="#垃圾回收算法" class="headerlink" title="垃圾回收算法"></a>垃圾回收算法</h3><h4 id="Stop-The-World-（全停顿）"><a href="#Stop-The-World-（全停顿）" class="headerlink" title="Stop The World （全停顿）"></a>Stop The World （全停顿）</h4><p>在介绍垃圾回收算法之前，我们先了解一下「全停顿」。垃圾回收算法在执行前，需要将应用逻辑暂停，执行完垃圾回收后再执行应用逻辑，这种行为称为 「全停顿」（Stop The World）</p>
+<p>全停顿的目的，是为了解决应用逻辑与垃圾回收器看到的情况不一致的问题。举个例子，在自助餐厅吃饭，高高兴兴地取完食物回来时，结果发现自己餐具被服务员收走了。这里，服务员好比垃圾回收器，餐具就像是分配的对象，我们就是应用逻辑。在我们看来，只是将餐具临时放在桌上，但是服务员看来觉得你已经不需要使用了，因此就收走了。你与服务员对于同一个事物看到的情况是不一致，导致服务员做了与我们不期望的事情。因此，为避免应用逻辑与垃圾回收器看到的情况不一致，垃圾回收算法在执行时，需要停止应用逻辑。</p>
+<h4 id="引用计数（reference-counting）"><a href="#引用计数（reference-counting）" class="headerlink" title="引用计数（reference counting）"></a>引用计数（reference counting）</h4><p>在V8回收之前,低版本 IE大多数用的是这种的方法</p>
+<p>在内存管理环境中，对象 A 如果有访问对象 B 的权限，叫做对象 A 引用对象 B。引用计数的策略是将“对象是否不再需要”简化成“对象有没有其他对象引用到它”，如果没有对象引用这个对象，那么这个对象将会被回收。上例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">let obj1 &#x3D; &#123; a: 1 &#125;; &#x2F;&#x2F; 一个对象（称之为 A）被创建，赋值给 obj1，A 的引用个数为 1 </span><br><span class="line">let obj2 &#x3D; obj1; &#x2F;&#x2F; A 的引用个数变为 2</span><br><span class="line"></span><br><span class="line">obj1 &#x3D; 0; &#x2F;&#x2F; A 的引用个数变为 1</span><br><span class="line">obj2 &#x3D; 0; &#x2F;&#x2F; A 的引用个数变为 0，此时对象 A 就可以被垃圾回收了</span><br></pre></td></tr></table></figure>
+
+<p>但是引用计数有个最大的问题： 循环引用。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">function func() &#123;</span><br><span class="line">  let obj1 &#x3D; &#123;&#125;;</span><br><span class="line">  let obj2 &#x3D; &#123;&#125;;</span><br><span class="line"></span><br><span class="line">  obj1.a &#x3D; obj2; &#x2F;&#x2F; obj1 引用 obj2</span><br><span class="line">  obj2.a &#x3D; obj1; &#x2F;&#x2F; obj2 引用 obj1</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>当函数 func 执行结束后，返回值为 undefined，所以整个函数以及内部的变量都应该被回收，但根据引用计数方法，obj1 和 obj2 的引用次数都不为 0，所以他们不会被回收。</p>
+<p>要解决循环引用的问题，最好是在不使用它们的时候手工将它们设为空。上面的例子可以这么做：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">obj1 &#x3D; null;</span><br><span class="line">obj2 &#x3D; null;</span><br></pre></td></tr></table></figure>
+
+<p>这个方法被称为“解除引用”。</p>
+<h4 id="Scavenge算法"><a href="#Scavenge算法" class="headerlink" title="Scavenge算法"></a>Scavenge算法</h4><p>在分代的基础上,新生代中的对象主要通过Scavenge算法进行垃圾回收,在Scavenge的具体 实现中,主要采用了Cheney算法</p>
+<p>Cheney算法采用复制的方式进行垃圾回收。它将堆内存一分为二，每一部分空间称为 semispace。这两个空间，只有一个空间处于使用中，另一个则处于闲置。使用中的 semispace 称为 「From 空间」，闲置的 semispace 称为 「To 空间」。</p>
+<p>过程如下: </p>
+<ol>
+<li>从 From 空间分配对象，若 semispace 被分配满，则执行 Scavenge 算法进行垃圾回收。</li>
+<li>检查 From 空间的存活对象，若对象存活，则检查对象是否符合晋升条件，若符合条件则晋升到老生代，否则将对象从 From 空间复制到 To 空间。</li>
+<li>若对象不存活，则释放不存活对象的空间。</li>
+<li>完成复制后，将 From 空间与 To 空间进行角色翻转（flip）。</li>
+</ol>
+<p><img src="https://csblogimage.oss-cn-hangzhou.aliyuncs.com/142-1-%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6.jpg" alt="算法示意图"></p>
+<h5 id="对象晋升"><a href="#对象晋升" class="headerlink" title="对象晋升"></a>对象晋升</h5><p>第二点提到的对象晋升,条件有两个: </p>
+<ul>
+<li>对象是否经历过Scavenge回收。</li>
+<li>To 空间的内存使用占比是否超过限制(25%)。</li>
+</ul>
+<blockquote>
+<p>Scavenge 算法的缺点是，它的算法机制决定了只能利用一半的内存空间。但是新生代中的对象生存周期短、存活对象少，进行对象复制的成本不是很高，因而非常适合这种场景。</p>
+</blockquote>
+<h4 id="标记-清除（mark-and-sweep）"><a href="#标记-清除（mark-and-sweep）" class="headerlink" title="标记-清除（mark and sweep）"></a>标记-清除（mark and sweep）</h4><p>这是 JavaScript 中最常见的垃圾回收方式</p>
+<p>从 2012 年起，所有现代浏览器都使用了标记-清除的垃圾回收方法，除了低版本 IE…它们采用的是引用计数方法。</p>
+<p>那什么叫标记清除呢？JavaScript 中有个全局对象，浏览器中是 window。定期的，垃圾回收期将从这个全局对象开始，找所有从这个全局对象开始引用的对象，再找这些对象引用的对象…对这些活着的对象进行标记，这是标记阶段。清除阶段会对标记的对象会与内存中的对象进行比较，然后清除内存中那些没有标记的对象。</p>
+<p>标记－清除法的一个问题就是不那么有效率，因为在标记－清除阶段，整个程序将会等待，所以如果程序出现卡顿的情况，那有可能是收集垃圾的过程。</p>
+<p><img src="https://csblogimage.oss-cn-hangzhou.aliyuncs.com/142-2-%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6.jpg.jpg" alt="算法示意图"></p>
+<h4 id="增量标记"><a href="#增量标记" class="headerlink" title="增量标记"></a>增量标记</h4><p>在新生代中，由于存活对象少，垃圾回收效率高，全停顿时间短，造成的影响小。但是老生代中，存活对象多，垃圾回收时间长，全停顿造成的影响大。为了减少全停顿的时间，V8对标记进行了优化，将一次停顿进行的标记过程，分成了很多小步。每执行完一小步就让应用逻辑执行一会儿，这样交替多次后完成标记。</p>
+<blockquote>
+<p>长时间的GC，会导致应用暂停和无响应，将会导致糟糕的用户体验。从2011年起，v8就将「全暂停」标记换成了增量标记。改进后的标记方式，最大停顿时间减少到原来的1/6。</p>
+</blockquote>
+<p>以上就是我对垃圾回收的一些理解,如果文章由于我学识浅薄,导致您发现有严重谬误的地方,请一定在评论中指出,我会在第一时间修正我的博文,以避免误人子弟。</p>
+
+    </div>
+
+    
+    
+    
+    
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+      
+    </div>
+        
+      
+        <div class="reward-container">
+  <div>没办法,总要恰饭的嘛~~</div>
+  <button disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+        
+      
+      <div style="display: inline-block;">
+        <img src="/images/wxpay.png" alt="陈晟 微信支付">
+        <p>微信支付</p>
+      </div>
+        
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="陈晟 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+      
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>陈晟
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://www.chensheng.group/2021/08/30/142-%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E5%8E%9F%E7%90%86/" title="深入理解垃圾回收原理">https://www.chensheng.group/2021/08/30/142-%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E5%8E%9F%E7%90%86/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/javaScript/" rel="tag"><i class="fa fa-tag"></i> javaScript</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2021/04/19/141-uniapp%E4%B8%8Ewebview%E4%B9%8B%E9%97%B4%E7%9A%84%E7%9B%B8%E4%BA%92%E4%BC%A0%E5%80%BC/" rel="next" title="uniapp与webview之间的相互传值">
+                  <i class="fa fa-chevron-left"></i> uniapp与webview之间的相互传值
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2021/08/31/143-%E4%BD%BF%E7%94%A8SSH%E4%B8%8A%E4%BC%A0%E9%83%A8%E7%BD%B2/" rel="prev" title="使用SSH上传部署">
+                  使用SSH上传部署 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="comments"></div>
+  
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是垃圾回收"><span class="nav-number">1.</span> <span class="nav-text">什么是垃圾回收</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#垃圾回收原理"><span class="nav-number">2.</span> <span class="nav-text">垃圾回收原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是GC"><span class="nav-number">3.</span> <span class="nav-text">什么是GC</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#V8垃圾回收策略"><span class="nav-number">4.</span> <span class="nav-text">V8垃圾回收策略</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#V8的内存分代"><span class="nav-number">5.</span> <span class="nav-text">V8的内存分代</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#垃圾回收算法"><span class="nav-number">6.</span> <span class="nav-text">垃圾回收算法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Stop-The-World-（全停顿）"><span class="nav-number">6.1.</span> <span class="nav-text">Stop The World （全停顿）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#引用计数（reference-counting）"><span class="nav-number">6.2.</span> <span class="nav-text">引用计数（reference counting）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Scavenge算法"><span class="nav-number">6.3.</span> <span class="nav-text">Scavenge算法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#对象晋升"><span class="nav-number">6.3.1.</span> <span class="nav-text">对象晋升</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#标记-清除（mark-and-sweep）"><span class="nav-number">6.4.</span> <span class="nav-text">标记-清除（mark and sweep）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#增量标记"><span class="nav-number">6.5.</span> <span class="nav-text">增量标记</span></a></li></ol></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <a href="/">
+      <img class="site-author-image" itemprop="image"
+        src="/images/touxiang.jpg"
+        alt="陈晟">
+    </a>
+  <p class="site-author-name" itemprop="name">陈晟</p>
+  <div class="site-description" itemprop="description">请不要在最能吃苦的日子选择安逸</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">148</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        <span class="site-state-item-count">35</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        <span class="site-state-item-count">55</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+</div>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/328921371" title="GitHub &amp;rarr; https:&#x2F;&#x2F;github.com&#x2F;328921371" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="mailto:328921371@qq.com" title="E-Mail &amp;rarr; mailto:328921371@qq.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+    
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    
+  
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  &copy; 2016 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">陈晟</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    
+    <span title="站点总字数">451k</span>
+</div>
+  <div class="powered-by">欢迎访问
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">
+      
+    Mr.Chen的小前端
+  </div>
+  <span class="post-meta-divider">|</span>
+  <span class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">闽ICP备-2021012340-号 </a><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=" rel="noopener" target="_blank"> </a>
+  </span>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+      <span class="site-uv">
+        我的第 <span class="busuanzi-value" id="busuanzi_value_site_uv"></span> 位朋友，
+      </span>
+
+  
+    <span class="site-pv">
+     历经 <span class="busuanzi-value" id="busuanzi_value_site_pv"></span> 次回眸才与你相遇
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js?v=3.1.0"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+<script src="/js/utils.js?v=7.4.2.js"></script>
+
+<script src="/js/motion.js?v=7.4.2.js"></script>
+
+
+<script src="/js/schemes/muse.js?v=7.4.2.js"></script>
+
+
+
+<script src="/js/next-boot.js?v=7.4.2.js"></script>
+
+<script src="/js/bookmark.js?v=7.4.2.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+<script src="/js/local-search.js?v=7.4.2.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  <script src="/js/wobblewindow.js"></script>
+  <script>
+    if( window.innerWidth > 768  ){
+      $(document).ready(function () {
+        
+          $('.header').wobbleWindow({
+            radius: 50,
+            movementTop: false,
+            movementLeft: false,
+            movementRight: false,
+            debug: false,
+          });
+        
+
+        
+
+        
+      });
+    }
+  </script>
+
+
+
+
+  <script src="/js/activate-power-mode.min.js"></script>
+  <script>
+    POWERMODE.colorful = true;
+    POWERMODE.shake = false;
+    document.body.addEventListener('input', POWERMODE);
+  </script>
+
+
+
+
+  <script async src="/js/cursor/fireworks.js"></script>
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.includes(item);
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'jD385ICqgsSXvIPjMqMoJhn5-gzGzoHsz',
+    appKey: 'Y3pbrUp0lQbqyJK8XRjke93m',
+    placeholder: "（づ≧∀≦）づ╭❤～  客官,快来玩吖!",
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: 'zh-cn' || 'zh-cn',
+    path: location.pathname,
+    recordIP: false,
+    serverURLs: ''
+  });
+}, window.Valine);
+</script>
+
+</body>
+</html>

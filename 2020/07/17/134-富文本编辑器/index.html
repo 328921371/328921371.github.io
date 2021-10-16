@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico?v=7.4.2">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=7.4.2">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico?v=7.4.2">
+  <link rel="mask-icon" href="/images/favicon.ico?v=7.4.2" color="#222">
+  <link rel="alternate" href="/atom.xml" title="陈先生的小前端" type="application/atom+xml">
+
+
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.2">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '7.4.2',
+    exturl: false,
+    sidebar: {"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":"mac"},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    bookmark: {"enable":true,"color":"#222","save":"auto"},
+    fancybox: true,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="推荐一个好用的富文本编辑器,之前也有用过其他版本的,但是都太简易了">
+<meta property="og:type" content="article">
+<meta property="og:title" content="富文本编辑器">
+<meta property="og:url" content="https://www.chensheng.group/2020/07/17/134-%E5%AF%8C%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/index.html">
+<meta property="og:site_name" content="陈先生的小前端">
+<meta property="og:description" content="推荐一个好用的富文本编辑器,之前也有用过其他版本的,但是都太简易了">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-07-17T13:35:00.000Z">
+<meta property="article:modified_time" content="2020-07-29T12:09:42.596Z">
+<meta property="article:author" content="陈晟">
+<meta property="article:tag" content="vue-cli">
+<meta name="twitter:card" content="summary">
+  <link rel="canonical" href="https://www.chensheng.group/2020/07/17/134-%E5%AF%8C%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>富文本编辑器 | 陈先生的小前端</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+  <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css"/>
+  <script src="/live2d-widget/autoload.js"></script>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">陈先生的小前端</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+        
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+      
+    
+      
+      
+        
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+      
+    
+      
+      
+        
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+      
+    
+      
+      
+        
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+      
+    
+      
+      
+        
+        
+        <li class="menu-item menu-item-about">
+      
+    
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+      
+    
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger">
+          <i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+    
+  </ul>
+
+    
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.chensheng.group/2020/07/17/134-%E5%AF%8C%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="陈晟">
+      <meta itemprop="description" content="请不要在最能吃苦的日子选择安逸">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="陈先生的小前端">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            富文本编辑器
+            
+
+          
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2020-07-17 21:35:00" itemprop="dateCreated datePublished" datetime="2020-07-17T21:35:00+08:00">2020-07-17</time>
+            </span>
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/vue-cli/" itemprop="url" rel="index">
+                    <span itemprop="name">vue-cli</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+        
+      
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/07/17/134-%E5%AF%8C%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/07/17/134-%E5%AF%8C%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <hr style='filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)' color='#FF0000' size='1' />
+
+<blockquote>
+<p>推荐一个好用的富文本编辑器,之前也有用过其他版本的,但是都太简易了</p>
+</blockquote>
+<a id="more"></a>
+
+<p>安装 vue-editor-wrap</p>
+<p>npm install vue-editor-wrap</p>
+<p>下载大神已经处理后的UEditor,下载 地址链接: <a href="https://pan.baidu.com/s/1ds-HyhXD5EFYCcp7uen2XA" target="_blank" rel="noopener">https://pan.baidu.com/s/1ds-HyhXD5EFYCcp7uen2XA</a> 提取码: s7ry</p>
+<p>解压, 重命名文件夹为UEditor, 放入public文件夹下(如果是旧项目对应static文件夹)</p>
+<p>在 main.js中引入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">import VueUeditorWrap from &#39;vue-ueditor-wrap&#39;</span><br><span class="line">Vue.component(&#39;vue-ueditor-wrap&#39;, VueUeditorWrap)</span><br></pre></td></tr></table></figure>
+
+<p>然后再.vue文件中就可以使用啦</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div class&#x3D;&quot;ueditor-page&quot;&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;ueditor-box&quot;&gt;</span><br><span class="line">      &lt;vue-ueditor-wrap v-model&#x3D;&quot;msg&quot; :config&#x3D;&quot;myConfig&quot; @before-init&#x3D;&quot;addCustomButtom&quot;&gt;&lt;&#x2F;vue-ueditor-wrap&gt;</span><br><span class="line">    &lt;&#x2F;div&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;Preview&quot; v-html&#x3D;&quot;msg&quot;&gt;&lt;&#x2F;div&gt;</span><br><span class="line">  &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">  export default &#123;</span><br><span class="line">    data() &#123;</span><br><span class="line">      return &#123;</span><br><span class="line">        msg: &#39;&#39;,</span><br><span class="line">        myConfig: &#123;</span><br><span class="line">          &#x2F;&#x2F; 编辑器不自动被内容撑高</span><br><span class="line">          autoHeightEnabled: false,</span><br><span class="line">          &#x2F;&#x2F; 底部元素路径</span><br><span class="line">          elementPathEnabled : false,</span><br><span class="line">          &#x2F;&#x2F;是否开启字数统计</span><br><span class="line">          wordCount: true,</span><br><span class="line">          &#x2F;&#x2F; 初始容器高度</span><br><span class="line">          initialFrameHeight: &#39;100%&#39;,</span><br><span class="line">          &#x2F;&#x2F; 初始容器宽度</span><br><span class="line">          initialFrameWidth: &#39;100%&#39;,</span><br><span class="line">          &#x2F;&#x2F; 上传文件接口</span><br><span class="line">          serverUrl: &#39;http:&#x2F;&#x2F;10.100.2.127:8080&#x2F;webapi.php&#39;,</span><br><span class="line">          toolbars: [</span><br><span class="line">            [</span><br><span class="line">              &#39;anchor&#39;, &#x2F;&#x2F;锚点</span><br><span class="line">              &#39;undo&#39;, &#x2F;&#x2F;撤销</span><br><span class="line">              &#39;redo&#39;, &#x2F;&#x2F;重做</span><br><span class="line">              &#39;bold&#39;, &#x2F;&#x2F;加粗</span><br><span class="line">              &#39;indent&#39;, &#x2F;&#x2F;首行缩进</span><br><span class="line">              &#x2F;&#x2F; &#39;snapscreen&#39;, &#x2F;&#x2F;截图</span><br><span class="line">              &#39;italic&#39;, &#x2F;&#x2F;斜体</span><br><span class="line">              &#39;underline&#39;, &#x2F;&#x2F;下划线</span><br><span class="line">              &#39;strikethrough&#39;, &#x2F;&#x2F;删除线</span><br><span class="line">              &#39;subscript&#39;, &#x2F;&#x2F;下标</span><br><span class="line">              &#39;fontborder&#39;, &#x2F;&#x2F;字符边框</span><br><span class="line">              &#39;superscript&#39;, &#x2F;&#x2F;上标</span><br><span class="line">              &#39;formatmatch&#39;, &#x2F;&#x2F;格式刷</span><br><span class="line">              &#x2F;&#x2F; &#39;source&#39;, &#x2F;&#x2F;源代码</span><br><span class="line">              &#39;blockquote&#39;, &#x2F;&#x2F;引用</span><br><span class="line">              &#39;pasteplain&#39;, &#x2F;&#x2F;纯文本粘贴模式</span><br><span class="line">              &#39;selectall&#39;, &#x2F;&#x2F;全选</span><br><span class="line">              &#39;print&#39;, &#x2F;&#x2F;打印</span><br><span class="line">              &#x2F;&#x2F; &#39;preview&#39;, &#x2F;&#x2F;预览</span><br><span class="line">              &#39;horizontal&#39;, &#x2F;&#x2F;分隔线</span><br><span class="line">              &#39;removeformat&#39;, &#x2F;&#x2F;清除格式</span><br><span class="line">              &#39;time&#39;, &#x2F;&#x2F;时间</span><br><span class="line">              &#39;date&#39;, &#x2F;&#x2F;日期</span><br><span class="line">              &#39;unlink&#39;, &#x2F;&#x2F;取消链接</span><br><span class="line">              &#39;insertrow&#39;, &#x2F;&#x2F;前插入行</span><br><span class="line">              &#39;insertcol&#39;, &#x2F;&#x2F;前插入列</span><br><span class="line">              &#39;mergeright&#39;, &#x2F;&#x2F;右合并单元格</span><br><span class="line">              &#39;mergedown&#39;, &#x2F;&#x2F;下合并单元格</span><br><span class="line">              &#39;deleterow&#39;, &#x2F;&#x2F;删除行</span><br><span class="line">              &#39;deletecol&#39;, &#x2F;&#x2F;删除列</span><br><span class="line">              &#39;splittorows&#39;, &#x2F;&#x2F;拆分成行</span><br><span class="line">              &#39;splittocols&#39;, &#x2F;&#x2F;拆分成列</span><br><span class="line">              &#39;splittocells&#39;, &#x2F;&#x2F;完全拆分单元格</span><br><span class="line">              &#39;deletecaption&#39;, &#x2F;&#x2F;删除表格标题</span><br><span class="line">              &#39;inserttitle&#39;, &#x2F;&#x2F;插入标题</span><br><span class="line">              &#39;mergecells&#39;, &#x2F;&#x2F;合并多个单元格</span><br><span class="line">              &#39;deletetable&#39;, &#x2F;&#x2F;删除表格</span><br><span class="line">              &#39;cleardoc&#39;, &#x2F;&#x2F;清空文档</span><br><span class="line">              &#39;insertparagraphbeforetable&#39;, &#x2F;&#x2F;&quot;表格前插入行&quot;</span><br><span class="line">              &#x2F;&#x2F; &#39;insertcode&#39;, &#x2F;&#x2F;代码语言</span><br><span class="line">              &#39;fontfamily&#39;, &#x2F;&#x2F;字体</span><br><span class="line">              &#39;fontsize&#39;, &#x2F;&#x2F;字号</span><br><span class="line">              &#39;paragraph&#39;, &#x2F;&#x2F;段落格式</span><br><span class="line">              &#x2F;&#x2F; &#39;simpleupload&#39;, &#x2F;&#x2F;单图上传</span><br><span class="line">              &#x2F;&#x2F; &#39;insertimage&#39;, &#x2F;&#x2F;多图上传</span><br><span class="line">              &#x2F;&#x2F; &#39;edittable&#39;, &#x2F;&#x2F;表格属性</span><br><span class="line">              &#x2F;&#x2F; &#39;edittd&#39;, &#x2F;&#x2F;单元格属性</span><br><span class="line">              &#39;link&#39;, &#x2F;&#x2F;超链接</span><br><span class="line">              &#39;emotion&#39;, &#x2F;&#x2F;表情</span><br><span class="line">              &#39;spechars&#39;, &#x2F;&#x2F;特殊字符</span><br><span class="line">              &#39;searchreplace&#39;, &#x2F;&#x2F;查询替换</span><br><span class="line">              &#39;map&#39;, &#x2F;&#x2F;Baidu地图</span><br><span class="line">              &#x2F;&#x2F; &#39;gmap&#39;, &#x2F;&#x2F;Google地图</span><br><span class="line">              &#39;insertvideo&#39;, &#x2F;&#x2F;视频</span><br><span class="line">              &#39;help&#39;, &#x2F;&#x2F;帮助</span><br><span class="line">              &#39;justifyleft&#39;, &#x2F;&#x2F;居左对齐</span><br><span class="line">              &#39;justifyright&#39;, &#x2F;&#x2F;居右对齐</span><br><span class="line">              &#39;justifycenter&#39;, &#x2F;&#x2F;居中对齐</span><br><span class="line">              &#39;justifyjustify&#39;, &#x2F;&#x2F;两端对齐</span><br><span class="line">              &#39;forecolor&#39;, &#x2F;&#x2F;字体颜色</span><br><span class="line">              &#39;backcolor&#39;, &#x2F;&#x2F;背景色</span><br><span class="line">              &#39;insertorderedlist&#39;, &#x2F;&#x2F;有序列表</span><br><span class="line">              &#39;insertunorderedlist&#39;, &#x2F;&#x2F;无序列表</span><br><span class="line">              &#39;fullscreen&#39;, &#x2F;&#x2F;全屏</span><br><span class="line">              &#39;directionalityltr&#39;, &#x2F;&#x2F;从左向右输入</span><br><span class="line">              &#39;directionalityrtl&#39;, &#x2F;&#x2F;从右向左输入</span><br><span class="line">              &#39;rowspacingtop&#39;, &#x2F;&#x2F;段前距</span><br><span class="line">              &#39;rowspacingbottom&#39;, &#x2F;&#x2F;段后距</span><br><span class="line">              &#x2F;&#x2F; &#39;pagebreak&#39;, &#x2F;&#x2F;分页</span><br><span class="line">              &#39;insertframe&#39;, &#x2F;&#x2F;插入Iframe</span><br><span class="line">              &#39;imagenone&#39;, &#x2F;&#x2F;默认</span><br><span class="line">              &#39;imageleft&#39;, &#x2F;&#x2F;左浮动</span><br><span class="line">              &#39;imageright&#39;, &#x2F;&#x2F;右浮动</span><br><span class="line">              &#x2F;&#x2F; &#39;attachment&#39;, &#x2F;&#x2F;附件</span><br><span class="line">              &#39;imagecenter&#39;, &#x2F;&#x2F;居中</span><br><span class="line">              &#39;wordimage&#39;, &#x2F;&#x2F;图片转存</span><br><span class="line">              &#39;lineheight&#39;, &#x2F;&#x2F;行间距</span><br><span class="line">              &#39;edittip &#39;, &#x2F;&#x2F;编辑提示</span><br><span class="line">              &#x2F;&#x2F; &#39;customstyle&#39;, &#x2F;&#x2F;自定义标题</span><br><span class="line">              &#39;autotypeset&#39;, &#x2F;&#x2F;自动排版</span><br><span class="line">              &#x2F;&#x2F; &#39;webapp&#39;, &#x2F;&#x2F;百度应用</span><br><span class="line">              &#39;touppercase&#39;, &#x2F;&#x2F;字母大写</span><br><span class="line">              &#39;tolowercase&#39;, &#x2F;&#x2F;字母小写</span><br><span class="line">              &#x2F;&#x2F; &#39;background&#39;, &#x2F;&#x2F;背景</span><br><span class="line">              &#x2F;&#x2F; &#39;template&#39;, &#x2F;&#x2F;模板</span><br><span class="line">              &#x2F;&#x2F; &#39;scrawl&#39;, &#x2F;&#x2F;涂鸦</span><br><span class="line">              &#x2F;&#x2F; &#39;music&#39;, &#x2F;&#x2F;音乐</span><br><span class="line">              &#39;inserttable&#39;, &#x2F;&#x2F;插入表格</span><br><span class="line">              &#x2F;&#x2F; &#39;drafts&#39;, &#x2F;&#x2F; 从草稿箱加载</span><br><span class="line">              &#x2F;&#x2F; &#39;charts&#39;, &#x2F;&#x2F; 图表</span><br><span class="line">            ]</span><br><span class="line">          ]</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    methods: &#123;</span><br><span class="line">      addCustomButtom (editorId) &#123;</span><br><span class="line">        let _this &#x3D; this</span><br><span class="line">        let img &#x3D; &#39;&#39;</span><br><span class="line">        window.UE.registerUI(&#39;test-button&#39;, function (editor, uiName) &#123;</span><br><span class="line">          &#x2F;&#x2F; 注册按钮执行时的 command 命令，使用命令默认就会带有回退操作</span><br><span class="line">          editor.registerCommand(uiName, &#123;</span><br><span class="line">            execCommand: function () &#123;</span><br><span class="line">              editor.execCommand(&#39;inserthtml&#39;, &#96;&lt;img src&#x3D;&quot;$&#123;img&#125;&quot; alt&#x3D;&quot;&quot; &#x2F;&gt;&#96;)</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;)</span><br><span class="line">      </span><br><span class="line">          &#x2F;&#x2F; 创建一个 button</span><br><span class="line">          var btn &#x3D; new window.UE.ui.Button(&#123;</span><br><span class="line">            &#x2F;&#x2F; 按钮的名字</span><br><span class="line">            name: uiName,</span><br><span class="line">            &#x2F;&#x2F; 提示</span><br><span class="line">            title: &#39;单图上传&#39;,</span><br><span class="line">            &#x2F;&#x2F; 需要添加的额外样式，可指定 icon 图标，图标路径参考常见问题 2</span><br><span class="line">            cssRules: &quot;background-image: url(&#39;&#x2F;static&#x2F;icons.png&#39;)!important;background-position: -380px 0px;&quot;,</span><br><span class="line">            &#x2F;&#x2F; 点击时执行的命令</span><br><span class="line">            onclick: function () &#123;</span><br><span class="line">              &#x2F;&#x2F; 这里可以不用执行命令，做你自己的操作也可</span><br><span class="line">              &#x2F;&#x2F; editor.execCommand(uiName)</span><br><span class="line">              var input &#x3D; document.createElement(&#39;input&#39;)</span><br><span class="line">              input.type &#x3D; &quot;file&quot;</span><br><span class="line">              input.style.display &#x3D; &#39;none&#39;</span><br><span class="line">              document.body.appendChild(input)</span><br><span class="line">              input.click()</span><br><span class="line">              input.addEventListener(&#39;change&#39;,(e)&#x3D;&gt;&#123;</span><br><span class="line">                &#x2F;&#x2F; 利用 axios 上传，上传成功之后销毁 DOM</span><br><span class="line">                console.log(e.target.files)</span><br><span class="line">                let sendMsg &#x3D; &#123;</span><br><span class="line">                  action: &#39;material.MaterialSalesman.getImgUrl&#39;,</span><br><span class="line">                  files: e.target.files</span><br><span class="line">                &#125;</span><br><span class="line">                &#x2F;&#x2F; return;</span><br><span class="line">                _this.$store.dispatch(&#39;Post&#39;, sendMsg).then((res) &#x3D;&gt; &#123;</span><br><span class="line">                  img &#x3D; res.data[0].data</span><br><span class="line">                  editor.execCommand(uiName)</span><br><span class="line">                &#125;)</span><br><span class="line">              &#125;) </span><br><span class="line">            &#125;</span><br><span class="line">          &#125;)</span><br><span class="line">      </span><br><span class="line">          &#x2F;&#x2F; 当点到编辑内容上时，按钮要做的状态反射</span><br><span class="line">          editor.addListener(&#39;selectionchange&#39;, function () &#123;</span><br><span class="line">            var state &#x3D; editor.queryCommandState(uiName)</span><br><span class="line">            if (state &#x3D;&#x3D;&#x3D; -1) &#123;</span><br><span class="line">              btn.setDisabled(true)</span><br><span class="line">              btn.setChecked(false)</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">              btn.setDisabled(false)</span><br><span class="line">              btn.setChecked(state)</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;)</span><br><span class="line">      </span><br><span class="line">          &#x2F;&#x2F; 因为你是添加 button，所以需要返回这个 button</span><br><span class="line">          return btn</span><br><span class="line">        &#125;, 0 &#x2F;* 指定添加到工具栏上的哪个位置，默认时追加到最后 *&#x2F;, editorId &#x2F;* 指定这个 UI 是哪个编辑器实例上的，默认是页面上所有的编辑器都会添加这个按钮 *&#x2F;)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    created() &#123;</span><br><span class="line">      </span><br><span class="line">    &#125;,</span><br><span class="line">    computed: &#123;</span><br><span class="line"></span><br><span class="line">    &#125;,</span><br><span class="line">    components: &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- Add &quot;scoped&quot; attribute to limit CSS to this component only --&gt;</span><br><span class="line">&lt;style lang&#x3D;&quot;css&quot;&gt;</span><br><span class="line">  .ueditor-page &#123;</span><br><span class="line">    width: 100%;</span><br><span class="line">    height: 100vh;</span><br><span class="line">    display: flex;</span><br><span class="line">    overflow: hidden;</span><br><span class="line">  &#125;</span><br><span class="line">  .ueditor-box &#123;</span><br><span class="line">    width: 50%;</span><br><span class="line">    height: 100%;</span><br><span class="line">    border: 1px solid black;</span><br><span class="line">  &#125;</span><br><span class="line">  .Preview &#123;</span><br><span class="line">    width: 50%;</span><br><span class="line">    height: 100%;</span><br><span class="line">    border: 1px solid black;</span><br><span class="line">    margin-left: 20px;</span><br><span class="line">    padding: 10px;</span><br><span class="line">    overflow: auto;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&lt;&#x2F;style&gt;</span><br></pre></td></tr></table></figure>
+
+<p>我这边还使用到了自定义按钮的功能,原理注释都在代码里面啦</p>
+<p>以上就是我对富文本插件的一些理解,如果文章由于我学识浅薄,导致您发现有严重谬误的地方,请一定在评论中指出,我会在第一时间修正我的博文,以避免误人子弟。</p>
+
+    </div>
+
+    
+    
+    
+    
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+      
+    </div>
+        
+      
+        <div class="reward-container">
+  <div>没办法,总要恰饭的嘛~~</div>
+  <button disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+        
+      
+      <div style="display: inline-block;">
+        <img src="/images/wxpay.png" alt="陈晟 微信支付">
+        <p>微信支付</p>
+      </div>
+        
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="陈晟 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+      
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>陈晟
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://www.chensheng.group/2020/07/17/134-%E5%AF%8C%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/" title="富文本编辑器">https://www.chensheng.group/2020/07/17/134-%E5%AF%8C%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/vue-cli/" rel="tag"><i class="fa fa-tag"></i> vue-cli</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2020/07/04/133-JavaScript%E7%9A%84%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F/" rel="next" title="JavaScript的执行顺序">
+                  <i class="fa fa-chevron-left"></i> JavaScript的执行顺序
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2020/07/27/135-hexo%E7%9C%8B%E6%9D%BF%E5%A8%98/" rel="prev" title="hexo添加看板娘">
+                  hexo添加看板娘 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="comments"></div>
+  
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <a href="/">
+      <img class="site-author-image" itemprop="image"
+        src="/images/touxiang.jpg"
+        alt="陈晟">
+    </a>
+  <p class="site-author-name" itemprop="name">陈晟</p>
+  <div class="site-description" itemprop="description">请不要在最能吃苦的日子选择安逸</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">148</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        <span class="site-state-item-count">35</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        <span class="site-state-item-count">55</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+</div>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/328921371" title="GitHub &amp;rarr; https:&#x2F;&#x2F;github.com&#x2F;328921371" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="mailto:328921371@qq.com" title="E-Mail &amp;rarr; mailto:328921371@qq.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+    
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    
+  
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  &copy; 2016 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">陈晟</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    
+    <span title="站点总字数">451k</span>
+</div>
+  <div class="powered-by">欢迎访问
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">
+      
+    Mr.Chen的小前端
+  </div>
+  <span class="post-meta-divider">|</span>
+  <span class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">闽ICP备-2021012340-号 </a><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=" rel="noopener" target="_blank"> </a>
+  </span>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+      <span class="site-uv">
+        我的第 <span class="busuanzi-value" id="busuanzi_value_site_uv"></span> 位朋友，
+      </span>
+
+  
+    <span class="site-pv">
+     历经 <span class="busuanzi-value" id="busuanzi_value_site_pv"></span> 次回眸才与你相遇
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js?v=3.1.0"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+<script src="/js/utils.js?v=7.4.2.js"></script>
+
+<script src="/js/motion.js?v=7.4.2.js"></script>
+
+
+<script src="/js/schemes/muse.js?v=7.4.2.js"></script>
+
+
+
+<script src="/js/next-boot.js?v=7.4.2.js"></script>
+
+<script src="/js/bookmark.js?v=7.4.2.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+<script src="/js/local-search.js?v=7.4.2.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  <script src="/js/wobblewindow.js"></script>
+  <script>
+    if( window.innerWidth > 768  ){
+      $(document).ready(function () {
+        
+          $('.header').wobbleWindow({
+            radius: 50,
+            movementTop: false,
+            movementLeft: false,
+            movementRight: false,
+            debug: false,
+          });
+        
+
+        
+
+        
+      });
+    }
+  </script>
+
+
+
+
+  <script src="/js/activate-power-mode.min.js"></script>
+  <script>
+    POWERMODE.colorful = true;
+    POWERMODE.shake = false;
+    document.body.addEventListener('input', POWERMODE);
+  </script>
+
+
+
+
+  <script async src="/js/cursor/fireworks.js"></script>
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.includes(item);
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'jD385ICqgsSXvIPjMqMoJhn5-gzGzoHsz',
+    appKey: 'Y3pbrUp0lQbqyJK8XRjke93m',
+    placeholder: "（づ≧∀≦）づ╭❤～  客官,快来玩吖!",
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: 'zh-cn' || 'zh-cn',
+    path: location.pathname,
+    recordIP: false,
+    serverURLs: ''
+  });
+}, window.Valine);
+</script>
+
+</body>
+</html>

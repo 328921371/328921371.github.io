@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico?v=7.4.2">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=7.4.2">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico?v=7.4.2">
+  <link rel="mask-icon" href="/images/favicon.ico?v=7.4.2" color="#222">
+  <link rel="alternate" href="/atom.xml" title="陈先生的小前端" type="application/atom+xml">
+
+
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.2">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '7.4.2',
+    exturl: false,
+    sidebar: {"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":"mac"},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    bookmark: {"enable":true,"color":"#222","save":"auto"},
+    fancybox: true,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="为什么要用到require？首先，当js文件 都引入的同一个文件下时，会导致命名冲动。其次，js文件之间存在依赖关系，因此必须严格保证加载顺序，依赖性最大的模块一定要放到最后加载，当依赖关系很复杂的时候，代码的编写和维护都会变得困难。所以require很好的解决了这个问题">
+<meta property="og:type" content="article">
+<meta property="og:title" content="require的基本操作">
+<meta property="og:url" content="https://www.chensheng.group/2016/12/28/13-require%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/index.html">
+<meta property="og:site_name" content="陈先生的小前端">
+<meta property="og:description" content="为什么要用到require？首先，当js文件 都引入的同一个文件下时，会导致命名冲动。其次，js文件之间存在依赖关系，因此必须严格保证加载顺序，依赖性最大的模块一定要放到最后加载，当依赖关系很复杂的时候，代码的编写和维护都会变得困难。所以require很好的解决了这个问题">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2016-12-28T12:19:06.000Z">
+<meta property="article:modified_time" content="2020-01-15T03:03:52.837Z">
+<meta property="article:author" content="陈晟">
+<meta property="article:tag" content="javaScript">
+<meta property="article:tag" content="AMD">
+<meta name="twitter:card" content="summary">
+  <link rel="canonical" href="https://www.chensheng.group/2016/12/28/13-require%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>require的基本操作 | 陈先生的小前端</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+  <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css"/>
+  <script src="/live2d-widget/autoload.js"></script>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">陈先生的小前端</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+        
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+      
+    
+      
+      
+        
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+      
+    
+      
+      
+        
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+      
+    
+      
+      
+        
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+      
+    
+      
+      
+        
+        
+        <li class="menu-item menu-item-about">
+      
+    
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+      
+    
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger">
+          <i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+    
+  </ul>
+
+    
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.chensheng.group/2016/12/28/13-require%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="陈晟">
+      <meta itemprop="description" content="请不要在最能吃苦的日子选择安逸">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="陈先生的小前端">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            require的基本操作
+            
+
+          
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2016-12-28 20:19:06" itemprop="dateCreated datePublished" datetime="2016-12-28T20:19:06+08:00">2016-12-28</time>
+            </span>
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/javaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">javaScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+        
+      
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2016/12/28/13-require%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2016/12/28/13-require%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <hr style='filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)' color='#FF0000' size='1' />
+
+<blockquote>
+<p>为什么要用到require？首先，当js文件 都引入的同一个文件下时，会导致命名冲动。其次，js文件之间存在依赖关系，因此必须严格保证加载顺序，依赖性最大的模块一定要放到最后加载，当依赖关系很复杂的时候，代码的编写和维护都会变得困难。所以require很好的解决了这个问题</p>
+</blockquote>
+<a id="more"></a>
+
+<p>require.js的教程推荐 推荐阮一峰老师的日志，这样附上链接 <a href="http://www.ruanyifeng.com/blog/2012/11/require_js.html" target="_blank" rel="noopener">request.js教程</a></p>
+<p>我简单的和大家分享一下学习的过程，</p>
+<h3 id="require的基本使用"><a href="#require的基本使用" class="headerlink" title="require的基本使用"></a>require的基本使用</h3><pre><code>这里的js1，js2，main，require，html文件都是自己创建的</code></pre><h4 id="html界面"><a href="#html界面" class="headerlink" title="html界面"></a>html界面</h4><pre><code>&lt;script src=&quot;require.js&quot;  data-main=&quot;main&quot; type=&quot;text/javascript&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;</code></pre><p>这里的src导入的是require.js——这里的main为主文件的路径，可以不加.js</p>
+<h4 id="js页面"><a href="#js页面" class="headerlink" title="js页面"></a>js页面</h4><pre><code>简单的创建几个变量作为测试。比如var a = 5;var b = 10;
+这里的js页面不用独立作用域,不需要return</code></pre><h4 id="main页面"><a href="#main页面" class="headerlink" title="main页面"></a>main页面</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">require</span>([<span class="string">'js1'</span>,<span class="string">'js2'</span>],<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(num)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>当js1和js2没有独立的时候,main可以使用js1 和 js2 文件中的任意变量,</p>
+<p>require.js 默认会把入口js文件所在的路径,作为基本路径,加载其他文件中的js时,需要改变路径</p>
+<p>参数一:是一个数组,数组中规定了需要导入的js文件的文件路径,可以同时加载多个js文件<br>参数二:是一个回调函数,等一个参数中的所有js文件全部被加载完成后,才会进行回调参数二中指定的回调函数</p>
+<h3 id="require的模块化-AMD"><a href="#require的模块化-AMD" class="headerlink" title="require的模块化(AMD)"></a>require的模块化(AMD)</h3><p>全称是Asynchronous Module Definition，即异步模块加载机制</p>
+<p>requireJs优点:</p>
+<ol>
+<li>说明不同js文件之间的依赖</li>
+<li>可以按需求，并行，延时去加载js库</li>
+<li>可以让我们的代码已模块的方式使用</li>
+</ol>
+<p>我将主要代码贴出</p>
+<h4 id="html页面"><a href="#html页面" class="headerlink" title="html页面"></a>html页面</h4><pre><code>这个页面和之前的一样</code></pre><h4 id="js页面-1"><a href="#js页面-1" class="headerlink" title="js页面"></a>js页面</h4><p>需要define(),有三个参数：</p>
+<ol>
+<li>模块的名称        ——–可省略</li>
+<li>需要依赖的js    ——–可省略</li>
+<li>回调函数</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">define(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="keyword">var</span> a = <span class="number">5</span>;</span><br><span class="line">	<span class="keyword">var</span> b = <span class="number">10</span>;</span><br><span class="line">	<span class="keyword">var</span> c = <span class="number">15</span>;</span><br><span class="line">	<span class="keyword">var</span> num = <span class="number">20</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span>&#123;a,c&#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">//这里需要注意一下，因为导入了js3，所以可以使用js3中的str----这里的js3没有独立</span></span><br><span class="line">define([<span class="string">'js1'</span>,<span class="string">'js3'</span>],<span class="function"><span class="keyword">function</span>(<span class="params">js1</span>)</span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">fun</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="built_in">console</span>.log(<span class="string">'这是js2中的函数'</span> +  str)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> fun</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h4 id="main页面-1"><a href="#main页面-1" class="headerlink" title="main页面"></a>main页面</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">require</span>([<span class="string">'js1'</span>,<span class="string">'js2'</span>],<span class="function"><span class="keyword">function</span>(<span class="params">js1,js2</span>)</span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//js3里面的str在这里也可以被使用，因为js3没有独立，而且已经被js2导入了</span></span><br><span class="line">		<span class="built_in">console</span>.log(str)</span><br><span class="line">	<span class="comment">//由于js1和js2已经独立了，所以在main里面只能用js1 和js2 导出的模块功能</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="require导出模块的四种方式"><a href="#require导出模块的四种方式" class="headerlink" title="require导出模块的四种方式"></a>require导出模块的四种方式</h3><h4 id="第一种"><a href="#第一种" class="headerlink" title="第一种"></a>第一种</h4><p>定义模块：define<br>导出模块中的功能:return</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">define(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="keyword">return</span> &#123;&#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h4 id="第二种"><a href="#第二种" class="headerlink" title="第二种"></a>第二种</h4><p>定义模块：define<br>导出模块中的功能 exports</p>
+<p>注意点:</p>
+<ol>
+<li>需要导入exports作为依赖项</li>
+<li>需要有参数</li>
+<li>导出时一个一个导出</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">define([<span class="string">'exports'</span>],<span class="function"><span class="keyword">function</span>(<span class="params">exports</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">var</span> num1 = <span class="number">11</span>;</span><br><span class="line">	exports.num1 = num1;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h4 id="第三种"><a href="#第三种" class="headerlink" title="第三种"></a>第三种</h4><p>定义模块：define<br>导出模块中的功能 module.exports</p>
+<p>注意点：</p>
+<ol>
+<li>这里需要导入module作为依赖项</li>
+<li>需要有参数</li>
+<li>导出时以对象的形式导出</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">define([<span class="string">'module'</span>],<span class="function"><span class="keyword">function</span>(<span class="params">module</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">var</span> num1 = <span class="number">111</span>;</span><br><span class="line">	<span class="built_in">module</span>.exports = &#123;num1&#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h4 id="第四种"><a href="#第四种" class="headerlink" title="第四种"></a>第四种</h4><p>注意点：</p>
+<ol>
+<li>这里需要导入require作为依赖项</li>
+<li>需要有参数</li>
+<li>其他与第三种方法差不多</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">define([<span class="string">'require'</span>],<span class="function"><span class="keyword">function</span>(<span class="params">require</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">var</span> <span class="built_in">module</span> = <span class="built_in">require</span>(<span class="string">'module'</span>)</span><br><span class="line">	<span class="keyword">var</span> num1 = <span class="number">1111</span>;</span><br><span class="line">	<span class="built_in">module</span>.exports = &#123;num1&#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>之后在main文件中</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">require</span>([<span class="string">'m1'</span>,<span class="string">'m2'</span>,<span class="string">'m3'</span>,<span class="string">'m4'</span>],<span class="function"><span class="keyword">function</span>(<span class="params">m1,m2,m3,m4</span>)</span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(m1);</span><br><span class="line">	<span class="comment">//使用什么就打点调用什么</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="require的配置及define时定义名字怎么使用"><a href="#require的配置及define时定义名字怎么使用" class="headerlink" title="require的配置及define时定义名字怎么使用"></a>require的配置及define时定义名字怎么使用</h3><p>假设我们要使用一个jq全屏插件，怎么使用require进行配置依赖项</p>
+<p>这是需要用到的js文件： jquery.fullscreen.js</p>
+<p>最终实现这样的效果： $(document).fullScreen(true)</p>
+<p>变量名是随便起的，主要是介绍一下主要的知识点是什么意思</p>
+<h4 id="define-使用名字："><a href="#define-使用名字：" class="headerlink" title="define()使用名字："></a>define()使用名字：</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">define(<span class="string">'moduleA1'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="string">'这个是a.js中的moduleA1'</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="string">'这个是a.js中的moduleA1'</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>一个js文件中可以定义多个模块，一个文件中定义多个模块的话，尽量去使用模块名称进行区分</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">define(<span class="string">'moduleA2'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="string">'这个是a.js中的moduleA2'</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="string">'这个是a.js中的moduleA2'</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h4 id="在主界面main中配置require"><a href="#在主界面main中配置require" class="headerlink" title="在主界面main中配置require"></a>在主界面main中配置require</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">require</span>.config(&#123;</span><br><span class="line">	baseUrl:<span class="string">'lib'</span>,----- 配置基本路径，默认的是入口js文件所在的路径</span><br><span class="line"></span><br><span class="line">	paths:&#123;</span><br><span class="line">		test:<span class="string">'../scripts/aaa/bbb'</span>, ----配置不放在基本路径上的js的路径</span><br><span class="line">		test1:<span class="string">'http://cdn.jquery-3.2.1/'</span> ---含有URL协议的也可以，比如http，导入时不要写后缀.js</span><br><span class="line">		a:<span class="string">'../scripts/a'</span></span><br><span class="line">	&#125;,</span><br><span class="line">	shim:&#123;  ---------配置依赖项，当依赖的模块全部加载结束之后，才会执行当前脚本</span><br><span class="line">		jqueryFullscreen : [<span class="string">'jquery'</span>,<span class="string">'test'</span>]	---对象的属性为模块名（js的名字），数组中的元素一般是相对与baseUrl的路径，只不过没有文件后缀</span><br><span class="line">	&#125;,</span><br><span class="line">	bundles:&#123;--模块树，如果一个js文件中有多个模块，就可以使用这种方法来进行解决</span><br><span class="line">		a:[<span class="string">'moduleA1'</span>,<span class="string">'moduleA2'</span>]	---之前定义的名字在这里使用</span><br><span class="line">	&#125;,</span><br><span class="line">	waitSeconds:<span class="number">7</span> ----设置等待加载，默认<span class="number">7</span>秒</span><br><span class="line"></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>配置完之后，就可以使用模块的名字了,要记得写参数</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">require</span>([<span class="string">'jqueryFullscreen'</span>,<span class="string">'moduleA1'</span>,<span class="string">'moduleA2'</span>],<span class="function"><span class="keyword">function</span>(<span class="params">a0,a1,a2</span>)</span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(a1);</span><br><span class="line">	<span class="built_in">console</span>.log(a2);</span><br><span class="line">	<span class="built_in">console</span>.log($.fn.fullScreen);</span><br><span class="line">	<span class="built_in">console</span>.log(str);</span><br><span class="line"></span><br><span class="line">	$(<span class="string">'div'</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		$(<span class="built_in">document</span>).fullScreen(<span class="literal">true</span>)</span><br><span class="line">	&#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>require的知识还有许多，这里只是一些入门，如果有错，希望大牛们指点一下，感激不尽</p>
+
+    </div>
+
+    
+    
+    
+    
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+      
+    </div>
+        
+      
+        <div class="reward-container">
+  <div>没办法,总要恰饭的嘛~~</div>
+  <button disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+        
+      
+      <div style="display: inline-block;">
+        <img src="/images/wxpay.png" alt="陈晟 微信支付">
+        <p>微信支付</p>
+      </div>
+        
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="陈晟 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+      
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>陈晟
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://www.chensheng.group/2016/12/28/13-require%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/" title="require的基本操作">https://www.chensheng.group/2016/12/28/13-require%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/javaScript/" rel="tag"><i class="fa fa-tag"></i> javaScript</a>
+            
+              <a href="/tags/AMD/" rel="tag"><i class="fa fa-tag"></i> AMD</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2016/12/20/12-git%E7%9A%84%E4%BD%BF%E7%94%A8/" rel="next" title="GitHub 的使用">
+                  <i class="fa fa-chevron-left"></i> GitHub 的使用
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2017/01/03/14-requireJs%E6%8F%92%E4%BB%B6%E7%9A%84%E4%BD%BF%E7%94%A8/" rel="prev" title="RequireJS插件的使用">
+                  RequireJS插件的使用 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="comments"></div>
+  
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#require的基本使用"><span class="nav-number">1.</span> <span class="nav-text">require的基本使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#html界面"><span class="nav-number">1.1.</span> <span class="nav-text">html界面</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#js页面"><span class="nav-number">1.2.</span> <span class="nav-text">js页面</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#main页面"><span class="nav-number">1.3.</span> <span class="nav-text">main页面</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#require的模块化-AMD"><span class="nav-number">2.</span> <span class="nav-text">require的模块化(AMD)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#html页面"><span class="nav-number">2.1.</span> <span class="nav-text">html页面</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#js页面-1"><span class="nav-number">2.2.</span> <span class="nav-text">js页面</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#main页面-1"><span class="nav-number">2.3.</span> <span class="nav-text">main页面</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#require导出模块的四种方式"><span class="nav-number">3.</span> <span class="nav-text">require导出模块的四种方式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#第一种"><span class="nav-number">3.1.</span> <span class="nav-text">第一种</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第二种"><span class="nav-number">3.2.</span> <span class="nav-text">第二种</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第三种"><span class="nav-number">3.3.</span> <span class="nav-text">第三种</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第四种"><span class="nav-number">3.4.</span> <span class="nav-text">第四种</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#require的配置及define时定义名字怎么使用"><span class="nav-number">4.</span> <span class="nav-text">require的配置及define时定义名字怎么使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#define-使用名字："><span class="nav-number">4.1.</span> <span class="nav-text">define()使用名字：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#在主界面main中配置require"><span class="nav-number">4.2.</span> <span class="nav-text">在主界面main中配置require</span></a></li></ol></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <a href="/">
+      <img class="site-author-image" itemprop="image"
+        src="/images/touxiang.jpg"
+        alt="陈晟">
+    </a>
+  <p class="site-author-name" itemprop="name">陈晟</p>
+  <div class="site-description" itemprop="description">请不要在最能吃苦的日子选择安逸</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">148</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        <span class="site-state-item-count">35</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        <span class="site-state-item-count">55</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+</div>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/328921371" title="GitHub &amp;rarr; https:&#x2F;&#x2F;github.com&#x2F;328921371" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="mailto:328921371@qq.com" title="E-Mail &amp;rarr; mailto:328921371@qq.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+    
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    
+  
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  &copy; 2016 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">陈晟</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    
+    <span title="站点总字数">451k</span>
+</div>
+  <div class="powered-by">欢迎访问
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">
+      
+    Mr.Chen的小前端
+  </div>
+  <span class="post-meta-divider">|</span>
+  <span class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">闽ICP备-2021012340-号 </a><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=" rel="noopener" target="_blank"> </a>
+  </span>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+      <span class="site-uv">
+        我的第 <span class="busuanzi-value" id="busuanzi_value_site_uv"></span> 位朋友，
+      </span>
+
+  
+    <span class="site-pv">
+     历经 <span class="busuanzi-value" id="busuanzi_value_site_pv"></span> 次回眸才与你相遇
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js?v=3.1.0"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+<script src="/js/utils.js?v=7.4.2.js"></script>
+
+<script src="/js/motion.js?v=7.4.2.js"></script>
+
+
+<script src="/js/schemes/muse.js?v=7.4.2.js"></script>
+
+
+
+<script src="/js/next-boot.js?v=7.4.2.js"></script>
+
+<script src="/js/bookmark.js?v=7.4.2.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+<script src="/js/local-search.js?v=7.4.2.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  <script src="/js/wobblewindow.js"></script>
+  <script>
+    if( window.innerWidth > 768  ){
+      $(document).ready(function () {
+        
+          $('.header').wobbleWindow({
+            radius: 50,
+            movementTop: false,
+            movementLeft: false,
+            movementRight: false,
+            debug: false,
+          });
+        
+
+        
+
+        
+      });
+    }
+  </script>
+
+
+
+
+  <script src="/js/activate-power-mode.min.js"></script>
+  <script>
+    POWERMODE.colorful = true;
+    POWERMODE.shake = false;
+    document.body.addEventListener('input', POWERMODE);
+  </script>
+
+
+
+
+  <script async src="/js/cursor/fireworks.js"></script>
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.includes(item);
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'jD385ICqgsSXvIPjMqMoJhn5-gzGzoHsz',
+    appKey: 'Y3pbrUp0lQbqyJK8XRjke93m',
+    placeholder: "（づ≧∀≦）づ╭❤～  客官,快来玩吖!",
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: 'zh-cn' || 'zh-cn',
+    path: location.pathname,
+    recordIP: false,
+    serverURLs: ''
+  });
+}, window.Valine);
+</script>
+
+</body>
+</html>

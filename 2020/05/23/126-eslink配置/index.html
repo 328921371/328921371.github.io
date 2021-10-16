@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico?v=7.4.2">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=7.4.2">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico?v=7.4.2">
+  <link rel="mask-icon" href="/images/favicon.ico?v=7.4.2" color="#222">
+  <link rel="alternate" href="/atom.xml" title="陈先生的小前端" type="application/atom+xml">
+
+
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.2">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '7.4.2',
+    exturl: false,
+    sidebar: {"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":"mac"},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    bookmark: {"enable":true,"color":"#222","save":"auto"},
+    fancybox: true,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="项目中都有使用到eslink,怎么安装我就不说了,现在vue-cli4.0初始化的时候,都会提示你是否直接安装">
+<meta property="og:type" content="article">
+<meta property="og:title" content="eslink配置记录">
+<meta property="og:url" content="https://www.chensheng.group/2020/05/23/126-eslink%E9%85%8D%E7%BD%AE/index.html">
+<meta property="og:site_name" content="陈先生的小前端">
+<meta property="og:description" content="项目中都有使用到eslink,怎么安装我就不说了,现在vue-cli4.0初始化的时候,都会提示你是否直接安装">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-05-23T14:32:00.000Z">
+<meta property="article:modified_time" content="2020-05-31T13:33:09.093Z">
+<meta property="article:author" content="陈晟">
+<meta property="article:tag" content="eslink">
+<meta name="twitter:card" content="summary">
+  <link rel="canonical" href="https://www.chensheng.group/2020/05/23/126-eslink%E9%85%8D%E7%BD%AE/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>eslink配置记录 | 陈先生的小前端</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+  <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css"/>
+  <script src="/live2d-widget/autoload.js"></script>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">陈先生的小前端</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+        
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+      
+    
+      
+      
+        
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+      
+    
+      
+      
+        
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+      
+    
+      
+      
+        
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+      
+    
+      
+      
+        
+        
+        <li class="menu-item menu-item-about">
+      
+    
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+      
+    
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger">
+          <i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+    
+  </ul>
+
+    
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.chensheng.group/2020/05/23/126-eslink%E9%85%8D%E7%BD%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="陈晟">
+      <meta itemprop="description" content="请不要在最能吃苦的日子选择安逸">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="陈先生的小前端">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            eslink配置记录
+            
+
+          
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2020-05-23 22:32:00" itemprop="dateCreated datePublished" datetime="2020-05-23T22:32:00+08:00">2020-05-23</time>
+            </span>
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/eslink/" itemprop="url" rel="index">
+                    <span itemprop="name">eslink</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+        
+      
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/05/23/126-eslink%E9%85%8D%E7%BD%AE/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/05/23/126-eslink%E9%85%8D%E7%BD%AE/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <hr style='filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)' color='#FF0000' size='1' />
+
+<blockquote>
+<p>项目中都有使用到eslink,怎么安装我就不说了,现在vue-cli4.0初始化的时候,都会提示你是否直接安装</p>
+</blockquote>
+<a id="more"></a>
+
+<p>本篇记录一下自己经常用到的一些eslink的配置,一些vue风格的没有配置,类似规定组件大小写之类的,有兴趣的可以自己加上</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line">const isPro &#x3D; process.env.NODE_ENV &#x3D;&#x3D;&#x3D; &quot;production&quot;;</span><br><span class="line">module.exports &#x3D; &#123;</span><br><span class="line">  root: true,</span><br><span class="line">  parserOptions: &#123;</span><br><span class="line">    parser: &quot;babel-eslint&quot;,</span><br><span class="line">    ecmaVersion:true</span><br><span class="line">  &#125;,</span><br><span class="line">  env: &#123;</span><br><span class="line">    browser: true,</span><br><span class="line">    es6: true,</span><br><span class="line">  &#125;,</span><br><span class="line">  extends: [&#39;plugin:vue&#x2F;essential&#39;],</span><br><span class="line">  plugins: [&quot;vue&quot;],</span><br><span class="line">  &#x2F;&#x2F; &quot;off&quot;或者0    关闭规则关闭</span><br><span class="line">  &#x2F;&#x2F; &quot;warn&quot;或者1   在打开的规则作为警告（不影响退出代码）</span><br><span class="line">  &#x2F;&#x2F; &quot;error&quot;或者2  把规则作为一个错误（退出代码触发时为1）</span><br><span class="line">  rules: &#123;</span><br><span class="line">    &#x2F;&#x2F; 代码风格规范</span><br><span class="line">    &quot;quotes&quot;: [2, &quot;single&quot;], &#x2F;&#x2F;字符串使用单引号</span><br><span class="line">    &quot;space-infix-ops&quot;: 2, &#x2F;&#x2F; 操作符周围要有空格</span><br><span class="line">    &quot;spaced-comment&quot;: 2, &#x2F;&#x2F;注释风格要有空格</span><br><span class="line">    &quot;comma-spacing&quot;: 2, &#x2F;&#x2F;逗号后要有空格</span><br><span class="line">    &quot;comma-style&quot;: [2, &quot;last&quot;], &#x2F;&#x2F;逗号风格，换行时在行首还是行尾</span><br><span class="line">    &quot;consistent-this&quot;: [2, &quot;_this&quot;], &#x2F;&#x2F;this别名</span><br><span class="line">    &quot;curly&quot;: [2, &quot;all&quot;], &#x2F;&#x2F;必须使用 if()&#123;&#125; 中的&#123;&#125;</span><br><span class="line">    &quot;brace-style&quot;: [2, &quot;1tbs&quot;], &#x2F;&#x2F; 大括号和关键字在同一行</span><br><span class="line">    &quot;no-unused-vars&quot;: [0, &#123;&quot;vars&quot;: &quot;all&quot;, &quot;args&quot;: &quot;after-used&quot;&#125;], &#x2F;&#x2F;不能有声明后未被使用的变量或参数</span><br><span class="line">    &quot;no-use-before-define&quot;: 0, &#x2F;&#x2F;未定义前不能使用</span><br><span class="line">    &quot;arrow-parens&quot;: 2, &#x2F;&#x2F;箭头函数用小括号括起来</span><br><span class="line">    &quot;no-multiple-empty-lines&quot;: [1, &#123;&quot;max&quot;: 2&#125;], &#x2F;&#x2F;空行最多不能超过2行</span><br><span class="line">    &quot;operator-linebreak&quot;: [2, &quot;after&quot;], &#x2F;&#x2F;换行时运算符在行尾还是行首</span><br><span class="line">    &quot;indent&quot;: [2, 2], &#x2F;&#x2F;缩进风格,缩进两格</span><br><span class="line">    &quot;comma-dangle&quot;: [2, &quot;never&quot;], &#x2F;&#x2F;对象字面量项尾不能有逗号</span><br><span class="line">    &quot;dot-location&quot;: 2, &#x2F;&#x2F;对象访问符的位置，换行的时候在行首还是行尾</span><br><span class="line">    &quot;func-call-spacing&quot;: 2, &#x2F;&#x2F;函数调用不要空格</span><br><span class="line">    &quot;key-spacing&quot;: [2, &#123; &quot;afterColon&quot;: true, &quot;mode&quot;: &quot;strict&quot; &#125;], &#x2F;&#x2F; key的冒号后面要有空格</span><br><span class="line">    &quot;no-dupe-keys&quot;: 2,&#x2F;&#x2F;在创建对象字面量时不允许键重复 &#123;a:1,a:1&#125;</span><br><span class="line">    &quot;no-duplicate-case&quot;: 2,&#x2F;&#x2F;switch中的case标签不能重复</span><br><span class="line">    &quot;no-floating-decimal&quot;: 2,&#x2F;&#x2F;禁止省略浮点数中的0 .5 3.</span><br><span class="line">    &quot;no-multi-spaces&quot;: 2,&#x2F;&#x2F;不能用多余的空格</span><br><span class="line">    &quot;no-multi-str&quot;: 2, &#x2F;&#x2F;字符串不能用\换行</span><br><span class="line">    &quot;object-property-newline&quot;: 2, &#x2F;&#x2F;对象属性换行时注意统一代码风格。</span><br><span class="line">    &quot;padded-blocks&quot;: 0,&#x2F;&#x2F;块语句内行首行尾是否要空行</span><br><span class="line">    &quot;vue&#x2F;v-bind-style&quot;: [&quot;error&quot;, &quot;shorthand&quot;],</span><br><span class="line">    &quot;vue&#x2F;v-on-style&quot;: [&quot;error&quot;, &quot;shorthand&quot;],</span><br><span class="line">    &quot;prefer-destructuring&quot;: 0,</span><br><span class="line">    &quot;class-methods-use-this&quot;: 0,</span><br><span class="line">    &quot;no-mixed-operators&quot;: 0,</span><br><span class="line">    &quot;max-len&quot;: 0, &#x2F;&#x2F;字符串最大长度</span><br><span class="line">    &quot;no-unused-expressions&quot;: 2, &#x2F;&#x2F;禁止无用的表达式</span><br><span class="line">    &quot;import&#x2F;no-dynamic-require&quot;: 0,</span><br><span class="line">    &quot;func-names&quot;: 0, &#x2F;&#x2F;函数表达式必须有名字</span><br><span class="line">    &quot;no-underscore-dangle&quot;: 0, &#x2F;&#x2F;标识符不能以_开头或结尾</span><br><span class="line">    &quot;no-restricted-properties&quot;: 0,</span><br><span class="line">    &quot;no-restricted-syntax&quot;: 0,</span><br><span class="line">    &quot;no-prototype-builtins&quot;: 0,</span><br><span class="line">    &quot;no-plusplus&quot;: 0, &#x2F;&#x2F;禁止使用++，--</span><br><span class="line">    &quot;one-var&quot;: 0, &#x2F;&#x2F;连续声明</span><br><span class="line">    &quot;no-tabs&quot;: 0,</span><br><span class="line">    &quot;prefer-const&quot;: 0, &#x2F;&#x2F;首选const</span><br><span class="line">    &quot;global-require&quot;: 0,</span><br><span class="line">    &quot;guard-for-in&quot;: 0, &#x2F;&#x2F;for in循环要用if语句过滤</span><br><span class="line">    &quot;import&#x2F;extensions&quot;:0,</span><br><span class="line">    &quot;no-console&quot;: 0,</span><br><span class="line">    &quot;no-return-assign&quot;: 0, &#x2F;&#x2F;return 语句中不能有赋值表达式</span><br><span class="line">    &quot;no-param-reassign&quot;: 0, &#x2F;&#x2F;禁止给参数重新赋值</span><br><span class="line">    &quot;no-nested-ternary&quot;: 0, &#x2F;&#x2F;禁止使用嵌套的三目运算</span><br><span class="line">    &quot;camelcase&quot;: 0, &#x2F;&#x2F;强制驼峰法命名</span><br><span class="line">    &quot;eqeqeq&quot;: 0,&#x2F;&#x2F;必须使用全等</span><br><span class="line">    &quot;import&#x2F;no-extraneous-dependencies&quot;: 0,</span><br><span class="line">    &quot;no-debugger&quot;: isPro ? &quot;error&quot; : &quot;off&quot;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>以上就是我对eslink配置的一些理解,如果文章由于我学识浅薄,导致您发现有严重谬误的地方,请一定在评论中指出,我会在第一时间修正我的博文,以避免误人子弟。</p>
+
+    </div>
+
+    
+    
+    
+    
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+      
+    </div>
+        
+      
+        <div class="reward-container">
+  <div>没办法,总要恰饭的嘛~~</div>
+  <button disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+        
+      
+      <div style="display: inline-block;">
+        <img src="/images/wxpay.png" alt="陈晟 微信支付">
+        <p>微信支付</p>
+      </div>
+        
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="陈晟 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+      
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>陈晟
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://www.chensheng.group/2020/05/23/126-eslink%E9%85%8D%E7%BD%AE/" title="eslink配置记录">https://www.chensheng.group/2020/05/23/126-eslink%E9%85%8D%E7%BD%AE/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/eslink/" rel="tag"><i class="fa fa-tag"></i> eslink</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2020/05/02/125-%E7%94%9F%E6%88%90%E4%BA%8C%E7%BB%B4%E7%A0%81/" rel="next" title="URL生成二维码">
+                  <i class="fa fa-chevron-left"></i> URL生成二维码
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2020/05/31/127-vue%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0-%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86/" rel="prev" title="vue源码学习-响应式原理">
+                  vue源码学习-响应式原理 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="comments"></div>
+  
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <a href="/">
+      <img class="site-author-image" itemprop="image"
+        src="/images/touxiang.jpg"
+        alt="陈晟">
+    </a>
+  <p class="site-author-name" itemprop="name">陈晟</p>
+  <div class="site-description" itemprop="description">请不要在最能吃苦的日子选择安逸</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">148</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        <span class="site-state-item-count">35</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        <span class="site-state-item-count">55</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+</div>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/328921371" title="GitHub &amp;rarr; https:&#x2F;&#x2F;github.com&#x2F;328921371" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="mailto:328921371@qq.com" title="E-Mail &amp;rarr; mailto:328921371@qq.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+    
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    
+  
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  &copy; 2016 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">陈晟</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    
+    <span title="站点总字数">451k</span>
+</div>
+  <div class="powered-by">欢迎访问
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">
+      
+    Mr.Chen的小前端
+  </div>
+  <span class="post-meta-divider">|</span>
+  <span class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">闽ICP备-2021012340-号 </a><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=" rel="noopener" target="_blank"> </a>
+  </span>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+      <span class="site-uv">
+        我的第 <span class="busuanzi-value" id="busuanzi_value_site_uv"></span> 位朋友，
+      </span>
+
+  
+    <span class="site-pv">
+     历经 <span class="busuanzi-value" id="busuanzi_value_site_pv"></span> 次回眸才与你相遇
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js?v=3.1.0"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+<script src="/js/utils.js?v=7.4.2.js"></script>
+
+<script src="/js/motion.js?v=7.4.2.js"></script>
+
+
+<script src="/js/schemes/muse.js?v=7.4.2.js"></script>
+
+
+
+<script src="/js/next-boot.js?v=7.4.2.js"></script>
+
+<script src="/js/bookmark.js?v=7.4.2.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+<script src="/js/local-search.js?v=7.4.2.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  <script src="/js/wobblewindow.js"></script>
+  <script>
+    if( window.innerWidth > 768  ){
+      $(document).ready(function () {
+        
+          $('.header').wobbleWindow({
+            radius: 50,
+            movementTop: false,
+            movementLeft: false,
+            movementRight: false,
+            debug: false,
+          });
+        
+
+        
+
+        
+      });
+    }
+  </script>
+
+
+
+
+  <script src="/js/activate-power-mode.min.js"></script>
+  <script>
+    POWERMODE.colorful = true;
+    POWERMODE.shake = false;
+    document.body.addEventListener('input', POWERMODE);
+  </script>
+
+
+
+
+  <script async src="/js/cursor/fireworks.js"></script>
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.includes(item);
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'jD385ICqgsSXvIPjMqMoJhn5-gzGzoHsz',
+    appKey: 'Y3pbrUp0lQbqyJK8XRjke93m',
+    placeholder: "（づ≧∀≦）づ╭❤～  客官,快来玩吖!",
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: 'zh-cn' || 'zh-cn',
+    path: location.pathname,
+    recordIP: false,
+    serverURLs: ''
+  });
+}, window.Valine);
+</script>
+
+</body>
+</html>

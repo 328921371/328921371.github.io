@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico?v=7.4.2">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=7.4.2">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico?v=7.4.2">
+  <link rel="mask-icon" href="/images/favicon.ico?v=7.4.2" color="#222">
+  <link rel="alternate" href="/atom.xml" title="陈先生的小前端" type="application/atom+xml">
+
+
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.2">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '7.4.2',
+    exturl: false,
+    sidebar: {"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":"mac"},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    bookmark: {"enable":true,"color":"#222","save":"auto"},
+    fancybox: true,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="整理了一下常见的HTML的问题">
+<meta property="og:type" content="article">
+<meta property="og:title" content="html高频考题">
+<meta property="og:url" content="https://www.chensheng.group/2021/09/01/145-html%E6%95%B4%E7%90%86/index.html">
+<meta property="og:site_name" content="陈先生的小前端">
+<meta property="og:description" content="整理了一下常见的HTML的问题">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-09-01T06:33:00.000Z">
+<meta property="article:modified_time" content="2021-09-03T06:54:01.497Z">
+<meta property="article:author" content="陈晟">
+<meta property="article:tag" content="面试">
+<meta name="twitter:card" content="summary">
+  <link rel="canonical" href="https://www.chensheng.group/2021/09/01/145%E6%95%B4%E7%90%86/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>html高频考题 | 陈先生的小前端</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+  <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css"/>
+  <script src="/live2d-widget/autoload.js"></script>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">陈先生的小前端</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+        
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+      
+    
+      
+      
+        
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+      
+    
+      
+      
+        
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+      
+    
+      
+      
+        
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+      
+    
+      
+      
+        
+        
+        <li class="menu-item menu-item-about">
+      
+    
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+      
+    
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger">
+          <i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+    
+  </ul>
+
+    
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.chensheng.group/2021/09/01/145-html%E6%95%B4%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="陈晟">
+      <meta itemprop="description" content="请不要在最能吃苦的日子选择安逸">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="陈先生的小前端">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            html高频考题
+            
+
+          
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2021-09-01 14:33:00" itemprop="dateCreated datePublished" datetime="2021-09-01T14:33:00+08:00">2021-09-01</time>
+            </span>
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%9D%A2%E8%AF%95/" itemprop="url" rel="index">
+                    <span itemprop="name">面试</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+        
+      
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/09/01/145-html%E6%95%B4%E7%90%86/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/09/01/145-html%E6%95%B4%E7%90%86/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <hr style='filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)' color='#FF0000' size='1' />
+
+<blockquote>
+<p>整理了一下常见的HTML的问题</p>
+</blockquote>
+<a id="more"></a>
+
+<h3 id="DOCTYPE-的作用是什么"><a href="#DOCTYPE-的作用是什么" class="headerlink" title="DOCTYPE 的作用是什么?"></a>DOCTYPE 的作用是什么?</h3><!DOCTYPE><p>声明位于 HTML 文档中的第一行，处于 <html> 标签之前。告知浏览器的解析器用什么文档标准解析这个文档。</p>
+<p>DOCTYPE 不存在或格式不正确会导致文档以兼容模式呈现。</p>
+<h3 id="标准模式与兼容模式各有什么区别"><a href="#标准模式与兼容模式各有什么区别" class="headerlink" title="标准模式与兼容模式各有什么区别?"></a>标准模式与兼容模式各有什么区别?</h3><p>标准模式的渲染方式和 JS 引擎的解析方式都是以该浏览器支持的最高标准运行。</p>
+<p>在兼容模式中，页面以宽松的向后兼容的方式显示，模拟老式浏览器的行为以防止站点无法工作。</p>
+<h3 id="页面导入样式时，使用-link-和-import-有什么区别"><a href="#页面导入样式时，使用-link-和-import-有什么区别" class="headerlink" title="页面导入样式时，使用 link 和 @import 有什么区别?"></a>页面导入样式时，使用 link 和 @import 有什么区别?</h3><ul>
+<li>从属关系区别。 @import 是 CSS 提供的语法规则，只有导入样式表的作用；link是 HTML 提供的标签，不仅可以加载 CSS 文件，还可以定义 RSS、rel 连接属性、引入网站图标等。</li>
+<li>加载顺序区别。加载页面时，link 标签引入的 CSS 被同时加载；@import 引入的 CSS 将在页面加载完毕后被加载。</li>
+<li>兼容性区别。@import 是 CSS2.1 才有的语法，故只可在 IE5+ 才能识别；link 标签作为 HTML 元素，不存在兼容性问题。</li>
+<li>DOM 可控性区别。可以通过 JS 操作 DOM ，插入 link 标签来改变样式；由于DOM 方法是基于文档的，无法使用 @import 的方式插入样式。</li>
+<li>link方式的样式的权重 高于@import的权重.</li>
+</ul>
+<h3 id="从敲入-URL-到渲染完成的整个过程"><a href="#从敲入-URL-到渲染完成的整个过程" class="headerlink" title="从敲入 URL 到渲染完成的整个过程"></a>从敲入 URL 到渲染完成的整个过程</h3><ul>
+<li>用户输入 url 地址，浏览器根据域名寻找 IP 地址</li>
+<li>浏览器向服务器发送 http 请求，如果服务器段返回以 301 之类的重定向，浏览器根据相应头中的 location 再次发送请求</li>
+<li>服务器端接受请求，处理请求生成 html 代码，返回给浏览器，这时的 html 页面代码可能是经过压缩的</li>
+<li>浏览器接收服务器响应结果，如果有压缩则首先进行解压处理，紧接着就是页面解析渲染</li>
+<li>解析渲染该过程主要分为以下步骤：解析 HTML、构建 DOM 树、DOM 树与 CSS 样式进行附着构造呈现树</li>
+<li>布局</li>
+<li>绘制</li>
+</ul>
+<h3 id="什么是-DOM-和-BOM？"><a href="#什么是-DOM-和-BOM？" class="headerlink" title="什么是 DOM 和 BOM？"></a>什么是 DOM 和 BOM？</h3><ul>
+<li>DOM 指的是文档对象模型，它指的是把文档当做一个对象来对待，这个对象主要定义了处理网页内容的方法和接口。</li>
+<li>BOM 指的是浏览器对象模型，它指的是把浏览器当做一个对象来对待，这个对象主要定义了与浏览器进行交互的法和接口。</li>
+</ul>
+<blockquote>
+<p>BOM 的核心是 window, window 对象含有 location 对象、navigator 对象、screen 对象等子对象，并且 DOM 的最根本的对象 document 对象也是 BOM 的 window 对象的子对象。</p>
+</blockquote>
+<h3 id="浏览器的渲染原理-渲染引擎"><a href="#浏览器的渲染原理-渲染引擎" class="headerlink" title="浏览器的渲染原理(渲染引擎)"></a>浏览器的渲染原理(渲染引擎)</h3><ul>
+<li>首先解析收到的文档，根据文档定义构建一颗 DOM 树，DOM 树是由DOM 元素及属性节点组成的；</li>
+<li>然后对 CSS 进行解析，生成 CSSOM 规则树；</li>
+<li>根据 DOM 树和 CSSOM 规则树构建 Render Tree。渲染树的节点被称为渲染对象，渲染对象是一个包含有颜色和大小等属性的矩形，渲染对象和DOM 对象相对应，但这种对应关系不是一对一的，不可见的 DOM 元素不会被插入渲染树。</li>
+<li>当渲染对象被创建并添加到树中，它们并没有位置和大小，所以当浏览器生成渲染树以后，就会根据渲染树来进行布局（也可以叫做回流）。这一阶段浏览器要做的事情就是要弄清楚各个节点在页面中的确切位置和大小。通常这一行为也被称为“自动重排”。</li>
+<li>布局阶段结束后是绘制阶段，比那里渲染树并调用对象的 paint 方法将它们的内容显示在屏幕上，绘制使用 UI 基础组件。</li>
+</ul>
+<p>所有的 html 解析完成之后再去构建和布局 render tree。它是解析完一部分内容就显示一部分内容，同时可能还在网络下载其余内容。</p>
+<h3 id="浏览器解析过程-JS-引擎"><a href="#浏览器解析过程-JS-引擎" class="headerlink" title="浏览器解析过程(JS 引擎)"></a>浏览器解析过程(JS 引擎)</h3><p>JavaScript 的加载、解析与执行会阻塞文档的解析，也就是说，在构建 DOM 时，HTML解析器若遇到了 JavaScript，那么它会暂停文档的解析，将控制权移交给 JavaScript 引擎，等 JavaScript 引擎运行完毕，浏览器再从中断的地方恢复继续解析文档。</p>
+<p>也就是说，如果你想首屏渲染的越快，就越不应该在首屏就加载 JS 文件，这也是都建议将 script 标签放在 body 标签底部的原因。当然在当下，并不是说 script 标签必须放在底部，因为你可以给 script 标签添加 defer 或者 async 属性。</p>
+<h3 id="什么是重绘和回流"><a href="#什么是重绘和回流" class="headerlink" title="什么是重绘和回流?"></a>什么是重绘和回流?</h3><p>重绘: 当渲染树中的一些元素需要更新属性，而这些属性只是影响元素的外观、风格，而不会影响布局的操作，比如 background color，我们将这样的操作称为重绘。<br>回流：当渲染树中的一部分（或全部）因为元素的规模尺寸、布局、隐藏等改变而需要重新构建的操作，会影响到布局的操作，这样的操作我们称为回流。</p>
+<p>常见引起回流属性和方法:</p>
+<blockquote>
+<p>任何会改变元素几何信息（元素的位置和尺寸大小）的操作，都会触发回流。</p>
+</blockquote>
+<ol>
+<li>添加或者删除可见的 DOM 元素；</li>
+<li>元素尺寸改变——边距、填充、边框、宽度和高度</li>
+<li>内容变化，比如用户在 input 框中输入文字</li>
+<li>浏览器窗口尺寸改变——resize 事件发生时</li>
+<li>计算 offsetWidth 和 offsetHeight 属性</li>
+<li>设置 style 属性的值</li>
+<li>当你修改网页的默认字体时。</li>
+</ol>
+<p>回流必定会发生重绘，重绘不一定会引发回流。回流所需的成本比重绘高的多，改变父节点里的子节点很可能会导致父节点的一系列回流。</p>
+<h3 id="Canvas-和-SVG-有什么区别"><a href="#Canvas-和-SVG-有什么区别" class="headerlink" title="Canvas 和 SVG 有什么区别?"></a>Canvas 和 SVG 有什么区别?</h3><p>Canvas 是一种通过 JavaScript 来绘制 2D 图形的方法。Canvas 是逐像素来进行渲染的，因此当我们对 Canvas 进行缩放时，会出现锯齿或者失真的情况。</p>
+<p>SVG 是一种使用 XML 描述 2D 图形的语言。SVG 基于 XML，这意味着 SVG DOM 中的每个元素都是可用的。我们可以为某个元素附加 JavaScript 事件监听函数。并且 SVG 保存的是图形的绘制方法，因此当 SVG 图形缩放时并不会失真。</p>
+<h3 id="浏览器架构"><a href="#浏览器架构" class="headerlink" title="浏览器架构"></a>浏览器架构</h3><ul>
+<li>用户界面<ul>
+<li>主进程</li>
+<li>内核<ul>
+<li>渲染引擎</li>
+<li>JS 引擎<ul>
+<li>执行栈</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>事件触发线程<ul>
+<li>消息队列<ul>
+<li>微任务</li>
+<li>宏任务</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>网络异步线程</li>
+<li>定时器线程</li>
+</ul>
+</li>
+</ul>
+<h3 id="常用的-meta-标签"><a href="#常用的-meta-标签" class="headerlink" title="常用的 meta 标签"></a>常用的 meta 标签</h3><p><a href="https://www.chensheng.group/2018/03/02/59-html5%E5%B8%B8%E7%94%A8%E7%9A%84meta%E6%A0%87%E7%AD%BE%E6%80%BB%E7%BB%93/">点击跳转</a></p>
+<h3 id="disabled-和-readonly-的区别？"><a href="#disabled-和-readonly-的区别？" class="headerlink" title="disabled 和 readonly 的区别？"></a>disabled 和 readonly 的区别？</h3><ul>
+<li>disabled 指当 input 元素加载时禁用此元素。input 内容不会随着表单提交。</li>
+<li>readonly 规定输入字段为只读。input 内容会随着表单提交。</li>
+<li>无论设置 readonly 还是 disabled，通过 js 脚本都能更改 input 的 value</li>
+</ul>
+<h3 id="扫描二维码登录网页是什么原理，前后两个事件是如何联系的？"><a href="#扫描二维码登录网页是什么原理，前后两个事件是如何联系的？" class="headerlink" title="扫描二维码登录网页是什么原理，前后两个事件是如何联系的？"></a>扫描二维码登录网页是什么原理，前后两个事件是如何联系的？</h3><p>浏览器获得一个临时 id，通过长连接等待客户端扫描带有此 id 的二维码后，从长连接中获得客户端上报给 server 的帐号信息进行展示。并在客户端点击确认后，此前获得的令牌或丢失、或失效，对授权过程形成有效的安全防护。</p>
+<h3 id="get-请求传参长度的误区"><a href="#get-请求传参长度的误区" class="headerlink" title="get 请求传参长度的误区"></a>get 请求传参长度的误区</h3><p>误区：我们经常说 get 请求参数的大小存在限制，而 post 请求的参数大小是无限制的。</p>
+<p>实际上 HTTP 协议从未规定 GET/POST 的请求长度限制是多少。对 get 请求参数的限制是来源与浏览器或 web 服务器，浏览器或 web 服务器限制了 url 的长度。</p>
+<ol>
+<li>HTTP 协议未规定 GET 和 POST 的长度限制</li>
+<li>GET 的最大长度显示是因为浏览器和 web 服务器限制了 URI 的长度</li>
+<li>不同的浏览器和 WEB 服务器，限制的最大长度不一样</li>
+<li>要支持 IE，则最大长度为 2083byte，若只支持 Chrome，则最大长度8182byte</li>
+</ol>
+<p>(…未完待续)</p>
+
+    </div>
+
+    
+    
+    
+    
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+      
+    </div>
+        
+      
+        <div class="reward-container">
+  <div>没办法,总要恰饭的嘛~~</div>
+  <button disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+        
+      
+      <div style="display: inline-block;">
+        <img src="/images/wxpay.png" alt="陈晟 微信支付">
+        <p>微信支付</p>
+      </div>
+        
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="陈晟 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+      
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>陈晟
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://www.chensheng.group/2021/09/01/145-html%E6%95%B4%E7%90%86/" title="html高频考题">https://www.chensheng.group/2021/09/01/145-html%E6%95%B4%E7%90%86/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/%E9%9D%A2%E8%AF%95/" rel="tag"><i class="fa fa-tag"></i> 面试</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2021/09/01/144-axios%E5%9C%A8XP%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%85%BC%E5%AE%B9%E9%97%AE%E9%A2%98/" rel="next" title="axios在XP系统的兼容问题">
+                  <i class="fa fa-chevron-left"></i> axios在XP系统的兼容问题
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2021/09/01/146-css%E6%95%B4%E7%90%86/" rel="prev" title="css高频考题">
+                  css高频考题 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="comments"></div>
+  
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#DOCTYPE-的作用是什么"><span class="nav-number">1.</span> <span class="nav-text">DOCTYPE 的作用是什么?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#标准模式与兼容模式各有什么区别"><span class="nav-number">2.</span> <span class="nav-text">标准模式与兼容模式各有什么区别?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#页面导入样式时，使用-link-和-import-有什么区别"><span class="nav-number">3.</span> <span class="nav-text">页面导入样式时，使用 link 和 @import 有什么区别?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#从敲入-URL-到渲染完成的整个过程"><span class="nav-number">4.</span> <span class="nav-text">从敲入 URL 到渲染完成的整个过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是-DOM-和-BOM？"><span class="nav-number">5.</span> <span class="nav-text">什么是 DOM 和 BOM？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#浏览器的渲染原理-渲染引擎"><span class="nav-number">6.</span> <span class="nav-text">浏览器的渲染原理(渲染引擎)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#浏览器解析过程-JS-引擎"><span class="nav-number">7.</span> <span class="nav-text">浏览器解析过程(JS 引擎)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是重绘和回流"><span class="nav-number">8.</span> <span class="nav-text">什么是重绘和回流?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Canvas-和-SVG-有什么区别"><span class="nav-number">9.</span> <span class="nav-text">Canvas 和 SVG 有什么区别?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#浏览器架构"><span class="nav-number">10.</span> <span class="nav-text">浏览器架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常用的-meta-标签"><span class="nav-number">11.</span> <span class="nav-text">常用的 meta 标签</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#disabled-和-readonly-的区别？"><span class="nav-number">12.</span> <span class="nav-text">disabled 和 readonly 的区别？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#扫描二维码登录网页是什么原理，前后两个事件是如何联系的？"><span class="nav-number">13.</span> <span class="nav-text">扫描二维码登录网页是什么原理，前后两个事件是如何联系的？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#get-请求传参长度的误区"><span class="nav-number">14.</span> <span class="nav-text">get 请求传参长度的误区</span></a></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <a href="/">
+      <img class="site-author-image" itemprop="image"
+        src="/images/touxiang.jpg"
+        alt="陈晟">
+    </a>
+  <p class="site-author-name" itemprop="name">陈晟</p>
+  <div class="site-description" itemprop="description">请不要在最能吃苦的日子选择安逸</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">148</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        <span class="site-state-item-count">35</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        <span class="site-state-item-count">55</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+</div>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/328921371" title="GitHub &amp;rarr; https:&#x2F;&#x2F;github.com&#x2F;328921371" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="mailto:328921371@qq.com" title="E-Mail &amp;rarr; mailto:328921371@qq.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+    
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    
+  
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  &copy; 2016 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">陈晟</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    
+    <span title="站点总字数">451k</span>
+</div>
+  <div class="powered-by">欢迎访问
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">
+      
+    Mr.Chen的小前端
+  </div>
+  <span class="post-meta-divider">|</span>
+  <span class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">闽ICP备-2021012340-号 </a><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=" rel="noopener" target="_blank"> </a>
+  </span>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+      <span class="site-uv">
+        我的第 <span class="busuanzi-value" id="busuanzi_value_site_uv"></span> 位朋友，
+      </span>
+
+  
+    <span class="site-pv">
+     历经 <span class="busuanzi-value" id="busuanzi_value_site_pv"></span> 次回眸才与你相遇
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js?v=3.1.0"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+<script src="/js/utils.js?v=7.4.2.js"></script>
+
+<script src="/js/motion.js?v=7.4.2.js"></script>
+
+
+<script src="/js/schemes/muse.js?v=7.4.2.js"></script>
+
+
+
+<script src="/js/next-boot.js?v=7.4.2.js"></script>
+
+<script src="/js/bookmark.js?v=7.4.2.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+<script src="/js/local-search.js?v=7.4.2.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  <script src="/js/wobblewindow.js"></script>
+  <script>
+    if( window.innerWidth > 768  ){
+      $(document).ready(function () {
+        
+          $('.header').wobbleWindow({
+            radius: 50,
+            movementTop: false,
+            movementLeft: false,
+            movementRight: false,
+            debug: false,
+          });
+        
+
+        
+
+        
+      });
+    }
+  </script>
+
+
+
+
+  <script src="/js/activate-power-mode.min.js"></script>
+  <script>
+    POWERMODE.colorful = true;
+    POWERMODE.shake = false;
+    document.body.addEventListener('input', POWERMODE);
+  </script>
+
+
+
+
+  <script async src="/js/cursor/fireworks.js"></script>
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.includes(item);
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'jD385ICqgsSXvIPjMqMoJhn5-gzGzoHsz',
+    appKey: 'Y3pbrUp0lQbqyJK8XRjke93m',
+    placeholder: "（づ≧∀≦）づ╭❤～  客官,快来玩吖!",
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: 'zh-cn' || 'zh-cn',
+    path: location.pathname,
+    recordIP: false,
+    serverURLs: ''
+  });
+}, window.Valine);
+</script>
+
+</body>
+</html>

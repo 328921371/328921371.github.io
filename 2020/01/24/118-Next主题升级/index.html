@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico?v=7.4.2">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=7.4.2">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico?v=7.4.2">
+  <link rel="mask-icon" href="/images/favicon.ico?v=7.4.2" color="#222">
+  <link rel="alternate" href="/atom.xml" title="陈先生的小前端" type="application/atom+xml">
+
+
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.2">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '7.4.2',
+    exturl: false,
+    sidebar: {"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":"mac"},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    bookmark: {"enable":true,"color":"#222","save":"auto"},
+    fancybox: true,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="突然发现,hexo和next升级了好几个版本,新增了一些小功能,记录一下升级的过程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Next主题升级">
+<meta property="og:url" content="https://www.chensheng.group/2020/01/24/118-Next%E4%B8%BB%E9%A2%98%E5%8D%87%E7%BA%A7/index.html">
+<meta property="og:site_name" content="陈先生的小前端">
+<meta property="og:description" content="突然发现,hexo和next升级了好几个版本,新增了一些小功能,记录一下升级的过程">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-01-24T03:55:00.000Z">
+<meta property="article:modified_time" content="2020-01-30T02:16:25.572Z">
+<meta property="article:author" content="陈晟">
+<meta property="article:tag" content="hexo">
+<meta name="twitter:card" content="summary">
+  <link rel="canonical" href="https://www.chensheng.group/2020/01/24/118-Next%E4%B8%BB%E9%A2%98%E5%8D%87%E7%BA%A7/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>Next主题升级 | 陈先生的小前端</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+  <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css"/>
+  <script src="/live2d-widget/autoload.js"></script>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">陈先生的小前端</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+        
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+      
+    
+      
+      
+        
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+      
+    
+      
+      
+        
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+      
+    
+      
+      
+        
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+      
+    
+      
+      
+        
+        
+        <li class="menu-item menu-item-about">
+      
+    
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+      
+    
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger">
+          <i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+    
+  </ul>
+
+    
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.chensheng.group/2020/01/24/118-Next%E4%B8%BB%E9%A2%98%E5%8D%87%E7%BA%A7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="陈晟">
+      <meta itemprop="description" content="请不要在最能吃苦的日子选择安逸">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="陈先生的小前端">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            Next主题升级
+            
+
+          
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2020-01-24 11:55:00" itemprop="dateCreated datePublished" datetime="2020-01-24T11:55:00+08:00">2020-01-24</time>
+            </span>
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/hexo/" itemprop="url" rel="index">
+                    <span itemprop="name">hexo</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+        
+      
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/01/24/118-Next%E4%B8%BB%E9%A2%98%E5%8D%87%E7%BA%A7/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/01/24/118-Next%E4%B8%BB%E9%A2%98%E5%8D%87%E7%BA%A7/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <hr style='filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)' color='#FF0000' size='1' />
+
+<blockquote>
+<p>突然发现,hexo和next升级了好几个版本,新增了一些小功能,记录一下升级的过程</p>
+</blockquote>
+<a id="more"></a>
+
+<p>hexo升级比较简单,<code>npm i hexo-cli -g</code>,重新升级一下就好,主要来看看Next修改了哪些功能</p>
+<h3 id="下载新版Next"><a href="#下载新版Next" class="headerlink" title="下载新版Next"></a>下载新版Next</h3><p><code>Git clone https://github.com/theme-next/hexo-theme-next themes/next</code> 下载到/themes的文件夹目录下,假设名字为next-v7.4.2</p>
+<h3 id="修改根目录的-config-yml"><a href="#修改根目录的-config-yml" class="headerlink" title="修改根目录的_config.yml"></a>修改根目录的_config.yml</h3><ol>
+<li>language改为: language: zh-CN</li>
+<li>theme改为: theme: next-v7.4.2 # 这里的名字对应目录下的名字</li>
+</ol>
+<h3 id="配置Next主题文件夹的-config-yml"><a href="#配置Next主题文件夹的-config-yml" class="headerlink" title="配置Next主题文件夹的_config.yml"></a>配置Next主题文件夹的_config.yml</h3><p>关于这个配置,我也是看别人的博客一点一点改的,可是版本就算一样,也有可能不信,所以最好大家改的时候多试几个版本</p>
+<h4 id="主题修改"><a href="#主题修改" class="headerlink" title="主题修改"></a>主题修改</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># Schemes</span><br><span class="line">#scheme: Muse</span><br><span class="line">scheme: Mist</span><br><span class="line">#scheme: Pisces</span><br><span class="line">#scheme: Gemini</span><br></pre></td></tr></table></figure>
+
+<h3 id="设置菜单及对应页面"><a href="#设置菜单及对应页面" class="headerlink" title="设置菜单及对应页面"></a>设置菜单及对应页面</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">menu:</span><br><span class="line">  home: &#x2F; || home</span><br><span class="line">  tags: &#x2F;tags&#x2F; || tags</span><br><span class="line">  categories: &#x2F;categories&#x2F; || th</span><br><span class="line">  archives: &#x2F;archives&#x2F; || archive</span><br><span class="line">  about: &#x2F;about&#x2F; || user</span><br><span class="line">  #comments: &#x2F;comments&#x2F; || comments</span><br><span class="line">  #schedule: &#x2F;schedule&#x2F; || calendar</span><br><span class="line">  #sitemap: &#x2F;sitemap.xml || sitemap</span><br><span class="line">  #commonweal: &#x2F;404&#x2F; || heartbeat</span><br></pre></td></tr></table></figure>
+
+<p>新增的菜单需要修改中文的,在/languages的zh-CN.yml中自行修改</p>
+<h3 id="配置底部显示"><a href="#配置底部显示" class="headerlink" title="配置底部显示"></a>配置底部显示</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">footer:</span><br><span class="line">  # 配置年份</span><br><span class="line">  since: 2016</span><br><span class="line"></span><br><span class="line">  # 配置图标</span><br><span class="line">  icon:</span><br><span class="line">    # 样式</span><br><span class="line">    name: heart</span><br><span class="line">    # 动画</span><br><span class="line">    animated: true</span><br><span class="line">    # 颜色</span><br><span class="line">    color: &quot;#ff0000&quot;</span><br><span class="line"></span><br><span class="line">  # 作者</span><br><span class="line">  copyright: 陈晟</span><br><span class="line"></span><br><span class="line">  powered:</span><br><span class="line">    # 显示驱动</span><br><span class="line">    enable: true</span><br><span class="line">    # 不显示版本</span><br><span class="line">    version: false</span><br><span class="line"></span><br><span class="line">  theme:</span><br><span class="line">    # 显示主题</span><br><span class="line">    enable: true</span><br><span class="line">    # 不显示版本</span><br><span class="line">    version: false</span><br></pre></td></tr></table></figure>
+
+<p>然后在/languages的zh-CN.yml中修改 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">footer:</span><br><span class="line">  powered: &quot;欢迎访问&quot;</span><br><span class="line">  theme: Mr.Chen的小前端</span><br></pre></td></tr></table></figure>
+
+<h3 id="开启文章版权信息"><a href="#开启文章版权信息" class="headerlink" title="开启文章版权信息"></a>开启文章版权信息</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">creative_commons:</span><br><span class="line">  license: by-nc-sa</span><br><span class="line">  sidebar: true</span><br><span class="line">  post: true</span><br><span class="line">  language:</span><br></pre></td></tr></table></figure>
+
+<h3 id="Tag-标签前图标修改"><a href="#Tag-标签前图标修改" class="headerlink" title="Tag 标签前图标修改"></a>Tag 标签前图标修改</h3><p>tag_icon: true</p>
+<h3 id="站点访问量统计"><a href="#站点访问量统计" class="headerlink" title="站点访问量统计"></a>站点访问量统计</h3><p>新版的Next已经自动集成了不蒜子统计</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">busuanzi_count:</span><br><span class="line">  enable: true #设true 开启</span><br><span class="line">  total_visitors: true  #总阅读人数 uv数</span><br><span class="line">  total_visitors_icon: user  #阅读总人数的图标</span><br><span class="line">  total_views: true #总阅读次数 pv数</span><br><span class="line">  total_views_icon: eye #阅读总次数的图标</span><br><span class="line">  post_views: false #开启内容阅读次数</span><br><span class="line">  post_views_icon: eye #内容页阅读数的图标</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>高阶用法：通过修改代码来自定义统计文案</p>
+</blockquote>
+<p>编辑themes/next-v-7.4.2/layout/_partials/analytics/busuanzi-counter.swig,修改为下面这样</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&#123;%- if theme.busuanzi_count.enable %&#125;</span><br><span class="line">&lt;div class&#x3D;&quot;busuanzi-count&quot;&gt;</span><br><span class="line">  &lt;script&#123;&#123; pjax &#125;&#125; async src&#x3D;&quot;https:&#x2F;&#x2F;busuanzi.ibruce.info&#x2F;busuanzi&#x2F;2.3&#x2F;busuanzi.pure.mini.js&quot;&gt;&lt;&#x2F;script&gt;</span><br><span class="line"></span><br><span class="line">  &#123;%- if theme.busuanzi_count.total_visitors %&#125;</span><br><span class="line">      &lt;span class&#x3D;&quot;site-uv&quot;&gt;</span><br><span class="line">        &#123;&#123; __(&#39;footer.total_visitors&#39;, &#39;&lt;span class&#x3D;&quot;busuanzi-value&quot; id&#x3D;&quot;busuanzi_value_site_uv&quot;&gt;&lt;&#x2F;span&gt;&#39;) &#125;&#125;</span><br><span class="line">      &lt;&#x2F;span&gt;</span><br><span class="line"></span><br><span class="line">  &#123;%- endif %&#125;</span><br><span class="line"></span><br><span class="line">  &#123;%- if theme.busuanzi_count.total_views %&#125;</span><br><span class="line">    &lt;span class&#x3D;&quot;site-pv&quot;&gt;</span><br><span class="line">     &#123;&#123; __(&#39;footer.total_views&#39;, &#39;&lt;span class&#x3D;&quot;busuanzi-value&quot; id&#x3D;&quot;busuanzi_value_site_pv&quot;&gt;&lt;&#x2F;span&gt;&#39;) &#125;&#125;</span><br><span class="line">    &lt;&#x2F;span&gt;</span><br><span class="line">  &#123;% endif %&#125;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br><span class="line">&#123;%- endif %&#125;</span><br></pre></td></tr></table></figure>
+
+<p>编辑：themes\next-v-7.4.2\languages\zh-CN.yml</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">footer:</span><br><span class="line">  total_views: &quot;历经 %s 次回眸才与你相遇&quot;</span><br><span class="line">  total_visitors: &quot;我的第 %s 位朋友，&quot;</span><br></pre></td></tr></table></figure>
+
+<p>在自定义样式文件中添加如下样式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;修改不蒜子数据颜色</span><br><span class="line">.busuanzi-value &#123;</span><br><span class="line">  color: #1890ff;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<div class="note info">
+            <p>新版本的Next主题说是在<code>custom_file_path</code>字段配置一下,然后再对应的文件夹下新增目录_data,写文件样式就可以了,但是我试过之后不行,所以我在<code>/source/css/_custom</code>下新增<code>_custom/.styl</code>,在外层的main.styl中引入<code>@import &quot;_custom/custom&quot;;</code></p>
+          </div>
+
+<h3 id="站点及文章字数统计"><a href="#站点及文章字数统计" class="headerlink" title="站点及文章字数统计"></a>站点及文章字数统计</h3><p>新版本也自动集成了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">symbols_count_time:</span><br><span class="line">  separated_meta: false</span><br><span class="line">  item_text_post: false</span><br><span class="line">  item_text_total: true</span><br><span class="line">  awl: 4</span><br><span class="line">  wpm: 275</span><br></pre></td></tr></table></figure>
+
+<h3 id="站内搜索"><a href="#站内搜索" class="headerlink" title="站内搜索"></a>站内搜索</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">local_search:</span><br><span class="line">  enable: true</span><br><span class="line">  # If auto, trigger search by changing input.</span><br><span class="line">  # If manual, trigger search by pressing enter key or search button.</span><br><span class="line">  trigger: auto</span><br><span class="line">  # Show top n results per article, show all results by setting to -1</span><br><span class="line">  top_n_per_article: 1</span><br><span class="line">  # Unescape html strings to the readable one.</span><br><span class="line">  unescape: false</span><br><span class="line">  # Preload the search data when the page loads.</span><br><span class="line">  preload: false</span><br></pre></td></tr></table></figure>
+
+<h3 id="添加打赏功能"><a href="#添加打赏功能" class="headerlink" title="添加打赏功能"></a>添加打赏功能</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">reward_settings:</span><br><span class="line">  # If true, reward would be displayed in every article by default.</span><br><span class="line">  # You can show or hide reward in a specific article throuth &#96;reward: true | false&#96; in Front-matter.</span><br><span class="line">  enable: true</span><br><span class="line">  animation: false</span><br><span class="line">  comment: 没办法,总要恰饭的嘛~~</span><br><span class="line"></span><br><span class="line">reward:</span><br><span class="line">  wechatpay: &#x2F;images&#x2F;wxpay.png</span><br><span class="line">  alipay: &#x2F;images&#x2F;alipay.png</span><br><span class="line">  #bitcoin: &#x2F;images&#x2F;bitcoin.png</span><br></pre></td></tr></table></figure>
+
+<h3 id="添加图片灯箱"><a href="#添加图片灯箱" class="headerlink" title="添加图片灯箱"></a>添加图片灯箱</h3><blockquote>
+<p>添加灯箱功能，实现点击图片后放大聚焦图片，并支持幻灯片播放、全屏播放、缩略图、快速分享到社交媒体等，该功能由 fancyBox 提供</p>
+</blockquote>
+<p>在根目录下执行以下命令安装相关依赖：</p>
+<p><code>git clone https://github.com/theme-next/theme-next-fancybox3 themes/next/source/lib/fancybox</code></p>
+<p>在主题配置文件中设置 <code>fancybox: true</code></p>
+<h3 id="新增gittalk评论"><a href="#新增gittalk评论" class="headerlink" title="新增gittalk评论"></a>新增gittalk评论</h3><p>之前评论用畅言的,但是会给我塞广告,所以打算换成gittalk</p>
+<p>新增Next也集成了!! 这就是为什么我要升级到新版本的原因</p>
+<p>首先建立评论仓库</p>
+<p>很简单建立一个名blogIssues的评论仓库</p>
+<p>在git中github沿路径setting/Developer setting/OAuth Apps，新建自己的OAuth Apps</p>
+<p>url都填写自己的域名,建立完成后可以看到client_id和client_secret,就可以记录下来</p>
+<p>然后再主题文件中进行配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">gitalk:</span><br><span class="line">  enable: true</span><br><span class="line">  github_id: 328921371 # GitHub repo owner</span><br><span class="line">  repo: blogIssues # Repository name to store issues</span><br><span class="line">  client_id: 你的client_id # GitHub Application Client ID</span><br><span class="line">  client_secret: 你的client_secret # GitHub Application Client Secret</span><br><span class="line">  admin_user: 328921371 # GitHub repo owner and collaborators, only these guys can initialize gitHub issues</span><br><span class="line">  distraction_free_mode: false # Facebook-like distraction free mode</span><br><span class="line">  redirect_uri: https:&#x2F;&#x2F;www.chensheng.group</span><br><span class="line">  id: location.pathname</span><br><span class="line">  # Gitalk&#39;s display language depends on user&#39;s browser or system environment</span><br><span class="line">  # If you want everyone visiting your site to see a uniform language, you can set a force language value</span><br><span class="line">  # Available values: en | es-ES | fr | ru | zh-CN | zh-TW</span><br><span class="line">  language: zh-CN</span><br></pre></td></tr></table></figure>
+
+<p>初始化的时候我也遇到过问题,点击按钮的时候一直返回首页,应该是标题太长的问题,后来又可以了,我也不知道原因</p>
+<h3 id="彩蛋"><a href="#彩蛋" class="headerlink" title="彩蛋"></a>彩蛋</h3><p>博客中,边缘波动,打字礼花等有趣的,等着你们自己挖掘吧,自己建博客,享受的就是这个过程</p>
+
+    </div>
+
+    
+    
+    
+    
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+      
+    </div>
+        
+      
+        <div class="reward-container">
+  <div>没办法,总要恰饭的嘛~~</div>
+  <button disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+        
+      
+      <div style="display: inline-block;">
+        <img src="/images/wxpay.png" alt="陈晟 微信支付">
+        <p>微信支付</p>
+      </div>
+        
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="陈晟 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+      
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>陈晟
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://www.chensheng.group/2020/01/24/118-Next%E4%B8%BB%E9%A2%98%E5%8D%87%E7%BA%A7/" title="Next主题升级">https://www.chensheng.group/2020/01/24/118-Next%E4%B8%BB%E9%A2%98%E5%8D%87%E7%BA%A7/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/hexo/" rel="tag"><i class="fa fa-tag"></i> hexo</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2020/01/20/117-%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB/" rel="next" title="微信小程序中实现人脸识别和指纹识别">
+                  <i class="fa fa-chevron-left"></i> 微信小程序中实现人脸识别和指纹识别
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2020/01/27/119-%E5%8D%9A%E5%AE%A2%E5%86%99%E4%BD%9C%E6%8A%80%E5%B7%A7%E7%AF%87/" rel="prev" title="博客写作技巧篇">
+                  博客写作技巧篇 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="comments"></div>
+  
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#下载新版Next"><span class="nav-number">1.</span> <span class="nav-text">下载新版Next</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改根目录的-config-yml"><span class="nav-number">2.</span> <span class="nav-text">修改根目录的_config.yml</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置Next主题文件夹的-config-yml"><span class="nav-number">3.</span> <span class="nav-text">配置Next主题文件夹的_config.yml</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#主题修改"><span class="nav-number">3.1.</span> <span class="nav-text">主题修改</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置菜单及对应页面"><span class="nav-number">4.</span> <span class="nav-text">设置菜单及对应页面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置底部显示"><span class="nav-number">5.</span> <span class="nav-text">配置底部显示</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开启文章版权信息"><span class="nav-number">6.</span> <span class="nav-text">开启文章版权信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tag-标签前图标修改"><span class="nav-number">7.</span> <span class="nav-text">Tag 标签前图标修改</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#站点访问量统计"><span class="nav-number">8.</span> <span class="nav-text">站点访问量统计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#站点及文章字数统计"><span class="nav-number">9.</span> <span class="nav-text">站点及文章字数统计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#站内搜索"><span class="nav-number">10.</span> <span class="nav-text">站内搜索</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加打赏功能"><span class="nav-number">11.</span> <span class="nav-text">添加打赏功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加图片灯箱"><span class="nav-number">12.</span> <span class="nav-text">添加图片灯箱</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#新增gittalk评论"><span class="nav-number">13.</span> <span class="nav-text">新增gittalk评论</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#彩蛋"><span class="nav-number">14.</span> <span class="nav-text">彩蛋</span></a></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <a href="/">
+      <img class="site-author-image" itemprop="image"
+        src="/images/touxiang.jpg"
+        alt="陈晟">
+    </a>
+  <p class="site-author-name" itemprop="name">陈晟</p>
+  <div class="site-description" itemprop="description">请不要在最能吃苦的日子选择安逸</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">148</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        <span class="site-state-item-count">35</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        <span class="site-state-item-count">55</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+</div>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/328921371" title="GitHub &amp;rarr; https:&#x2F;&#x2F;github.com&#x2F;328921371" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="mailto:328921371@qq.com" title="E-Mail &amp;rarr; mailto:328921371@qq.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+    
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    
+  
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  &copy; 2016 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">陈晟</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    
+    <span title="站点总字数">451k</span>
+</div>
+  <div class="powered-by">欢迎访问
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">
+      
+    Mr.Chen的小前端
+  </div>
+  <span class="post-meta-divider">|</span>
+  <span class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">闽ICP备-2021012340-号 </a><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=" rel="noopener" target="_blank"> </a>
+  </span>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+      <span class="site-uv">
+        我的第 <span class="busuanzi-value" id="busuanzi_value_site_uv"></span> 位朋友，
+      </span>
+
+  
+    <span class="site-pv">
+     历经 <span class="busuanzi-value" id="busuanzi_value_site_pv"></span> 次回眸才与你相遇
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js?v=3.1.0"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+<script src="/js/utils.js?v=7.4.2.js"></script>
+
+<script src="/js/motion.js?v=7.4.2.js"></script>
+
+
+<script src="/js/schemes/muse.js?v=7.4.2.js"></script>
+
+
+
+<script src="/js/next-boot.js?v=7.4.2.js"></script>
+
+<script src="/js/bookmark.js?v=7.4.2.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+<script src="/js/local-search.js?v=7.4.2.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  <script src="/js/wobblewindow.js"></script>
+  <script>
+    if( window.innerWidth > 768  ){
+      $(document).ready(function () {
+        
+          $('.header').wobbleWindow({
+            radius: 50,
+            movementTop: false,
+            movementLeft: false,
+            movementRight: false,
+            debug: false,
+          });
+        
+
+        
+
+        
+      });
+    }
+  </script>
+
+
+
+
+  <script src="/js/activate-power-mode.min.js"></script>
+  <script>
+    POWERMODE.colorful = true;
+    POWERMODE.shake = false;
+    document.body.addEventListener('input', POWERMODE);
+  </script>
+
+
+
+
+  <script async src="/js/cursor/fireworks.js"></script>
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.includes(item);
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'jD385ICqgsSXvIPjMqMoJhn5-gzGzoHsz',
+    appKey: 'Y3pbrUp0lQbqyJK8XRjke93m',
+    placeholder: "（づ≧∀≦）づ╭❤～  客官,快来玩吖!",
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: 'zh-cn' || 'zh-cn',
+    path: location.pathname,
+    recordIP: false,
+    serverURLs: ''
+  });
+}, window.Valine);
+</script>
+
+</body>
+</html>
