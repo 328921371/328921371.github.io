@@ -1,9 +1,9 @@
 ---
 title: vue-cli 4.0学习
 categories:
-  - Vue-cli
+  - vue-cli
 tags:
-  - Vue-cli
+  - vue-cli
 copyright: true
 comments: true
 abbrlink: '82943414'

@@ -4,7 +4,6 @@ categories:
   - Vue
 tags:
   - Vue
-  - Vue组件入门
 copyright: true
 comments: true
 abbrlink: '47143409'

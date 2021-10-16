@@ -4,7 +4,6 @@ categories:
   - Vue
 tags:
   - Vue
-  - Vue动态组件
 copyright: true
 comments: true
 abbrlink: 88e917f9

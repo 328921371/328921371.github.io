@@ -1,9 +1,9 @@
 ---
 title: Vue-cli 2.0 配置说明
 categories:
-  - Vue-cli
+  - vue-cli
 tags:
-  - Vue-cli
+  - vue-cli
 copyright: true
 comments: true
 abbrlink: 909b5bc5

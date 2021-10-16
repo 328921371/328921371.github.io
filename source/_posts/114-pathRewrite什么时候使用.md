@@ -1,9 +1,9 @@
 ---
 title: vue-cli中proxy的pathRewrite该怎么使用
 categories:
-  - Vue-cli
+  - vue-cli
 tags:
-  - Vue-cli
+  - vue-cli
 copyright: true
 comments: true
 abbrlink: 60e2b656

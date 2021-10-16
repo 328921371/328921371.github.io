@@ -4,7 +4,6 @@ categories:
   - Vue
 tags:
   - Vue
-  - Vue生命周期
 copyright: true
 comments: true
 abbrlink: 5d36c89a

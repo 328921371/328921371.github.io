@@ -4,7 +4,6 @@ categories:
   - Vue
 tags:
   - Vue
-  - Vue杂项
 copyright: true
 comments: true
 abbrlink: 35d550f4

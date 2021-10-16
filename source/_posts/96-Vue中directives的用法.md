@@ -1,9 +1,9 @@
 ---
 title: Vue中directives的用法
 categories:
-  - Vue-cli
+  - vue-cli
 tags:
-  - Vue-cli
+  - vue-cli
 copyright: true
 comments: true
 abbrlink: 86a45be2

@@ -1,9 +1,9 @@
 ---
 title: Vue-cli 2.0 打包配置不同环境
 categories:
-  - Vue-cli
+  - vue-cli
 tags:
-  - Vue-cli
+  - vue-cli
 copyright: true
 comments: true
 abbrlink: bb1807b

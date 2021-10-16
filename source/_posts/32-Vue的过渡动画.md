@@ -4,7 +4,6 @@ categories:
   - Vue
 tags:
   - Vue
-  - Vue过渡动画
 copyright: true
 comments: true
 abbrlink: fd437717

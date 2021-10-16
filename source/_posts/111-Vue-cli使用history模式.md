@@ -1,9 +1,9 @@
 ---
 title: vue使用history模式部署ng服务器
 categories:
-  - Vue-cli
+  - vue-cli
 tags:
-  - Vue-cli
+  - vue-cli
 copyright: true
 comments: true
 abbrlink: 2f14e154

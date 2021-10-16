@@ -4,7 +4,6 @@ categories:
   - Vue
 tags:
   - Vue
-  - Vue状态过渡
 copyright: true
 comments: true
 abbrlink: 20d1f4c9

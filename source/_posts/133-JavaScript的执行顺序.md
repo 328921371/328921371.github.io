@@ -1,5 +1,5 @@
 ---
-title: JavaScript的执行
+title: JavaScript的执行顺序
 categories:
   - javaScript
 tags:

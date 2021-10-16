@@ -4,7 +4,6 @@ categories:
   - Vue
 tags:
   - Vue
-  - Vue自定义指令
 copyright: true
 comments: true
 abbrlink: 8833154b

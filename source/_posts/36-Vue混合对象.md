@@ -4,7 +4,6 @@ categories:
   - Vue
 tags:
   - Vue
-  - Vue混合对象
 copyright: true
 comments: true
 abbrlink: '70300033'

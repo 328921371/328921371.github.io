@@ -4,7 +4,6 @@ categories:
   - Vue
 tags:
   - Vue
-  - Vue路由
 copyright: true
 comments: true
 abbrlink: eb370a4a

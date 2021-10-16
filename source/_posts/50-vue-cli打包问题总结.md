@@ -1,9 +1,9 @@
 ---
 title: Vue-cli打包踩过的坑
 categories:
-  - Vue-cli
+  - vue-cli
 tags:
-  - Vue-cli
+  - vue-cli
 copyright: true
 comments: true
 abbrlink: 9eedb282

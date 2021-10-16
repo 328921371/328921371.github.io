@@ -1,9 +1,9 @@
 ---
 title: vue-cli 打包删除console.log
 categories:
-  - Vue-cli
+  - vue-cli
 tags:
-  - Vue-cli
+  - vue-cli
 copyright: true
 comments: true
 abbrlink: 5ce8c5b8

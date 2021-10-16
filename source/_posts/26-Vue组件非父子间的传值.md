@@ -4,7 +4,6 @@ categories:
   - Vue
 tags:
   - Vue
-  - Vue组件传值
 copyright: true
 comments: true
 abbrlink: 83eaa17c

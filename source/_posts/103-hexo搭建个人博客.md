@@ -58,7 +58,7 @@ date: 2019-09-30 15:18:00
 
 `npm install hexo-cli -g`
 
-继续 `npm install hexo --save`
+继续 `npm install hexo -g`
 
 然后 `hexo -v`一下
 

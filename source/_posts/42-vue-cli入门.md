@@ -1,9 +1,9 @@
 ---
 title: Vue-cli的入门
 categories:
-  - Vue-cli
+  - vue-cli
 tags:
-  - Vue-cli
+  - vue-cli
 copyright: true
 comments: true
 abbrlink: f3edbb6

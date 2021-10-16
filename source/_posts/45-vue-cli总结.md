@@ -1,9 +1,9 @@
 ---
 title: Vue-cli 2.0 总结
 categories:
-  - Vue-cli
+  - vue-cli
 tags:
-  - Vue-cli
+  - vue-cli
 copyright: true
 comments: true
 abbrlink: 1845e2be
