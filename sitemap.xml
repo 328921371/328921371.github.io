@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://www.chensheng.group/2021/11/01/150-%E6%89%8B%E5%86%99promise/</loc>
+    
+    <lastmod>2021-11-01</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://www.chensheng.group/2021/11/01/149-%E5%87%BD%E6%95%B0%E6%9F%AF%E9%87%8C%E5%8C%96/</loc>
+    
+    <lastmod>2021-11-01</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://www.chensheng.group/2021/10/07/148-%E5%BE%AE%E4%BF%A1%E5%BC%80%E5%8F%91/</loc>
     
     <lastmod>2021-10-16</lastmod>
@@ -1061,7 +1075,7 @@
 
   <url>
     <loc>https://www.chensheng.group/</loc>
-    <lastmod>2021-10-16</lastmod>
+    <lastmod>2021-11-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -1069,385 +1083,385 @@
   
   <url>
     <loc>https://www.chensheng.group/tags/javaScript/</loc>
-    <lastmod>2021-10-16</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.chensheng.group/tags/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</loc>
-    <lastmod>2021-10-16</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.chensheng.group/tags/%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0/</loc>
-    <lastmod>2021-10-16</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.chensheng.group/tags/%E5%AF%B9%E8%B1%A1%E5%A4%8D%E5%88%B6/</loc>
-    <lastmod>2021-10-16</lastmod>
+    <lastmod>2021-11-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.chensheng.group/tags/%E5%8E%9F%E5%9E%8B/</loc>
-    <lastmod>2021-10-16</lastmod>
+    <lastmod>2021-11-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://www.chensheng.group/tags/%E5%8E%9F%E5%9E%8B%E9%93%BE/</loc>
-    <lastmod>2021-10-16</lastmod>
+    <loc>https://www.chensheng.group/tags/%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0/</loc>
+    <lastmod>2021-11-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.chensheng.group/tags/%E7%BB%A7%E6%89%BF/</loc>
-    <lastmod>2021-10-16</lastmod>
+    <lastmod>2021-11-01</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.chensheng.group/tags/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</loc>
+    <lastmod>2021-11-01</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.chensheng.group/tags/%E5%AF%B9%E8%B1%A1%E5%A4%8D%E5%88%B6/</loc>
+    <lastmod>2021-11-01</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.chensheng.group/tags/%E5%8E%9F%E5%9E%8B%E9%93%BE/</loc>
+    <lastmod>2021-11-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.chensheng.group/tags/%E5%AF%B9%E8%B1%A1%E5%90%88%E5%B9%B6/</loc>
-    <lastmod>2021-10-16</lastmod>
+    <lastmod>2021-11-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.chensheng.group/tags/this/</loc>
-    <lastmod>2021-10-16</lastmod>
+    <lastmod>2021-11-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.chensheng.group/tags/%E9%97%AD%E5%8C%85/</loc>
-    <lastmod>2021-10-16</lastmod>
+    <lastmod>2021-11-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.chensheng.group/tags/%E6%95%B0%E7%BB%84%E5%8E%BB%E9%87%8D/</loc>
-    <lastmod>2021-10-16</lastmod>
+    <lastmod>2021-11-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.chensheng.group/tags/Node/</loc>
-    <lastmod>2021-10-16</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.chensheng.group/tags/CSS/</loc>
-    <lastmod>2021-10-16</lastmod>
+    <lastmod>2021-11-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.chensheng.group/tags/webpack/</loc>
-    <lastmod>2021-10-16</lastmod>
+    <lastmod>2021-11-01</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.chensheng.group/tags/CSS/</loc>
+    <lastmod>2021-11-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.chensheng.group/tags/hexo/</loc>
-    <lastmod>2021-10-16</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.chensheng.group/tags/Vue/</loc>
-    <lastmod>2021-10-16</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.chensheng.group/tags/%E9%9D%A2%E8%AF%95/</loc>
-    <lastmod>2021-10-16</lastmod>
+    <lastmod>2021-11-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.chensheng.group/tags/PM2/</loc>
-    <lastmod>2021-10-16</lastmod>
+    <lastmod>2021-11-01</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.chensheng.group/tags/Vue/</loc>
+    <lastmod>2021-11-01</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.chensheng.group/tags/%E9%9D%A2%E8%AF%95/</loc>
+    <lastmod>2021-11-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.chensheng.group/tags/ios/</loc>
-    <lastmod>2021-10-16</lastmod>
+    <lastmod>2021-11-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.chensheng.group/tags/GitHub/</loc>
-    <lastmod>2021-10-16</lastmod>
+    <lastmod>2021-11-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.chensheng.group/tags/MongoDB/</loc>
-    <lastmod>2021-10-16</lastmod>
+    <lastmod>2021-11-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.chensheng.group/tags/vue-cli/</loc>
-    <lastmod>2021-10-16</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.chensheng.group/tags/TypeScript/</loc>
-    <lastmod>2021-10-16</lastmod>
+    <lastmod>2021-11-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.chensheng.group/tags/%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB/</loc>
-    <lastmod>2021-10-16</lastmod>
+    <lastmod>2021-11-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.chensheng.group/tags/weex/</loc>
-    <lastmod>2021-10-16</lastmod>
+    <lastmod>2021-11-01</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.chensheng.group/tags/TypeScript/</loc>
+    <lastmod>2021-11-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.chensheng.group/tags/%E5%BE%AE%E4%BF%A1/</loc>
-    <lastmod>2021-10-16</lastmod>
+    <lastmod>2021-11-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.chensheng.group/tags/eslink/</loc>
-    <lastmod>2021-10-16</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.chensheng.group/tags/AMD/</loc>
-    <lastmod>2021-10-16</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.chensheng.group/tags/teleport/</loc>
-    <lastmod>2021-10-16</lastmod>
+    <lastmod>2021-11-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.chensheng.group/tags/echars/</loc>
-    <lastmod>2021-10-16</lastmod>
+    <lastmod>2021-11-01</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.chensheng.group/tags/AMD/</loc>
+    <lastmod>2021-11-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.chensheng.group/tags/element/</loc>
-    <lastmod>2021-10-16</lastmod>
+    <lastmod>2021-11-01</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.chensheng.group/tags/teleport/</loc>
+    <lastmod>2021-11-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.chensheng.group/tags/SSL%E8%AF%81%E4%B9%A6/</loc>
-    <lastmod>2021-10-16</lastmod>
+    <lastmod>2021-11-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.chensheng.group/tags/uniApp/</loc>
-    <lastmod>2021-10-16</lastmod>
+    <lastmod>2021-11-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.chensheng.group/tags/Cookie/</loc>
-    <lastmod>2021-10-16</lastmod>
+    <lastmod>2021-11-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.chensheng.group/tags/Storage/</loc>
-    <lastmod>2021-10-16</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.chensheng.group/tags/Web-Worker/</loc>
-    <lastmod>2021-10-16</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.chensheng.group/tags/%E5%88%86%E7%BA%BF%E7%A8%8B/</loc>
-    <lastmod>2021-10-16</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.chensheng.group/tags/throw/</loc>
-    <lastmod>2021-10-16</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.chensheng.group/tags/deferred/</loc>
-    <lastmod>2021-10-16</lastmod>
+    <lastmod>2021-11-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.chensheng.group/tags/Promise/</loc>
-    <lastmod>2021-10-16</lastmod>
+    <lastmod>2021-11-01</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.chensheng.group/tags/Web-Worker/</loc>
+    <lastmod>2021-11-01</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.chensheng.group/tags/%E5%88%86%E7%BA%BF%E7%A8%8B/</loc>
+    <lastmod>2021-11-01</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.chensheng.group/tags/throw/</loc>
+    <lastmod>2021-11-01</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.chensheng.group/tags/deferred/</loc>
+    <lastmod>2021-11-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.chensheng.group/tags/Vuex/</loc>
-    <lastmod>2021-10-16</lastmod>
+    <lastmod>2021-11-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.chensheng.group/tags/WebSocket/</loc>
-    <lastmod>2021-10-16</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.chensheng.group/tags/SessionStorage/</loc>
-    <lastmod>2021-10-16</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.chensheng.group/tags/LocalStorage/</loc>
-    <lastmod>2021-10-16</lastmod>
+    <lastmod>2021-11-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.chensheng.group/tags/%E5%89%8D%E7%AB%AF%E9%80%82%E9%85%8D/</loc>
-    <lastmod>2021-10-16</lastmod>
+    <lastmod>2021-11-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.chensheng.group/tags/%E5%85%BC%E5%AE%B9/</loc>
-    <lastmod>2021-10-16</lastmod>
+    <lastmod>2021-11-01</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.chensheng.group/tags/SessionStorage/</loc>
+    <lastmod>2021-11-01</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.chensheng.group/tags/LocalStorage/</loc>
+    <lastmod>2021-11-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.chensheng.group/tags/axios/</loc>
-    <lastmod>2021-10-16</lastmod>
+    <lastmod>2021-11-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.chensheng.group/tags/scss/</loc>
-    <lastmod>2021-10-16</lastmod>
+    <lastmod>2021-11-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.chensheng.group/tags/meta/</loc>
-    <lastmod>2021-10-16</lastmod>
+    <lastmod>2021-11-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.chensheng.group/tags/%E7%A6%BB%E7%BA%BF%E7%BC%93%E5%AD%98/</loc>
-    <lastmod>2021-10-16</lastmod>
+    <lastmod>2021-11-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.chensheng.group/tags/ECMAScript-6/</loc>
-    <lastmod>2021-10-16</lastmod>
+    <lastmod>2021-11-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.chensheng.group/tags/electron-vue/</loc>
-    <lastmod>2021-10-16</lastmod>
+    <lastmod>2021-11-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.chensheng.group/tags/%E6%94%AF%E4%BB%98/</loc>
-    <lastmod>2021-10-16</lastmod>
+    <lastmod>2021-11-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.chensheng.group/tags/RSA/</loc>
-    <lastmod>2021-10-16</lastmod>
+    <lastmod>2021-11-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.chensheng.group/tags/npm/</loc>
-    <lastmod>2021-10-16</lastmod>
+    <lastmod>2021-11-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
@@ -1456,245 +1470,245 @@
   
   <url>
     <loc>https://www.chensheng.group/categories/javaScript/</loc>
-    <lastmod>2021-10-16</lastmod>
+    <lastmod>2021-11-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.chensheng.group/categories/Node/</loc>
-    <lastmod>2021-10-16</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.chensheng.group/categories/CSS/</loc>
-    <lastmod>2021-10-16</lastmod>
+    <lastmod>2021-11-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.chensheng.group/categories/webpack/</loc>
-    <lastmod>2021-10-16</lastmod>
+    <lastmod>2021-11-01</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.chensheng.group/categories/CSS/</loc>
+    <lastmod>2021-11-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.chensheng.group/categories/hexo/</loc>
-    <lastmod>2021-10-16</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.chensheng.group/categories/Vue/</loc>
-    <lastmod>2021-10-16</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.chensheng.group/categories/%E9%9D%A2%E8%AF%95/</loc>
-    <lastmod>2021-10-16</lastmod>
+    <lastmod>2021-11-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.chensheng.group/categories/PM2/</loc>
-    <lastmod>2021-10-16</lastmod>
+    <lastmod>2021-11-01</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.chensheng.group/categories/Vue/</loc>
+    <lastmod>2021-11-01</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.chensheng.group/categories/%E9%9D%A2%E8%AF%95/</loc>
+    <lastmod>2021-11-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.chensheng.group/categories/ios/</loc>
-    <lastmod>2021-10-16</lastmod>
+    <lastmod>2021-11-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.chensheng.group/categories/GitHub/</loc>
-    <lastmod>2021-10-16</lastmod>
+    <lastmod>2021-11-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.chensheng.group/categories/MongoDB/</loc>
-    <lastmod>2021-10-16</lastmod>
+    <lastmod>2021-11-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.chensheng.group/categories/vue-cli/</loc>
-    <lastmod>2021-10-16</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.chensheng.group/categories/TypeScript/</loc>
-    <lastmod>2021-10-16</lastmod>
+    <lastmod>2021-11-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.chensheng.group/categories/%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB/</loc>
-    <lastmod>2021-10-16</lastmod>
+    <lastmod>2021-11-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.chensheng.group/categories/weex/</loc>
-    <lastmod>2021-10-16</lastmod>
+    <lastmod>2021-11-01</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.chensheng.group/categories/TypeScript/</loc>
+    <lastmod>2021-11-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.chensheng.group/categories/%E5%BE%AE%E4%BF%A1/</loc>
-    <lastmod>2021-10-16</lastmod>
+    <lastmod>2021-11-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.chensheng.group/categories/eslink/</loc>
-    <lastmod>2021-10-16</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.chensheng.group/categories/teleport/</loc>
-    <lastmod>2021-10-16</lastmod>
+    <lastmod>2021-11-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.chensheng.group/categories/echars/</loc>
-    <lastmod>2021-10-16</lastmod>
+    <lastmod>2021-11-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.chensheng.group/categories/element/</loc>
-    <lastmod>2021-10-16</lastmod>
+    <lastmod>2021-11-01</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.chensheng.group/categories/teleport/</loc>
+    <lastmod>2021-11-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.chensheng.group/categories/SSL%E8%AF%81%E4%B9%A6/</loc>
-    <lastmod>2021-10-16</lastmod>
+    <lastmod>2021-11-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.chensheng.group/categories/uniApp/</loc>
-    <lastmod>2021-10-16</lastmod>
+    <lastmod>2021-11-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.chensheng.group/categories/WebSocket/</loc>
-    <lastmod>2021-10-16</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.chensheng.group/categories/Storage/</loc>
-    <lastmod>2021-10-16</lastmod>
+    <lastmod>2021-11-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.chensheng.group/categories/%E5%89%8D%E7%AB%AF%E9%80%82%E9%85%8D/</loc>
-    <lastmod>2021-10-16</lastmod>
+    <lastmod>2021-11-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.chensheng.group/categories/%E5%85%BC%E5%AE%B9/</loc>
-    <lastmod>2021-10-16</lastmod>
+    <lastmod>2021-11-01</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.chensheng.group/categories/Storage/</loc>
+    <lastmod>2021-11-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.chensheng.group/categories/axios/</loc>
-    <lastmod>2021-10-16</lastmod>
+    <lastmod>2021-11-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.chensheng.group/categories/scss/</loc>
-    <lastmod>2021-10-16</lastmod>
+    <lastmod>2021-11-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.chensheng.group/categories/meta/</loc>
-    <lastmod>2021-10-16</lastmod>
+    <lastmod>2021-11-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.chensheng.group/categories/%E7%A6%BB%E7%BA%BF%E7%BC%93%E5%AD%98/</loc>
-    <lastmod>2021-10-16</lastmod>
+    <lastmod>2021-11-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.chensheng.group/categories/ECMAScript-6/</loc>
-    <lastmod>2021-10-16</lastmod>
+    <lastmod>2021-11-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.chensheng.group/categories/electron-vue/</loc>
-    <lastmod>2021-10-16</lastmod>
+    <lastmod>2021-11-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.chensheng.group/categories/%E6%94%AF%E4%BB%98/</loc>
-    <lastmod>2021-10-16</lastmod>
+    <lastmod>2021-11-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.chensheng.group/categories/RSA/</loc>
-    <lastmod>2021-10-16</lastmod>
+    <lastmod>2021-11-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.chensheng.group/categories/npm/</loc>
-    <lastmod>2021-10-16</lastmod>
+    <lastmod>2021-11-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
