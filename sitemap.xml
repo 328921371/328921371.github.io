@@ -1159,6 +1159,13 @@
   </url>
   
   <url>
+    <loc>https://www.chensheng.group/tags/%E5%8E%9F%E5%9E%8B%E9%93%BE/</loc>
+    <lastmod>2021-11-02</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://www.chensheng.group/tags/this/</loc>
     <lastmod>2021-11-02</lastmod>
     <changefreq>daily</changefreq>
@@ -1173,7 +1180,7 @@
   </url>
   
   <url>
-    <loc>https://www.chensheng.group/tags/%E5%8E%9F%E5%9E%8B%E9%93%BE/</loc>
+    <loc>https://www.chensheng.group/tags/%E5%AF%B9%E8%B1%A1%E5%90%88%E5%B9%B6/</loc>
     <lastmod>2021-11-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -1181,13 +1188,6 @@
   
   <url>
     <loc>https://www.chensheng.group/tags/%E6%95%B0%E7%BB%84%E5%8E%BB%E9%87%8D/</loc>
-    <lastmod>2021-11-02</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.chensheng.group/tags/%E5%AF%B9%E8%B1%A1%E5%90%88%E5%B9%B6/</loc>
     <lastmod>2021-11-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -1313,14 +1313,14 @@
   </url>
   
   <url>
-    <loc>https://www.chensheng.group/tags/echars/</loc>
+    <loc>https://www.chensheng.group/tags/teleport/</loc>
     <lastmod>2021-11-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://www.chensheng.group/tags/teleport/</loc>
+    <loc>https://www.chensheng.group/tags/echars/</loc>
     <lastmod>2021-11-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -1362,6 +1362,13 @@
   </url>
   
   <url>
+    <loc>https://www.chensheng.group/tags/throw/</loc>
+    <lastmod>2021-11-02</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://www.chensheng.group/tags/Web-Worker/</loc>
     <lastmod>2021-11-02</lastmod>
     <changefreq>daily</changefreq>
@@ -1376,7 +1383,7 @@
   </url>
   
   <url>
-    <loc>https://www.chensheng.group/tags/throw/</loc>
+    <loc>https://www.chensheng.group/tags/Promise/</loc>
     <lastmod>2021-11-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -1384,13 +1391,6 @@
   
   <url>
     <loc>https://www.chensheng.group/tags/deferred/</loc>
-    <lastmod>2021-11-02</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.chensheng.group/tags/Promise/</loc>
     <lastmod>2021-11-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -1623,14 +1623,14 @@
   </url>
   
   <url>
-    <loc>https://www.chensheng.group/categories/echars/</loc>
+    <loc>https://www.chensheng.group/categories/teleport/</loc>
     <lastmod>2021-11-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://www.chensheng.group/categories/teleport/</loc>
+    <loc>https://www.chensheng.group/categories/echars/</loc>
     <lastmod>2021-11-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
