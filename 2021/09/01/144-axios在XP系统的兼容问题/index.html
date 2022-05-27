@@ -69,7 +69,7 @@
 <meta property="og:description" content="vue-cli 使用 axios 兼容 xp">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-09-01T05:30:00.000Z">
-<meta property="article:modified_time" content="2021-09-03T06:54:05.194Z">
+<meta property="article:modified_time" content="2022-05-27T06:32:04.265Z">
 <meta property="article:author" content="陈晟">
 <meta property="article:tag" content="javaScript">
 <meta name="twitter:card" content="summary">
@@ -120,8 +120,8 @@
   </style>
 </noscript>
 
-  <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css"/>
+  <script src="https://fastly.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css"/>
   <script src="/live2d-widget/autoload.js"></script>
 </head>
 
@@ -363,7 +363,7 @@
 <p>项目需要兼容XP,控制台查看报错发现是 <code>promise is undefined</code>, 项目中调用接口使用的是axios, axios又是基于promise上</p>
 <p>所以需要添加一些插件进行兼容</p>
 <h3 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h3><p>看到一篇博客说可以使用bluebird.js解决。直接在页面引入bluebird.js问题就解决了。</p>
-<p><a href="https://cdn.jsdelivr.net/bluebird/latest/bluebird.js" target="_blank" rel="noopener">bluebird.js下载地址</a></p>
+<p><a href="https://fastly.jsdelivr.net/bluebird/latest/bluebird.js" target="_blank" rel="noopener">bluebird.js下载地址</a></p>
 <h3 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h3><p><code>npm install --save babel-polyfill</code></p>
 <p>安装成功以后需要在main.js 中引入 babel-polyfill</p>
 <p>一般会配置 webpack.base.config.js 中 entry</p>

@@ -69,7 +69,7 @@
 <meta property="og:description" content="何如给我们的博客添加一个会说话的看板娘呢">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-07-27T13:10:00.000Z">
-<meta property="article:modified_time" content="2020-07-27T13:20:37.889Z">
+<meta property="article:modified_time" content="2022-05-27T06:32:04.228Z">
 <meta property="article:author" content="陈晟">
 <meta property="article:tag" content="hexo">
 <meta name="twitter:card" content="summary">
@@ -120,8 +120,8 @@
   </style>
 </noscript>
 
-  <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css"/>
+  <script src="https://fastly.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css"/>
   <script src="/live2d-widget/autoload.js"></script>
 </head>
 
@@ -372,12 +372,12 @@
 <p>下载大神的配置<a href="https://github.com/stevenjoezhang/live2d-widget" target="_blank" rel="noopener">戳我戳我</a></p>
 <p>下载好之后,在主目录\themes\next\source目录下新建目录live2d-widget</p>
 <p>然后修改autoload.js文件，将路径改为绝对路径</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 注意：live2d_path 参数应使用绝对路径</span><br><span class="line">&#x2F;&#x2F;const live2d_path &#x3D; &quot;https:&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;gh&#x2F;stevenjoezhang&#x2F;live2d-widget@latest&#x2F;&quot;;</span><br><span class="line">const live2d_path &#x3D; &quot;&#x2F;live2d-widget&#x2F;&quot;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 注意：live2d_path 参数应使用绝对路径</span><br><span class="line">&#x2F;&#x2F;const live2d_path &#x3D; &quot;https:&#x2F;&#x2F;fastly.jsdelivr.net&#x2F;gh&#x2F;stevenjoezhang&#x2F;live2d-widget@latest&#x2F;&quot;;</span><br><span class="line">const live2d_path &#x3D; &quot;&#x2F;live2d-widget&#x2F;&quot;;</span><br></pre></td></tr></table></figure>
 
 <p>之后就是引入链接了</p>
 <p>有一些主题,路径在<code>/themes/主题名字/layout/_partial/head.ejs</code>目录下<br>我的next主题,是在<code>/themes/next/layout/_layout.swing</code>目录下</p>
 <p>添加</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src&#x3D;&quot;https:&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;npm&#x2F;jquery&#x2F;dist&#x2F;jquery.min.js&quot;&gt;&lt;&#x2F;script&gt;</span><br><span class="line">&lt;link rel&#x3D;&quot;stylesheet&quot; href&#x3D;&quot;https:&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;npm&#x2F;font-awesome&#x2F;css&#x2F;font-awesome.min.css&quot;&#x2F;&gt;</span><br><span class="line">&lt;script src&#x3D;&quot;&#x2F;live2d-widget&#x2F;autoload.js&quot;&gt;&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src&#x3D;&quot;https:&#x2F;&#x2F;fastly.jsdelivr.net&#x2F;npm&#x2F;jquery&#x2F;dist&#x2F;jquery.min.js&quot;&gt;&lt;&#x2F;script&gt;</span><br><span class="line">&lt;link rel&#x3D;&quot;stylesheet&quot; href&#x3D;&quot;https:&#x2F;&#x2F;fastly.jsdelivr.net&#x2F;npm&#x2F;font-awesome&#x2F;css&#x2F;font-awesome.min.css&quot;&#x2F;&gt;</span><br><span class="line">&lt;script src&#x3D;&quot;&#x2F;live2d-widget&#x2F;autoload.js&quot;&gt;&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
 
 <p>想修改看板娘大小、位置、格式、文本内容等，可查看并修改 waifu-tips.js 、 waifu-tips.json 、waifu.css文件。</p>
 <p>这样就有一个会说话,会换装的看板娘了,还可以召唤小飞机按空格键发射子弹</p>
