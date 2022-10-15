@@ -1131,21 +1131,7 @@
   </url>
   
   <url>
-    <loc>https://www.chensheng.group/tags/%E5%8E%9F%E5%9E%8B/</loc>
-    <lastmod>2022-10-15</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://www.chensheng.group/tags/%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0/</loc>
-    <lastmod>2022-10-15</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.chensheng.group/tags/%E7%BB%A7%E6%89%BF/</loc>
     <lastmod>2022-10-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -1159,7 +1145,21 @@
   </url>
   
   <url>
+    <loc>https://www.chensheng.group/tags/%E5%8E%9F%E5%9E%8B/</loc>
+    <lastmod>2022-10-15</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://www.chensheng.group/tags/%E5%8E%9F%E5%9E%8B%E9%93%BE/</loc>
+    <lastmod>2022-10-15</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.chensheng.group/tags/%E7%BB%A7%E6%89%BF/</loc>
     <lastmod>2022-10-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -1222,13 +1222,6 @@
   </url>
   
   <url>
-    <loc>https://www.chensheng.group/tags/Vue/</loc>
-    <lastmod>2022-10-15</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://www.chensheng.group/tags/PM2/</loc>
     <lastmod>2022-10-15</lastmod>
     <changefreq>daily</changefreq>
@@ -1243,7 +1236,7 @@
   </url>
   
   <url>
-    <loc>https://www.chensheng.group/tags/ios/</loc>
+    <loc>https://www.chensheng.group/tags/Vue/</loc>
     <lastmod>2022-10-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -1251,6 +1244,13 @@
   
   <url>
     <loc>https://www.chensheng.group/tags/GitHub/</loc>
+    <lastmod>2022-10-15</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.chensheng.group/tags/ios/</loc>
     <lastmod>2022-10-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -1539,13 +1539,6 @@
   </url>
   
   <url>
-    <loc>https://www.chensheng.group/categories/Vue/</loc>
-    <lastmod>2022-10-15</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://www.chensheng.group/categories/PM2/</loc>
     <lastmod>2022-10-15</lastmod>
     <changefreq>daily</changefreq>
@@ -1560,7 +1553,7 @@
   </url>
   
   <url>
-    <loc>https://www.chensheng.group/categories/ios/</loc>
+    <loc>https://www.chensheng.group/categories/Vue/</loc>
     <lastmod>2022-10-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -1568,6 +1561,13 @@
   
   <url>
     <loc>https://www.chensheng.group/categories/GitHub/</loc>
+    <lastmod>2022-10-15</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.chensheng.group/categories/ios/</loc>
     <lastmod>2022-10-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>

@@ -65,7 +65,7 @@ function loadWidget(config) {
 				window.ASTEROIDSPLAYERS.push(new Asteroids());
 			} else {
 				const script = document.createElement("script");
-				script.src = "https://unpkg.com/gh/stevenjoezhang/asteroids/asteroids.js";
+				script.src = "https://fastly.jsdelivr.net/gh/stevenjoezhang/asteroids/asteroids.js";
 				document.head.appendChild(script);
 			}
 		});
@@ -77,8 +77,7 @@ function loadWidget(config) {
 			Live2D.captureFrame = true;
 		});
 		document.querySelector("#waifu-tool .fa-info-circle").addEventListener("click", () => {
-			// open("https://github.com/stevenjoezhang/live2d-widget");
-      showMessage("我们还不太熟哦，也许可以给我捐赠点好吃的", 6000, 9);
+			open("https://github.com/stevenjoezhang/live2d-widget");
 		});
 		document.querySelector("#waifu-tool .fa-times").addEventListener("click", () => {
 			localStorage.setItem("waifu-display", Date.now());
@@ -163,7 +162,7 @@ function loadWidget(config) {
 			modelTexturesId = localStorage.getItem("modelTexturesId");
 		if (modelId === null) {
 			// 首次访问加载 指定模型 的 指定材质
-			modelId = 6; // 模型 ID
+			modelId = 1; // 模型 ID
 			modelTexturesId = 53; // 材质 ID
 		}
 		loadModel(modelId, modelTexturesId);
@@ -171,29 +170,29 @@ function loadWidget(config) {
 			.then(response => response.json())
 			.then(result => {
 				window.addEventListener("mouseover", event => {
-					for (let tips of result.mouseover) {
-						if (!event.target.matches(tips.selector)) continue;
-						let text = randomSelection(tips.text);
+					for (let { selector, text } of result.mouseover) {
+						if (!event.target.matches(selector)) continue;
+						text = randomSelection(text);
 						text = text.replace("{text}", event.target.innerText);
 						showMessage(text, 4000, 8);
 						return;
 					}
 				});
 				window.addEventListener("click", event => {
-					for (let tips of result.click) {
-						if (!event.target.matches(tips.selector)) continue;
-						let text = randomSelection(tips.text);
+					for (let { selector, text } of result.click) {
+						if (!event.target.matches(selector)) continue;
+						text = randomSelection(text);
 						text = text.replace("{text}", event.target.innerText);
 						showMessage(text, 4000, 8);
 						return;
 					}
 				});
-				result.seasons.forEach(tips => {
+				result.seasons.forEach(({ date, text }) => {
 					const now = new Date(),
-						after = tips.date.split("-")[0],
-						before = tips.date.split("-")[1] || after;
+						after = date.split("-")[0],
+						before = date.split("-")[1] || after;
 					if ((after.split("/")[0] <= now.getMonth() + 1 && now.getMonth() + 1 <= before.split("/")[0]) && (after.split("/")[1] <= now.getDate() && now.getDate() <= before.split("/")[1])) {
-						let text = randomSelection(tips.text);
+						text = randomSelection(text);
 						text = text.replace("{year}", now.getFullYear());
 						//showMessage(text, 7000, true);
 						messageArray.push(text);
