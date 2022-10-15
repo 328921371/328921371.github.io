@@ -51,7 +51,7 @@ Vue是JavaScript的一个框架，是国内个人开发的,虽然是轻量级,�
 	<head>
 		<meta charset="UTF-8">
 		<title>Vue的入门及介绍</title>
-		<script src="https://cdn.jsdelivr.net/npm/vue" type="text/javascript" charset="utf-8"></script>
+		<script src="https://fastly.jsdelivr.net/npm/vue" type="text/javascript" charset="utf-8"></script>
 	</head>
 	<body>
 		<div id="app">

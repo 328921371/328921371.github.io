@@ -24,7 +24,7 @@ date: 2021-09-01 13:30:00
 
 看到一篇博客说可以使用bluebird.js解决。直接在页面引入bluebird.js问题就解决了。
 
-[bluebird.js下载地址](https://cdn.jsdelivr.net/bluebird/latest/bluebird.js)
+[bluebird.js下载地址](https://fastly.jsdelivr.net/bluebird/latest/bluebird.js)
 
 ### 方法二
 

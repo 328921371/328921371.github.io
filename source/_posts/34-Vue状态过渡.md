@@ -27,7 +27,7 @@ date: 2017-06-20 19:50:02
 
 先来看一个例子，输入数字后，数字做动画效果，使用Tweenjs：
 
-首先导入 https://cdn.jsdelivr.net/npm/tween.js@16.3.4
+首先导入 https://fastly.jsdelivr.net/npm/tween.js@16.3.4
 
 ```javascript
 <div id="app">
