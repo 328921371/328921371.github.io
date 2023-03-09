@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico?v=7.4.2">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=7.4.2">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico?v=7.4.2">
+  <link rel="mask-icon" href="/images/favicon.ico?v=7.4.2" color="#222">
+  <link rel="alternate" href="/atom.xml" title="陈先生的小前端" type="application/atom+xml">
+
+
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.2">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+  <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/fancybox/3.5.1/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '7.4.2',
+    exturl: false,
+    sidebar: {"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":"mac"},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    bookmark: {"enable":true,"color":"#222","save":"auto"},
+    fancybox: true,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="伪类选择器我们常用的就是after或者beffore，今天看点不一样">
+<meta property="og:type" content="article">
+<meta property="og:title" content="冷门但好用的伪类选择器">
+<meta property="og:url" content="https://www.chensheng.group/2022/02/23/157-%E4%BC%AA%E7%B1%BB%E4%BD%BF%E7%94%A8/index.html">
+<meta property="og:site_name" content="陈先生的小前端">
+<meta property="og:description" content="伪类选择器我们常用的就是after或者beffore，今天看点不一样">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-02-23T12:18:00.000Z">
+<meta property="article:modified_time" content="2023-03-09T07:47:38.701Z">
+<meta property="article:author" content="陈晟">
+<meta property="article:tag" content="CSS">
+<meta name="twitter:card" content="summary">
+  <link rel="canonical" href="https://www.chensheng.group/2022/02/23/157-%E4%BC%AA%E7%B1%BB%E4%BD%BF%E7%94%A8/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>冷门但好用的伪类选择器 | 陈先生的小前端</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+  <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css"/>
+  <script src="/live2d-widget/autoload.js"></script>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">陈先生的小前端</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+        
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+      
+    
+      
+      
+        
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+      
+    
+      
+      
+        
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+      
+    
+      
+      
+        
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+      
+    
+      
+      
+        
+        
+        <li class="menu-item menu-item-about">
+      
+    
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+      
+    
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger">
+          <i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+    
+  </ul>
+
+    
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.chensheng.group/2022/02/23/157-%E4%BC%AA%E7%B1%BB%E4%BD%BF%E7%94%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="陈晟">
+      <meta itemprop="description" content="请不要在最能吃苦的日子选择安逸">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="陈先生的小前端">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            冷门但好用的伪类选择器
+            
+
+          
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2022-02-23 20:18:00" itemprop="dateCreated datePublished" datetime="2022-02-23T20:18:00+08:00">2022-02-23</time>
+            </span>
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/CSS/" itemprop="url" rel="index">
+                    <span itemprop="name">CSS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+        
+      
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2022/02/23/157-%E4%BC%AA%E7%B1%BB%E4%BD%BF%E7%94%A8/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2022/02/23/157-%E4%BC%AA%E7%B1%BB%E4%BD%BF%E7%94%A8/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <hr style='filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)' color='#FF0000' size='1' />
+
+<blockquote>
+<p>伪类选择器我们常用的就是after或者beffore，今天看点不一样</p>
+</blockquote>
+<a id="more"></a>
+
+<h3 id="first-line-选择首行文本"><a href="#first-line-选择首行文本" class="headerlink" title="::first-line | 选择首行文本"></a>::first-line | 选择首行文本</h3><p>这个伪元素选择器选择换行之前文本的首行。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">p:first-line &#123;</span><br><span class="line">  color: lightcoral;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="first-letter-选择首字母"><a href="#first-letter-选择首字母" class="headerlink" title="::first-letter | 选择首字母"></a>::first-letter | 选择首字母</h3><p>这个伪元素选择器应用于元素中文本的首字母。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">.innerDiv p:first-letter &#123;</span><br><span class="line">  color: lightcoral;</span><br><span class="line">  font-size: 40px</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="selection-选择高亮（被选中）的区域"><a href="#selection-选择高亮（被选中）的区域" class="headerlink" title="::selection | 选择高亮（被选中）的区域"></a>::selection | 选择高亮（被选中）的区域</h3><p>应用于任何被用户选中的高亮区域。通过::selection伪元素选择器，我们可以将样式应用于高亮区域。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">div::selection &#123;</span><br><span class="line">  background: yellow;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="root-根元素"><a href="#root-根元素" class="headerlink" title=":root | 根元素"></a>:root | 根元素</h3><p>:root伪类选中文档的根元素。在 HTML 中，为 HTML 元素。在 RSS 中，则为 RSS 元素.这个伪类选择器应用于根元素，多用于存储全局 CSS 自定义属性。</p>
+<blockquote>
+<p>在CSS变量学习的时候，我们就用过这个</p>
+</blockquote>
+<h3 id="empty-仅当元素为空时触发"><a href="#empty-仅当元素为空时触发" class="headerlink" title=":empty | 仅当元素为空时触发"></a>:empty | 仅当元素为空时触发</h3><p>这个伪类选择器将选中没有任何子项的元素。该元素必须为空。如果一个元素没有空格、可见的内容、后代元素，则为空元素。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">div:empty &#123;</span><br><span class="line">  border: 2px solid orange;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&lt;div&gt;&lt;&#x2F;div&gt;</span><br><span class="line">&lt;div&gt;&lt;&#x2F;div&gt;</span><br><span class="line">&lt;div&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br></pre></td></tr></table></figure>
+
+<div class="note info">
+            <p>这个规则将应用于空的div元素。这个规则将应用于第一个和第二个div，因为他们是真为空，而第三个div包含空格。</p>
+          </div>
+
+<h3 id="only-child-选择仅有的子元素"><a href="#only-child-选择仅有的子元素" class="headerlink" title=":only-child | 选择仅有的子元素"></a>:only-child | 选择仅有的子元素</h3><p>匹配父元素中没有任何兄弟元素的子元素。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.innerDiv p:only-child &#123;</span><br><span class="line">  color: orangered;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="first-of-type-选择第一个指定类型的子元素"><a href="#first-of-type-选择第一个指定类型的子元素" class="headerlink" title=":first-of-type | 选择第一个指定类型的子元素"></a>:first-of-type | 选择第一个指定类型的子元素</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.innerDiv p:first-of-type &#123;</span><br><span class="line">  color: orangered;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这将应用于.innerDiv下的第一个p元素。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class&#x3D;&quot;innerDiv&quot;&gt;</span><br><span class="line">  &lt;div&gt;Div1&lt;&#x2F;div&gt;</span><br><span class="line">  &lt;p&gt;These are the necessary steps&lt;&#x2F;p&gt;</span><br><span class="line">  &lt;p&gt;hiya&lt;&#x2F;p&gt;</span><br><span class="line">  </span><br><span class="line">  &lt;p&gt;</span><br><span class="line">    Do &lt;em&gt;not&lt;&#x2F;em&gt; push the brake at the same time as the accelerator.</span><br><span class="line">  &lt;&#x2F;p&gt;</span><br><span class="line">  &lt;div&gt;Div2&lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>这个p（“These are the necessary step”）将被选中。</p>
+</blockquote>
+<h3 id="last-of-type-选择最后一个指定类型的子元素"><a href="#last-of-type-选择最后一个指定类型的子元素" class="headerlink" title=":last-of-type | 选择最后一个指定类型的子元素"></a>:last-of-type | 选择最后一个指定类型的子元素</h3><p>像:first-of-type一样，但是会应用于最后一个同类型的子元素。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.innerDiv p:last-of-type &#123;</span><br><span class="line">    color: orangered;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这将应用于innerDiv下的最后一个p段落元素。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class&#x3D;&quot;innerDiv&quot;&gt;</span><br><span class="line">  &lt;p&gt;These are the necessary steps&lt;&#x2F;p&gt;</span><br><span class="line">  &lt;p&gt;hiya&lt;&#x2F;p&gt;</span><br><span class="line">  &lt;div&gt;Div1&lt;&#x2F;div&gt;</span><br><span class="line">  &lt;p&gt;</span><br><span class="line">    Do the same.</span><br><span class="line">  &lt;&#x2F;p&gt;</span><br><span class="line">  &lt;div&gt;Div2&lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>因此，这个p元素（“Do the same”）将被选中。</p>
+</blockquote>
+<h3 id="nth-of-type-选择特定类型的子元素"><a href="#nth-of-type-选择特定类型的子元素" class="headerlink" title=":nth-of-type() | 选择特定类型的子元素"></a>:nth-of-type() | 选择特定类型的子元素</h3><p>这个选择器将从指定的父元素的孩子列表中选择某种类型的子元素。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.innerDiv p:nth-of-type(1) &#123;</span><br><span class="line">  color: orangered;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="nth-last-of-type-选择列表末尾中指定类型的子元素"><a href="#nth-last-of-type-选择列表末尾中指定类型的子元素" class="headerlink" title=":nth-last-of-type() | 选择列表末尾中指定类型的子元素"></a>:nth-last-of-type() | 选择列表末尾中指定类型的子元素</h3><p>这将选择最后一个指定类型的子元素。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.innerDiv p:nth-last-of-type() &#123;</span><br><span class="line">  color: orangered;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>这将选择innerDiv列表元素中包含的最后一个段落类型子元素。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class&#x3D;&quot;innerDiv&quot;&gt;</span><br><span class="line">  &lt;p&gt;These are the necessary steps&lt;&#x2F;p&gt;</span><br><span class="line">  &lt;p&gt;hiya&lt;&#x2F;p&gt;</span><br><span class="line">  &lt;div&gt;Div1&lt;&#x2F;div&gt;</span><br><span class="line">  &lt;p&gt;</span><br><span class="line">    Do the same.</span><br><span class="line">  &lt;&#x2F;p&gt;</span><br><span class="line">  &lt;div&gt;Div2&lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>innerDiv中最后一个段落子元素p（“Do the same”）将会被选中。</p>
+</blockquote>
+<h3 id="link-选择一个未访问过的超链接"><a href="#link-选择一个未访问过的超链接" class="headerlink" title=":link | 选择一个未访问过的超链接"></a>:link | 选择一个未访问过的超链接</h3><p>这个选择器应用于未被访问过的链接。常用于带有 href 属性的a锚元素。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">a:link &#123;</span><br><span class="line">  color: orangered;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&lt;a href&#x3D;&quot;&#x2F;login&quot;&gt;Login&lt;a&gt;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>这将选中未被点击过带有href的指定界面的a锚点元素，选中的元素中的文字将会显示为橙色。</p>
+</blockquote>
+<h3 id="checked-选择一个选中的复选框"><a href="#checked-选择一个选中的复选框" class="headerlink" title=":checked | 选择一个选中的复选框"></a>:checked | 选择一个选中的复选框</h3><p>这个应用于已经被选中的复选框。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">input:checked &#123;</span><br><span class="line">  border: 2px solid lightcoral;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个规则应用到所有被选中的复选框。</p>
+<h3 id="valid-选择一个通过验证的元素"><a href="#valid-选择一个通过验证的元素" class="headerlink" title=":valid | 选择一个通过验证的元素"></a>:valid | 选择一个通过验证的元素</h3><p>这主要用于可视化表单元素，以让用户判断是否验证通过。验证通过时，默认元素带有valid属性。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">input:valid &#123;</span><br><span class="line">  boder-color: lightsalmon;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="invalid-选择一个未通过验证的元素"><a href="#invalid-选择一个未通过验证的元素" class="headerlink" title=":invalid | 选择一个未通过验证的元素"></a>:invalid | 选择一个未通过验证的元素</h3><p>像:valid一样，但是会应用到未通过验证的元素。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">input[type&#x3D;&quot;text&quot;]:invalid &#123;</span><br><span class="line">  border-color: red;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="lang-选择指定语言的元素"><a href="#lang-选择指定语言的元素" class="headerlink" title=":lang() | 选择指定语言的元素"></a>:lang() | 选择指定语言的元素</h3><p>应用于指定了语言的元素。可以通过以下两种方式使用：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">p:lang(fr) &#123;</span><br><span class="line">  background: yellow;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">或者</span><br><span class="line"></span><br><span class="line">p[lang|&#x3D;&quot;fr&quot;] &#123;</span><br><span class="line">  background: yellow;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&lt;p lang&#x3D;&quot;fr&quot;&gt;Paragraph 1&lt;&#x2F;p&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="not-对于选择取反（这是一个运算符）"><a href="#not-对于选择取反（这是一个运算符）" class="headerlink" title=":not() | 对于选择取反（这是一个运算符）"></a>:not() | 对于选择取反（这是一个运算符）</h3><p>否定伪类选择器选中相反的。让我们看一个示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">.innerDiv :not(p) &#123;</span><br><span class="line">  color: lightcoral;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&lt;div class&#x3D;&quot;innerDiv&quot;&gt;</span><br><span class="line">  &lt;p&gt;Paragraph 1&lt;&#x2F;p&gt;</span><br><span class="line">  &lt;p&gt;Paragraph 2&lt;&#x2F;p&gt;</span><br><span class="line">  &lt;div&gt;Div 1&lt;&#x2F;div&gt;</span><br><span class="line">  &lt;p&gt;Paragraph 3&lt;&#x2F;p&gt;</span><br><span class="line">  &lt;div&gt;Div 2&lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>Div 1和Div 2会被选中，因为他们不是p元素。</p>
+</blockquote>
+<p>本文章摘录知乎，网址已经忘记了，感谢大佬的无私奉献</p>
+
+    </div>
+
+    
+    
+    
+    
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+      
+    </div>
+        
+      
+        <div class="reward-container">
+  <div>没办法,总要恰饭的嘛~~</div>
+  <button disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+        
+      
+      <div style="display: inline-block;">
+        <img src="/images/wxpay.png" alt="陈晟 微信支付">
+        <p>微信支付</p>
+      </div>
+        
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="陈晟 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+      
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>陈晟
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://www.chensheng.group/2022/02/23/157-%E4%BC%AA%E7%B1%BB%E4%BD%BF%E7%94%A8/" title="冷门但好用的伪类选择器">https://www.chensheng.group/2022/02/23/157-%E4%BC%AA%E7%B1%BB%E4%BD%BF%E7%94%A8/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/CSS/" rel="tag"><i class="fa fa-tag"></i> CSS</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2022/01/16/156-vue%E6%89%93%E5%8C%85%E5%91%BD%E4%BB%A4%E9%85%8D%E7%BD%AE/" rel="next" title="vue打包模块化配置">
+                  <i class="fa fa-chevron-left"></i> vue打包模块化配置
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2022/04/15/158-%E6%BB%91%E5%8A%A8%E6%8B%BC%E5%9B%BE%E9%AA%8C%E8%AF%81/" rel="prev" title="滑动拼图验证">
+                  滑动拼图验证 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="comments"></div>
+  
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#first-line-选择首行文本"><span class="nav-number">1.</span> <span class="nav-text">::first-line | 选择首行文本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#first-letter-选择首字母"><span class="nav-number">2.</span> <span class="nav-text">::first-letter | 选择首字母</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#selection-选择高亮（被选中）的区域"><span class="nav-number">3.</span> <span class="nav-text">::selection | 选择高亮（被选中）的区域</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#root-根元素"><span class="nav-number">4.</span> <span class="nav-text">:root | 根元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#empty-仅当元素为空时触发"><span class="nav-number">5.</span> <span class="nav-text">:empty | 仅当元素为空时触发</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#only-child-选择仅有的子元素"><span class="nav-number">6.</span> <span class="nav-text">:only-child | 选择仅有的子元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#first-of-type-选择第一个指定类型的子元素"><span class="nav-number">7.</span> <span class="nav-text">:first-of-type | 选择第一个指定类型的子元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#last-of-type-选择最后一个指定类型的子元素"><span class="nav-number">8.</span> <span class="nav-text">:last-of-type | 选择最后一个指定类型的子元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nth-of-type-选择特定类型的子元素"><span class="nav-number">9.</span> <span class="nav-text">:nth-of-type() | 选择特定类型的子元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nth-last-of-type-选择列表末尾中指定类型的子元素"><span class="nav-number">10.</span> <span class="nav-text">:nth-last-of-type() | 选择列表末尾中指定类型的子元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#link-选择一个未访问过的超链接"><span class="nav-number">11.</span> <span class="nav-text">:link | 选择一个未访问过的超链接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#checked-选择一个选中的复选框"><span class="nav-number">12.</span> <span class="nav-text">:checked | 选择一个选中的复选框</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#valid-选择一个通过验证的元素"><span class="nav-number">13.</span> <span class="nav-text">:valid | 选择一个通过验证的元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#invalid-选择一个未通过验证的元素"><span class="nav-number">14.</span> <span class="nav-text">:invalid | 选择一个未通过验证的元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lang-选择指定语言的元素"><span class="nav-number">15.</span> <span class="nav-text">:lang() | 选择指定语言的元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#not-对于选择取反（这是一个运算符）"><span class="nav-number">16.</span> <span class="nav-text">:not() | 对于选择取反（这是一个运算符）</span></a></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <a href="/">
+      <img class="site-author-image" itemprop="image"
+        src="/images/touxiang.jpg"
+        alt="陈晟">
+    </a>
+  <p class="site-author-name" itemprop="name">陈晟</p>
+  <div class="site-description" itemprop="description">请不要在最能吃苦的日子选择安逸</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">158</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        <span class="site-state-item-count">35</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        <span class="site-state-item-count">55</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+</div>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/328921371" title="GitHub &amp;rarr; https:&#x2F;&#x2F;github.com&#x2F;328921371" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="mailto:328921371@qq.com" title="E-Mail &amp;rarr; mailto:328921371@qq.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+    
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    
+  
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  &copy; 2016 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">陈晟</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    
+    <span title="站点总字数">479k</span>
+</div>
+  <div class="powered-by">欢迎访问
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">
+      
+    Mr.Chen的小前端
+  </div>
+  <span class="post-meta-divider">|</span>
+  <span class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">闽ICP备-2022007916-号 </a><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=" rel="noopener" target="_blank"> </a>
+  </span>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+      <span class="site-uv">
+        我的第 <span class="busuanzi-value" id="busuanzi_value_site_uv"></span> 位朋友，
+      </span>
+
+  
+    <span class="site-pv">
+     历经 <span class="busuanzi-value" id="busuanzi_value_site_pv"></span> 次回眸才与你相遇
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js?v=3.1.0"></script>
+  <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://cdn.bootcdn.net/ajax/libs/fancybox/3.5.1/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+<script src="/js/utils.js?v=7.4.2.js"></script>
+
+<script src="/js/motion.js?v=7.4.2.js"></script>
+
+
+<script src="/js/schemes/muse.js?v=7.4.2.js"></script>
+
+
+
+<script src="/js/next-boot.js?v=7.4.2.js"></script>
+
+<script src="/js/bookmark.js?v=7.4.2.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+<script src="/js/local-search.js?v=7.4.2.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+  
+
+  <script src="/js/wobblewindow.js"></script>
+  <script>
+    if( window.innerWidth > 768  ){
+      $(document).ready(function () {
+        
+          $('.header').wobbleWindow({
+            radius: 50,
+            movementTop: false,
+            movementLeft: false,
+            movementRight: false,
+            debug: false,
+          });
+        
+
+        
+
+        
+      });
+    }
+  </script>
+
+
+
+
+  <script src="/js/activate-power-mode.min.js"></script>
+  <script>
+    POWERMODE.colorful = true;
+    POWERMODE.shake = false;
+    document.body.addEventListener('input', POWERMODE);
+  </script>
+
+
+
+
+  <script async src="/js/cursor/fireworks.js"></script>
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.includes(item);
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'jD385ICqgsSXvIPjMqMoJhn5-gzGzoHsz',
+    appKey: 'Y3pbrUp0lQbqyJK8XRjke93m',
+    placeholder: "（づ≧∀≦）づ╭❤～  客官,快来玩吖!",
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: 'zh-cn' || 'zh-cn',
+    path: location.pathname,
+    recordIP: false,
+    serverURLs: ''
+  });
+}, window.Valine);
+</script>
+
+</body>
+</html>
