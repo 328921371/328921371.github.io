@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico?v=7.4.2">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=7.4.2">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico?v=7.4.2">
+  <link rel="mask-icon" href="/images/favicon.ico?v=7.4.2" color="#222">
+  <link rel="alternate" href="/atom.xml" title="陈先生的小前端" type="application/atom+xml">
+
+
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.2">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+  <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/fancybox/3.5.1/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '7.4.2',
+    exturl: false,
+    sidebar: {"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":"mac"},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    bookmark: {"enable":true,"color":"#222","save":"auto"},
+    fancybox: true,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="气死同事的单行代码,实际开发中可读性极差,但是可以学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="单行JS小工具">
+<meta property="og:url" content="https://www.chensheng.group/2022/06/24/158-%E5%8D%95%E8%A1%8Cjs/index.html">
+<meta property="og:site_name" content="陈先生的小前端">
+<meta property="og:description" content="气死同事的单行代码,实际开发中可读性极差,但是可以学习">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-06-24T14:18:00.000Z">
+<meta property="article:modified_time" content="2023-03-18T09:12:39.069Z">
+<meta property="article:author" content="陈晟">
+<meta property="article:tag" content="javaScript">
+<meta name="twitter:card" content="summary">
+  <link rel="canonical" href="https://www.chensheng.group/2022/06/24/158-%E5%8D%95%E8%A1%8Cjs/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>单行JS小工具 | 陈先生的小前端</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+  <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css"/>
+  <script src="/live2d-widget/autoload.js"></script>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">陈先生的小前端</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+        
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+      
+    
+      
+      
+        
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+      
+    
+      
+      
+        
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+      
+    
+      
+      
+        
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+      
+    
+      
+      
+        
+        
+        <li class="menu-item menu-item-about">
+      
+    
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+      
+    
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger">
+          <i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+    
+  </ul>
+
+    
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.chensheng.group/2022/06/24/158-%E5%8D%95%E8%A1%8Cjs/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="陈晟">
+      <meta itemprop="description" content="请不要在最能吃苦的日子选择安逸">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="陈先生的小前端">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            单行JS小工具
+            
+
+          
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2022-06-24 22:18:00" itemprop="dateCreated datePublished" datetime="2022-06-24T22:18:00+08:00">2022-06-24</time>
+            </span>
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/javaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">javaScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+        
+      
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2022/06/24/158-%E5%8D%95%E8%A1%8Cjs/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2022/06/24/158-%E5%8D%95%E8%A1%8Cjs/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <hr style='filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)' color='#FF0000' size='1' />
+
+<blockquote>
+<p>气死同事的单行代码,实际开发中可读性极差,但是可以学习</p>
+</blockquote>
+<a id="more"></a>
+
+<h3 id="获取浏览器Cookie的值"><a href="#获取浏览器Cookie的值" class="headerlink" title="获取浏览器Cookie的值"></a>获取浏览器Cookie的值</h3><p>通过document.cookie 来查找cookie值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">const cookie &#x3D; name &#x3D;&gt; &#96;; $&#123;document.cookie&#125;&#96;.split(&#96;; $&#123;name&#125;&#x3D;&#96;).pop().split(&#39;;&#39;).shift();</span><br><span class="line">    </span><br><span class="line">cookie(&#39;_ga&#39;);</span><br><span class="line">&#x2F;&#x2F; Result: &quot;GA1.2.1929736587.1601974046&quot;</span><br></pre></td></tr></table></figure>
+
+<h3 id="颜色RGB转十六进制"><a href="#颜色RGB转十六进制" class="headerlink" title="颜色RGB转十六进制"></a>颜色RGB转十六进制</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">const rgbToHex &#x3D; (r, g, b) &#x3D;&gt; &quot;#&quot; + ((1 &lt;&lt; 24) + (r &lt;&lt; 16) + (g &lt;&lt; 8) + b).toString(16).slice(1);</span><br><span class="line">    </span><br><span class="line">rgbToHex(0, 51, 255); </span><br><span class="line">&#x2F;&#x2F; Result: #0033ff</span><br></pre></td></tr></table></figure>
+
+<h3 id="复制到剪贴板"><a href="#复制到剪贴板" class="headerlink" title="复制到剪贴板"></a>复制到剪贴板</h3><p>借助navigator.clipboard.writeText可以很容易的将文本复制到剪贴板</p>
+<p>规范要求在写入剪贴板之前使用 Permissions API 获取“剪贴板写入”权限。但是，不同浏览器的具体要求不同，因为这是一个新的API。有关详细信息，请查看compatibility table and Clipboard availability in Clipboard。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">const copyToClipboard &#x3D; (text) &#x3D;&gt; navigator.clipboard.writeText(text);</span><br><span class="line">    </span><br><span class="line">copyToClipboard(&quot;Hello World&quot;);</span><br></pre></td></tr></table></figure>
+
+<h3 id="检查日期是否合法"><a href="#检查日期是否合法" class="headerlink" title="检查日期是否合法"></a>检查日期是否合法</h3><p>使用以下代码段检查给定日期是否有效。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">const isDateValid &#x3D; (...val) &#x3D;&gt; !Number.isNaN(new Date(...val).valueOf());</span><br><span class="line">    </span><br><span class="line">isDateValid(&quot;December 17, 1995 03:24:00&quot;);</span><br><span class="line">&#x2F;&#x2F; Result: true</span><br></pre></td></tr></table></figure>
+
+<h3 id="查找日期位于一年中的第几天"><a href="#查找日期位于一年中的第几天" class="headerlink" title="查找日期位于一年中的第几天"></a>查找日期位于一年中的第几天</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">const dayOfYear &#x3D; (date) &#x3D;&gt;</span><br><span class="line">      Math.floor((date - new Date(date.getFullYear(), 0, 0)) &#x2F; 1000 &#x2F; 60 &#x2F; 60 &#x2F; 24);</span><br><span class="line">    </span><br><span class="line">dayOfYear(new Date());</span><br><span class="line">&#x2F;&#x2F; Result: 272</span><br></pre></td></tr></table></figure>
+
+<h3 id="英文字符串首字母大写"><a href="#英文字符串首字母大写" class="headerlink" title="英文字符串首字母大写"></a>英文字符串首字母大写</h3><p>JavaScript没有内置的首字母大写函数，因此我们可以使用以下代码。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">const capitalize &#x3D; str &#x3D;&gt; str.charAt(0).toUpperCase() + str.slice(1)</span><br><span class="line">    </span><br><span class="line">capitalize(&quot;follow for more&quot;)</span><br><span class="line">&#x2F;&#x2F; Result: Follow for more</span><br></pre></td></tr></table></figure>
+
+<h3 id="计算2个日期之间相差多少天"><a href="#计算2个日期之间相差多少天" class="headerlink" title="计算2个日期之间相差多少天"></a>计算2个日期之间相差多少天</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">const dayDif &#x3D; (date1, date2) &#x3D;&gt; Math.ceil(Math.abs(date1.getTime() - date2.getTime()) &#x2F; 86400000)</span><br><span class="line">    </span><br><span class="line">dayDif(new Date(&quot;2020-10-21&quot;), new Date(&quot;2021-10-22&quot;))</span><br><span class="line">&#x2F;&#x2F; Result: 366</span><br></pre></td></tr></table></figure>
+
+<h3 id="清除全部Cookie"><a href="#清除全部Cookie" class="headerlink" title="清除全部Cookie"></a>清除全部Cookie</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">通过使用document.cookie访问cookie并将其清除，可以轻松清除网页中存储的所有cookie</span><br><span class="line"></span><br><span class="line">const clearCookies &#x3D; document.cookie.split(&#39;;&#39;).forEach(cookie &#x3D;&gt; document.cookie &#x3D; cookie.replace(&#x2F;^ +&#x2F;, &#39;&#39;).replace(&#x2F;&#x3D;.*&#x2F;, &#96;&#x3D;;expires&#x3D;$&#123;new Date(0).toUTCString()&#125;;path&#x3D;&#x2F;&#96;));</span><br></pre></td></tr></table></figure>
+
+<h3 id="生成随机十六进制颜色"><a href="#生成随机十六进制颜色" class="headerlink" title="生成随机十六进制颜色"></a>生成随机十六进制颜色</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">可以使用 Math.random 和 padEnd 属性生成随机的十六进制颜色。</span><br><span class="line"></span><br><span class="line">const randomHex &#x3D; () &#x3D;&gt; &#96;#$&#123;Math.floor(Math.random() * 0xffffff).toString(16).padEnd(6, &quot;0&quot;)&#125;&#96;;</span><br><span class="line">    </span><br><span class="line"> console.log(randomHex());</span><br><span class="line">&#x2F;&#x2F; Result: #92b008</span><br></pre></td></tr></table></figure>
+
+<h3 id="数组去重"><a href="#数组去重" class="headerlink" title="数组去重"></a>数组去重</h3><p>可以使用 JavaScript 中的Set轻松删除重复项</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">const removeDuplicates &#x3D; (arr) &#x3D;&gt; [...new Set(arr)];</span><br><span class="line">    </span><br><span class="line">console.log(removeDuplicates([1, 2, 3, 3, 4, 4, 5, 5, 6]));</span><br><span class="line">&#x2F;&#x2F; Result: [ 1, 2, 3, 4, 5, 6 ]</span><br></pre></td></tr></table></figure>
+
+<h3 id="从-URL-获取查询参数"><a href="#从-URL-获取查询参数" class="headerlink" title="从 URL 获取查询参数"></a>从 URL 获取查询参数</h3><p>可以通过传递 window.location 或原始 URL goole.com?search=easy&amp;page=3 轻松地从 url 检索查询参数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">const getParameters &#x3D; (URL) &#x3D;&gt; &#123;</span><br><span class="line">  URL &#x3D; jsON.parse(</span><br><span class="line">    &#39;&#123;&quot;&#39; +</span><br><span class="line">      decodeURI(URL.split(&quot;?&quot;)[1])</span><br><span class="line">        .replace(&#x2F;&quot;&#x2F;g, &#39;\\&quot;&#39;)</span><br><span class="line">        .replace(&#x2F;&amp;&#x2F;g, &#39;&quot;,&quot;&#39;)</span><br><span class="line">        .replace(&#x2F;&#x3D;&#x2F;g, &#39;&quot;:&quot;&#39;) +</span><br><span class="line">      &#39;&quot;&#125;&#39;</span><br><span class="line">  );</span><br><span class="line">  return jsON.stringify(URL);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">getParameters(window.location);</span><br><span class="line">&#x2F;&#x2F; Result: &#123; search : &quot;easy&quot;, page : 3 &#125;</span><br></pre></td></tr></table></figure>
+
+<p>或者更为简单的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Object.fromEntries(new URLSearchParams(window.location.search))</span><br><span class="line">&#x2F;&#x2F; Result: &#123; search : &quot;easy&quot;, page : 3 &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="时间处理"><a href="#时间处理" class="headerlink" title="时间处理"></a>时间处理</h3><p>我们可以从给定日期以 hour::minutes::seconds 格式记录时间。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">const timeFromDate &#x3D; date &#x3D;&gt; date.toTimeString().slice(0, 8);</span><br><span class="line">    </span><br><span class="line">console.log(timeFromDate(new Date(2021, 0, 10, 17, 30, 0))); </span><br><span class="line">&#x2F;&#x2F; Result: &quot;17:30:00&quot;</span><br></pre></td></tr></table></figure>
+
+<h3 id="校验数字是奇数还是偶数"><a href="#校验数字是奇数还是偶数" class="headerlink" title="校验数字是奇数还是偶数"></a>校验数字是奇数还是偶数</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">const isEven &#x3D; num &#x3D;&gt; num % 2 &#x3D;&#x3D;&#x3D; 0;</span><br><span class="line">    </span><br><span class="line">console.log(isEven(2)); </span><br><span class="line">&#x2F;&#x2F; Result: True</span><br></pre></td></tr></table></figure>
+
+<h3 id="求数字的平均值"><a href="#求数字的平均值" class="headerlink" title="求数字的平均值"></a>求数字的平均值</h3><p>使用reduce方法找到多个数字之间的平均值。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">const average &#x3D; (...args) &#x3D;&gt; args.reduce((a, b) &#x3D;&gt; a + b) &#x2F; args.length;</span><br><span class="line">    </span><br><span class="line">average(1, 2, 3, 4);</span><br><span class="line">&#x2F;&#x2F; Result: 2.5</span><br></pre></td></tr></table></figure>
+
+<h3 id="回到顶部"><a href="#回到顶部" class="headerlink" title="回到顶部"></a>回到顶部</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">可以使用 window.scrollTo(0, 0) 方法自动滚动到顶部。将 x 和 y 都设置为 0。</span><br><span class="line"></span><br><span class="line">const goToTop &#x3D; () &#x3D;&gt; window.scrollTo(0, 0);</span><br><span class="line">    </span><br><span class="line">goToTop();</span><br></pre></td></tr></table></figure>
+
+<h3 id="翻转字符串"><a href="#翻转字符串" class="headerlink" title="翻转字符串"></a>翻转字符串</h3><p>可以使用 split、reverse 和 join 方法轻松反转字符串。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">const reverse &#x3D; str &#x3D;&gt; str.split(&#39;&#39;).reverse().join(&#39;&#39;);</span><br><span class="line">    </span><br><span class="line">reverse(&#39;hello world&#39;);     </span><br><span class="line">&#x2F;&#x2F; Result: &#39;dlrow olleh&#39;</span><br></pre></td></tr></table></figure>
+
+<h3 id="校验数组是否为空"><a href="#校验数组是否为空" class="headerlink" title="校验数组是否为空"></a>校验数组是否为空</h3><p>一行代码检查数组是否为空,将返回true或false</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">const isNotEmpty &#x3D; arr &#x3D;&gt; Array.isArray(arr) &amp;&amp; arr.length &gt; 0;</span><br><span class="line">    </span><br><span class="line">isNotEmpty([1, 2, 3]);</span><br><span class="line">&#x2F;&#x2F; Result: true</span><br></pre></td></tr></table></figure>
+
+<h3 id="获取用户选择的文本"><a href="#获取用户选择的文本" class="headerlink" title="获取用户选择的文本"></a>获取用户选择的文本</h3><p>使用内置的getSelection 属性获取用户选择的文本。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">const getSelectedText &#x3D; () &#x3D;&gt; window.getSelection().toString();</span><br><span class="line">    </span><br><span class="line">getSelectedText();</span><br></pre></td></tr></table></figure>
+
+<h3 id="打乱数组"><a href="#打乱数组" class="headerlink" title="打乱数组"></a>打乱数组</h3><p>可以使用sort 和 random 方法打乱数组</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">const shuffleArray &#x3D; (arr) &#x3D;&gt; arr.sort(() &#x3D;&gt; 0.5 - Math.random());</span><br><span class="line">    </span><br><span class="line">console.log(shuffleArray([1, 2, 3, 4]));</span><br><span class="line">&#x2F;&#x2F; Result: [ 1, 4, 3, 2 ]</span><br></pre></td></tr></table></figure>
+
+<h3 id="检查用户的设备是否处于暗模式"><a href="#检查用户的设备是否处于暗模式" class="headerlink" title="检查用户的设备是否处于暗模式"></a>检查用户的设备是否处于暗模式</h3><p>使用以下代码检查用户的设备是否处于暗模式。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">const isDarkMode &#x3D; window.matchMedia &amp;&amp; window.matchMedia(&#39;(prefers-color-scheme: dark)&#39;).matches</span><br><span class="line">    </span><br><span class="line">console.log(isDarkMode) </span><br><span class="line">&#x2F;&#x2F; Result: True or False</span><br></pre></td></tr></table></figure>
+
+<p>摘录某个大佬的文章,谢谢大佬无私分享</p>
+
+    </div>
+
+    
+    
+    
+    
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+      
+    </div>
+        
+      
+        <div class="reward-container">
+  <div>没办法,总要恰饭的嘛~~</div>
+  <button disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+        
+      
+      <div style="display: inline-block;">
+        <img src="/images/wxpay.png" alt="陈晟 微信支付">
+        <p>微信支付</p>
+      </div>
+        
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="陈晟 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+      
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>陈晟
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://www.chensheng.group/2022/06/24/158-%E5%8D%95%E8%A1%8Cjs/" title="单行JS小工具">https://www.chensheng.group/2022/06/24/158-%E5%8D%95%E8%A1%8Cjs/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/javaScript/" rel="tag"><i class="fa fa-tag"></i> javaScript</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2022/04/15/157-%E6%BB%91%E5%8A%A8%E6%8B%BC%E5%9B%BE%E9%AA%8C%E8%AF%81/" rel="next" title="滑动拼图验证">
+                  <i class="fa fa-chevron-left"></i> 滑动拼图验证
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2022/08/06/159-js%E5%AE%9E%E7%94%A8%E5%B0%8F%E6%8A%80%E5%B7%A7/" rel="prev" title="js实用小技巧">
+                  js实用小技巧 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="comments"></div>
+  
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#获取浏览器Cookie的值"><span class="nav-number">1.</span> <span class="nav-text">获取浏览器Cookie的值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#颜色RGB转十六进制"><span class="nav-number">2.</span> <span class="nav-text">颜色RGB转十六进制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#复制到剪贴板"><span class="nav-number">3.</span> <span class="nav-text">复制到剪贴板</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#检查日期是否合法"><span class="nav-number">4.</span> <span class="nav-text">检查日期是否合法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查找日期位于一年中的第几天"><span class="nav-number">5.</span> <span class="nav-text">查找日期位于一年中的第几天</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#英文字符串首字母大写"><span class="nav-number">6.</span> <span class="nav-text">英文字符串首字母大写</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#计算2个日期之间相差多少天"><span class="nav-number">7.</span> <span class="nav-text">计算2个日期之间相差多少天</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#清除全部Cookie"><span class="nav-number">8.</span> <span class="nav-text">清除全部Cookie</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#生成随机十六进制颜色"><span class="nav-number">9.</span> <span class="nav-text">生成随机十六进制颜色</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数组去重"><span class="nav-number">10.</span> <span class="nav-text">数组去重</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#从-URL-获取查询参数"><span class="nav-number">11.</span> <span class="nav-text">从 URL 获取查询参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#时间处理"><span class="nav-number">12.</span> <span class="nav-text">时间处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#校验数字是奇数还是偶数"><span class="nav-number">13.</span> <span class="nav-text">校验数字是奇数还是偶数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#求数字的平均值"><span class="nav-number">14.</span> <span class="nav-text">求数字的平均值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#回到顶部"><span class="nav-number">15.</span> <span class="nav-text">回到顶部</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#翻转字符串"><span class="nav-number">16.</span> <span class="nav-text">翻转字符串</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#校验数组是否为空"><span class="nav-number">17.</span> <span class="nav-text">校验数组是否为空</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#获取用户选择的文本"><span class="nav-number">18.</span> <span class="nav-text">获取用户选择的文本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#打乱数组"><span class="nav-number">19.</span> <span class="nav-text">打乱数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#检查用户的设备是否处于暗模式"><span class="nav-number">20.</span> <span class="nav-text">检查用户的设备是否处于暗模式</span></a></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <a href="/">
+      <img class="site-author-image" itemprop="image"
+        src="/images/touxiang.jpg"
+        alt="陈晟">
+    </a>
+  <p class="site-author-name" itemprop="name">陈晟</p>
+  <div class="site-description" itemprop="description">请不要在最能吃苦的日子选择安逸</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">163</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        <span class="site-state-item-count">36</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        <span class="site-state-item-count">56</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+</div>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/328921371" title="GitHub &amp;rarr; https:&#x2F;&#x2F;github.com&#x2F;328921371" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="mailto:328921371@qq.com" title="E-Mail &amp;rarr; mailto:328921371@qq.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+    
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    
+  
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  &copy; 2016 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">陈晟</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    
+    <span title="站点总字数">505k</span>
+</div>
+  <div class="powered-by">欢迎访问
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">
+      
+    Mr.Chen的小前端
+  </div>
+  <span class="post-meta-divider">|</span>
+  <span class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">闽ICP备-2022007916-号 </a><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=" rel="noopener" target="_blank"> </a>
+  </span>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+      <span class="site-uv">
+        我的第 <span class="busuanzi-value" id="busuanzi_value_site_uv"></span> 位朋友，
+      </span>
+
+  
+    <span class="site-pv">
+     历经 <span class="busuanzi-value" id="busuanzi_value_site_pv"></span> 次回眸才与你相遇
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js?v=3.1.0"></script>
+  <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://cdn.bootcdn.net/ajax/libs/fancybox/3.5.1/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+<script src="/js/utils.js?v=7.4.2.js"></script>
+
+<script src="/js/motion.js?v=7.4.2.js"></script>
+
+
+<script src="/js/schemes/muse.js?v=7.4.2.js"></script>
+
+
+
+<script src="/js/next-boot.js?v=7.4.2.js"></script>
+
+<script src="/js/bookmark.js?v=7.4.2.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+<script src="/js/local-search.js?v=7.4.2.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+  
+
+  <script src="/js/wobblewindow.js"></script>
+  <script>
+    if( window.innerWidth > 768  ){
+      $(document).ready(function () {
+        
+          $('.header').wobbleWindow({
+            radius: 50,
+            movementTop: false,
+            movementLeft: false,
+            movementRight: false,
+            debug: false,
+          });
+        
+
+        
+
+        
+      });
+    }
+  </script>
+
+
+
+
+  <script src="/js/activate-power-mode.min.js"></script>
+  <script>
+    POWERMODE.colorful = true;
+    POWERMODE.shake = false;
+    document.body.addEventListener('input', POWERMODE);
+  </script>
+
+
+
+
+  <script async src="/js/cursor/fireworks.js"></script>
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.includes(item);
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'jD385ICqgsSXvIPjMqMoJhn5-gzGzoHsz',
+    appKey: 'Y3pbrUp0lQbqyJK8XRjke93m',
+    placeholder: "（づ≧∀≦）づ╭❤～  客官,快来玩吖!",
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: 'zh-cn' || 'zh-cn',
+    path: location.pathname,
+    recordIP: false,
+    serverURLs: ''
+  });
+}, window.Valine);
+</script>
+
+</body>
+</html>
