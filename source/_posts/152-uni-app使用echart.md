@@ -1,9 +1,9 @@
 ---
 title: uni-app使用echart
 categories:
-  - javaScript
+  - uni-app
 tags:
-  - javaScript
+  - uni-app
 copyright: true
 comments: true
 abbrlink: 51df15d8

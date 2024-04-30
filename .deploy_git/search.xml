@@ -1,6 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>引用对象的复制</title>
+    <url>/2016/09/11/02-%E5%BC%95%E7%94%A8%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%A4%8D%E5%88%B6/</url>
+    <content><![CDATA[<hr style='filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)' color='#FF0000' size='1' />
+
+<blockquote>
+<p>之前讲到了javaScript的类型分为基本类型和引用类型,今天分享一下我的学习心得,引用类型应该怎样正确的复制</p>
+</blockquote>
+<a id="more"></a>
+
+<h3 id="javaScript-变量类型"><a href="#javaScript-变量类型" class="headerlink" title="javaScript 变量类型"></a>javaScript 变量类型</h3><p>之前学习的过程中有提到过javascript的变量类型分为 基本类型和引用类型,这两个具体有什么区别了?</p>
+<p>基本类型:存放在栈中，基本类型直接储存的是数值</p>
+<p>引用类型：存放在堆中，引用类型储存的是数据的内存地址(我们拿到手的变量其实就是一个指针)</p>
+<h3 id="变量复制的问题"><a href="#变量复制的问题" class="headerlink" title="变量复制的问题"></a>变量复制的问题</h3><p>只是讲概念性的东西并不能真正的了解到 基本类型 和 引用类型在使用上面的区别,我做一个简单的例子,变量的复制</p>
+<p>变量的复制分为两种情况：基本类型的复制 和 引用类型的复制</p>
+<h4 id="基本类型的复制"><a href="#基本类型的复制" class="headerlink" title="基本类型的复制:"></a>基本类型的复制:</h4><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a =<span class="number">10</span>;</span><br><span class="line"><span class="keyword">var</span> b = a;</span><br><span class="line">b = <span class="number">20</span>;</span><br><span class="line"><span class="built_in">console</span>.log(b); <span class="comment">// 20</span></span><br><span class="line"><span class="built_in">console</span>.log(a); <span class="comment">// 10</span></span><br></pre></td></tr></table></figure>
+
+<p>这里我们会发现,将a的值赋值给b后再修改b的值,并不会影响a的值,一切使用正常.</p>
+<h4 id="引用类型的复制"><a href="#引用类型的复制" class="headerlink" title="引用类型的复制:"></a>引用类型的复制:</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">var obj1 &#x3D; &#123;</span><br><span class="line">	name:&#39;张三&#39;</span><br><span class="line">&#125;</span><br><span class="line">var obj2 &#x3D; obj1;</span><br><span class="line"></span><br><span class="line">obj2.name &#x3D; &#39;李四&#39;;</span><br><span class="line"></span><br><span class="line">console.log(obj1.name); &#x2F;&#x2F; 李四</span><br><span class="line">console.log(obj2.name); &#x2F;&#x2F; 李四</span><br></pre></td></tr></table></figure>
+
+<p>我们会很奇怪的发现,明明修改的是obj2的值,为什么obj1的值也会发生改变,这就是之前所说的,引用类型储存的是数据的内存地址</p>
+<p>通过上面的讨论，得到了两个结论 :</p>
+<ol>
+<li>基本类型是直接操作 值</li>
+<li>引用类型直接操作的是 : 内存地址</li>
+</ol>
+<p>那要如何解决引用类型复制的问题了??</p>
+<h3 id="工厂模式与构造函数"><a href="#工厂模式与构造函数" class="headerlink" title="工厂模式与构造函数"></a>工厂模式与构造函数</h3><p>解决引用类型复制的问题可以通过两种方法,工厂模式与构造函数</p>
+<h4 id="工厂模式"><a href="#工厂模式" class="headerlink" title="工厂模式"></a>工厂模式</h4><p>工厂模式,顾名思义就是类似于工厂的生产模式,分为三大步</p>
+<ol>
+<li><p>原型 – var obj = new Object();</p>
+</li>
+<li><p>加工 – obj.属性或方法</p>
+</li>
+<li><p>出厂 – return obj;</p>
+</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createObject</span>(<span class="params">name</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">var</span> obj = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line">	obj.name = name;</span><br><span class="line">	obj.fun = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="built_in">console</span>.log(<span class="keyword">this</span>.name + <span class="string">'你好'</span> )</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> obj;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> obj1 = createObject(<span class="string">'对象1'</span>);</span><br><span class="line"><span class="keyword">var</span> obj2 = createObject(<span class="string">'对象2'</span>);</span><br></pre></td></tr></table></figure>
+
+<p>这时候再去修改 obj2 , obj1就不会发生改变了,有几个地方需要注意的(踩了一个大坑):</p>
+<p>我们再创建一个 对象</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> dog = &#123;</span><br><span class="line">	name:<span class="string">'狗'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>首先,obj.fun 的这个方法中,不要去使用obj.name,因为在js中,一个对象的方法可以被其他的对象所调用,<br>可以通过call、apple 就能实现,如果这里写obj.name,那么obj1.fun.call(dog);输出的结果仍然是obj1的信息,<br>所以应该使用this,这里的this指向调用该方法的本身,谁调用就是谁</p>
+<p>call、apple 具体的使用下次再说,这里只是作为了解</p>
+<h4 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h4><ol>
+<li><p>默认函数首字母大写</p>
+</li>
+<li><p>构造函数并没有显示返回任何东西。new 操作符会自动创建给定的类型并返回他们，当调用构造函数时，new会自动创建this对象，且类型就是构造函数类型。</p>
+</li>
+<li><p>也可以在构造函数中显示调用return.如果返回的值是一个对象，它会代替新创建的对象实例返回。如果返回的值是一个原始类型，它会被忽略，新创建的实例会被返回。</p>
+</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">People</span>(<span class="params">name</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">this</span>.name = name;</span><br><span class="line">	<span class="keyword">this</span>.fun = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="built_in">console</span>.log(<span class="keyword">this</span>.name + <span class="string">'你好'</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> student = <span class="keyword">new</span> People(<span class="string">'小明'</span>);</span><br></pre></td></tr></table></figure>
+
+<p>这样是一个基本的构造函数,一样可以解决引用对象的复制问题,但是像fun这样的函数,相同的属性容易占内存,所以写在公共的区域: 原型(protoType)</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">People.prototype.fun = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	alert(<span class="keyword">this</span>.name + <span class="string">': 汪汪汪!'</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样数据就存在protoType里，调用是可以直接打点调用, 原型(protoType) 之后再和大家分享</p>
+<p>以上就是个人的学习心得,感谢各位大神指出错误和不足</p>
+]]></content>
+      <categories>
+        <category>javaScript</category>
+      </categories>
+      <tags>
+        <tag>javaScript</tag>
+        <tag>数据类型</tag>
+        <tag>构造函数</tag>
+        <tag>对象复制</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>javaScript 数据类型</title>
     <url>/2016/07/11/01-javaScript%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</url>
     <content><![CDATA[<hr style='filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)' color='#FF0000' size='1' />
@@ -91,77 +162,6 @@ console.log(a.t); // undefined</code></pre><p>正所谓在H5中,一切皆为对�
       <tags>
         <tag>javaScript</tag>
         <tag>数据类型</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>引用对象的复制</title>
-    <url>/2016/09/11/02-%E5%BC%95%E7%94%A8%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%A4%8D%E5%88%B6/</url>
-    <content><![CDATA[<hr style='filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)' color='#FF0000' size='1' />
-
-<blockquote>
-<p>之前讲到了javaScript的类型分为基本类型和引用类型,今天分享一下我的学习心得,引用类型应该怎样正确的复制</p>
-</blockquote>
-<a id="more"></a>
-
-<h3 id="javaScript-变量类型"><a href="#javaScript-变量类型" class="headerlink" title="javaScript 变量类型"></a>javaScript 变量类型</h3><p>之前学习的过程中有提到过javascript的变量类型分为 基本类型和引用类型,这两个具体有什么区别了?</p>
-<p>基本类型:存放在栈中，基本类型直接储存的是数值</p>
-<p>引用类型：存放在堆中，引用类型储存的是数据的内存地址(我们拿到手的变量其实就是一个指针)</p>
-<h3 id="变量复制的问题"><a href="#变量复制的问题" class="headerlink" title="变量复制的问题"></a>变量复制的问题</h3><p>只是讲概念性的东西并不能真正的了解到 基本类型 和 引用类型在使用上面的区别,我做一个简单的例子,变量的复制</p>
-<p>变量的复制分为两种情况：基本类型的复制 和 引用类型的复制</p>
-<h4 id="基本类型的复制"><a href="#基本类型的复制" class="headerlink" title="基本类型的复制:"></a>基本类型的复制:</h4><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a =<span class="number">10</span>;</span><br><span class="line"><span class="keyword">var</span> b = a;</span><br><span class="line">b = <span class="number">20</span>;</span><br><span class="line"><span class="built_in">console</span>.log(b); <span class="comment">// 20</span></span><br><span class="line"><span class="built_in">console</span>.log(a); <span class="comment">// 10</span></span><br></pre></td></tr></table></figure>
-
-<p>这里我们会发现,将a的值赋值给b后再修改b的值,并不会影响a的值,一切使用正常.</p>
-<h4 id="引用类型的复制"><a href="#引用类型的复制" class="headerlink" title="引用类型的复制:"></a>引用类型的复制:</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">var obj1 &#x3D; &#123;</span><br><span class="line">	name:&#39;张三&#39;</span><br><span class="line">&#125;</span><br><span class="line">var obj2 &#x3D; obj1;</span><br><span class="line"></span><br><span class="line">obj2.name &#x3D; &#39;李四&#39;;</span><br><span class="line"></span><br><span class="line">console.log(obj1.name); &#x2F;&#x2F; 李四</span><br><span class="line">console.log(obj2.name); &#x2F;&#x2F; 李四</span><br></pre></td></tr></table></figure>
-
-<p>我们会很奇怪的发现,明明修改的是obj2的值,为什么obj1的值也会发生改变,这就是之前所说的,引用类型储存的是数据的内存地址</p>
-<p>通过上面的讨论，得到了两个结论 :</p>
-<ol>
-<li>基本类型是直接操作 值</li>
-<li>引用类型直接操作的是 : 内存地址</li>
-</ol>
-<p>那要如何解决引用类型复制的问题了??</p>
-<h3 id="工厂模式与构造函数"><a href="#工厂模式与构造函数" class="headerlink" title="工厂模式与构造函数"></a>工厂模式与构造函数</h3><p>解决引用类型复制的问题可以通过两种方法,工厂模式与构造函数</p>
-<h4 id="工厂模式"><a href="#工厂模式" class="headerlink" title="工厂模式"></a>工厂模式</h4><p>工厂模式,顾名思义就是类似于工厂的生产模式,分为三大步</p>
-<ol>
-<li><p>原型 – var obj = new Object();</p>
-</li>
-<li><p>加工 – obj.属性或方法</p>
-</li>
-<li><p>出厂 – return obj;</p>
-</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createObject</span>(<span class="params">name</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">var</span> obj = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line">	obj.name = name;</span><br><span class="line">	obj.fun = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="built_in">console</span>.log(<span class="keyword">this</span>.name + <span class="string">'你好'</span> )</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> obj;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> obj1 = createObject(<span class="string">'对象1'</span>);</span><br><span class="line"><span class="keyword">var</span> obj2 = createObject(<span class="string">'对象2'</span>);</span><br></pre></td></tr></table></figure>
-
-<p>这时候再去修改 obj2 , obj1就不会发生改变了,有几个地方需要注意的(踩了一个大坑):</p>
-<p>我们再创建一个 对象</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> dog = &#123;</span><br><span class="line">	name:<span class="string">'狗'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>首先,obj.fun 的这个方法中,不要去使用obj.name,因为在js中,一个对象的方法可以被其他的对象所调用,<br>可以通过call、apple 就能实现,如果这里写obj.name,那么obj1.fun.call(dog);输出的结果仍然是obj1的信息,<br>所以应该使用this,这里的this指向调用该方法的本身,谁调用就是谁</p>
-<p>call、apple 具体的使用下次再说,这里只是作为了解</p>
-<h4 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h4><ol>
-<li><p>默认函数首字母大写</p>
-</li>
-<li><p>构造函数并没有显示返回任何东西。new 操作符会自动创建给定的类型并返回他们，当调用构造函数时，new会自动创建this对象，且类型就是构造函数类型。</p>
-</li>
-<li><p>也可以在构造函数中显示调用return.如果返回的值是一个对象，它会代替新创建的对象实例返回。如果返回的值是一个原始类型，它会被忽略，新创建的实例会被返回。</p>
-</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">People</span>(<span class="params">name</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">this</span>.name = name;</span><br><span class="line">	<span class="keyword">this</span>.fun = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="built_in">console</span>.log(<span class="keyword">this</span>.name + <span class="string">'你好'</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> student = <span class="keyword">new</span> People(<span class="string">'小明'</span>);</span><br></pre></td></tr></table></figure>
-
-<p>这样是一个基本的构造函数,一样可以解决引用对象的复制问题,但是像fun这样的函数,相同的属性容易占内存,所以写在公共的区域: 原型(protoType)</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">People.prototype.fun = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	alert(<span class="keyword">this</span>.name + <span class="string">': 汪汪汪!'</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>这样数据就存在protoType里，调用是可以直接打点调用, 原型(protoType) 之后再和大家分享</p>
-<p>以上就是个人的学习心得,感谢各位大神指出错误和不足</p>
-]]></content>
-      <categories>
-        <category>javaScript</category>
-      </categories>
-      <tags>
-        <tag>javaScript</tag>
-        <tag>数据类型</tag>
-        <tag>构造函数</tag>
-        <tag>对象复制</tag>
       </tags>
   </entry>
   <entry>
@@ -4191,12 +4191,12 @@ var name = hex_md5(&quot;陈晟&quot;);
 <p>解决：开启cookie的HttpOnly属性，禁止JavaScript脚本读取cookie信息。</p>
 </blockquote>
 <ul>
-<li>持久型XSS攻击场景：攻击者提交含有恶意脚本的请求（通常使用<script>标签），此脚本被保存在数据库中。用户再次浏览页面，包含恶意脚本的页面会自动执行脚本，从而达到攻击效果。这种攻击常见于论坛，博客等应用中。</li>
+<li>持久型XSS攻击场景：攻击者提交含有恶意脚本的请求（通常使用<code>&lt;script&gt;</code>标签），此脚本被保存在数据库中。用户再次浏览页面，包含恶意脚本的页面会自动执行脚本，从而达到攻击效果。这种攻击常见于论坛，博客等应用中。</li>
 </ul>
 <blockquote>
-<p>解决：前端提交请求时，转义<为&lt，转义>为&gt；或者后台存储数据时进行特殊字符转义。</p>
+<p>解决：前端提交请求时，转义&lt;为&amp;lt，转义&gt;为&amp;gt；或者后台存储数据时进行特殊字符转义。</p>
 </blockquote>
-<h3 id="3-CSRF"><a href="#3-CSRF" class="headerlink" title="3.CSRF"></a>3.CSRF</h3><p>CSRF，Cross-site request forgery，跨站请求伪造。这种方式是利用浏览器的cookie或服务器的session策略，盗取用户信息，模拟用户向第三方网站发送恶意请求。</p>
+<h3 id="2-CSRF"><a href="#2-CSRF" class="headerlink" title="2.CSRF"></a>2.CSRF</h3><p>CSRF，Cross-site request forgery，跨站请求伪造。这种方式是利用浏览器的cookie或服务器的session策略，盗取用户信息，模拟用户向第三方网站发送恶意请求。</p>
 <blockquote>
 <p>再次强调一下cookie的机制：浏览器向一个域名发起http请求时（GET请求）会带上浏览器保存的关于那个域名的cookies，而不管你从哪个网站发请求。</p>
 </blockquote>
@@ -4213,7 +4213,7 @@ var name = hex_md5(&quot;陈晟&quot;);
 <li>开启cookie SameSite 强校验</li>
 </ol>
 <p>Chrome 51 开始，浏览器的 Cookie 新增加了一个SameSite属性，用来防止 CSRF 攻击和用户追踪。</p>
-<h3 id="4-网络请求劫持"><a href="#4-网络请求劫持" class="headerlink" title="4. 网络请求劫持"></a>4. 网络请求劫持</h3><p>请求劫持是指网站资源在请求过程中因为人为原因而没有加载到正确的资源。</p>
+<h3 id="3-网络请求劫持"><a href="#3-网络请求劫持" class="headerlink" title="3. 网络请求劫持"></a>3. 网络请求劫持</h3><p>请求劫持是指网站资源在请求过程中因为人为原因而没有加载到正确的资源。</p>
 <ul>
 <li>DNS劫持</li>
 </ul>
@@ -4228,7 +4228,7 @@ var name = hex_md5(&quot;陈晟&quot;);
 <blockquote>
 <p>解决方案: 改为https</p>
 </blockquote>
-<h3 id="5-SQL注入"><a href="#5-SQL注入" class="headerlink" title="5.SQL注入"></a>5.SQL注入</h3><p>攻击者在HTTP请求中注入恶意SQL命令，例如，drop table users，服务器用请求参数构造数据库SQL命令时，恶意SQL被执行。</p>
+<h3 id="4-SQL注入"><a href="#4-SQL注入" class="headerlink" title="4.SQL注入"></a>4.SQL注入</h3><p>攻击者在HTTP请求中注入恶意SQL命令，例如，drop table users，服务器用请求参数构造数据库SQL命令时，恶意SQL被执行。</p>
 <blockquote>
 <p>解决：后台处理，例如，使用预编译语句PreparedStatement进行预处理。</p>
 </blockquote>
@@ -4272,10 +4272,10 @@ var name = hex_md5(&quot;陈晟&quot;);
 <p>是我对uni-app使用echart的一些理解,如果文章由于我学识浅薄,导致您发现有严重谬误的地方,请一定在评论中指出,我会在第一时间修正我的博文,以避免误人子弟。</p>
 ]]></content>
       <categories>
-        <category>javaScript</category>
+        <category>uni-app</category>
       </categories>
       <tags>
-        <tag>javaScript</tag>
+        <tag>uni-app</tag>
       </tags>
   </entry>
   <entry>
@@ -4608,6 +4608,370 @@ var name = hex_md5(&quot;陈晟&quot;);
       </tags>
   </entry>
   <entry>
+    <title>冷门但好用的伪类选择器</title>
+    <url>/2022/02/23/156-%E4%BC%AA%E7%B1%BB%E4%BD%BF%E7%94%A8/</url>
+    <content><![CDATA[<hr style='filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)' color='#FF0000' size='1' />
+
+<blockquote>
+<p>伪类选择器我们常用的就是after或者beffore，今天看点不一样</p>
+</blockquote>
+<a id="more"></a>
+
+<h3 id="first-line-选择首行文本"><a href="#first-line-选择首行文本" class="headerlink" title="::first-line | 选择首行文本"></a>::first-line | 选择首行文本</h3><p>这个伪元素选择器选择换行之前文本的首行。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">p:first-line &#123;</span><br><span class="line">  color: lightcoral;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="first-letter-选择首字母"><a href="#first-letter-选择首字母" class="headerlink" title="::first-letter | 选择首字母"></a>::first-letter | 选择首字母</h3><p>这个伪元素选择器应用于元素中文本的首字母。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">.innerDiv p:first-letter &#123;</span><br><span class="line">  color: lightcoral;</span><br><span class="line">  font-size: 40px</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="selection-选择高亮（被选中）的区域"><a href="#selection-选择高亮（被选中）的区域" class="headerlink" title="::selection | 选择高亮（被选中）的区域"></a>::selection | 选择高亮（被选中）的区域</h3><p>应用于任何被用户选中的高亮区域。通过::selection伪元素选择器，我们可以将样式应用于高亮区域。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">div::selection &#123;</span><br><span class="line">  background: yellow;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="root-根元素"><a href="#root-根元素" class="headerlink" title=":root | 根元素"></a>:root | 根元素</h3><p>:root伪类选中文档的根元素。在 HTML 中，为 HTML 元素。在 RSS 中，则为 RSS 元素.这个伪类选择器应用于根元素，多用于存储全局 CSS 自定义属性。</p>
+<blockquote>
+<p>在CSS变量学习的时候，我们就用过这个</p>
+</blockquote>
+<h3 id="empty-仅当元素为空时触发"><a href="#empty-仅当元素为空时触发" class="headerlink" title=":empty | 仅当元素为空时触发"></a>:empty | 仅当元素为空时触发</h3><p>这个伪类选择器将选中没有任何子项的元素。该元素必须为空。如果一个元素没有空格、可见的内容、后代元素，则为空元素。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">div:empty &#123;</span><br><span class="line">  border: 2px solid orange;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&lt;div&gt;&lt;&#x2F;div&gt;</span><br><span class="line">&lt;div&gt;&lt;&#x2F;div&gt;</span><br><span class="line">&lt;div&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br></pre></td></tr></table></figure>
+
+<div class="note info">
+            <p>这个规则将应用于空的div元素。这个规则将应用于第一个和第二个div，因为他们是真为空，而第三个div包含空格。</p>
+          </div>
+
+<h3 id="only-child-选择仅有的子元素"><a href="#only-child-选择仅有的子元素" class="headerlink" title=":only-child | 选择仅有的子元素"></a>:only-child | 选择仅有的子元素</h3><p>匹配父元素中没有任何兄弟元素的子元素。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">.innerDiv p:only-child &#123;</span><br><span class="line">  color: orangered;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="first-of-type-选择第一个指定类型的子元素"><a href="#first-of-type-选择第一个指定类型的子元素" class="headerlink" title=":first-of-type | 选择第一个指定类型的子元素"></a>:first-of-type | 选择第一个指定类型的子元素</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">.innerDiv p:first-of-type &#123;</span><br><span class="line">  color: orangered;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这将应用于.innerDiv下的第一个p元素。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;div class&#x3D;&quot;innerDiv&quot;&gt;</span><br><span class="line">  &lt;div&gt;Div1&lt;&#x2F;div&gt;</span><br><span class="line">  &lt;p&gt;These are the necessary steps&lt;&#x2F;p&gt;</span><br><span class="line">  &lt;p&gt;hiya&lt;&#x2F;p&gt;</span><br><span class="line">  </span><br><span class="line">  &lt;p&gt;</span><br><span class="line">    Do &lt;em&gt;not&lt;&#x2F;em&gt; push the brake at the same time as the accelerator.</span><br><span class="line">  &lt;&#x2F;p&gt;</span><br><span class="line">  &lt;div&gt;Div2&lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>这个p（“These are the necessary step”）将被选中。</p>
+</blockquote>
+<h3 id="last-of-type-选择最后一个指定类型的子元素"><a href="#last-of-type-选择最后一个指定类型的子元素" class="headerlink" title=":last-of-type | 选择最后一个指定类型的子元素"></a>:last-of-type | 选择最后一个指定类型的子元素</h3><p>像:first-of-type一样，但是会应用于最后一个同类型的子元素。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">.innerDiv p:last-of-type &#123;</span><br><span class="line">    color: orangered;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这将应用于innerDiv下的最后一个p段落元素。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;div class&#x3D;&quot;innerDiv&quot;&gt;</span><br><span class="line">  &lt;p&gt;These are the necessary steps&lt;&#x2F;p&gt;</span><br><span class="line">  &lt;p&gt;hiya&lt;&#x2F;p&gt;</span><br><span class="line">  &lt;div&gt;Div1&lt;&#x2F;div&gt;</span><br><span class="line">  &lt;p&gt;</span><br><span class="line">    Do the same.</span><br><span class="line">  &lt;&#x2F;p&gt;</span><br><span class="line">  &lt;div&gt;Div2&lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>因此，这个p元素（“Do the same”）将被选中。</p>
+</blockquote>
+<h3 id="nth-of-type-选择特定类型的子元素"><a href="#nth-of-type-选择特定类型的子元素" class="headerlink" title=":nth-of-type() | 选择特定类型的子元素"></a>:nth-of-type() | 选择特定类型的子元素</h3><p>这个选择器将从指定的父元素的孩子列表中选择某种类型的子元素。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">.innerDiv p:nth-of-type(1) &#123;</span><br><span class="line">  color: orangered;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="nth-last-of-type-选择列表末尾中指定类型的子元素"><a href="#nth-last-of-type-选择列表末尾中指定类型的子元素" class="headerlink" title=":nth-last-of-type() | 选择列表末尾中指定类型的子元素"></a>:nth-last-of-type() | 选择列表末尾中指定类型的子元素</h3><p>这将选择最后一个指定类型的子元素。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">.innerDiv p:nth-last-of-type() &#123;</span><br><span class="line">  color: orangered;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>这将选择innerDiv列表元素中包含的最后一个段落类型子元素。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;div class&#x3D;&quot;innerDiv&quot;&gt;</span><br><span class="line">  &lt;p&gt;These are the necessary steps&lt;&#x2F;p&gt;</span><br><span class="line">  &lt;p&gt;hiya&lt;&#x2F;p&gt;</span><br><span class="line">  &lt;div&gt;Div1&lt;&#x2F;div&gt;</span><br><span class="line">  &lt;p&gt;</span><br><span class="line">    Do the same.</span><br><span class="line">  &lt;&#x2F;p&gt;</span><br><span class="line">  &lt;div&gt;Div2&lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>innerDiv中最后一个段落子元素p（“Do the same”）将会被选中。</p>
+</blockquote>
+<h3 id="link-选择一个未访问过的超链接"><a href="#link-选择一个未访问过的超链接" class="headerlink" title=":link | 选择一个未访问过的超链接"></a>:link | 选择一个未访问过的超链接</h3><p>这个选择器应用于未被访问过的链接。常用于带有 href 属性的a锚元素。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">a:link &#123;</span><br><span class="line">  color: orangered;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&lt;a href&#x3D;&quot;&#x2F;login&quot;&gt;Login&lt;a&gt;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>这将选中未被点击过带有href的指定界面的a锚点元素，选中的元素中的文字将会显示为橙色。</p>
+</blockquote>
+<h3 id="checked-选择一个选中的复选框"><a href="#checked-选择一个选中的复选框" class="headerlink" title=":checked | 选择一个选中的复选框"></a>:checked | 选择一个选中的复选框</h3><p>这个应用于已经被选中的复选框。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">input:checked &#123;</span><br><span class="line">  border: 2px solid lightcoral;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个规则应用到所有被选中的复选框。</p>
+<h3 id="valid-选择一个通过验证的元素"><a href="#valid-选择一个通过验证的元素" class="headerlink" title=":valid | 选择一个通过验证的元素"></a>:valid | 选择一个通过验证的元素</h3><p>这主要用于可视化表单元素，以让用户判断是否验证通过。验证通过时，默认元素带有valid属性。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">input:valid &#123;</span><br><span class="line">  boder-color: lightsalmon;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="invalid-选择一个未通过验证的元素"><a href="#invalid-选择一个未通过验证的元素" class="headerlink" title=":invalid | 选择一个未通过验证的元素"></a>:invalid | 选择一个未通过验证的元素</h3><p>像:valid一样，但是会应用到未通过验证的元素。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">input[type&#x3D;&quot;text&quot;]:invalid &#123;</span><br><span class="line">  border-color: red;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="lang-选择指定语言的元素"><a href="#lang-选择指定语言的元素" class="headerlink" title=":lang() | 选择指定语言的元素"></a>:lang() | 选择指定语言的元素</h3><p>应用于指定了语言的元素。可以通过以下两种方式使用：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">p:lang(fr) &#123;</span><br><span class="line">  background: yellow;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">或者</span><br><span class="line"></span><br><span class="line">p[lang|&#x3D;&quot;fr&quot;] &#123;</span><br><span class="line">  background: yellow;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&lt;p lang&#x3D;&quot;fr&quot;&gt;Paragraph 1&lt;&#x2F;p&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="not-对于选择取反（这是一个运算符）"><a href="#not-对于选择取反（这是一个运算符）" class="headerlink" title=":not() | 对于选择取反（这是一个运算符）"></a>:not() | 对于选择取反（这是一个运算符）</h3><p>否定伪类选择器选中相反的。让我们看一个示例：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">.innerDiv :not(p) &#123;</span><br><span class="line">  color: lightcoral;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&lt;div class&#x3D;&quot;innerDiv&quot;&gt;</span><br><span class="line">  &lt;p&gt;Paragraph 1&lt;&#x2F;p&gt;</span><br><span class="line">  &lt;p&gt;Paragraph 2&lt;&#x2F;p&gt;</span><br><span class="line">  &lt;div&gt;Div 1&lt;&#x2F;div&gt;</span><br><span class="line">  &lt;p&gt;Paragraph 3&lt;&#x2F;p&gt;</span><br><span class="line">  &lt;div&gt;Div 2&lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>Div 1和Div 2会被选中，因为他们不是p元素。</p>
+</blockquote>
+<p>本文章摘录知乎，网址已经忘记了，感谢大佬的无私奉献</p>
+]]></content>
+      <categories>
+        <category>CSS</category>
+      </categories>
+      <tags>
+        <tag>CSS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>滑动拼图验证</title>
+    <url>/2022/04/15/157-%E6%BB%91%E5%8A%A8%E6%8B%BC%E5%9B%BE%E9%AA%8C%E8%AF%81/</url>
+    <content><![CDATA[<hr style='filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)' color='#FF0000' size='1' />
+
+<blockquote>
+<p>纯前端滑动拼图验证</p>
+</blockquote>
+<a id="more"></a>
+
+<h3 id="安装依赖"><a href="#安装依赖" class="headerlink" title="安装依赖"></a>安装依赖</h3><p><code>npm install vue-puzzle-vcode --save</code></p>
+<h3 id="直接上代码"><a href="#直接上代码" class="headerlink" title="直接上代码"></a>直接上代码</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;Vcode</span><br><span class="line">      :show&#x3D;&quot;isShow&quot;</span><br><span class="line">      :imgs&#x3D;&quot;[imgs]&quot;</span><br><span class="line">      @success&#x3D;&quot;onSuccess&quot;</span><br><span class="line">      @close&#x3D;&quot;onClose&quot;</span><br><span class="line">      @fail&#x3D;&quot;onFail&quot;</span><br><span class="line">    &#x2F;&gt;</span><br><span class="line">    &lt;button @click&#x3D;&quot;onSubmit&quot;&gt;登录&lt;&#x2F;button&gt;</span><br><span class="line">  &lt;&#x2F;div&gt;</span><br><span class="line">  </span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">import Vcode from &quot;vue-puzzle-vcode&quot;;</span><br><span class="line">export default &#123;</span><br><span class="line">  data()&#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      isShow: false, &#x2F;&#x2F; 验证码模态框是否出现</span><br><span class="line">      imgs: require(&#39;@&#x2F;assets&#x2F;logo.png&#39;)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  methods:&#123;</span><br><span class="line">    onSubmit()&#123;</span><br><span class="line">      this.isShow &#x3D; true;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#x2F;&#x2F; 用户通过了验证</span><br><span class="line">    onSuccess(msg)&#123;</span><br><span class="line">      console.log(msg)</span><br><span class="line">      this.isShow &#x3D; false; &#x2F;&#x2F; 通过验证后，需要手动隐藏模态框</span><br><span class="line">    &#125;,</span><br><span class="line">    &#x2F;&#x2F; 验证失败</span><br><span class="line">    onFail(msg)&#123;</span><br><span class="line">      </span><br><span class="line">    &#125;,</span><br><span class="line">    &#x2F;&#x2F; 用户点击遮罩层，应该关闭模态框</span><br><span class="line">    onClose()&#123;</span><br><span class="line">      &#x2F;&#x2F; this.isShow &#x3D; false;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  components:&#123;</span><br><span class="line">    Vcode</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="字段说明"><a href="#字段说明" class="headerlink" title="字段说明"></a>字段说明</h3><table>
+<thead>
+<tr>
+<th>字段</th>
+<th>类型</th>
+<th>默认值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>show</td>
+<td>Boolean</td>
+<td>false</td>
+<td>是否显示验证码弹框</td>
+</tr>
+<tr>
+<td>canvasWidth</td>
+<td>Number</td>
+<td>310</td>
+<td>主图区域的宽度</td>
+</tr>
+<tr>
+<td>canvasHeight</td>
+<td>Number</td>
+<td>160</td>
+<td>主图区域的高度</td>
+</tr>
+<tr>
+<td>imgs</td>
+<td>Array</td>
+<td>null</td>
+<td>自定义图片，见下方例子</td>
+</tr>
+<tr>
+<td>successText</td>
+<td>String</td>
+<td>“验证通过！”</td>
+<td>验证成功时的提示文字</td>
+</tr>
+<tr>
+<td>failText</td>
+<td>String</td>
+<td>“验证失败，请重试”</td>
+<td>验证失败时的提示文字</td>
+</tr>
+<tr>
+<td>sliderText</td>
+<td>String</td>
+<td>“拖动滑块完成拼图”</td>
+<td>下方滑动条里的文字</td>
+</tr>
+</tbody></table>
+<h3 id="事件说明"><a href="#事件说明" class="headerlink" title="事件说明"></a>事件说明</h3><table>
+<thead>
+<tr>
+<th>事件名</th>
+<th>返回值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>success</td>
+<td>偏差值</td>
+<td>验证通过时会触发，返回值是用户移动的距离跟目标距离的偏差值px</td>
+</tr>
+<tr>
+<td>fail</td>
+<td>偏差值</td>
+<td>验证失败时会触发，返回值同上</td>
+</tr>
+<tr>
+<td>close</td>
+<td>null</td>
+<td>用户点击遮罩层的回调</td>
+</tr>
+</tbody></table>
+<p><a href="https://www.npmjs.com/package/vue-puzzle-vcode" target="_blank" rel="noopener">原文链接</a></p>
+<p>感谢大佬无私分享</p>
+]]></content>
+      <categories>
+        <category>Vue</category>
+      </categories>
+      <tags>
+        <tag>Vue</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>单行JS小工具</title>
+    <url>/2022/06/24/158-%E5%8D%95%E8%A1%8Cjs/</url>
+    <content><![CDATA[<hr style='filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)' color='#FF0000' size='1' />
+
+<blockquote>
+<p>气死同事的单行代码,实际开发中可读性极差,但是可以学习</p>
+</blockquote>
+<a id="more"></a>
+
+<h3 id="获取浏览器Cookie的值"><a href="#获取浏览器Cookie的值" class="headerlink" title="获取浏览器Cookie的值"></a>获取浏览器Cookie的值</h3><p>通过document.cookie 来查找cookie值</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const cookie &#x3D; name &#x3D;&gt; &#96;; $&#123;document.cookie&#125;&#96;.split(&#96;; $&#123;name&#125;&#x3D;&#96;).pop().split(&#39;;&#39;).shift();</span><br><span class="line">    </span><br><span class="line">cookie(&#39;_ga&#39;);</span><br><span class="line">&#x2F;&#x2F; Result: &quot;GA1.2.1929736587.1601974046&quot;</span><br></pre></td></tr></table></figure>
+
+<h3 id="颜色RGB转十六进制"><a href="#颜色RGB转十六进制" class="headerlink" title="颜色RGB转十六进制"></a>颜色RGB转十六进制</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const rgbToHex &#x3D; (r, g, b) &#x3D;&gt; &quot;#&quot; + ((1 &lt;&lt; 24) + (r &lt;&lt; 16) + (g &lt;&lt; 8) + b).toString(16).slice(1);</span><br><span class="line">    </span><br><span class="line">rgbToHex(0, 51, 255); </span><br><span class="line">&#x2F;&#x2F; Result: #0033ff</span><br></pre></td></tr></table></figure>
+
+<h3 id="复制到剪贴板"><a href="#复制到剪贴板" class="headerlink" title="复制到剪贴板"></a>复制到剪贴板</h3><p>借助navigator.clipboard.writeText可以很容易的将文本复制到剪贴板</p>
+<p>规范要求在写入剪贴板之前使用 Permissions API 获取“剪贴板写入”权限。但是，不同浏览器的具体要求不同，因为这是一个新的API。有关详细信息，请查看compatibility table and Clipboard availability in Clipboard。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const copyToClipboard &#x3D; (text) &#x3D;&gt; navigator.clipboard.writeText(text);</span><br><span class="line">    </span><br><span class="line">copyToClipboard(&quot;Hello World&quot;);</span><br></pre></td></tr></table></figure>
+
+<h3 id="检查日期是否合法"><a href="#检查日期是否合法" class="headerlink" title="检查日期是否合法"></a>检查日期是否合法</h3><p>使用以下代码段检查给定日期是否有效。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const isDateValid &#x3D; (...val) &#x3D;&gt; !Number.isNaN(new Date(...val).valueOf());</span><br><span class="line">    </span><br><span class="line">isDateValid(&quot;December 17, 1995 03:24:00&quot;);</span><br><span class="line">&#x2F;&#x2F; Result: true</span><br></pre></td></tr></table></figure>
+
+<h3 id="查找日期位于一年中的第几天"><a href="#查找日期位于一年中的第几天" class="headerlink" title="查找日期位于一年中的第几天"></a>查找日期位于一年中的第几天</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const dayOfYear &#x3D; (date) &#x3D;&gt;</span><br><span class="line">      Math.floor((date - new Date(date.getFullYear(), 0, 0)) &#x2F; 1000 &#x2F; 60 &#x2F; 60 &#x2F; 24);</span><br><span class="line">    </span><br><span class="line">dayOfYear(new Date());</span><br><span class="line">&#x2F;&#x2F; Result: 272</span><br></pre></td></tr></table></figure>
+
+<h3 id="英文字符串首字母大写"><a href="#英文字符串首字母大写" class="headerlink" title="英文字符串首字母大写"></a>英文字符串首字母大写</h3><p>JavaScript没有内置的首字母大写函数，因此我们可以使用以下代码。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const capitalize &#x3D; str &#x3D;&gt; str.charAt(0).toUpperCase() + str.slice(1)</span><br><span class="line">    </span><br><span class="line">capitalize(&quot;follow for more&quot;)</span><br><span class="line">&#x2F;&#x2F; Result: Follow for more</span><br></pre></td></tr></table></figure>
+
+<h3 id="计算2个日期之间相差多少天"><a href="#计算2个日期之间相差多少天" class="headerlink" title="计算2个日期之间相差多少天"></a>计算2个日期之间相差多少天</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const dayDif &#x3D; (date1, date2) &#x3D;&gt; Math.ceil(Math.abs(date1.getTime() - date2.getTime()) &#x2F; 86400000)</span><br><span class="line">    </span><br><span class="line">dayDif(new Date(&quot;2020-10-21&quot;), new Date(&quot;2021-10-22&quot;))</span><br><span class="line">&#x2F;&#x2F; Result: 366</span><br></pre></td></tr></table></figure>
+
+<h3 id="清除全部Cookie"><a href="#清除全部Cookie" class="headerlink" title="清除全部Cookie"></a>清除全部Cookie</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">通过使用document.cookie访问cookie并将其清除，可以轻松清除网页中存储的所有cookie</span><br><span class="line"></span><br><span class="line">const clearCookies &#x3D; document.cookie.split(&#39;;&#39;).forEach(cookie &#x3D;&gt; document.cookie &#x3D; cookie.replace(&#x2F;^ +&#x2F;, &#39;&#39;).replace(&#x2F;&#x3D;.*&#x2F;, &#96;&#x3D;;expires&#x3D;$&#123;new Date(0).toUTCString()&#125;;path&#x3D;&#x2F;&#96;));</span><br></pre></td></tr></table></figure>
+
+<h3 id="生成随机十六进制颜色"><a href="#生成随机十六进制颜色" class="headerlink" title="生成随机十六进制颜色"></a>生成随机十六进制颜色</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">可以使用 Math.random 和 padEnd 属性生成随机的十六进制颜色。</span><br><span class="line"></span><br><span class="line">const randomHex &#x3D; () &#x3D;&gt; &#96;#$&#123;Math.floor(Math.random() * 0xffffff).toString(16).padEnd(6, &quot;0&quot;)&#125;&#96;;</span><br><span class="line">    </span><br><span class="line"> console.log(randomHex());</span><br><span class="line">&#x2F;&#x2F; Result: #92b008</span><br></pre></td></tr></table></figure>
+
+<h3 id="数组去重"><a href="#数组去重" class="headerlink" title="数组去重"></a>数组去重</h3><p>可以使用 JavaScript 中的Set轻松删除重复项</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const removeDuplicates &#x3D; (arr) &#x3D;&gt; [...new Set(arr)];</span><br><span class="line">    </span><br><span class="line">console.log(removeDuplicates([1, 2, 3, 3, 4, 4, 5, 5, 6]));</span><br><span class="line">&#x2F;&#x2F; Result: [ 1, 2, 3, 4, 5, 6 ]</span><br></pre></td></tr></table></figure>
+
+<h3 id="从-URL-获取查询参数"><a href="#从-URL-获取查询参数" class="headerlink" title="从 URL 获取查询参数"></a>从 URL 获取查询参数</h3><p>可以通过传递 window.location 或原始 URL goole.com?search=easy&amp;page=3 轻松地从 url 检索查询参数</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const getParameters &#x3D; (URL) &#x3D;&gt; &#123;</span><br><span class="line">  URL &#x3D; jsON.parse(</span><br><span class="line">    &#39;&#123;&quot;&#39; +</span><br><span class="line">      decodeURI(URL.split(&quot;?&quot;)[1])</span><br><span class="line">        .replace(&#x2F;&quot;&#x2F;g, &#39;\\&quot;&#39;)</span><br><span class="line">        .replace(&#x2F;&amp;&#x2F;g, &#39;&quot;,&quot;&#39;)</span><br><span class="line">        .replace(&#x2F;&#x3D;&#x2F;g, &#39;&quot;:&quot;&#39;) +</span><br><span class="line">      &#39;&quot;&#125;&#39;</span><br><span class="line">  );</span><br><span class="line">  return jsON.stringify(URL);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">getParameters(window.location);</span><br><span class="line">&#x2F;&#x2F; Result: &#123; search : &quot;easy&quot;, page : 3 &#125;</span><br></pre></td></tr></table></figure>
+
+<p>或者更为简单的：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Object.fromEntries(new URLSearchParams(window.location.search))</span><br><span class="line">&#x2F;&#x2F; Result: &#123; search : &quot;easy&quot;, page : 3 &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="时间处理"><a href="#时间处理" class="headerlink" title="时间处理"></a>时间处理</h3><p>我们可以从给定日期以 hour::minutes::seconds 格式记录时间。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const timeFromDate &#x3D; date &#x3D;&gt; date.toTimeString().slice(0, 8);</span><br><span class="line">    </span><br><span class="line">console.log(timeFromDate(new Date(2021, 0, 10, 17, 30, 0))); </span><br><span class="line">&#x2F;&#x2F; Result: &quot;17:30:00&quot;</span><br></pre></td></tr></table></figure>
+
+<h3 id="校验数字是奇数还是偶数"><a href="#校验数字是奇数还是偶数" class="headerlink" title="校验数字是奇数还是偶数"></a>校验数字是奇数还是偶数</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const isEven &#x3D; num &#x3D;&gt; num % 2 &#x3D;&#x3D;&#x3D; 0;</span><br><span class="line">    </span><br><span class="line">console.log(isEven(2)); </span><br><span class="line">&#x2F;&#x2F; Result: True</span><br></pre></td></tr></table></figure>
+
+<h3 id="求数字的平均值"><a href="#求数字的平均值" class="headerlink" title="求数字的平均值"></a>求数字的平均值</h3><p>使用reduce方法找到多个数字之间的平均值。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const average &#x3D; (...args) &#x3D;&gt; args.reduce((a, b) &#x3D;&gt; a + b) &#x2F; args.length;</span><br><span class="line">    </span><br><span class="line">average(1, 2, 3, 4);</span><br><span class="line">&#x2F;&#x2F; Result: 2.5</span><br></pre></td></tr></table></figure>
+
+<h3 id="回到顶部"><a href="#回到顶部" class="headerlink" title="回到顶部"></a>回到顶部</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">可以使用 window.scrollTo(0, 0) 方法自动滚动到顶部。将 x 和 y 都设置为 0。</span><br><span class="line"></span><br><span class="line">const goToTop &#x3D; () &#x3D;&gt; window.scrollTo(0, 0);</span><br><span class="line">    </span><br><span class="line">goToTop();</span><br></pre></td></tr></table></figure>
+
+<h3 id="翻转字符串"><a href="#翻转字符串" class="headerlink" title="翻转字符串"></a>翻转字符串</h3><p>可以使用 split、reverse 和 join 方法轻松反转字符串。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const reverse &#x3D; str &#x3D;&gt; str.split(&#39;&#39;).reverse().join(&#39;&#39;);</span><br><span class="line">    </span><br><span class="line">reverse(&#39;hello world&#39;);     </span><br><span class="line">&#x2F;&#x2F; Result: &#39;dlrow olleh&#39;</span><br></pre></td></tr></table></figure>
+
+<h3 id="校验数组是否为空"><a href="#校验数组是否为空" class="headerlink" title="校验数组是否为空"></a>校验数组是否为空</h3><p>一行代码检查数组是否为空,将返回true或false</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const isNotEmpty &#x3D; arr &#x3D;&gt; Array.isArray(arr) &amp;&amp; arr.length &gt; 0;</span><br><span class="line">    </span><br><span class="line">isNotEmpty([1, 2, 3]);</span><br><span class="line">&#x2F;&#x2F; Result: true</span><br></pre></td></tr></table></figure>
+
+<h3 id="获取用户选择的文本"><a href="#获取用户选择的文本" class="headerlink" title="获取用户选择的文本"></a>获取用户选择的文本</h3><p>使用内置的getSelection 属性获取用户选择的文本。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const getSelectedText &#x3D; () &#x3D;&gt; window.getSelection().toString();</span><br><span class="line">    </span><br><span class="line">getSelectedText();</span><br></pre></td></tr></table></figure>
+
+<h3 id="打乱数组"><a href="#打乱数组" class="headerlink" title="打乱数组"></a>打乱数组</h3><p>可以使用sort 和 random 方法打乱数组</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const shuffleArray &#x3D; (arr) &#x3D;&gt; arr.sort(() &#x3D;&gt; 0.5 - Math.random());</span><br><span class="line">    </span><br><span class="line">console.log(shuffleArray([1, 2, 3, 4]));</span><br><span class="line">&#x2F;&#x2F; Result: [ 1, 4, 3, 2 ]</span><br></pre></td></tr></table></figure>
+
+<h3 id="检查用户的设备是否处于暗模式"><a href="#检查用户的设备是否处于暗模式" class="headerlink" title="检查用户的设备是否处于暗模式"></a>检查用户的设备是否处于暗模式</h3><p>使用以下代码检查用户的设备是否处于暗模式。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const isDarkMode &#x3D; window.matchMedia &amp;&amp; window.matchMedia(&#39;(prefers-color-scheme: dark)&#39;).matches</span><br><span class="line">    </span><br><span class="line">console.log(isDarkMode) </span><br><span class="line">&#x2F;&#x2F; Result: True or False</span><br></pre></td></tr></table></figure>
+
+<p>摘录某个大佬的文章,谢谢大佬无私分享</p>
+]]></content>
+      <categories>
+        <category>javaScript</category>
+      </categories>
+      <tags>
+        <tag>javaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>js实用小技巧</title>
+    <url>/2022/08/06/159-js%E5%AE%9E%E7%94%A8%E5%B0%8F%E6%8A%80%E5%B7%A7/</url>
+    <content><![CDATA[<hr style='filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)' color='#FF0000' size='1' />
+
+<blockquote>
+<p>记录一下 JavaScript开发中非常有用的小技巧, 欢迎各位大佬补充</p>
+</blockquote>
+<a id="more"></a>
+
+<h3 id="滚动到页面顶部"><a href="#滚动到页面顶部" class="headerlink" title="滚动到页面顶部"></a>滚动到页面顶部</h3><p>我们可以使用 window.scrollTo() 平滑滚动到页面顶部。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const scrollToTop &#x3D; () &#x3D;&gt; &#123;</span><br><span class="line">  window.scrollTo(&#123; top: 0, left: 0, behavior: &quot;smooth&quot; &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="滚动到页面底部"><a href="#滚动到页面底部" class="headerlink" title="滚动到页面底部"></a>滚动到页面底部</h3><p>当然，如果知道页面的高度，也可以平滑滚动到页面底部。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const scrollToBottom &#x3D; () &#x3D;&gt; &#123;</span><br><span class="line">  window.scrollTo(&#123;</span><br><span class="line">    top: document.documentElement.offsetHeight,</span><br><span class="line">    left: 0,</span><br><span class="line">    behavior: &quot;smooth&quot;,</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>这里记录一下,element平滑滚动到表单error位置</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">this.$nextTick(() &#x3D;&gt; &#123;</span><br><span class="line">  let isError &#x3D; document.getElementsByClassName(&#39;is-error&#39;)</span><br><span class="line">  &#x2F;&#x2F; 滚动到指定节点</span><br><span class="line">  isError[0].scrollIntoView(&#123;</span><br><span class="line">    &#x2F;&#x2F; 值有start,center,end，nearest，当前显示在视图区域中间</span><br><span class="line">    block: &#39;center&#39;,</span><br><span class="line">    &#x2F;&#x2F; 值有auto,instant,smooth，缓动动画（当前是慢速的）</span><br><span class="line">    behavior: &#39;smooth&#39;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="滚动元素到可见区域"><a href="#滚动元素到可见区域" class="headerlink" title="滚动元素到可见区域"></a>滚动元素到可见区域</h3><p>有时我们需要将元素滚动到可见区域，我们应该怎么做？使用 scrollIntoView 就足够了。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const smoothScroll &#x3D; (element) &#x3D;&gt; &#123;</span><br><span class="line">  element.scrollIntoView(&#123;</span><br><span class="line">    behavior: &quot;smooth&quot;,</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="全屏显示元素"><a href="#全屏显示元素" class="headerlink" title="全屏显示元素"></a>全屏显示元素</h3><p>你一定遇到过这样的场景，需要全屏播放视频，并在浏览器中全屏打开页面。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const goToFullScreen &#x3D; (element) &#x3D;&gt; &#123;</span><br><span class="line">  element &#x3D; element || document.body;</span><br><span class="line">  if (element.requestFullscreen) &#123;</span><br><span class="line">    element.requestFullscreen();</span><br><span class="line">  &#125; else if (element.mozRequestFullScreen) &#123;</span><br><span class="line">    element.mozRequestFullScreen();</span><br><span class="line">  &#125; else if (element.msRequestFullscreen) &#123;</span><br><span class="line">    element.msRequestFullscreen();</span><br><span class="line">  &#125; else if (element.webkitRequestFullscreen) &#123;</span><br><span class="line">    element.webkitRequestFullScreen();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="退出浏览器全屏状态"><a href="#退出浏览器全屏状态" class="headerlink" title="退出浏览器全屏状态"></a>退出浏览器全屏状态</h3><p>是的，这个和第4点一起使用，你也会有退出浏览器全屏状态的场景。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const goExitFullscreen &#x3D; () &#x3D;&gt; &#123;</span><br><span class="line">  if (document.exitFullscreen) &#123;</span><br><span class="line">    document.exitFullscreen();</span><br><span class="line">  &#125; else if (document.msExitFullscreen) &#123;</span><br><span class="line">    document.msExitFullscreen();</span><br><span class="line">  &#125; else if (document.mozCancelFullScreen) &#123;</span><br><span class="line">    document.mozCancelFullScreen();</span><br><span class="line">  &#125; else if (document.webkitExitFullscreen) &#123;</span><br><span class="line">    document.webkitExitFullscreen();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="获取数据类型"><a href="#获取数据类型" class="headerlink" title="获取数据类型"></a>获取数据类型</h3><p>如何通过函数获取变量的数据类型？</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const getType &#x3D; (value) &#x3D;&gt; &#123;</span><br><span class="line">  const match &#x3D; Object.prototype.toString.call(value).match(&#x2F; (\w+)]&#x2F;)</span><br><span class="line">  return match[1].toLocaleLowerCase()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">getType() &#x2F;&#x2F; undefined</span><br><span class="line">getType(&#123;&#125;&#125;) &#x2F;&#x2F; object</span><br><span class="line">getType([]) &#x2F;&#x2F; array</span><br><span class="line">getType(1) &#x2F;&#x2F; number</span><br><span class="line">getType(&#39;fatfish&#39;) &#x2F;&#x2F; string</span><br><span class="line">getType(true) &#x2F;&#x2F; boolean</span><br><span class="line">getType(&#x2F;fatfish&#x2F;) &#x2F;&#x2F; regexp</span><br></pre></td></tr></table></figure>
+
+<h3 id="停止冒泡事件"><a href="#停止冒泡事件" class="headerlink" title="停止冒泡事件"></a>停止冒泡事件</h3><p>一种适用于所有平台的防止事件冒泡的方法。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const stopPropagation &#x3D; (event) &#x3D;&gt; &#123;</span><br><span class="line">  event &#x3D; event || window.event;</span><br><span class="line">  if (event.stopPropagation) &#123;</span><br><span class="line">    event.stopPropagation();</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">    event.cancelBubble &#x3D; true;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="深拷贝一个对象如何复制深度嵌套的对象？"><a href="#深拷贝一个对象如何复制深度嵌套的对象？" class="headerlink" title="深拷贝一个对象如何复制深度嵌套的对象？"></a>深拷贝一个对象如何复制深度嵌套的对象？</h3><blockquote>
+<p>适用于对象嵌套对象</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const deepCopy &#x3D; (obj, hash &#x3D; new WeakMap()) &#x3D;&gt; &#123;</span><br><span class="line">  if (obj instanceof Date) &#123;</span><br><span class="line">    return new Date(obj);</span><br><span class="line">  &#125;</span><br><span class="line">  if (obj instanceof RegExp) &#123;</span><br><span class="line">    return new RegExp(obj);</span><br><span class="line">  &#125;</span><br><span class="line">  if (hash.has(obj)) &#123;</span><br><span class="line">    return hash.get(obj);</span><br><span class="line">  &#125;</span><br><span class="line">  let allDesc &#x3D; Object.getOwnPropertyDescriptors(obj);</span><br><span class="line">  let cloneObj &#x3D; Object.create(Object.getPrototypeOf(obj), allDesc);</span><br><span class="line">  hash.set(obj, cloneObj);</span><br><span class="line">  for (let key of Reflect.ownKeys(obj)) &#123;</span><br><span class="line">    if (obj[key] &amp;&amp; typeof obj[key] &#x3D;&#x3D;&#x3D; &quot;object&quot;) &#123;</span><br><span class="line">      cloneObj[key] &#x3D; deepCopy(obj[key], hash);</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      cloneObj[key] &#x3D; obj[key];</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  return cloneObj;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="确定设备类型"><a href="#确定设备类型" class="headerlink" title="确定设备类型"></a>确定设备类型</h3><p>我们经常必须这样做才能在手机上显示 A 逻辑，在 PC 上显示 B 逻辑。基本上，设备类型是通过识别浏览器的 userAgent 来确定的。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const isMobile &#x3D; () &#x3D;&gt; &#123;</span><br><span class="line">  return !!navigator.userAgent.match(</span><br><span class="line">    &#x2F;(iPhone|iPod|Android|ios|iOS|iPad|Backerry|WebOS|Symbian|Windows Phone|Phone)&#x2F;i</span><br><span class="line">  );</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>###判断设备是安卓还是IOS </p>
+<p>除了区分是移动端还是PC端，很多时候我们还需要区分当前设备是Android还是IOS。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const isAndroid &#x3D; () &#x3D;&gt; &#123;</span><br><span class="line">  return &#x2F;android&#x2F;i.test(navigator.userAgent.toLowerCase());</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">const isIOS &#x3D; () &#x3D;&gt; &#123;</span><br><span class="line">  let reg &#x3D; &#x2F;iPhone|iPad|iPod|iOS|Macintosh&#x2F;i;</span><br><span class="line">  return reg.test(navigator.userAgent.toLowerCase());</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="获取浏览器类型及其版本"><a href="#获取浏览器类型及其版本" class="headerlink" title="获取浏览器类型及其版本"></a>获取浏览器类型及其版本</h3><p>作为前端开发人员，您可能会遇到各种兼容性问题，这时候可能需要获取浏览器的类型和版本。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const getExplorerInfo &#x3D; () &#x3D;&gt; &#123;</span><br><span class="line">  let t &#x3D; navigator.userAgent.toLowerCase();</span><br><span class="line">  return 0 &lt;&#x3D; t.indexOf(&quot;msie&quot;)</span><br><span class="line">    ? &#123;</span><br><span class="line">        &#x2F;&#x2F;ie &lt; 11</span><br><span class="line">        type: &quot;IE&quot;,</span><br><span class="line">        version: Number(t.match(&#x2F;msie ([\d]+)&#x2F;)[1]),</span><br><span class="line">      &#125;</span><br><span class="line">    : !!t.match(&#x2F;trident\&#x2F;.+?rv:(([\d.]+))&#x2F;)</span><br><span class="line">    ? &#123;</span><br><span class="line">        &#x2F;&#x2F; ie 11</span><br><span class="line">        type: &quot;IE&quot;,</span><br><span class="line">        version: 11,</span><br><span class="line">      &#125;</span><br><span class="line">    : 0 &lt;&#x3D; t.indexOf(&quot;edge&quot;)</span><br><span class="line">    ? &#123;</span><br><span class="line">        type: &quot;Edge&quot;,</span><br><span class="line">        version: Number(t.match(&#x2F;edge\&#x2F;([\d]+)&#x2F;)[1]),</span><br><span class="line">      &#125;</span><br><span class="line">    : 0 &lt;&#x3D; t.indexOf(&quot;firefox&quot;)</span><br><span class="line">    ? &#123;</span><br><span class="line">        type: &quot;Firefox&quot;,</span><br><span class="line">        version: Number(t.match(&#x2F;firefox\&#x2F;([\d]+)&#x2F;)[1]),</span><br><span class="line">      &#125;</span><br><span class="line">    : 0 &lt;&#x3D; t.indexOf(&quot;chrome&quot;)</span><br><span class="line">    ? &#123;</span><br><span class="line">        type: &quot;Chrome&quot;,</span><br><span class="line">        version: Number(t.match(&#x2F;chrome\&#x2F;([\d]+)&#x2F;)[1]),</span><br><span class="line">      &#125;</span><br><span class="line">    : 0 &lt;&#x3D; t.indexOf(&quot;opera&quot;)</span><br><span class="line">    ? &#123;</span><br><span class="line">        type: &quot;Opera&quot;,</span><br><span class="line">        version: Number(t.match(&#x2F;opera.([\d]+)&#x2F;)[1]),</span><br><span class="line">      &#125;</span><br><span class="line">    : 0 &lt;&#x3D; t.indexOf(&quot;Safari&quot;)</span><br><span class="line">    ? &#123;</span><br><span class="line">        type: &quot;Safari&quot;,</span><br><span class="line">        version: Number(t.match(&#x2F;version\&#x2F;([\d]+)&#x2F;)[1]),</span><br><span class="line">      &#125;</span><br><span class="line">    : &#123;</span><br><span class="line">        type: t,</span><br><span class="line">        version: -1,</span><br><span class="line">      &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="设置cookies"><a href="#设置cookies" class="headerlink" title="设置cookies"></a>设置cookies</h3><p>cookie 可能是我见过的最糟糕的 API，它很难使用，以至于我们不得不重新封装它以最大限度地提高开发效率。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const setCookie &#x3D; (key, value, expire) &#x3D;&gt; &#123;</span><br><span class="line">  const d &#x3D; new Date();</span><br><span class="line">  d.setDate(d.getDate() + expire);</span><br><span class="line">  document.cookie &#x3D; &#96;$&#123;key&#125;&#x3D;$&#123;value&#125;;expires&#x3D;$&#123;d.toUTCString()&#125;&#96;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>获取 cookie除了写入 cookie 之外，我们还将参与其读取操作。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const getCookie &#x3D; (key) &#x3D;&gt; &#123;</span><br><span class="line">  const cookieStr &#x3D; unescape(document.cookie);</span><br><span class="line">  const arr &#x3D; cookieStr.split(&quot;; &quot;);</span><br><span class="line">  let cookieValue &#x3D; &quot;&quot;;</span><br><span class="line">  for (let i &#x3D; 0; i &lt; arr.length; i++) &#123;</span><br><span class="line">    const temp &#x3D; arr[i].split(&quot;&#x3D;&quot;);</span><br><span class="line">    if (temp[0] &#x3D;&#x3D;&#x3D; key) &#123;</span><br><span class="line">      cookieValue &#x3D; temp[1];</span><br><span class="line">      break;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  return cookieValue;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="删除cookies"><a href="#删除cookies" class="headerlink" title="删除cookies"></a>删除cookies</h3><p>删除cookie 的想法是什么？其实，只要把它的过期时间设置为这一刻，它就会立即过期。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const delCookie &#x3D; (key) &#x3D;&gt; &#123;</span><br><span class="line">  document.cookie &#x3D; &#96;$&#123;encodeURIComponent(key)&#125;&#x3D;;expires&#x3D;$&#123;new Date()&#125;&#96;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="生成随机字符串"><a href="#生成随机字符串" class="headerlink" title="生成随机字符串"></a>生成随机字符串</h3><p>不知道大家有没有遇到过需要生成随机字符串的场景。我遇到过很多次，每次都要google一遍，直到学会这个工具功能。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const randomString &#x3D; (len) &#x3D;&gt; &#123;</span><br><span class="line">  let chars &#x3D; &quot;ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz123456789&quot;;</span><br><span class="line">  let strLen &#x3D; chars.length;</span><br><span class="line">  let randomStr &#x3D; &quot;&quot;;</span><br><span class="line">  for (let i &#x3D; 0; i &lt; len; i++) &#123;</span><br><span class="line">    randomStr +&#x3D; chars.charAt(Math.floor(Math.random() * strLen));</span><br><span class="line">  &#125;</span><br><span class="line">  return randomStr;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">randomString(10) &#x2F;&#x2F; pfkMfjEJ6x</span><br><span class="line">randomString(20) &#x2F;&#x2F; ce6tEx1km4idRNMtym2S</span><br></pre></td></tr></table></figure>
+
+<h3 id="字符串首字母大写"><a href="#字符串首字母大写" class="headerlink" title="字符串首字母大写"></a>字符串首字母大写</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const fistLetterUpper &#x3D; (str) &#x3D;&gt; &#123;</span><br><span class="line">  return str.charAt(0).toUpperCase() + str.slice(1);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">fistLetterUpper(&#39;fatfish&#39;) &#x2F;&#x2F; Fatfish</span><br></pre></td></tr></table></figure>
+
+<h3 id="生成指定范围内的随机数"><a href="#生成指定范围内的随机数" class="headerlink" title="生成指定范围内的随机数"></a>生成指定范围内的随机数</h3><p>也许出于测试目的，我经常需要生成一定范围内的随机数。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const randomNum &#x3D; (min, max) &#x3D;&gt; Math.floor(Math.random() * (max - min + 1)) + min;</span><br><span class="line"></span><br><span class="line">randomNum(1, 10) &#x2F;&#x2F; 6</span><br><span class="line">randomNum(10, 20) &#x2F;&#x2F; 11</span><br></pre></td></tr></table></figure>
+
+<h3 id="打乱数组的顺序"><a href="#打乱数组的顺序" class="headerlink" title="打乱数组的顺序"></a>打乱数组的顺序</h3><p>如何打乱数组的原始顺序？</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const shuffleArray &#x3D; (array) &#x3D;&gt; &#123;</span><br><span class="line">  return array.sort(() &#x3D;&gt; 0.5 - Math.random())</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">let arr &#x3D; [ 1, -1, 10, 5 ]</span><br><span class="line"></span><br><span class="line">shuffleArray(arr) &#x2F;&#x2F; [5, -1, 10, 1]</span><br><span class="line">shuffleArray(arr) &#x2F;&#x2F; [1, 10, -1, 5]</span><br></pre></td></tr></table></figure>
+
+<h3 id="从数组中获取随机值"><a href="#从数组中获取随机值" class="headerlink" title="从数组中获取随机值"></a>从数组中获取随机值</h3><p>之前做过一个抽奖项目，需要让数组中的奖品随机出现。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const getRandomValue &#x3D; array &#x3D;&gt; array[Math.floor(Math.random() * array.length)]; </span><br><span class="line">const prizes &#x3D; [  &#39;$100&#39;, &#39; &#39;, &#39; &#39; ]</span><br><span class="line"></span><br><span class="line">getRandomValue(prizes) &#x2F;&#x2F;  </span><br><span class="line">getRandomValue(prizes) &#x2F;&#x2F;  </span><br><span class="line">getRandomValue(prizes) &#x2F;&#x2F;</span><br></pre></td></tr></table></figure>
+
+<h3 id="格式化货币"><a href="#格式化货币" class="headerlink" title="格式化货币"></a>格式化货币</h3><p>格式化货币的方式有很多，比如这两种方式。</p>
+<p>第一种方法</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const formatMoney &#x3D; (money) &#x3D;&gt; &#123;</span><br><span class="line">  return money.replace(new RegExp(&#96;(?!^)(?&#x3D;(\\d&#123;3&#125;)+$&#123;money.includes(&#39;.&#39;) ? &#39;\\.&#39; : &#39;$&#39;&#125;)&#96;, &#39;g&#39;), &#39;,&#39;)  </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">formatMoney(&#39;123456789&#39;) &#x2F;&#x2F; &#39;123,456,789&#39;</span><br><span class="line">formatMoney(&#39;123456789.123&#39;) &#x2F;&#x2F; &#39;123,456,789.123&#39;</span><br><span class="line">formatMoney(&#39;123&#39;) &#x2F;&#x2F; &#39;123&#39;</span><br></pre></td></tr></table></figure>
+
+<p>第二种方式</p>
+<p>正则表达式让我们很头疼，不是吗？所以我们需要找到一种更简单的方式来格式化货币。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const formatMoney &#x3D; (money) &#x3D;&gt; &#123;</span><br><span class="line">  return money.toLocaleString()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">formatMoney(123456789) &#x2F;&#x2F; &#39;123,456,789&#39;</span><br><span class="line">formatMoney(123456789.123) &#x2F;&#x2F; &#39;123,456,789.123&#39;</span><br><span class="line">formatMoney(123) &#x2F;&#x2F; &#39;123&#39;</span><br></pre></td></tr></table></figure>
+
+<p>从各个地方摘录过来的,后续会继续补充,侵删~</p>
+]]></content>
+      <categories>
+        <category>javaScript</category>
+      </categories>
+      <tags>
+        <tag>javaScript</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>分线程操作</title>
     <url>/2017/01/22/16-%E5%88%86%E7%BA%BF%E7%A8%8B/</url>
     <content><![CDATA[<hr style='filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)' color='#FF0000' size='1' />
@@ -4669,6 +5033,258 @@ postMessage(&apos;传回主线程的值&apos;);</code></pre><p>五、 主线程�
       <tags>
         <tag>Web Worker</tag>
         <tag>分线程</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>uni-app分包</title>
+    <url>/2022/10/01/160-uni-app%E5%88%86%E5%8C%85/</url>
+    <content><![CDATA[<hr style='filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)' color='#FF0000' size='1' />
+
+<blockquote>
+<p>不知不觉又是一个国庆了，记录一下uni-app分包的学习过程</p>
+</blockquote>
+<a id="more"></a>
+
+<p>不知道大家是不是都有遇到过，当微信小程序准备发布的时候，结果提示超过了2M的限制，于是赶紧开始优化代码，实在是令人头痛，现在，我们就使用分包来解决这个事情</p>
+<p>首先先来看看分包有哪些限制</p>
+<h3 id="大小限制"><a href="#大小限制" class="headerlink" title="大小限制"></a>大小限制</h3><ul>
+<li>微信小程序每个分包的大小是2M，总体积一共不能超过20M。</li>
+<li>百度小程序每个分包的大小是2M，总体积一共不能超过8M。</li>
+<li>支付宝小程序每个分包的大小是2M，总体积一共不能超过8M。</li>
+<li>QQ小程序每个分包的大小是2M，总体积一共不能超过24M。</li>
+<li>字节小程序每个分包的大小是2M，总体积一共不能超过16M（字节小程序基础库 1.88.0 及以上版本开始支持，字节小程序开发者工具请使用大于等于 2.0.6 且小于 3.0.0 的版本）</li>
+</ul>
+<p>这里我们以微信小程序为例</p>
+<h3 id="打包原则"><a href="#打包原则" class="headerlink" title="打包原则"></a>打包原则</h3><ul>
+<li>声明 subpackages 后，将按 subpackages 配置路径进行打包，subpackages 配置路径外的目录将被打包到主包中</li>
+<li>主包也可以有自己的 pages，即最外层的 pages 字段。</li>
+<li>subpackage 的根目录不能是另外一个 subpackage 内的子目录</li>
+<li>tabBar 页面必须在主包内</li>
+</ul>
+<blockquote>
+<p>pages里定义的是 主包的路径，subPackages里定义的是 分包的路径</p>
+</blockquote>
+<h3 id="引用原则"><a href="#引用原则" class="headerlink" title="引用原则"></a>引用原则</h3><p>packageA 无法 require packageB JS 文件，但可以 require 主包、packageA 内的 JS 文件<br>packageA 无法 import packageB 的 template，但可以 require 主包、packageA 内的 template<br>packageA 无法使用 packageB 的资源，但可以使用主包、packageA 内的资源</p>
+<blockquote>
+<p>简单的来说，分包只能使用或引用分包自身的内容</p>
+</blockquote>
+<h3 id="项目配置"><a href="#项目配置" class="headerlink" title="项目配置"></a>项目配置</h3><p>先贴个图看看我的demo目录是什么样的 </p>
+<p><img src="https://csblogimage.oss-cn-hangzhou.aliyuncs.com/160-%E5%88%86%E5%8C%85%E6%A8%A1%E6%9D%BF.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,size_16,text_Qnku6ZmI5YWI55Sf55qE5bCP5YmN56uv,color_FFFFFF,shadow_50,t_100,g_se,x_10,y_10" alt="uni-app分包结构"></p>
+<p>大体上我们了四个文件夹(pages, pagesActivity,pangesIndex,pagesMember)，这个主要是看项目需要，这里只是一个demo</p>
+<p>其中，pages就是作为我们的主包，里面的内容存放的是 tabBar 的页面，其他三个就是分包的内容，可以理解为子页面的存放</p>
+<p>各种的子包文件中，可以创建一个static用于存放静态文件，毕竟每个子包的资源是不共享的</p>
+<p>再看看pages.json是怎么写的</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;easycom&quot;: &#123;</span><br><span class="line">    &quot;^u-(.*)&quot;: &quot;@&#x2F;uview-ui&#x2F;components&#x2F;u-$1&#x2F;u-$1.vue&quot;</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;pages&quot;: [&#123;</span><br><span class="line">    &quot;path&quot;: &quot;pages&#x2F;index&#x2F;index&quot;,</span><br><span class="line">    &quot;style&quot;: &#123;</span><br><span class="line">      &quot;navigationBarTitleText&quot;: &quot;首页&quot;,</span><br><span class="line">      &quot;enablePullDownRefresh&quot;: false</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;, &#123;</span><br><span class="line">    &quot;path&quot;: &quot;pages&#x2F;member&#x2F;member&quot;,</span><br><span class="line">    &quot;style&quot;: &#123;</span><br><span class="line">      &quot;navigationBarTitleText&quot;: &quot;商户&quot;,</span><br><span class="line">      &quot;enablePullDownRefresh&quot;: false</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;, &#123;</span><br><span class="line">    &quot;path&quot;: &quot;pages&#x2F;activity&#x2F;activity&quot;,</span><br><span class="line">    &quot;style&quot;: &#123;</span><br><span class="line">      &quot;navigationBarTitleText&quot;: &quot;活动&quot;,</span><br><span class="line">      &quot;enablePullDownRefresh&quot;: false</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;],</span><br><span class="line">  &#x2F;&#x2F; 分包加载配置 root-子包的根目录   pages-页面路径 name-分包别名 independent-是否为独立分包 最后两个属性用的比较少</span><br><span class="line">  &quot;subPackages&quot;: [&#123;</span><br><span class="line">    &quot;root&quot;: &quot;pagesIndex&quot;,</span><br><span class="line">    &quot;pages&quot;: [&#123;</span><br><span class="line">      &quot;path&quot;: &quot;indexChild&#x2F;indexChild&quot;,</span><br><span class="line">      &quot;style&quot;: &#123;&#125;</span><br><span class="line">    &#125;]</span><br><span class="line">  &#125;, &#123;</span><br><span class="line">    &quot;root&quot;: &quot;pagesMember&quot;,</span><br><span class="line">    &quot;pages&quot;: [&#123;</span><br><span class="line">      &quot;path&quot;: &quot;memberChild&#x2F;memberChild&quot;,</span><br><span class="line">      &quot;style&quot;: &#123;&#125;</span><br><span class="line">    &#125;]</span><br><span class="line">  &#125;, &#123;</span><br><span class="line">    &quot;root&quot;: &quot;pagesActivity&quot;,</span><br><span class="line">    &quot;pages&quot;: [&#123;</span><br><span class="line">      &quot;path&quot;: &quot;games&#x2F;card&#x2F;card&quot;,</span><br><span class="line">      &quot;style&quot;: &#123;&#125;</span><br><span class="line">    &#125;]</span><br><span class="line">  &#125;],</span><br><span class="line">  &#x2F;&#x2F; 分包预加载配置  对象中的key-页面路径 packages-预下载的root名  network-在什么指定网络环境下可以预加载，all是所有网络，wifi是wifi网络</span><br><span class="line">  &quot;preloadRule&quot;: &#123;</span><br><span class="line">    &quot;pages&#x2F;index&#x2F;index&quot;: &#123;</span><br><span class="line">      &quot;network&quot;: &quot;all&quot;,</span><br><span class="line">      &quot;packages&quot;: [&quot;pagesIndex&quot;]</span><br><span class="line">    &#125;,</span><br><span class="line">    &quot;pages&#x2F;member&#x2F;member&quot;: &#123;</span><br><span class="line">      &quot;network&quot;: &quot;all&quot;,</span><br><span class="line">      &quot;packages&quot;: [&quot;pagesMember&quot;]</span><br><span class="line">    &#125;,</span><br><span class="line">    &quot;pages&#x2F;activity&#x2F;activity&quot;: &#123;</span><br><span class="line">      &quot;network&quot;: &quot;all&quot;,</span><br><span class="line">      &quot;packages&quot;: [&quot;pagesActivity&quot;]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;globalStyle&quot;: &#123;</span><br><span class="line">    &quot;navigationBarTextStyle&quot;: &quot;black&quot;,</span><br><span class="line">    &quot;navigationBarTitleText&quot;: &quot;uni-app&quot;,</span><br><span class="line">    &quot;navigationBarBackgroundColor&quot;: &quot;#ffffff&quot;,</span><br><span class="line">    &quot;backgroundColor&quot;: &quot;#F8F8F8&quot;</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;tabBar&quot;: &#123;</span><br><span class="line">    &quot;color&quot;: &quot;#666666&quot;,</span><br><span class="line">    &quot;selectedColor&quot;: &quot;#f01022&quot;,</span><br><span class="line">    &quot;borderStyle&quot;: &quot;white&quot;,</span><br><span class="line">    &quot;backgroundColor&quot;: &quot;#ffffff&quot;,</span><br><span class="line">    &quot;list&quot;: [&#123;&quot;pagePath&quot;:&quot;pages&#x2F;index&#x2F;index&quot;,&quot;iconPath&quot;:&quot;static&#x2F;tab&#x2F;tab-member.png&quot;,&quot;selectedIconPath&quot;:&quot;static&#x2F;tab&#x2F;tab-member-current.png&quot;,&quot;text&quot;:&quot;我的&quot;&#125;,&#123;&quot;pagePath&quot;:&quot;pages&#x2F;member&#x2F;member&quot;,&quot;iconPath&quot;:&quot;static&#x2F;tab&#x2F;tab-member.png&quot;,&quot;selectedIconPath&quot;:&quot;static&#x2F;tab&#x2F;tab-member-current.png&quot;,&quot;text&quot;:&quot;商户&quot;&#125;,&#123;&quot;pagePath&quot;:&quot;pages&#x2F;activity&#x2F;activity&quot;,&quot;iconPath&quot;:&quot;static&#x2F;tab&#x2F;tab-member.png&quot;,&quot;selectedIconPath&quot;:&quot;static&#x2F;tab&#x2F;tab-member-current.png&quot;,&quot;text&quot;:&quot;活动&quot;&#125;]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以看到， subPackages 的配置就是用来配置分包文件的路由的，注释也都在代码里面</p>
+<blockquote>
+<p>到这里，分包就已经搭建完了，大家的项目结构如何和我的不同，也没有关系，有一些文件是其他的配置，不必在意</p>
+</blockquote>
+<p>如果分包完之后，主包还是大，只需要3步</p>
+<ol>
+<li><p>在manifest.json里源码视图的mp-weixin加上   “optimization”:{“subPackages”:true}</p>
+</li>
+<li><p>在编译器里勾选运行时压缩代码</p>
+</li>
+<li><p>上传代码时压缩css</p>
+</li>
+</ol>
+<p>然后重新运行一下项目即可</p>
+<p>以上就是我对uni-app分包的一些理解,如果文章由于我学识浅薄,导致您发现有严重谬误的地方,请一定在评论中指出,我会在第一时间修正我的博文,以避免误人子弟。</p>
+]]></content>
+      <categories>
+        <category>uniApp</category>
+      </categories>
+      <tags>
+        <tag>uniApp</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>uni-app配置axios</title>
+    <url>/2022/11/12/161-uni-app%E9%85%8D%E7%BD%AEaxios/</url>
+    <content><![CDATA[<hr style='filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)' color='#FF0000' size='1' />
+
+<blockquote>
+<p>axios我们都使用过，怎么在uni-app中使用呢</p>
+</blockquote>
+<a id="more"></a>
+
+<p>uni-app的官网提供了 <code>uni.request</code> 作为请求网络的API，但是我们如果习惯了使用axios，那就要在uni-app中引入了</p>
+<p>首先，在项目中引入 axios的包是必不可少的 <code>npm install</code> 安装即可</p>
+<p>然后在工具包中新建一个<code>request.js</code>的文件，用来封装我们的axios</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import axios from &#39;axios&#39;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 创建axios实例</span><br><span class="line">const service &#x3D; axios.create(&#123;</span><br><span class="line">  baseURL: process.env.BASE_API, &#x2F;&#x2F; api 的 base_url</span><br><span class="line">  timeout: 60000 &#x2F;&#x2F; 请求超时时间</span><br><span class="line">&#125;)</span><br><span class="line">&#x2F;&#x2F; request拦截器</span><br><span class="line">service.interceptors.request.use((config) &#x3D;&gt; &#123;</span><br><span class="line">    try&#123;</span><br><span class="line">      config.data &#x3D; JSON.parse(config.data)</span><br><span class="line">    &#125;catch(e)&#123;</span><br><span class="line">      &#x2F;&#x2F;TODO handle the exception</span><br><span class="line">    &#125;</span><br><span class="line">    return config</span><br><span class="line">  &#125;,</span><br><span class="line">  (error) &#x3D;&gt; &#123;</span><br><span class="line">    Promise.reject(error)</span><br><span class="line">  &#125;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; response 拦截器</span><br><span class="line">service.interceptors.response.use(</span><br><span class="line">(response) &#x3D;&gt; &#123;</span><br><span class="line">    return new Promise((resolve, reject) &#x3D;&gt; &#123;</span><br><span class="line">      const res &#x3D; response.data </span><br><span class="line">      &#x2F;&#x2F; 正常数据返回</span><br><span class="line">      resolve(response.data)</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;,</span><br><span class="line">  (error) &#x3D;&gt; &#123;</span><br><span class="line">    if (error &amp;&amp; error.response) &#123;</span><br><span class="line">      switch (error.response.status) &#123;</span><br><span class="line">      case 400: errorObj.message &#x3D; &#39;(c1400)&#39; ; break; &#x2F;&#x2F; 请求错误</span><br><span class="line">      case 401: errorObj.message &#x3D; &#39;(c1401)&#39;; break; &#x2F;&#x2F; 未授权</span><br><span class="line">      case 403: errorObj.message &#x3D; &#39;(c1403)&#39;; break; &#x2F;&#x2F; 拒绝访问</span><br><span class="line">      case 404: errorObj.message &#x3D; &#39;(c1404)&#39;; break; &#x2F;&#x2F; 请求出错</span><br><span class="line">      case 408: errorObj.message &#x3D; &#39;(c1408)&#39;; break; &#x2F;&#x2F; 请求超时</span><br><span class="line">      case 500: errorObj.message &#x3D; &#39;(c1500)&#39;; break; &#x2F;&#x2F; 服务器错误</span><br><span class="line">      case 501: errorObj.message &#x3D; &#39;(c1501)&#39;; break; &#x2F;&#x2F; 服务未实现</span><br><span class="line">      case 502: errorObj.message &#x3D; &#39;(c1502)&#39;; break; &#x2F;&#x2F; 网络错误</span><br><span class="line">      case 503: errorObj.message &#x3D; &#39;(c1503)&#39;; break; &#x2F;&#x2F; 服务不可用</span><br><span class="line">      case 504: errorObj.message &#x3D; &#39;(c1504)&#39;; break; &#x2F;&#x2F; 网络超时</span><br><span class="line">      case 505: errorObj.message &#x3D; &#39;(c1505)&#39;; break; &#x2F;&#x2F; HTTP版本不受支持</span><br><span class="line">      default: errorObj.message &#x3D; &#96;连接出错($&#123;error.response.status&#125;)!&#96; &#x2F;&#x2F; 连接出错</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">      errorObj.message &#x3D; &#39;(c3289)&#39;</span><br><span class="line">    &#125;</span><br><span class="line">    uni.hideToast();</span><br><span class="line">    uni.showToast(&#123;</span><br><span class="line">      title: &#39;网络繁忙,请稍后再试&#39;,</span><br><span class="line">      duration: 2000,</span><br><span class="line">      icon: &#39;none&#39;</span><br><span class="line">    &#125;);</span><br><span class="line">    Promise.reject(error)</span><br><span class="line">    return errorObj</span><br><span class="line">  &#125;</span><br><span class="line">)</span><br><span class="line">&#x2F;&#x2F;用来适配uniapp的语法</span><br><span class="line">axios.defaults.adapter &#x3D; function(config) &#123;</span><br><span class="line">	return new Promise((resolve, reject) &#x3D;&gt; &#123;</span><br><span class="line">		var settle &#x3D; require(&#39;axios&#x2F;lib&#x2F;core&#x2F;settle&#39;);</span><br><span class="line">		var buildURL &#x3D; require(&#39;axios&#x2F;lib&#x2F;helpers&#x2F;buildURL&#39;);</span><br><span class="line">		uni.request(&#123;</span><br><span class="line">			method: config.method.toUpperCase(),</span><br><span class="line">			url: buildURL(config.url, config.params, config.paramsSerializer),</span><br><span class="line">			&#x2F;&#x2F; url: config.baseURL + buildURL(config.url, config.params, config.paramsSerializer),</span><br><span class="line">			header: config.headers,</span><br><span class="line">			data: config.data,</span><br><span class="line">			dataType: config.dataType,</span><br><span class="line">			responseType: config.responseType,</span><br><span class="line">			sslVerify: config.sslVerify,</span><br><span class="line">			complete: function complete(response) &#123;</span><br><span class="line">				response &#x3D; &#123;</span><br><span class="line">					data: response.data,</span><br><span class="line">					status: response.statusCode,</span><br><span class="line">					errMsg: response.errMsg,</span><br><span class="line">					header: response.header,</span><br><span class="line">					config: config</span><br><span class="line">				&#125;;</span><br><span class="line">				settle(resolve, reject, response);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;)</span><br><span class="line">	&#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">export default service</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>踩坑! ! ! 一开始以为和vue一样使用,直接引入axios后,就可以开始请求接口,接口一直报错,百度后找到了解决办法</p>
+</blockquote>
+<p>其实看上半部分，和vue中配置的很像，但是最重要的就是下面那个用来适配uniapp的语法的函数</p>
+<p>然后把文件在<code>main.js</code>中引入</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import axios from &#39;.&#x2F;common&#x2F;request.js&#39;</span><br><span class="line">Vue.prototype.$axios &#x3D; axios;</span><br></pre></td></tr></table></figure>
+
+<p>页面中就可以开始使用啦</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">this.$axios.request(&#123;</span><br><span class="line">  url: https:&#x2F;&#x2F;xxx.com,</span><br><span class="line">  method: &#39;POST&#39;,</span><br><span class="line">  data: &#123;&#125;</span><br><span class="line">&#125;).then(response &#x3D;&gt; &#123;&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>以上就是我对uni-app配置axios的一些理解,如果文章由于我学识浅薄,导致您发现有严重谬误的地方,请一定在评论中指出,我会在第一时间修正我的博文,以避免误人子弟。</p>
+]]></content>
+      <categories>
+        <category>uniApp</category>
+      </categories>
+      <tags>
+        <tag>uniApp</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>小程序登陆锁</title>
+    <url>/2022/12/06/162-%E5%B0%8F%E7%A8%8B%E5%BA%8F%E7%99%BB%E9%99%86%E9%94%81/</url>
+    <content><![CDATA[<hr style='filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)' color='#FF0000' size='1' />
+
+<blockquote>
+<p>超时登录我们肯定都遇到过,PC端的解决办法经常都是返回到登录页重新登录,那小程序里面呢,要怎么实现</p>
+</blockquote>
+<a id="more"></a>
+
+<p>小程序用户在使用中,我们都知道,肯定不能退出到首页让用户重新登录,不然用户体验会很差,大致分为以下几种问题</p>
+<blockquote>
+<p>一般情况下,小程序token不会设置的那么短</p>
+</blockquote>
+<ol>
+<li><p>调用接口后,后端返回超时登录,这时候需要重新登录获取token</p>
+</li>
+<li><p>获取token后,需要重新调用之前的接口,把新的token带上,重新获取数据,让用户无感登录</p>
+</li>
+<li><p>如果页面同时请求了多个异步接口,只能调用一次登录的接口,否则会因为重新调用接口后,每个接口附带的token都不同,导致之前的token都失效了</p>
+</li>
+</ol>
+<p>带着问题,我们来看看如何解决</p>
+<div class="note info">
+            <p>我们先来想想解决问题的思路</p>
+          </div>
+
+<ol>
+<li>判断接口是否403超时登陆</li>
+<li>超时登录的时候记录当前的接口请求,并重新调用登录接口</li>
+<li>登录后重新调用刚刚记录的接口请求,并替换token</li>
+<li>如果有多个接口,判断第一个接口调用了登录,其他接口进行等待,不继续调用登录接口</li>
+</ol>
+<p>这里有几个难点,如何知道登录完成了,再去调用之前的接口,如何确保其他接口可以在登录完成后才继续执行</p>
+<p>直接看代码,注释和解释都在代码里</p>
+<p>首先创建<code>request.js</code>文件和<code>login.js</code>文件</p>
+<h3 id="request-js"><a href="#request-js" class="headerlink" title="request.js"></a>request.js</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import axios from &#39;axios&#39;</span><br><span class="line">import &#123; refreshLogin&#125; from &quot;.&#x2F;login.js&quot;;</span><br><span class="line"></span><br><span class="line">let DELAYED &#x3D; 1000; &#x2F;&#x2F; 设置队列延时</span><br><span class="line">&#x2F;&#x2F; 创建axios实例</span><br><span class="line">const service &#x3D; axios.create(&#123;</span><br><span class="line">  baseURL: process.env.BASE_API, &#x2F;&#x2F; api 的 base_url</span><br><span class="line">  timeout: 60000 &#x2F;&#x2F; 请求超时时间</span><br><span class="line">&#125;)</span><br><span class="line">&#x2F;&#x2F; request拦截器</span><br><span class="line">service.interceptors.request.use((config) &#x3D;&gt; &#123;</span><br><span class="line">    </span><br><span class="line">    try&#123;</span><br><span class="line">      config.data &#x3D; JSON.parse(config.data)</span><br><span class="line">    &#125;catch(e)&#123;</span><br><span class="line">      &#x2F;&#x2F;TODO handle the exception</span><br><span class="line">    &#125;</span><br><span class="line">    if(config.data.token &#x3D;&#x3D; undefined)&#123;</span><br><span class="line">      config.data.token &#x3D; uni.getStorageSync(&#39;LOGIN_TOKEN&#39;)</span><br><span class="line">    &#125;</span><br><span class="line">    return config</span><br><span class="line">  &#125;,</span><br><span class="line">  (error) &#x3D;&gt; &#123;</span><br><span class="line">    Promise.reject(error)</span><br><span class="line">  &#125;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; response 拦截器</span><br><span class="line">service.interceptors.response.use(</span><br><span class="line">(response) &#x3D;&gt; &#123;</span><br><span class="line">    return new Promise((resolve, reject) &#x3D;&gt; &#123;</span><br><span class="line">      const res &#x3D; response.data</span><br><span class="line">      &#x2F;&#x2F; 先判断最外层</span><br><span class="line">      if (res.errno !&#x3D;&#x3D; &#39;10000&#39;) &#123;</span><br><span class="line">        &#x2F;&#x2F; 无效TOKEN,如过期等,则执行登出操作</span><br><span class="line">        if(res.errno &#x3D;&#x3D; &#39;90005&#39;) &#123;&#125; else &#123;</span><br><span class="line">          &#x2F;&#x2F; 统一报错处理</span><br><span class="line">          uni.hideToast();</span><br><span class="line">          uni.showToast(&#123;</span><br><span class="line">            title: res.errmsg,</span><br><span class="line">            duration: 5000,</span><br><span class="line">            icon: &#39;none&#39;</span><br><span class="line">          &#125;);</span><br><span class="line">        &#125;</span><br><span class="line">        resolve(response.data)</span><br><span class="line">      &#125; else if (res.data[0].sub_errno !&#x3D;&#x3D; &#39;10000&#39;) &#123;</span><br><span class="line">        if(res.data[0].sub_errno &#x3D;&#x3D; &#39;403&#39;) &#123;</span><br><span class="line">      		&#x2F;&#x2F; 这里需要重新登录</span><br><span class="line">          const app &#x3D; getApp();</span><br><span class="line">          const LOGIN_SWITCH &#x3D; app.globalData.LOGIN_SWITCH;&#x2F;&#x2F; login锁，确保没有登录冲突</span><br><span class="line">          if(LOGIN_SWITCH)&#123; &#x2F;&#x2F;如果已锁说明有在重新登录,只需要等待一下 继续请求</span><br><span class="line">            setTimeout(() &#x3D;&gt; &#123;</span><br><span class="line">              response.config.data &#x3D; JSON.parse(response.config.data)</span><br><span class="line">              response.config.data.token &#x3D; uni.getStorageSync(&#39;LOGIN_TOKEN&#39;)</span><br><span class="line">              resolve(service(response.config))</span><br><span class="line">            &#125;, DELAYED);</span><br><span class="line">          &#125;else&#123;</span><br><span class="line">            &#x2F;&#x2F;重新登录并继续请求</span><br><span class="line">            refreshLogin().then(()&#x3D;&gt;&#123;</span><br><span class="line">              response.config.data &#x3D; JSON.parse(response.config.data)</span><br><span class="line">              response.config.data.token &#x3D; uni.getStorageSync(&#39;LOGIN_TOKEN&#39;)</span><br><span class="line">              resolve(service(response.config))</span><br><span class="line">            &#125;)</span><br><span class="line">          &#125;</span><br><span class="line">          return;</span><br><span class="line">        &#125;  else &#123;</span><br><span class="line">          uni.hideToast();</span><br><span class="line">          resolve(response.data)</span><br><span class="line">          return;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125; else &#123;</span><br><span class="line">        &#x2F;&#x2F; 正常数据返回</span><br><span class="line">        resolve(response.data)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;,</span><br><span class="line">  (error) &#x3D;&gt; &#123;</span><br><span class="line">    let errorObj &#x3D; &#123;</span><br><span class="line">    	data: [],</span><br><span class="line">      errmsg: &#39;数据返回失败！&#39;,</span><br><span class="line">      errno: &#39;3289&#39;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if (error &amp;&amp; error.response) &#123;</span><br><span class="line">      switch (error.response.status) &#123;</span><br><span class="line">      case 400: errorObj.message &#x3D; &#39;(c1400)&#39; ; break; &#x2F;&#x2F; 请求错误</span><br><span class="line">      case 401: errorObj.message &#x3D; &#39;(c1401)&#39;; break; &#x2F;&#x2F; 未授权</span><br><span class="line">      case 403: errorObj.message &#x3D; &#39;(c1403)&#39;; break; &#x2F;&#x2F; 拒绝访问</span><br><span class="line">      case 404: errorObj.message &#x3D; &#39;(c1404)&#39;; break; &#x2F;&#x2F; 请求出错</span><br><span class="line">      case 408: errorObj.message &#x3D; &#39;(c1408)&#39;; break; &#x2F;&#x2F; 请求超时</span><br><span class="line">      case 500: errorObj.message &#x3D; &#39;(c1500)&#39;; break; &#x2F;&#x2F; 服务器错误</span><br><span class="line">      case 501: errorObj.message &#x3D; &#39;(c1501)&#39;; break; &#x2F;&#x2F; 服务未实现</span><br><span class="line">      case 502: errorObj.message &#x3D; &#39;(c1502)&#39;; break; &#x2F;&#x2F; 网络错误</span><br><span class="line">      case 503: errorObj.message &#x3D; &#39;(c1503)&#39;; break; &#x2F;&#x2F; 服务不可用</span><br><span class="line">      case 504: errorObj.message &#x3D; &#39;(c1504)&#39;; break; &#x2F;&#x2F; 网络超时</span><br><span class="line">      case 505: errorObj.message &#x3D; &#39;(c1505)&#39;; break; &#x2F;&#x2F; HTTP版本不受支持</span><br><span class="line">      default: errorObj.message &#x3D; &#96;连接出错($&#123;error.response.status&#125;)!&#96; &#x2F;&#x2F; 连接出错</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">      errorObj.message &#x3D; &#39;(c3289)&#39;</span><br><span class="line">    &#125;</span><br><span class="line">    uni.hideToast();</span><br><span class="line">    uni.showToast(&#123;</span><br><span class="line">      title: &#39;网络繁忙,请稍后再试&#39;,</span><br><span class="line">      duration: 2000,</span><br><span class="line">      icon: &#39;none&#39;</span><br><span class="line">    &#125;);</span><br><span class="line">    Promise.reject(error)</span><br><span class="line">  &#125;</span><br><span class="line">)</span><br><span class="line">&#x2F;&#x2F;用来适配uniapp的语法</span><br><span class="line">axios.defaults.adapter &#x3D; function(config) &#123;</span><br><span class="line">	return new Promise((resolve, reject) &#x3D;&gt; &#123;</span><br><span class="line">		var settle &#x3D; require(&#39;axios&#x2F;lib&#x2F;core&#x2F;settle&#39;);</span><br><span class="line">		var buildURL &#x3D; require(&#39;axios&#x2F;lib&#x2F;helpers&#x2F;buildURL&#39;);</span><br><span class="line">		uni.request(&#123;</span><br><span class="line">			method: config.method.toUpperCase(),</span><br><span class="line">			url: buildURL(config.url, config.params, config.paramsSerializer),</span><br><span class="line">			&#x2F;&#x2F; url: config.baseURL + buildURL(config.url, config.params, config.paramsSerializer),</span><br><span class="line">			header: config.headers,</span><br><span class="line">			data: config.data,</span><br><span class="line">			dataType: config.dataType,</span><br><span class="line">			responseType: config.responseType,</span><br><span class="line">			sslVerify: config.sslVerify,</span><br><span class="line">			complete: function complete(response) &#123;</span><br><span class="line">				response &#x3D; &#123;</span><br><span class="line">					data: response.data,</span><br><span class="line">					status: response.statusCode,</span><br><span class="line">					errMsg: response.errMsg,</span><br><span class="line">					header: response.header,</span><br><span class="line">					config: config</span><br><span class="line">				&#125;;</span><br><span class="line">				settle(resolve, reject, response);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;)</span><br><span class="line">	&#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">export default service</span><br></pre></td></tr></table></figure>
+
+<h3 id="login-js"><a href="#login-js" class="headerlink" title="login.js"></a>login.js</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import axios from &#39;.&#x2F;request.js&#39;</span><br><span class="line">import utils from &#39;.&#x2F;utils.js&#39;</span><br><span class="line">import api from &#39;.&#x2F;api.js&#39;</span><br><span class="line">&#x2F;**</span><br><span class="line"> * 重新登录&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;token不存在或过期</span><br><span class="line"> *&#x2F;</span><br><span class="line">export const refreshLogin &#x3D; () &#x3D;&gt; &#123;</span><br><span class="line">  const app &#x3D; getApp();</span><br><span class="line">  app.globalData.LOGIN_SWITCH &#x3D; true;</span><br><span class="line">  uni.removeStorageSync(&#39;LOGIN_TOKEN&#39;);</span><br><span class="line">  return new Promise(async (resolve, reject) &#x3D;&gt; &#123;</span><br><span class="line">    try &#123;</span><br><span class="line">      const code &#x3D; await getWxCode();</span><br><span class="line">      let json &#x3D; &#123;</span><br><span class="line">        action: &#39;weixinLogin&#39;,</span><br><span class="line">        wxcode: code</span><br><span class="line">      &#125;</span><br><span class="line">      axios.request(&#123;</span><br><span class="line">      	url: api.url,</span><br><span class="line">      	method: &quot;POST&quot;,</span><br><span class="line">      	data: json,</span><br><span class="line">      	timeout: 10000</span><br><span class="line">      &#125;).then((response)&#x3D;&gt;&#123;</span><br><span class="line">        let token &#x3D; response.data[0].token;</span><br><span class="line">        uni.setStorageSync(&#39;LOGIN_TOKEN&#39;, token);</span><br><span class="line">        app.globalData.LOGIN_SWITCH &#x3D; false;</span><br><span class="line">        resolve(token);</span><br><span class="line">      &#125;).catch((err)&#x3D;&gt;&#123;</span><br><span class="line">        reject(err)</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125; catch (err) &#123;</span><br><span class="line">      reject(err)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;**</span><br><span class="line"> * 获取 小程序的code</span><br><span class="line"> *&#x2F;</span><br><span class="line">export const getWxCode &#x3D; () &#x3D;&gt; &#123;</span><br><span class="line">  return new Promise((resolve, reject) &#x3D;&gt; &#123;</span><br><span class="line">    uni.login(&#123;</span><br><span class="line">      success(res) &#123;</span><br><span class="line">        if (res.code) &#123;</span><br><span class="line">          resolve(res.code);</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">          utils.toast(&#39;登录失败，请重新进入小程序&#39;)</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>简单来说,就是当超时的时候,只要有重新登录,就上个锁,其他的接口一直轮询等待</p>
+</blockquote>
+<p>以上就是我对登陆锁的一些理解,如果文章由于我学识浅薄,导致您发现有严重谬误的地方,请一定在评论中指出,我会在第一时间修正我的博文,以避免误人子弟。</p>
+]]></content>
+      <categories>
+        <category>uniApp</category>
+      </categories>
+      <tags>
+        <tag>uniApp</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>uni-app模块化打包配置</title>
+    <url>/2023/01/27/163-uni-app%E6%A8%A1%E5%9D%97%E5%8C%96%E6%89%93%E5%8C%85/</url>
+    <content><![CDATA[<hr style='filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)' color='#FF0000' size='1' />
+
+<blockquote>
+<p>如何实现一套代码，部署多个微信小程序</p>
+</blockquote>
+<a id="more"></a>
+
+<p>有些时候会遇到一个需求，同一个项目，但是有一些模块不同，打包到不同的小程序，这是我们就可以通过配置来解决</p>
+<p>微信小程序的限制我们都知道，不可以动态的新增tabBar，而且appid的配置，都是在manifest.json 中进行配置的</p>
+<p>所以我们只要通过js脚本来修改这两个文件就可以了</p>
+<p>新增一个<code>manifest.js</code>文件</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; 读取 manifest.json ，修改后重新写入</span><br><span class="line">&#x2F;&#x2F; 读取 pages.json ，修改后重新写入</span><br><span class="line">const fs &#x3D; require(&#39;fs&#39;)</span><br><span class="line">const manifestPath &#x3D; &#39;.&#x2F;manifest.json&#39;</span><br><span class="line">const pagesPath &#x3D; &#39;.&#x2F;pages.json&#39;</span><br><span class="line">let Manifest &#x3D; fs.readFileSync(manifestPath, &#123; encoding: &#39;utf-8&#39; &#125;)</span><br><span class="line">let Pages &#x3D; fs.readFileSync(pagesPath, &#123; encoding: &#39;utf-8&#39; &#125;)</span><br><span class="line"></span><br><span class="line">function replaceManifest(path, value) &#123;</span><br><span class="line">  const arr &#x3D; path.split(&#39;.&#39;)</span><br><span class="line">  const len &#x3D; arr.length</span><br><span class="line">  const lastItem &#x3D; arr[len - 1]</span><br><span class="line"></span><br><span class="line">  let i &#x3D; 0</span><br><span class="line">  let ManifestArr &#x3D; Manifest.split(&#x2F;\n&#x2F;)</span><br><span class="line"></span><br><span class="line">  for (let index &#x3D; 0; index &lt; ManifestArr.length; index++) &#123;</span><br><span class="line">    const item &#x3D; ManifestArr[index]</span><br><span class="line">    if (new RegExp(&#96;&quot;$&#123;arr[i]&#125;&quot;&#96;).test(item)) ++i;</span><br><span class="line">    if (i &#x3D;&#x3D;&#x3D; len) &#123;</span><br><span class="line">      const hasComma &#x3D; &#x2F;,&#x2F;.test(item)</span><br><span class="line">      ManifestArr[index] &#x3D; item.replace(new RegExp(&#96;&quot;$&#123;lastItem&#125;&quot;[\\s\\S]*:[\\s\\S]*&#96;), &#96;&quot;$&#123;lastItem&#125;&quot;: $&#123;value&#125;$&#123;hasComma ? &#39;,&#39; : &#39;&#39;&#125;&#96;)</span><br><span class="line">      break;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  Manifest &#x3D; ManifestArr.join(&#39;\n&#39;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function replacePages(path, value) &#123;</span><br><span class="line">  const arr &#x3D; path.split(&#39;.&#39;)</span><br><span class="line">  const len &#x3D; arr.length</span><br><span class="line">  const lastItem &#x3D; arr[len - 1]</span><br><span class="line">  let i &#x3D; 0</span><br><span class="line">  let PagesArr &#x3D; Pages.split(&#x2F;\n&#x2F;)</span><br><span class="line">  for (let index &#x3D; 0; index &lt; PagesArr.length; index++) &#123;</span><br><span class="line">    const item &#x3D; PagesArr[index]</span><br><span class="line">    if (new RegExp(&#96;&quot;$&#123;arr[i]&#125;&quot;&#96;).test(item)) ++i;</span><br><span class="line">    if (i &#x3D;&#x3D;&#x3D; len) &#123;</span><br><span class="line">      const hasComma &#x3D; &#x2F;,&#x2F;.test(item)</span><br><span class="line">      PagesArr[index] &#x3D; item.replace(new RegExp(&#96;&quot;$&#123;lastItem&#125;&quot;[\\s\\S]*:[\\s\\S]*&#96;), &#96;&quot;$&#123;lastItem&#125;&quot;: $&#123;value&#125;$&#123;hasComma ? &#39;&#39; : &#39;&#39;&#125;&#96;)</span><br><span class="line">      break;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  Pages &#x3D; PagesArr.join(&#39;\n&#39;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 配置appid</span><br><span class="line">const config &#x3D; require(&#39;.&#x2F;config.js&#39;);</span><br><span class="line">replaceManifest(&#39;appid&#39;, config.config.appid)</span><br><span class="line">replaceManifest(&#39;name&#39;, config.config.name)</span><br><span class="line">replaceManifest(&#39;mp-weixin.appid&#39;, config.config.weixinAppid)</span><br><span class="line">&#x2F;&#x2F; 配置tabBar</span><br><span class="line">replacePages(&#39;tabBar.list&#39;, JSON.stringify(config.config.list))</span><br><span class="line"></span><br><span class="line">console.log(config.config.name + &#39;配置成功,可以开始打包......&#39;)</span><br><span class="line"></span><br><span class="line">fs.writeFileSync(manifestPath, Manifest, &#123;</span><br><span class="line">  &quot;flag&quot;: &quot;w&quot;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">fs.writeFileSync(pagesPath, Pages, &#123;</span><br><span class="line">  &quot;flag&quot;: &quot;w&quot;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>自己需要的配置可以写在<code>config.js</code> 中</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var NODE_ENV &#x3D; &#39;项目A&#39;</span><br><span class="line">&#x2F;&#x2F; var NODE_ENV &#x3D; &#39;项目B&#39;</span><br><span class="line"></span><br><span class="line">var config &#x3D; &#123;&#125;</span><br><span class="line"></span><br><span class="line">switch (NODE_ENV) &#123;</span><br><span class="line">  case &#39;项目A&#39;:</span><br><span class="line">    config &#x3D; &#123;</span><br><span class="line">      title: &#39;项目A&#39;, &#x2F;&#x2F; 全局通用标题</span><br><span class="line">      appid: &#39;&quot;__UNI__XXXX&quot;&#39;, &#x2F;&#x2F; 打包的appid</span><br><span class="line">      weixinAppid: &#39;&quot;XXXXXX&quot;&#39;,</span><br><span class="line">      name: &#39;&quot;A&quot;&#39;, &#x2F;&#x2F; 应用名称</span><br><span class="line">      list: [</span><br><span class="line">      	&#123;</span><br><span class="line">      		&quot;pagePath&quot;: &quot;pages&#x2F;index&#x2F;index&quot;,</span><br><span class="line">      		&quot;iconPath&quot;: &quot;static&#x2F;tab&#x2F;tab-member.png&quot;,</span><br><span class="line">      		&quot;selectedIconPath&quot;: &quot;static&#x2F;tab&#x2F;tab-member-current.png&quot;,</span><br><span class="line">      		&quot;text&quot;: &quot;我的&quot;</span><br><span class="line">      	&#125;,&#123;</span><br><span class="line">      		&quot;pagePath&quot;: &quot;pages&#x2F;member&#x2F;member&quot;,</span><br><span class="line">      		&quot;iconPath&quot;: &quot;static&#x2F;tab&#x2F;tab-member.png&quot;,</span><br><span class="line">      		&quot;selectedIconPath&quot;: &quot;static&#x2F;tab&#x2F;tab-member-current.png&quot;,</span><br><span class="line">      		&quot;text&quot;: &quot;商户&quot;</span><br><span class="line">      	&#125;,&#123;</span><br><span class="line">      		&quot;pagePath&quot;: &quot;pages&#x2F;activity&#x2F;activity&quot;,</span><br><span class="line">      		&quot;iconPath&quot;: &quot;static&#x2F;tab&#x2F;tab-member.png&quot;,</span><br><span class="line">      		&quot;selectedIconPath&quot;: &quot;static&#x2F;tab&#x2F;tab-member-current.png&quot;,</span><br><span class="line">      		&quot;text&quot;: &quot;活动&quot;</span><br><span class="line">      	&#125;</span><br><span class="line">      ]</span><br><span class="line">    &#125;</span><br><span class="line">    break;</span><br><span class="line">  case &#39;项目B&#39;:</span><br><span class="line">    config &#x3D; &#123;</span><br><span class="line">      title: &#39;项目B&#39;, &#x2F;&#x2F; 全局通用标题</span><br><span class="line">      appid: &#39;&quot;__UNI__XXXXXX&quot;&#39;, &#x2F;&#x2F; 打包的appid</span><br><span class="line">      weixinAppid: &#39;&quot;xxxxxx&quot;&#39;,</span><br><span class="line">      name: &#39;&quot;B&quot;&#39;, &#x2F;&#x2F; 应用名称</span><br><span class="line">      list: [</span><br><span class="line">        &#123;</span><br><span class="line">          &quot;pagePath&quot;: &quot;pages&#x2F;index&#x2F;index&quot;,</span><br><span class="line">          &quot;iconPath&quot;: &quot;static&#x2F;tab&#x2F;tab-member.png&quot;,</span><br><span class="line">          &quot;selectedIconPath&quot;: &quot;static&#x2F;tab&#x2F;tab-member-current.png&quot;,</span><br><span class="line">          &quot;text&quot;: &quot;我的&quot;</span><br><span class="line">        &#125;,&#123;</span><br><span class="line">          &quot;pagePath&quot;: &quot;pages&#x2F;activity&#x2F;activity&quot;,</span><br><span class="line">          &quot;iconPath&quot;: &quot;static&#x2F;tab&#x2F;tab-member.png&quot;,</span><br><span class="line">          &quot;selectedIconPath&quot;: &quot;static&#x2F;tab&#x2F;tab-member-current.png&quot;,</span><br><span class="line">          &quot;text&quot;: &quot;活动&quot;</span><br><span class="line">        &#125;</span><br><span class="line">      ]</span><br><span class="line">    &#125;</span><br><span class="line">    break;</span><br><span class="line">  default:</span><br><span class="line">    break;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">module.exports &#x3D; &#123;</span><br><span class="line">  config</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>运行或者发布之前，执行一下manifest.js文件</p>
+</blockquote>
+<p>这上面，是使用hbuilder创建项目，可以这样弄，如果uni-app的项目是通过命令行来创建的，那就可以全自动化了，在命令中选择要启动的版本是哪个</p>
+<p>命令行的配置和vue-cli模块化的配置是一样的，下次再一起学习</p>
+<p>以上就是我对uni-app模块化打包的一些理解,如果文章由于我学识浅薄,导致您发现有严重谬误的地方,请一定在评论中指出,我会在第一时间修正我的博文,以避免误人子弟。</p>
+]]></content>
+      <categories>
+        <category>uniApp</category>
+      </categories>
+      <tags>
+        <tag>uniApp</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>vue打包模块化配置</title>
+    <url>/2023/03/16/164-vue%E6%89%93%E5%8C%85%E6%A8%A1%E5%9D%97%E5%8C%96%E9%85%8D%E7%BD%AE/</url>
+    <content><![CDATA[<hr style='filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)' color='#FF0000' size='1' />
+
+<blockquote>
+<p>同一个项目给不同的环境配置打包命令</p>
+</blockquote>
+<a id="more"></a>
+
+<p>有时候项目中可能会遇到,某一些模块,这个项目需要,某一些模块另外一个项目需要,今天记录几个自己平常项目中比较常用的办法</p>
+<p>假设现在有一个项目,A城市有一个单独的模块,B城市也有一个单独的模块,同时他们还有两个共同的页面,我们需要怎么区分呢</p>
+<p>先看看最后有哪些文件</p>
+<p><img src="https://csblogimage.oss-cn-hangzhou.aliyuncs.com/156-1-vue%E8%87%AA%E5%AE%9A%E4%B9%89%E8%BF%90%E8%A1%8C.png" alt="文件图片"></p>
+<h3 id="添加文件模块"><a href="#添加文件模块" class="headerlink" title="添加文件模块"></a>添加文件模块</h3><p>首先在views下创建四个文件夹 cityA,cityB,pageA,pageB分别代表了刚刚描述的模块</p>
+<p>每个文件夹下新增 <code>index.js</code>, <code>index.vue</code></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;!-- index.js中的代码就是类似这样的,路径什么的都可以自己定义 --&gt;</span><br><span class="line">export const routes &#x3D; [</span><br><span class="line">  &#123;</span><br><span class="line">    path: &quot;&#x2F;city&#x2F;a&quot;,</span><br><span class="line">    name: &quot;cityA&quot;,</span><br><span class="line">    component: () &#x3D;&gt; import(&#x2F;* webpackChunkName: &quot;cityA&quot; *&#x2F; &quot;.&#x2F;index.vue&quot;),</span><br><span class="line">    meta: &#123;</span><br><span class="line">      title: &quot;定制化A页面&quot;,</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">];</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;!-- index.vue中的代码就是类似这样的,具体是自己的页面--&gt;</span><br><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;我是A城市的定制化页面&lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line">&lt;script&gt;&lt;&#x2F;script&gt;</span><br><span class="line">&lt;style scoped&gt;&lt;&#x2F;style&gt;</span><br></pre></td></tr></table></figure>
+
+<div class="note info">
+            <p>之所以每个文件对应一个index.js的路由,也是一个拆分模块的方法,这里只是提供一个思路,按照项目实际开发的来就好</p>
+          </div>
+
+<blockquote>
+<p>之所以这样,是为了解耦,解耦后就可以根据功能模块组合出各种功能不一的系统</p>
+</blockquote>
+<h3 id="添加配置项"><a href="#添加配置项" class="headerlink" title="添加配置项"></a>添加配置项</h3><p>在src下新增一个 config 文件夹, 添加三个文件 <code>cityA.js</code>,<code>cityB.js</code>,<code>index.js</code></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import &#123; routes as pageA &#125; from &quot;..&#x2F;views&#x2F;pageA&#x2F;index.js&quot;;</span><br><span class="line">import &#123; routes as pageB &#125; from &quot;..&#x2F;views&#x2F;pageB&#x2F;index.js&quot;;</span><br><span class="line">import &#123; routes as cityA &#125; from &quot;..&#x2F;views&#x2F;cityA&#x2F;index.js&quot;;</span><br><span class="line"></span><br><span class="line">export const routes &#x3D; [...pageA, ...pageB, ...cityA];</span><br><span class="line">export const pageTitle &#x3D; &quot;城市A的标题&quot;;</span><br><span class="line">export const logoUrl &#x3D; &quot;城市A的logo&quot;;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import &#123; routes as pageA &#125; from &quot;..&#x2F;views&#x2F;pageA&#x2F;index.js&quot;;</span><br><span class="line">import &#123; routes as pageB &#125; from &quot;..&#x2F;views&#x2F;pageB&#x2F;index.js&quot;;</span><br><span class="line">import &#123; routes as cityA &#125; from &quot;..&#x2F;views&#x2F;cityA&#x2F;index.js&quot;;</span><br><span class="line"></span><br><span class="line">export const routes &#x3D; [...pageA, ...pageB, ...cityA];</span><br><span class="line">export const pageTitle &#x3D; &quot;城市A的标题&quot;;</span><br><span class="line">export const logoUrl &#x3D; &quot;城市A的logo&quot;;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import &#123; routes as pageA &#125; from &quot;..&#x2F;views&#x2F;pageA&#x2F;index.js&quot;;</span><br><span class="line">import &#123; routes as pageB &#125; from &quot;..&#x2F;views&#x2F;pageB&#x2F;index.js&quot;;</span><br><span class="line">import &#123; routes as cityA &#125; from &quot;..&#x2F;views&#x2F;cityA&#x2F;index.js&quot;;</span><br><span class="line"></span><br><span class="line">export const routes &#x3D; [...pageA, ...pageB, ...cityA];</span><br><span class="line">export const pageTitle &#x3D; &quot;城市A的标题&quot;;</span><br><span class="line">export const logoUrl &#x3D; &quot;城市A的logo&quot;;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">export * from &#39;.&#x2F;cityA&#39;;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>这个文件夹的目的,是为了让路由表统一拉取到对应的配置</p>
+</blockquote>
+<h3 id="路由配置"><a href="#路由配置" class="headerlink" title="路由配置"></a>路由配置</h3><p>这里路由把config中的index.js的配置导入后,在对应的路由表中直接渲染</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import Vue from &quot;vue&quot;;</span><br><span class="line">import VueRouter from &quot;vue-router&quot;;</span><br><span class="line">import Home from &quot;..&#x2F;views&#x2F;Home.vue&quot;;</span><br><span class="line">import &#123; routes, pageTitle &#125; from &quot;..&#x2F;config&quot;;</span><br><span class="line"></span><br><span class="line">Vue.use(VueRouter);</span><br><span class="line"></span><br><span class="line">const routesList &#x3D; [</span><br><span class="line">  &#123;</span><br><span class="line">    path: &quot;&#x2F;&quot;,</span><br><span class="line">    name: &quot;Home&quot;,</span><br><span class="line">    component: Home,</span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    path: &quot;&#x2F;about&quot;,</span><br><span class="line">    name: &quot;About&quot;,</span><br><span class="line">    component: () &#x3D;&gt;</span><br><span class="line">      import(&#x2F;* webpackChunkName: &quot;about&quot; *&#x2F; &quot;..&#x2F;views&#x2F;About.vue&quot;),</span><br><span class="line">  &#125;,</span><br><span class="line">  ...routes,</span><br><span class="line">];</span><br><span class="line"></span><br><span class="line">const router &#x3D; new VueRouter(&#123;</span><br><span class="line">  routes: routesList,</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">router.beforeEach(async (to, from, next) &#x3D;&gt; &#123;</span><br><span class="line">  document.title &#x3D; &#96;$&#123;to.meta.title || &quot;&quot;&#125;$&#123;pageTitle || &quot;&quot;&#125;&#96;;</span><br><span class="line">  next();</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">export default router;</span><br></pre></td></tr></table></figure>
+
+<h3 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h3><p>在根目录下新增一个script文件,新增server.js文件和build.js</p>
+<p>各个语句的说明直接写在代码里面</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; shelljs是用来执行命令的</span><br><span class="line">const shell &#x3D; require(&#39;shelljs&#39;);</span><br><span class="line">&#x2F;&#x2F; inquirer是用来写交互式命令行的</span><br><span class="line">const inquirer &#x3D; require(&#39;inquirer&#39;);</span><br><span class="line">&#x2F;&#x2F; chalk是用来装扮命令行命令的（比如在命令行输入个红色的字）</span><br><span class="line">const chalk &#x3D; require(&#39;chalk&#39;);</span><br><span class="line">&#x2F;&#x2F; node自带的fs文件模块</span><br><span class="line">const fs &#x3D; require(&#39;fs&#39;);</span><br><span class="line"></span><br><span class="line">const writeFile &#x3D; (path, content) &#x3D;&gt; &#123;</span><br><span class="line">  return new Promise((reslove, reject) &#x3D;&gt; &#123;</span><br><span class="line">    fs.writeFile(path,</span><br><span class="line">      content,&#39;utf8&#39;, () &#x3D;&gt; &#123;</span><br><span class="line">      reslove(true);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line">const release &#x3D; new Map([</span><br><span class="line">  [&#39;cityA定制版&#39;, &quot;export * from &#39;.&#x2F;cityA&#39;;&quot;],</span><br><span class="line">  [&#39;city定制版&#39;, &quot;export * from &#39;.&#x2F;cityB&#39;;&quot;],</span><br><span class="line">])</span><br><span class="line">const env &#x3D; new Map([</span><br><span class="line">  [&#39;生产环境&#39;, &quot;NODE_ENV &#x3D; production&quot;],</span><br><span class="line">  [&#39;测试环境&#39;, &quot;NODE_ENV &#x3D; testing&quot;],</span><br><span class="line">])</span><br><span class="line"></span><br><span class="line">const build &#x3D; async () &#x3D;&gt; &#123;</span><br><span class="line">  const res &#x3D; await inquirer.prompt([</span><br><span class="line">    &#123;</span><br><span class="line">      type: &#39;list&#39;,</span><br><span class="line">      name: &#39;release&#39;,</span><br><span class="line">      message: &#39;请选择你要运行的版本？&#39;,</span><br><span class="line">      choices: [&#39;cityA定制版&#39;, &#39;cityB定制版&#39;]</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      type: &#39;list&#39;,</span><br><span class="line">      name: &#39;env&#39;,</span><br><span class="line">      message: &#39;请选择你要运行的环境？&#39;,</span><br><span class="line">      choices: [&#39;生产环境&#39;, &#39;测试环境&#39;]</span><br><span class="line">    &#125;,</span><br><span class="line">  ]);</span><br><span class="line">  await Promise.all([writeFile(&#96;$&#123;process.cwd()&#125;&#x2F;src&#x2F;config&#x2F;index.js&#96;, release.get(res.release)),writeFile(&#96;$&#123;process.cwd()&#125;&#x2F;.env&#96;, env.get(res.env))]);</span><br><span class="line">  console.log(chalk.green(&#96;您要运行的是$&#123;res.env&#125;---$&#123;res.release&#125;,正在为您运行......&#96;));</span><br><span class="line">  shell.exec(&#39;vue-cli-service serve&#39;);</span><br><span class="line">&#125;</span><br><span class="line">build();</span><br></pre></td></tr></table></figure>
+
+ <blockquote class="blockquote-center"><p>build.js的文件一样,只是最后运行的时候 是 ‘vue-cli-service build’ </p>
+</blockquote>
+
+<blockquote>
+<p>这边相当于把你选择的配置项,修改在 config/index.js 和 .env中,从而达到不同项目引入不同模块的目的</p>
+</blockquote>
+<h3 id="运行文件"><a href="#运行文件" class="headerlink" title="运行文件"></a>运行文件</h3><p>package.json 文件需要修改一下运行配置 </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&quot;serve&quot;: &quot;vue-cli-service serve&quot;,</span><br><span class="line">&quot;dev&quot;: &quot;node script&#x2F;server.js&quot;,</span><br><span class="line">&quot;build&quot;: &quot;node script&#x2F;build.js&quot;,</span><br></pre></td></tr></table></figure>
+
+<p>这样dev启动的时候默认走的就是我们server.js</p>
+<div class="note primary">
+            <p>这只是其中一种的思路,按照文件夹的形式进行模块化的区分,如果嫌弃麻烦,也可以把配置都写在一个js里面,导出这个js在vue的原型链里面,在代码里去做判断,都是可以的</p>
+          </div>
+
+<p>以上就是我对模块化打包的理解，如有错误，欢迎大佬指出</p>
+]]></content>
+      <categories>
+        <category>Vue</category>
+      </categories>
+      <tags>
+        <tag>Vue</tag>
       </tags>
   </entry>
   <entry>
@@ -5089,42 +5705,6 @@ postMessage(&apos;传回主线程的值&apos;);</code></pre><p>五、 主线程�
       </tags>
   </entry>
   <entry>
-    <title>Vue组件非父子间传值</title>
-    <url>/2017/03/28/26-Vue%E7%BB%84%E4%BB%B6%E9%9D%9E%E7%88%B6%E5%AD%90%E9%97%B4%E7%9A%84%E4%BC%A0%E5%80%BC/</url>
-    <content><![CDATA[<hr style='filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)' color='#FF0000' size='1' />
-
-<blockquote>
-<p>Vue组件之间的传值不仅仅发生在父子间组件中，有时候，非父子关系的两个组件之间也需要通信。</p>
-</blockquote>
-<a id="more"></a>
-
-<h3 id="非父子组件的传值"><a href="#非父子组件的传值" class="headerlink" title="非父子组件的传值"></a>非父子组件的传值</h3><p>非父子组件的传值大体上也是分为三个步骤，我还是称作三部曲</p>
-<p>在简单的场景下，可以使用一个空的 Vue 实例作为事件总线：</p>
-<h4 id="第一步"><a href="#第一步" class="headerlink" title="第一步"></a>第一步</h4><blockquote>
-<p>创建一个 vue 作为中央线来处理 非父子关系的组件传递数据</p>
-</blockquote>
-<p>新建一个bus.js</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">'Vue'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> bus = <span class="keyword">new</span> Vue();</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> bus;</span><br></pre></td></tr></table></figure>
-
-<h4 id="第二步"><a href="#第二步" class="headerlink" title="第二步"></a>第二步</h4><blockquote>
-<p>在组件二中创建监听事件—-注意:监听事件一定要在发射之前,监听才有效</p>
-</blockquote>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//使用前先导入</span></span><br><span class="line"><span class="keyword">import</span> bus <span class="keyword">from</span> <span class="string">'../bus.js'</span>;</span><br><span class="line"></span><br><span class="line">created()&#123;	<span class="comment">//created这个会在注册组件完成是执行,后面再细说</span></span><br><span class="line">	bus.$on(<span class="string">'giveMsg'</span>,(value)=&gt;&#123; <span class="comment">//箭头函数的this是指向外部的,所以没有问题</span></span><br><span class="line">		<span class="keyword">this</span>.counter += value</span><br><span class="line">		<span class="comment">//这里的value是传递过来的值</span></span><br><span class="line">	&#125;)	<span class="comment">//可以加bind改变this的指向,普通的匿名函数的指向值bus的</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="第三步"><a href="#第三步" class="headerlink" title="第三步"></a>第三步</h4><p>在组件一中发射组件</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">methods:&#123;</span><br><span class="line">	add()&#123;</span><br><span class="line">		bus.$emit(<span class="string">'giveMsg'</span>,ran) <span class="comment">//通过bus中央线来发射组件</span></span><br><span class="line">		<span class="comment">//giveMsg类似于事件的名称</span></span><br><span class="line">		<span class="comment">//ran是要传递的参数</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>非父子组件的传值与自定义事件的思路是类似的，写法上也大体相同</p>
-<p>以上就是我对Vue组件非父子间传值的一些理解，希望大神们可以指出错误，谢谢</p>
-]]></content>
-      <categories>
-        <category>Vue</category>
-      </categories>
-      <tags>
-        <tag>Vue</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Vue组件父子间传值</title>
     <url>/2017/03/21/25-Vue%E7%BB%84%E4%BB%B6%E7%88%B6%E5%AD%90%E9%97%B4%E7%9A%84%E4%BC%A0%E5%80%BC/</url>
     <content><![CDATA[<hr style='filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)' color='#FF0000' size='1' />
@@ -5184,6 +5764,42 @@ postMessage(&apos;传回主线程的值&apos;);</code></pre><p>五、 主线程�
 <h3 id="自定义组件的-v-model"><a href="#自定义组件的-v-model" class="headerlink" title="自定义组件的 v-model"></a>自定义组件的 v-model</h3><p>Vue 2.2.0 新增的自定义组件的 v-model，默认情况下，一个组件的 v-model 会使用 value prop 和 input 事件。但是诸如单选框、复选框之类的输入类型可能把 value 用作了别的目的。model 选项可以避免这样的冲突，官网给出了相应的例子，</p>
 <p>有兴趣的小伙伴可以研究一下</p>
 <p>以上就是我对Vue组件父子间传值的一些理解，希望大神们可以指出错误，谢谢</p>
+]]></content>
+      <categories>
+        <category>Vue</category>
+      </categories>
+      <tags>
+        <tag>Vue</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Vue组件非父子间传值</title>
+    <url>/2017/03/28/26-Vue%E7%BB%84%E4%BB%B6%E9%9D%9E%E7%88%B6%E5%AD%90%E9%97%B4%E7%9A%84%E4%BC%A0%E5%80%BC/</url>
+    <content><![CDATA[<hr style='filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)' color='#FF0000' size='1' />
+
+<blockquote>
+<p>Vue组件之间的传值不仅仅发生在父子间组件中，有时候，非父子关系的两个组件之间也需要通信。</p>
+</blockquote>
+<a id="more"></a>
+
+<h3 id="非父子组件的传值"><a href="#非父子组件的传值" class="headerlink" title="非父子组件的传值"></a>非父子组件的传值</h3><p>非父子组件的传值大体上也是分为三个步骤，我还是称作三部曲</p>
+<p>在简单的场景下，可以使用一个空的 Vue 实例作为事件总线：</p>
+<h4 id="第一步"><a href="#第一步" class="headerlink" title="第一步"></a>第一步</h4><blockquote>
+<p>创建一个 vue 作为中央线来处理 非父子关系的组件传递数据</p>
+</blockquote>
+<p>新建一个bus.js</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">'Vue'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> bus = <span class="keyword">new</span> Vue();</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> bus;</span><br></pre></td></tr></table></figure>
+
+<h4 id="第二步"><a href="#第二步" class="headerlink" title="第二步"></a>第二步</h4><blockquote>
+<p>在组件二中创建监听事件—-注意:监听事件一定要在发射之前,监听才有效</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//使用前先导入</span></span><br><span class="line"><span class="keyword">import</span> bus <span class="keyword">from</span> <span class="string">'../bus.js'</span>;</span><br><span class="line"></span><br><span class="line">created()&#123;	<span class="comment">//created这个会在注册组件完成是执行,后面再细说</span></span><br><span class="line">	bus.$on(<span class="string">'giveMsg'</span>,(value)=&gt;&#123; <span class="comment">//箭头函数的this是指向外部的,所以没有问题</span></span><br><span class="line">		<span class="keyword">this</span>.counter += value</span><br><span class="line">		<span class="comment">//这里的value是传递过来的值</span></span><br><span class="line">	&#125;)	<span class="comment">//可以加bind改变this的指向,普通的匿名函数的指向值bus的</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="第三步"><a href="#第三步" class="headerlink" title="第三步"></a>第三步</h4><p>在组件一中发射组件</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">methods:&#123;</span><br><span class="line">	add()&#123;</span><br><span class="line">		bus.$emit(<span class="string">'giveMsg'</span>,ran) <span class="comment">//通过bus中央线来发射组件</span></span><br><span class="line">		<span class="comment">//giveMsg类似于事件的名称</span></span><br><span class="line">		<span class="comment">//ran是要传递的参数</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>非父子组件的传值与自定义事件的思路是类似的，写法上也大体相同</p>
+<p>以上就是我对Vue组件非父子间传值的一些理解，希望大神们可以指出错误，谢谢</p>
 ]]></content>
       <categories>
         <category>Vue</category>
@@ -5664,43 +6280,6 @@ http-server</code></pre><p>访问：</p>
       </tags>
   </entry>
   <entry>
-    <title>Vue混合对象</title>
-    <url>/2017/07/15/36-Vue%E6%B7%B7%E5%90%88%E5%AF%B9%E8%B1%A1/</url>
-    <content><![CDATA[<hr style='filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)' color='#FF0000' size='1' />
-
-<blockquote>
-<p>混合 (mixins) 是一种分发 Vue 组件中可复用功能的非常灵活的方式。混合对象可以包含任意组件选项。以组件使用混合对象时，所有混合对象的选项将被混入该组件本身的选项。</p>
-</blockquote>
-<a id="more"></a>
-
-<p>在看vue的混合对象之前，我们先了解一下其他混合对象的方法</p>
-<ol>
-<li><p>for 循环</p>
-<pre><code>for(var value in obj){
-    zhangsan[value] = obj[value]
-}</code></pre></li>
-<li><p>$.extend</p>
-<pre><code>var newzhangsan = $.extend(true,{},zhangsan,obj);</code></pre></li>
-<li><p>es6方法</p>
-<pre><code>console.log(Object.assign(zhangsan,obj));</code></pre></li>
-<li><p>es7方法</p>
-<pre><code>console.log({...zhangsan,...obj});//如果是数组就用[]</code></pre></li>
-<li><p>lodash 方法, 一旦设置了相同属性的值，后续的将被忽略掉。</p>
-<pre><code>console.log(_.defaultsDeep(zhangsan,zhangsi));</code></pre></li>
-</ol>
-<p>接下来我们看一下Vue的方法，官方的文档对这一个模块也讲的挺详细的</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var myMixin &#x3D; Vue.extend(&#123;	&#x2F;&#x2F;定义混合 混合的作用:代码的复用性</span><br><span class="line">	data()&#123;</span><br><span class="line">		return &#123;</span><br><span class="line">			author: &#39;Mr.chen&#39;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;,</span><br><span class="line">	created()&#123; 		&#x2F;&#x2F;每一次调用或者引入都会执行</span><br><span class="line">		console.log(&#39;作者&#39; + this.author)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">Vue.component(&#39;com1&#39;,&#123;</span><br><span class="line">	mixins:[myMixin], 	&#x2F;&#x2F;混合过来多个对象, mixins固定用法</span><br><span class="line">	</span><br><span class="line">	template:&#96;&lt;div&gt;&#123;&#123;message&#125;&#125;的作者是 &#123;&#123; author &#125;&#125;&lt;&#x2F;div&gt;&#96;,</span><br><span class="line">	data()&#123;</span><br><span class="line">		return &#123;</span><br><span class="line">			message:&#39;javascript&#39;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;,</span><br><span class="line">	created()&#123;</span><br><span class="line">		console.log(&#39;你好世界&#39;)</span><br><span class="line">	&#125;	</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<p>关于混合对象我也只是稍微了解了一下，在实际中并没有用到，有兴趣的小伙伴可以自行去官网上研究。</p>
-]]></content>
-      <categories>
-        <category>Vue</category>
-      </categories>
-      <tags>
-        <tag>Vue</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Vue自定义指令</title>
     <url>/2017/07/03/35-Vue%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8C%87%E4%BB%A4/</url>
     <content><![CDATA[<hr style='filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)' color='#FF0000' size='1' />
@@ -5734,6 +6313,43 @@ http-server</code></pre><p>访问：</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> i = <span class="number">0</span>;</span><br><span class="line">Vue.directive(<span class="string">'focus'</span>, &#123;	<span class="comment">// 当绑定的元素插入到 DOM 时调用此函数……</span></span><br><span class="line">  inserted: <span class="function"><span class="keyword">function</span> (<span class="params">el</span>) </span>&#123;</span><br><span class="line">  	i++;</span><br><span class="line">    setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    	el.focus(); <span class="comment">// 元素调用 focus 获取焦点   	</span></span><br><span class="line">    &#125;,<span class="number">1000</span> * i)<span class="comment">//定义一个i 第一次执行1秒 第二次 执行 2秒 第三次 执行 3秒  </span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 
 <p>自定义指令讲的不是很详细，更多的需要自己去实践一下才知道，有哪里不对的地方欢迎提出。</p>
+]]></content>
+      <categories>
+        <category>Vue</category>
+      </categories>
+      <tags>
+        <tag>Vue</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Vue混合对象</title>
+    <url>/2017/07/15/36-Vue%E6%B7%B7%E5%90%88%E5%AF%B9%E8%B1%A1/</url>
+    <content><![CDATA[<hr style='filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)' color='#FF0000' size='1' />
+
+<blockquote>
+<p>混合 (mixins) 是一种分发 Vue 组件中可复用功能的非常灵活的方式。混合对象可以包含任意组件选项。以组件使用混合对象时，所有混合对象的选项将被混入该组件本身的选项。</p>
+</blockquote>
+<a id="more"></a>
+
+<p>在看vue的混合对象之前，我们先了解一下其他混合对象的方法</p>
+<ol>
+<li><p>for 循环</p>
+<pre><code>for(var value in obj){
+    zhangsan[value] = obj[value]
+}</code></pre></li>
+<li><p>$.extend</p>
+<pre><code>var newzhangsan = $.extend(true,{},zhangsan,obj);</code></pre></li>
+<li><p>es6方法</p>
+<pre><code>console.log(Object.assign(zhangsan,obj));</code></pre></li>
+<li><p>es7方法</p>
+<pre><code>console.log({...zhangsan,...obj});//如果是数组就用[]</code></pre></li>
+<li><p>lodash 方法, 一旦设置了相同属性的值，后续的将被忽略掉。</p>
+<pre><code>console.log(_.defaultsDeep(zhangsan,zhangsi));</code></pre></li>
+</ol>
+<p>接下来我们看一下Vue的方法，官方的文档对这一个模块也讲的挺详细的</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var myMixin &#x3D; Vue.extend(&#123;	&#x2F;&#x2F;定义混合 混合的作用:代码的复用性</span><br><span class="line">	data()&#123;</span><br><span class="line">		return &#123;</span><br><span class="line">			author: &#39;Mr.chen&#39;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;,</span><br><span class="line">	created()&#123; 		&#x2F;&#x2F;每一次调用或者引入都会执行</span><br><span class="line">		console.log(&#39;作者&#39; + this.author)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">Vue.component(&#39;com1&#39;,&#123;</span><br><span class="line">	mixins:[myMixin], 	&#x2F;&#x2F;混合过来多个对象, mixins固定用法</span><br><span class="line">	</span><br><span class="line">	template:&#96;&lt;div&gt;&#123;&#123;message&#125;&#125;的作者是 &#123;&#123; author &#125;&#125;&lt;&#x2F;div&gt;&#96;,</span><br><span class="line">	data()&#123;</span><br><span class="line">		return &#123;</span><br><span class="line">			message:&#39;javascript&#39;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;,</span><br><span class="line">	created()&#123;</span><br><span class="line">		console.log(&#39;你好世界&#39;)</span><br><span class="line">	&#125;	</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>关于混合对象我也只是稍微了解了一下，在实际中并没有用到，有兴趣的小伙伴可以自行去官网上研究。</p>
 ]]></content>
       <categories>
         <category>Vue</category>
@@ -6464,7 +7080,7 @@ npm install vuex --save</code></pre><h2 id="使用"><a href="#使用" class="hea
 <h2 id="Vuex数据仓库"><a href="#Vuex数据仓库" class="headerlink" title="Vuex数据仓库"></a>Vuex数据仓库</h2><blockquote>
 <p>vuex是vue的一个插件,是一个专为 Vue.js 应用程序开发的状态管理模式。(状态:数据,改变数据和获取数据)</p>
 </blockquote>
-<p><a href="https://www.chensheng.group/2017/11/09/50-Vuex的使用/">数据仓库具体链接–&gt;戳我</a></p>
+<p><a href="https://www.chensheng.group/2017/11/09/44-Vuex%E7%9A%84%E4%BD%BF%E7%94%A8/">数据仓库具体链接–&gt;戳我</a></p>
 <h2 id="axios"><a href="#axios" class="headerlink" title="axios"></a>axios</h2><blockquote>
 <p>由于vue不再继续维护vue-resource，并推荐使用 axios,所有axios进入了大家的视野</p>
 </blockquote>
@@ -6831,35 +7447,6 @@ npm install vuex --save</code></pre><h2 id="使用"><a href="#使用" class="hea
       </tags>
   </entry>
   <entry>
-    <title>Html5中的webApp适配</title>
-    <url>/2018/02/14/53-Html5-webApp%E9%80%82%E9%85%8D/</url>
-    <content><![CDATA[<hr style='filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)' color='#FF0000' size='1' />
-
-<blockquote>
-<p>适配一直都是前端比较重视的问题，今天主要是记录一下自己的学习过程</p>
-</blockquote>
-<a id="more"></a>
-
-<p>之前总结过vue-cli中的适配问题，今天记录一下在html5中怎么使用</p>
-<p>我们同样用到lib-flexible，可以<a href="https://codeload.github.com/amfe/lib-flexible/zip/master" target="_blank" rel="noopener">点击这里</a>下载相关文件。</p>
-<p>在build文件夹中找到 flexible.css 和 flexible.js 导入进来</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;link rel&#x3D;&quot;stylesheet&quot; href&#x3D;&quot;css&#x2F;flexible.css&quot; &#x2F;&gt;</span><br><span class="line">&lt;script src&#x3D;&quot;js&#x2F;flexible.js&quot; charset&#x3D;&quot;utf-8&quot;&gt;&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
-
-<p>也可以直接使用阿里CDN：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;script src&#x3D;&quot;http:&#x2F;&#x2F;g.tbcdn.cn&#x2F;mtb&#x2F;lib-flexible&#x2F;&#123;&#123;version&#125;&#125;&#x2F;??flexible_css.js,flexible.js&quot;&gt;&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
-
-<p>这样就可以了使用lib-flexible，接下来就是如何换算px了，我的IDE用的是Hbuilder的，现在就简单的说一下怎么进行换算</p>
-<p>一般是为某个项目单独设置的，我们找到项目，右键点击属性，打开代码助手设置，选中 启用px转rem提示，填写合适的 px转rem比例 和 rem小数点部分保留长度， 保存配置，记得勾选最上面的启用项目特定的配置。</p>
-<p>好了，以上就是我对Html5的适配的一些理解，如果文章由于我学识浅薄，导致您发现有严重谬误的地方，请一定在评论中指出，我会在第一时间修正我的博文，以避免误人子弟。</p>
-]]></content>
-      <categories>
-        <category>前端适配</category>
-      </categories>
-      <tags>
-        <tag>前端适配</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>在vue-cli中的webApp适配</title>
     <url>/2018/02/05/52-vue-cli%E7%9A%84webApp%E9%80%82%E9%85%8D/</url>
     <content><![CDATA[<hr style='filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)' color='#FF0000' size='1' />
@@ -6897,6 +7484,35 @@ npm install vuex --save</code></pre><h2 id="使用"><a href="#使用" class="hea
 <p>说明:</p>
 <p>font-size:26px /<em>no</em>/ px不转成rem<br>font-size:26px /<em>px</em>/ px根据设备转化<br>font-size:26px px转成rem</p>
 <p>好了，以上就是我对vue-cli的适配的一些理解，如果文章由于我学识浅薄，导致您发现有严重谬误的地方，请一定在评论中指出，我会在第一时间修正我的博文，以避免误人子弟。</p>
+]]></content>
+      <categories>
+        <category>前端适配</category>
+      </categories>
+      <tags>
+        <tag>前端适配</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Html5中的webApp适配</title>
+    <url>/2018/02/14/53-Html5-webApp%E9%80%82%E9%85%8D/</url>
+    <content><![CDATA[<hr style='filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)' color='#FF0000' size='1' />
+
+<blockquote>
+<p>适配一直都是前端比较重视的问题，今天主要是记录一下自己的学习过程</p>
+</blockquote>
+<a id="more"></a>
+
+<p>之前总结过vue-cli中的适配问题，今天记录一下在html5中怎么使用</p>
+<p>我们同样用到lib-flexible，可以<a href="https://codeload.github.com/amfe/lib-flexible/zip/master" target="_blank" rel="noopener">点击这里</a>下载相关文件。</p>
+<p>在build文件夹中找到 flexible.css 和 flexible.js 导入进来</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;link rel&#x3D;&quot;stylesheet&quot; href&#x3D;&quot;css&#x2F;flexible.css&quot; &#x2F;&gt;</span><br><span class="line">&lt;script src&#x3D;&quot;js&#x2F;flexible.js&quot; charset&#x3D;&quot;utf-8&quot;&gt;&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>也可以直接使用阿里CDN：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;script src&#x3D;&quot;http:&#x2F;&#x2F;g.tbcdn.cn&#x2F;mtb&#x2F;lib-flexible&#x2F;&#123;&#123;version&#125;&#125;&#x2F;??flexible_css.js,flexible.js&quot;&gt;&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>这样就可以了使用lib-flexible，接下来就是如何换算px了，我的IDE用的是Hbuilder的，现在就简单的说一下怎么进行换算</p>
+<p>一般是为某个项目单独设置的，我们找到项目，右键点击属性，打开代码助手设置，选中 启用px转rem提示，填写合适的 px转rem比例 和 rem小数点部分保留长度， 保存配置，记得勾选最上面的启用项目特定的配置。</p>
+<p>好了，以上就是我对Html5的适配的一些理解，如果文章由于我学识浅薄，导致您发现有严重谬误的地方，请一定在评论中指出，我会在第一时间修正我的博文，以避免误人子弟。</p>
 ]]></content>
       <categories>
         <category>前端适配</category>
@@ -7758,30 +8374,6 @@ npm install vuex --save</code></pre><h2 id="使用"><a href="#使用" class="hea
       </tags>
   </entry>
   <entry>
-    <title>Html转PDF</title>
-    <url>/2018/11/29/68-Html%E8%BD%ACPDF/</url>
-    <content><![CDATA[<hr style='filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)' color='#FF0000' size='1' />
-
-<blockquote>
-<p>有时候,我们需要将html转化为pdf,在此记录一下</p>
-</blockquote>
-<a id="more"></a>
-
-<p>用到了两个插件 html2canvas与 jspdf,重要的策略就是讲html转化为图片,再将图片转化为pdf</p>
-<p>其他的没有了,我也是在网上找的例子</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line"></span><br><span class="line">  &lt;head&gt;</span><br><span class="line">    &lt;title&gt;转PDF&lt;&#x2F;title&gt;</span><br><span class="line">    &lt;meta http-equiv&#x3D;&quot;Content-Type&quot; content&#x3D;&quot;text&#x2F;html; charset&#x3D;utf-8&quot;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- .pdf文件下载  download --&gt;</span><br><span class="line">    &lt;script src&#x3D;&quot;https:&#x2F;&#x2F;cdn.bootcss.com&#x2F;html2canvas&#x2F;0.5.0-beta4&#x2F;html2canvas.js&quot;&gt;&lt;&#x2F;script&gt;</span><br><span class="line">    &lt;script src&#x3D;&quot;https:&#x2F;&#x2F;cdn.bootcss.com&#x2F;jspdf&#x2F;1.3.4&#x2F;jspdf.debug.js&quot;&gt;&lt;&#x2F;script&gt;</span><br><span class="line">    &lt;!-- jQuery 2.2.3 --&gt;</span><br><span class="line">    &lt;script src&#x3D;&quot;&#x2F;plugins&#x2F;jQuery&#x2F;jquery-2.2.3.min.js&quot;&gt;&lt;&#x2F;script&gt;</span><br><span class="line">    &lt;style type&#x3D;&quot;text&#x2F;css&quot;&gt;</span><br><span class="line">      #pdfDom&#123;</span><br><span class="line">        text-align: center;</span><br><span class="line">        border: 1px solid blue;</span><br><span class="line">      &#125;</span><br><span class="line">    &lt;&#x2F;style&gt;</span><br><span class="line">  &lt;&#x2F;head&gt;</span><br><span class="line"></span><br><span class="line">  &lt;body&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;right-aside&quot; id&#x3D;&quot;pdfDom&quot; class&#x3D;&quot;right-aside&quot;&gt;</span><br><span class="line">      &lt;div&gt;点击下面的按钮，内容将会被导出为pdf.&lt;&#x2F;div&gt;</span><br><span class="line">      &lt;svg xmlns&#x3D;&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&quot; version&#x3D;&quot;1.1&quot;&gt;</span><br><span class="line">        &lt;defs&gt;</span><br><span class="line">          &lt;filter id&#x3D;&quot;MyFilter&quot; filterUnits&#x3D;&quot;userSpaceOnUse&quot; x&#x3D;&quot;0&quot; y&#x3D;&quot;0&quot; width&#x3D;&quot;200&quot; height&#x3D;&quot;120&quot;&gt;</span><br><span class="line">            &lt;feGaussianBlur in&#x3D;&quot;SourceAlpha&quot; stdDeviation&#x3D;&quot;4&quot; result&#x3D;&quot;blur&quot;&gt;&lt;&#x2F;feGaussianBlur&gt;</span><br><span class="line">            &lt;feOffset in&#x3D;&quot;blur&quot; dx&#x3D;&quot;4&quot; dy&#x3D;&quot;4&quot; result&#x3D;&quot;offsetBlur&quot;&gt;&lt;&#x2F;feOffset&gt;</span><br><span class="line">            &lt;feSpecularLighting in&#x3D;&quot;blur&quot; surfaceScale&#x3D;&quot;5&quot; specularConstant&#x3D;&quot;.75&quot; specularExponent&#x3D;&quot;20&quot; lighting-color&#x3D;&quot;#bbbbbb&quot; result&#x3D;&quot;specOut&quot;&gt;</span><br><span class="line">              &lt;fePointLight x&#x3D;&quot;-5000&quot; y&#x3D;&quot;-10000&quot; z&#x3D;&quot;20000&quot;&gt;&lt;&#x2F;fePointLight&gt;</span><br><span class="line">            &lt;&#x2F;feSpecularLighting&gt;</span><br><span class="line">            &lt;feComposite in&#x3D;&quot;specOut&quot; in2&#x3D;&quot;SourceAlpha&quot; operator&#x3D;&quot;in&quot; result&#x3D;&quot;specOut&quot;&gt;&lt;&#x2F;feComposite&gt;</span><br><span class="line">            &lt;feComposite in&#x3D;&quot;SourceGraphic&quot; in2&#x3D;&quot;specOut&quot; operator&#x3D;&quot;arithmetic&quot; k1&#x3D;&quot;0&quot; k2&#x3D;&quot;1&quot; k3&#x3D;&quot;1&quot; k4&#x3D;&quot;0&quot; result&#x3D;&quot;litPaint&quot;&gt;&lt;&#x2F;feComposite&gt;</span><br><span class="line">            &lt;feMerge&gt;</span><br><span class="line">              &lt;feMergeNode in&#x3D;&quot;offsetBlur&quot;&gt;&lt;&#x2F;feMergeNode&gt;</span><br><span class="line">              &lt;feMergeNode in&#x3D;&quot;litPaint&quot;&gt;&lt;&#x2F;feMergeNode&gt;</span><br><span class="line">            &lt;&#x2F;feMerge&gt;</span><br><span class="line">          &lt;&#x2F;filter&gt;</span><br><span class="line">        &lt;&#x2F;defs&gt;</span><br><span class="line">        &lt;rect x&#x3D;&quot;1&quot; y&#x3D;&quot;1&quot; width&#x3D;&quot;198&quot; height&#x3D;&quot;118&quot; fill&#x3D;&quot;#cccccc&quot;&gt;&lt;&#x2F;rect&gt;</span><br><span class="line">        &lt;g filter&#x3D;&quot;url(#MyFilter)&quot;&gt;</span><br><span class="line">          &lt;path fill&#x3D;&quot;none&quot; stroke&#x3D;&quot;#D90000&quot; stroke-width&#x3D;&quot;10&quot; d&#x3D;&quot;M50,90 C0,90 0,30 50,30 L150,30 C200,30 200,90 150,90 z&quot;&gt;&lt;&#x2F;path&gt;</span><br><span class="line">          &lt;text fill&#x3D;&quot;#FFFFFF&quot; stroke&#x3D;&quot;black&quot; font-size&#x3D;&quot;45&quot; font-family&#x3D;&quot;Verdana&quot; x&#x3D;&quot;52&quot; y&#x3D;&quot;76&quot;&gt;SVG&lt;&#x2F;text&gt;</span><br><span class="line">        &lt;&#x2F;g&gt;</span><br><span class="line">      &lt;&#x2F;svg&gt;</span><br><span class="line">    &lt;&#x2F;div&gt;</span><br><span class="line">    &lt;button onclick&#x3D;&quot;makeMpdf(&#39;测试&#39;)&quot;&gt;导出PDF文件&lt;&#x2F;button&gt;</span><br><span class="line">  &lt;&#x2F;body&gt;</span><br><span class="line">  &lt;script type&#x3D;&quot;text&#x2F;javascript&quot;&gt;</span><br><span class="line">    &#x2F;&#x2F;将html页面导出.pdf格式文件(适用于jQuery、vue库)  -- cs 2018&#x2F;11&#x2F;28</span><br><span class="line">    function makeMpdf(pdfName) &#123;</span><br><span class="line">      if(confirm(&quot;您确认下载该PDF文件吗?&quot;)) &#123;</span><br><span class="line">        var target &#x3D; document.getElementsByClassName(&quot;right-aside&quot;)[0];</span><br><span class="line">        target.style.background &#x3D; &quot;#FFFFFF&quot;;</span><br><span class="line">        if(pdfName &#x3D;&#x3D; &#39;&#39; || pdfName &#x3D;&#x3D; undefined) pdfName &#x3D; getNowFormatDate();</span><br><span class="line"></span><br><span class="line">        html2canvas(target, &#123;</span><br><span class="line">          onrendered: function(canvas) &#123;</span><br><span class="line">            var contentWidth &#x3D; canvas.width;</span><br><span class="line">            var contentHeight &#x3D; canvas.height;</span><br><span class="line"></span><br><span class="line">            &#x2F;&#x2F;一页pdf显示html页面生成的canvas高度;</span><br><span class="line">            var pageHeight &#x3D; contentWidth &#x2F; 592.28 * 841.89;</span><br><span class="line">            &#x2F;&#x2F;未生成pdf的html页面高度</span><br><span class="line">            var leftHeight &#x3D; contentHeight;</span><br><span class="line">            &#x2F;&#x2F;页面偏移</span><br><span class="line">            var position &#x3D; 0;</span><br><span class="line">            &#x2F;&#x2F;a4纸的尺寸[595.28,841.89]，html页面生成的canvas在pdf中图片的宽高</span><br><span class="line">            var imgWidth &#x3D; 595.28;</span><br><span class="line">            var imgHeight &#x3D; 592.28 &#x2F; contentWidth * contentHeight;</span><br><span class="line"></span><br><span class="line">            var pageData &#x3D; canvas.toDataURL(&#39;image&#x2F;jpeg&#39;, 1.0);</span><br><span class="line">            &#x2F;&#x2F;p：横向，a4：纸张大小，默认是a4;</span><br><span class="line">            var pdf &#x3D; new jsPDF(&#39;&#39;, &#39;pt&#39;, &#39;a4&#39;);</span><br><span class="line"></span><br><span class="line">            &#x2F;&#x2F;有两个高度需要区分，一个是html页面的实际高度，和生成pdf的页面高度(841.89)</span><br><span class="line">            &#x2F;&#x2F;当内容未超过pdf一页显示的范围，无需分页</span><br><span class="line">            if(leftHeight &lt; pageHeight) &#123;</span><br><span class="line">              pdf.addImage(pageData, &#39;JPEG&#39;, 0, 0, imgWidth, imgHeight);</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">              while(leftHeight &gt; 0) &#123;</span><br><span class="line">                pdf.addImage(pageData, &#39;JPEG&#39;, 0, position, imgWidth, imgHeight)</span><br><span class="line">                leftHeight -&#x3D; pageHeight;</span><br><span class="line">                position -&#x3D; 841.89;</span><br><span class="line">                &#x2F;&#x2F;避免添加空白页</span><br><span class="line">                if(leftHeight &gt; 0) &#123;</span><br><span class="line">                  pdf.addPage();</span><br><span class="line">                &#125;</span><br><span class="line">              &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            pdf.save(pdfName + &quot;.pdf&quot;);</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &lt;&#x2F;script&gt;</span><br><span class="line"></span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
-
-
-<p>以上就是我对Html转PDF的一些理解，如果文章由于我学识浅薄，导致您发现有严重谬误的地方，请一定在评论中指出，我会在第一时间修正我的博文，以避免误人子弟。</p>
-]]></content>
-      <categories>
-        <category>javaScript</category>
-      </categories>
-      <tags>
-        <tag>javaScript</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>图片上传与压缩</title>
     <url>/2018/11/28/67-%E5%9B%BE%E7%89%87%E4%B8%8A%E4%BC%A0%E4%B8%8E%E5%8E%8B%E7%BC%A9/</url>
     <content><![CDATA[<hr style='filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)' color='#FF0000' size='1' />
@@ -7823,6 +8415,30 @@ npm install vuex --save</code></pre><h2 id="使用"><a href="#使用" class="hea
 
 
 <p>以上就是我对上传图片的一些理解，如果文章由于我学识浅薄，导致您发现有严重谬误的地方，请一定在评论中指出，我会在第一时间修正我的博文，以避免误人子弟。</p>
+]]></content>
+      <categories>
+        <category>javaScript</category>
+      </categories>
+      <tags>
+        <tag>javaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Html转PDF</title>
+    <url>/2018/11/29/68-Html%E8%BD%ACPDF/</url>
+    <content><![CDATA[<hr style='filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)' color='#FF0000' size='1' />
+
+<blockquote>
+<p>有时候,我们需要将html转化为pdf,在此记录一下</p>
+</blockquote>
+<a id="more"></a>
+
+<p>用到了两个插件 html2canvas与 jspdf,重要的策略就是讲html转化为图片,再将图片转化为pdf</p>
+<p>其他的没有了,我也是在网上找的例子</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line"></span><br><span class="line">  &lt;head&gt;</span><br><span class="line">    &lt;title&gt;转PDF&lt;&#x2F;title&gt;</span><br><span class="line">    &lt;meta http-equiv&#x3D;&quot;Content-Type&quot; content&#x3D;&quot;text&#x2F;html; charset&#x3D;utf-8&quot;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- .pdf文件下载  download --&gt;</span><br><span class="line">    &lt;script src&#x3D;&quot;https:&#x2F;&#x2F;cdn.bootcss.com&#x2F;html2canvas&#x2F;0.5.0-beta4&#x2F;html2canvas.js&quot;&gt;&lt;&#x2F;script&gt;</span><br><span class="line">    &lt;script src&#x3D;&quot;https:&#x2F;&#x2F;cdn.bootcss.com&#x2F;jspdf&#x2F;1.3.4&#x2F;jspdf.debug.js&quot;&gt;&lt;&#x2F;script&gt;</span><br><span class="line">    &lt;!-- jQuery 2.2.3 --&gt;</span><br><span class="line">    &lt;script src&#x3D;&quot;&#x2F;plugins&#x2F;jQuery&#x2F;jquery-2.2.3.min.js&quot;&gt;&lt;&#x2F;script&gt;</span><br><span class="line">    &lt;style type&#x3D;&quot;text&#x2F;css&quot;&gt;</span><br><span class="line">      #pdfDom&#123;</span><br><span class="line">        text-align: center;</span><br><span class="line">        border: 1px solid blue;</span><br><span class="line">      &#125;</span><br><span class="line">    &lt;&#x2F;style&gt;</span><br><span class="line">  &lt;&#x2F;head&gt;</span><br><span class="line"></span><br><span class="line">  &lt;body&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;right-aside&quot; id&#x3D;&quot;pdfDom&quot; class&#x3D;&quot;right-aside&quot;&gt;</span><br><span class="line">      &lt;div&gt;点击下面的按钮，内容将会被导出为pdf.&lt;&#x2F;div&gt;</span><br><span class="line">      &lt;svg xmlns&#x3D;&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&quot; version&#x3D;&quot;1.1&quot;&gt;</span><br><span class="line">        &lt;defs&gt;</span><br><span class="line">          &lt;filter id&#x3D;&quot;MyFilter&quot; filterUnits&#x3D;&quot;userSpaceOnUse&quot; x&#x3D;&quot;0&quot; y&#x3D;&quot;0&quot; width&#x3D;&quot;200&quot; height&#x3D;&quot;120&quot;&gt;</span><br><span class="line">            &lt;feGaussianBlur in&#x3D;&quot;SourceAlpha&quot; stdDeviation&#x3D;&quot;4&quot; result&#x3D;&quot;blur&quot;&gt;&lt;&#x2F;feGaussianBlur&gt;</span><br><span class="line">            &lt;feOffset in&#x3D;&quot;blur&quot; dx&#x3D;&quot;4&quot; dy&#x3D;&quot;4&quot; result&#x3D;&quot;offsetBlur&quot;&gt;&lt;&#x2F;feOffset&gt;</span><br><span class="line">            &lt;feSpecularLighting in&#x3D;&quot;blur&quot; surfaceScale&#x3D;&quot;5&quot; specularConstant&#x3D;&quot;.75&quot; specularExponent&#x3D;&quot;20&quot; lighting-color&#x3D;&quot;#bbbbbb&quot; result&#x3D;&quot;specOut&quot;&gt;</span><br><span class="line">              &lt;fePointLight x&#x3D;&quot;-5000&quot; y&#x3D;&quot;-10000&quot; z&#x3D;&quot;20000&quot;&gt;&lt;&#x2F;fePointLight&gt;</span><br><span class="line">            &lt;&#x2F;feSpecularLighting&gt;</span><br><span class="line">            &lt;feComposite in&#x3D;&quot;specOut&quot; in2&#x3D;&quot;SourceAlpha&quot; operator&#x3D;&quot;in&quot; result&#x3D;&quot;specOut&quot;&gt;&lt;&#x2F;feComposite&gt;</span><br><span class="line">            &lt;feComposite in&#x3D;&quot;SourceGraphic&quot; in2&#x3D;&quot;specOut&quot; operator&#x3D;&quot;arithmetic&quot; k1&#x3D;&quot;0&quot; k2&#x3D;&quot;1&quot; k3&#x3D;&quot;1&quot; k4&#x3D;&quot;0&quot; result&#x3D;&quot;litPaint&quot;&gt;&lt;&#x2F;feComposite&gt;</span><br><span class="line">            &lt;feMerge&gt;</span><br><span class="line">              &lt;feMergeNode in&#x3D;&quot;offsetBlur&quot;&gt;&lt;&#x2F;feMergeNode&gt;</span><br><span class="line">              &lt;feMergeNode in&#x3D;&quot;litPaint&quot;&gt;&lt;&#x2F;feMergeNode&gt;</span><br><span class="line">            &lt;&#x2F;feMerge&gt;</span><br><span class="line">          &lt;&#x2F;filter&gt;</span><br><span class="line">        &lt;&#x2F;defs&gt;</span><br><span class="line">        &lt;rect x&#x3D;&quot;1&quot; y&#x3D;&quot;1&quot; width&#x3D;&quot;198&quot; height&#x3D;&quot;118&quot; fill&#x3D;&quot;#cccccc&quot;&gt;&lt;&#x2F;rect&gt;</span><br><span class="line">        &lt;g filter&#x3D;&quot;url(#MyFilter)&quot;&gt;</span><br><span class="line">          &lt;path fill&#x3D;&quot;none&quot; stroke&#x3D;&quot;#D90000&quot; stroke-width&#x3D;&quot;10&quot; d&#x3D;&quot;M50,90 C0,90 0,30 50,30 L150,30 C200,30 200,90 150,90 z&quot;&gt;&lt;&#x2F;path&gt;</span><br><span class="line">          &lt;text fill&#x3D;&quot;#FFFFFF&quot; stroke&#x3D;&quot;black&quot; font-size&#x3D;&quot;45&quot; font-family&#x3D;&quot;Verdana&quot; x&#x3D;&quot;52&quot; y&#x3D;&quot;76&quot;&gt;SVG&lt;&#x2F;text&gt;</span><br><span class="line">        &lt;&#x2F;g&gt;</span><br><span class="line">      &lt;&#x2F;svg&gt;</span><br><span class="line">    &lt;&#x2F;div&gt;</span><br><span class="line">    &lt;button onclick&#x3D;&quot;makeMpdf(&#39;测试&#39;)&quot;&gt;导出PDF文件&lt;&#x2F;button&gt;</span><br><span class="line">  &lt;&#x2F;body&gt;</span><br><span class="line">  &lt;script type&#x3D;&quot;text&#x2F;javascript&quot;&gt;</span><br><span class="line">    &#x2F;&#x2F;将html页面导出.pdf格式文件(适用于jQuery、vue库)  -- cs 2018&#x2F;11&#x2F;28</span><br><span class="line">    function makeMpdf(pdfName) &#123;</span><br><span class="line">      if(confirm(&quot;您确认下载该PDF文件吗?&quot;)) &#123;</span><br><span class="line">        var target &#x3D; document.getElementsByClassName(&quot;right-aside&quot;)[0];</span><br><span class="line">        target.style.background &#x3D; &quot;#FFFFFF&quot;;</span><br><span class="line">        if(pdfName &#x3D;&#x3D; &#39;&#39; || pdfName &#x3D;&#x3D; undefined) pdfName &#x3D; getNowFormatDate();</span><br><span class="line"></span><br><span class="line">        html2canvas(target, &#123;</span><br><span class="line">          onrendered: function(canvas) &#123;</span><br><span class="line">            var contentWidth &#x3D; canvas.width;</span><br><span class="line">            var contentHeight &#x3D; canvas.height;</span><br><span class="line"></span><br><span class="line">            &#x2F;&#x2F;一页pdf显示html页面生成的canvas高度;</span><br><span class="line">            var pageHeight &#x3D; contentWidth &#x2F; 592.28 * 841.89;</span><br><span class="line">            &#x2F;&#x2F;未生成pdf的html页面高度</span><br><span class="line">            var leftHeight &#x3D; contentHeight;</span><br><span class="line">            &#x2F;&#x2F;页面偏移</span><br><span class="line">            var position &#x3D; 0;</span><br><span class="line">            &#x2F;&#x2F;a4纸的尺寸[595.28,841.89]，html页面生成的canvas在pdf中图片的宽高</span><br><span class="line">            var imgWidth &#x3D; 595.28;</span><br><span class="line">            var imgHeight &#x3D; 592.28 &#x2F; contentWidth * contentHeight;</span><br><span class="line"></span><br><span class="line">            var pageData &#x3D; canvas.toDataURL(&#39;image&#x2F;jpeg&#39;, 1.0);</span><br><span class="line">            &#x2F;&#x2F;p：横向，a4：纸张大小，默认是a4;</span><br><span class="line">            var pdf &#x3D; new jsPDF(&#39;&#39;, &#39;pt&#39;, &#39;a4&#39;);</span><br><span class="line"></span><br><span class="line">            &#x2F;&#x2F;有两个高度需要区分，一个是html页面的实际高度，和生成pdf的页面高度(841.89)</span><br><span class="line">            &#x2F;&#x2F;当内容未超过pdf一页显示的范围，无需分页</span><br><span class="line">            if(leftHeight &lt; pageHeight) &#123;</span><br><span class="line">              pdf.addImage(pageData, &#39;JPEG&#39;, 0, 0, imgWidth, imgHeight);</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">              while(leftHeight &gt; 0) &#123;</span><br><span class="line">                pdf.addImage(pageData, &#39;JPEG&#39;, 0, position, imgWidth, imgHeight)</span><br><span class="line">                leftHeight -&#x3D; pageHeight;</span><br><span class="line">                position -&#x3D; 841.89;</span><br><span class="line">                &#x2F;&#x2F;避免添加空白页</span><br><span class="line">                if(leftHeight &gt; 0) &#123;</span><br><span class="line">                  pdf.addPage();</span><br><span class="line">                &#125;</span><br><span class="line">              &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            pdf.save(pdfName + &quot;.pdf&quot;);</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &lt;&#x2F;script&gt;</span><br><span class="line"></span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
+
+
+<p>以上就是我对Html转PDF的一些理解，如果文章由于我学识浅薄，导致您发现有严重谬误的地方，请一定在评论中指出，我会在第一时间修正我的博文，以避免误人子弟。</p>
 ]]></content>
       <categories>
         <category>javaScript</category>
@@ -8177,26 +8793,6 @@ npm install vuex --save</code></pre><h2 id="使用"><a href="#使用" class="hea
       </categories>
       <tags>
         <tag>ECMAScript 6</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Web Storage监听</title>
-    <url>/2018/12/20/74-Web%20Storage%E7%9B%91%E5%90%AC/</url>
-    <content><![CDATA[<hr style='filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)' color='#FF0000' size='1' />
-
-<blockquote>
-<p>项目中有一个需求，需要在两个页面进行传值操作并实时更新，想到了用Storage，原理就不解释了，直接上代码</p>
-</blockquote>
-<a id="more"></a>
-
-<h2 id="实时监听的页面"><a href="#实时监听的页面" class="headerlink" title="实时监听的页面"></a>实时监听的页面</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line"></span><br><span class="line">  &lt;head&gt;</span><br><span class="line">    &lt;meta charset&#x3D;&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;title&gt;利用storage事件实时监视Web Storage中的数据&lt;&#x2F;title&gt;</span><br><span class="line">  &lt;&#x2F;head&gt;</span><br><span class="line"></span><br><span class="line">  &lt;body&gt;</span><br><span class="line">    &lt;script type&#x3D;&quot;text&#x2F;javascript&quot;&gt;</span><br><span class="line">      &#x2F;&#x2F;利用storage事件实时监视wev Storage中的数据</span><br><span class="line">      window.addEventListener(&#39;storage&#39;, function(e) &#123; &#x2F;&#x2F;e只是一个传参</span><br><span class="line">        console.log(e)</span><br><span class="line">        &#x2F;&#x2F;获取被修改的键值</span><br><span class="line">        if(e.key &#x3D;&#x3D; &#39;test&#39;) &#123;</span><br><span class="line">          &#x2F;&#x2F;获取将要被添加内容的元素</span><br><span class="line">          var output &#x3D; document.getElementById(&#39;output&#39;);</span><br><span class="line">          &#x2F;&#x2F;将获取到的修改值在元素中输出</span><br><span class="line">          output.innerHTML &#x3D; &#39;原有值：&#39; + e.oldValue;</span><br><span class="line">          output.innerHTML +&#x3D; &#39;&lt;br &#x2F;&gt;新值:&#39; + e.newValue;</span><br><span class="line">          output.innerHTML +&#x3D; &#39;&lt;br &#x2F;&gt;变动页面地址：&#39; + e.url;</span><br><span class="line"></span><br><span class="line">          &#x2F;&#x2F;分别打印会发现内容一致</span><br><span class="line">          console.log(e.storageArea);</span><br><span class="line">          console.log(localStorage);</span><br><span class="line">          &#x2F;&#x2F;此行代码只在Chrome浏览器中有效</span><br><span class="line">          console.log(e.storageArea &#x3D;&#x3D;&#x3D; localStorage); &#x2F;&#x2F;输出true</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;, false);</span><br><span class="line"></span><br><span class="line">    &lt;&#x2F;script&gt;</span><br><span class="line">    &lt;output id&#x3D;&quot;output&quot;&gt;&lt;&#x2F;output&gt;</span><br><span class="line">  &lt;&#x2F;body&gt;</span><br><span class="line"></span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
-
-<h2 id="被监听的代码"><a href="#被监听的代码" class="headerlink" title="被监听的代码"></a>被监听的代码</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">  &lt;head&gt;</span><br><span class="line">    &lt;meta charset&#x3D;&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;title&gt;用于修改localStorage 中数据的页面的代码&lt;&#x2F;title&gt;</span><br><span class="line">  &lt;&#x2F;head&gt;</span><br><span class="line"></span><br><span class="line">  &lt;body&gt;</span><br><span class="line">    &lt;span&gt;请输入一些值：&lt;&#x2F;span&gt;&lt;input type&#x3D;&quot;text&quot; id&#x3D;&quot;text1&quot; &#x2F;&gt;</span><br><span class="line">    &lt;button onclick&#x3D;&quot;setLOcalStorage()&quot;&gt;设置&lt;&#x2F;button&gt;</span><br><span class="line">  &lt;&#x2F;body&gt;</span><br><span class="line">  &lt;script type&#x3D;&quot;text&#x2F;javascript&quot;&gt;</span><br><span class="line">    function setLOcalStorage() &#123;</span><br><span class="line">      localStorage.clear();</span><br><span class="line">      &#x2F;&#x2F;设置test键值下的内容等于input框中的内容</span><br><span class="line">      localStorage.test &#x3D; document.getElementById(&#39;text1&#39;).value;</span><br><span class="line">    &#125;</span><br><span class="line">  &lt;&#x2F;script&gt;</span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>javaScript</category>
-      </categories>
-      <tags>
-        <tag>javaScript</tag>
       </tags>
   </entry>
   <entry>
@@ -8836,44 +9432,23 @@ npm install vuex --save</code></pre><h2 id="使用"><a href="#使用" class="hea
       </tags>
   </entry>
   <entry>
-    <title>记一次失败的微信分享</title>
-    <url>/2019/04/24/86-%E5%BE%AE%E4%BF%A1%E5%88%86%E4%BA%AB/</url>
+    <title>Web Storage监听</title>
+    <url>/2018/12/20/74-Web%20Storage%E7%9B%91%E5%90%AC/</url>
     <content><![CDATA[<hr style='filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)' color='#FF0000' size='1' />
 
 <blockquote>
-<p>一直都很想做一下微信分享,奈何一直抽不出时间,今天来和大家分享一下我的失败过程</p>
+<p>项目中有一个需求，需要在两个页面进行传值操作并实时更新，想到了用Storage，原理就不解释了，直接上代码</p>
 </blockquote>
 <a id="more"></a>
 
-<p>我们知道微信分享会自动获取页面的title标签做为我们的分享标题，但是分享的详细描述和图标呢？如果需要自定义，我们就需要调取微信分享接口</p>
-<p>看看微信的官网怎么说的 -&gt; <a href="https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1445241432" target="_blank" rel="noopener">戳我戳我</a></p>
-<h2 id="流程步骤"><a href="#流程步骤" class="headerlink" title="流程步骤"></a>流程步骤</h2><p>第一步、我们需要知道, H5调用微信分享需要后端传递<code>生成签名的时间戳</code>,<code>生成签名的随机串</code>,<code>签名</code>,<code>公众号的唯一标识</code>,所以我们需要一个后端来配合我们</p>
-<p>第二步、求人不如求几,自己搭建一个Node服务器,去请求微信分享接口所需要的签名</p>
-<p>第三步、请求的时候发现需要在微信公众号配置IP白名单,才可以进行请求,顺手添加一下</p>
-<p><img src="https://csblogimage.oss-cn-hangzhou.aliyuncs.com/86-1-%E5%BE%AE%E4%BF%A1IP%E7%99%BD%E5%90%8D%E5%8D%95.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,size_16,text_Qnku6ZmI5YWI55Sf55qE5bCP5YmN56uv,color_FFFFFF,shadow_50,t_100,g_se,x_10,y_10" alt="微信IP白名单"></p>
-<p>第四步、我们的后台就可以开始请求了,<code>获取token</code>,<code>获取jsapiticket</code>,<code>获取签名</code>,具体代码下面会贴出</p>
-<p>第五步、我们发现当前请求的页面和分享链接的域名需要在微信公众号中设置<code>微信JS接口安全域名</code></p>
-<p><img src="https://csblogimage.oss-cn-hangzhou.aliyuncs.com/86-2-%E5%BE%AE%E4%BF%A1JS%E6%8E%A5%E5%8F%A3%E5%AE%89%E5%85%A8%E5%9F%9F%E5%90%8D.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,size_16,text_Qnku6ZmI5YWI55Sf55qE5bCP5YmN56uv,color_FFFFFF,shadow_50,t_100,g_se,x_10,y_10" alt="微信JS接口安全域名"></p>
-<p>But,它需要备案的域名…一般都是公司企业进行备案,所以我使用到了<code>Natapp</code>进行内网映射外网,这里就不多做介绍了</p>
-<p>到这里,备案的域名我们就绕过去了</p>
-<p>第六步、可以开始写前端代码了,在<code>wx.config</code>中配置好后,<code>wx.ready</code>中就可以开始进行分享了,具体代码下面会贴出</p>
-<p>第七步、将页面放到微信开发工具上,打开debug模式,测试一下看看,咦…,配置都对,为什么还是不能分享?找找万能的百度</p>
-<p><img src="https://csblogimage.oss-cn-hangzhou.aliyuncs.com/86-3-%E5%BE%AE%E4%BF%A1%E5%88%86%E4%BA%AB.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,size_16,text_Qnku6ZmI5YWI55Sf55qE5bCP5YmN56uv,color_FFFFFF,shadow_50,t_100,g_se,x_10,y_10" alt="微信分享1"><br><img src="https://csblogimage.oss-cn-hangzhou.aliyuncs.com/86-4-%E5%BE%AE%E4%BF%A1%E5%88%86%E4%BA%AB.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,size_16,text_Qnku6ZmI5YWI55Sf55qE5bCP5YmN56uv,color_FFFFFF,shadow_50,t_100,g_se,x_10,y_10" alt="微信分享2"><br><img src="https://csblogimage.oss-cn-hangzhou.aliyuncs.com/86-5-%E5%BE%AE%E4%BF%A1%E5%88%86%E4%BA%AB.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,size_16,text_Qnku6ZmI5YWI55Sf55qE5bCP5YmN56uv,color_FFFFFF,shadow_50,t_100,g_se,x_10,y_10" alt="微信分享3"></p>
-<p>绕过了备案,绕不过认证,要钱的…散了吧…最终还是已失败告终</p>
-<h2 id="核心代码"><a href="#核心代码" class="headerlink" title="核心代码"></a>核心代码</h2><p>首先安装 <code>weixin-js-sdk</code> ,之后引入进来 <code>import wx from &#39;weixin-js-sdk&#39;</code>我们看看具体是怎么实现的</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">this.$axios.get(&#39;http:&#x2F;&#x2F;127.0.0.1:3000&#x2F;wxapi&#39;, &#123;</span><br><span class="line">	params: &#123;</span><br><span class="line">		&#39;url&#39;: window.location.href</span><br><span class="line">	&#125;</span><br><span class="line">&#125;).then((res) &#x3D;&gt; &#123;</span><br><span class="line">	console.log(res)</span><br><span class="line">	wx.config(&#123;</span><br><span class="line">		debug: true, &#x2F;&#x2F; 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。</span><br><span class="line">		appId: res.data.appId, &#x2F;&#x2F; 必填，公众号的唯一标识</span><br><span class="line">		timestamp: res.data.timestamp, &#x2F;&#x2F; 必填，生成签名的时间戳</span><br><span class="line">		nonceStr: res.data.nonceStr, &#x2F;&#x2F; 必填，生成签名的随机串</span><br><span class="line">		signature: res.data.signature, &#x2F;&#x2F; 必填，签名</span><br><span class="line">		&#x2F;&#x2F; 需要分享的列表项:发送给朋友,分享到朋友圈,分享到QQ,分享到QQ空间</span><br><span class="line">		jsApiList: [&#39;onMenuShareTimeline&#39;, &#39;onMenuShareAppMessage&#39;, &#39;updateTimelineShareData&#39;] &#x2F;&#x2F; 必填，需要使用的JS接口列表</span><br><span class="line">	&#125;);</span><br><span class="line"></span><br><span class="line">	wx.error(function(result) &#123;</span><br><span class="line">		alert(&#39;报错&#39;)</span><br><span class="line">		&#x2F;&#x2F; config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。</span><br><span class="line">		alert(result + &#39;测试报错，上线后就可以修复&#39;);</span><br><span class="line">	&#125;);</span><br><span class="line">	wx.ready(function() &#123;</span><br><span class="line">		&#x2F;&#x2F; 分享到朋友圈</span><br><span class="line">		&#x2F;&#x2F; config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后，config是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在ready函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在ready函数中。</span><br><span class="line">		alert(&#39;ready成功&#39;)</span><br><span class="line"></span><br><span class="line">		&#x2F;&#x2F;认证JsApi</span><br><span class="line">		wx.checkJsApi(&#123;</span><br><span class="line">			jsApiList: [&quot;onMenuShareTimeline&quot;],</span><br><span class="line">		&#125;);</span><br><span class="line"></span><br><span class="line">		&#x2F;&#x2F;分享到朋友圈</span><br><span class="line">		wx.updateTimelineShareData(&#123;</span><br><span class="line">			title: &quot;陈先生分享一下&quot;, &#x2F;&#x2F; 分享标题</span><br><span class="line">			desc: &quot;没什么好描述的&quot;, &#x2F;&#x2F;分享描述</span><br><span class="line">			link: &#39;http:&#x2F;&#x2F;n9gtsp.natappfree.cc&#39;, &#x2F;&#x2F; 分享链接,域名和路径必须与js安全域名的一致</span><br><span class="line">			imgUrl: &#39;https:&#x2F;&#x2F;timgsa.baidu.com&#x2F;timg?image&amp;quality&#x3D;80&amp;size&#x3D;b9999_10000&amp;sec&#x3D;1555931928218&amp;di&#x3D;c510b8f413124ec54a1c15adaa8830b9&amp;imgtype&#x3D;0&amp;src&#x3D;http%3A%2F%2Fimg.gifhome.com%2Fgif%2Femoji%2F2018%2Ff5f3d4c76dc94fdb8a0d2e6cf7f02904.jpg&#39; &#x2F;&#x2F; 分享图标</span><br><span class="line">		&#125;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">		&#x2F;&#x2F;分享给朋友</span><br><span class="line">		wx.updateAppMessageShareData(&#123;</span><br><span class="line">			title: &quot;陈先生分享一下&quot;, &#x2F;&#x2F; 分享标题</span><br><span class="line">			desc: &quot;没什么好描述的&quot;, &#x2F;&#x2F;分享描述</span><br><span class="line">			link: &#39;http:&#x2F;&#x2F;n9gtsp.natappfree.cc&#39;, &#x2F;&#x2F; 分享链接,域名和路径必须与js安全域名的一致</span><br><span class="line">			imgUrl: &#39;https:&#x2F;&#x2F;timgsa.baidu.com&#x2F;timg?image&amp;quality&#x3D;80&amp;size&#x3D;b9999_10000&amp;sec&#x3D;1555931928218&amp;di&#x3D;c510b8f413124ec54a1c15adaa8830b9&amp;imgtype&#x3D;0&amp;src&#x3D;http%3A%2F%2Fimg.gifhome.com%2Fgif%2Femoji%2F2018%2Ff5f3d4c76dc94fdb8a0d2e6cf7f02904.jpg&#39; &#x2F;&#x2F; 分享图标</span><br><span class="line">		&#125;);</span><br><span class="line">	&#125;)</span><br><span class="line"></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h2 id="实时监听的页面"><a href="#实时监听的页面" class="headerlink" title="实时监听的页面"></a>实时监听的页面</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line"></span><br><span class="line">  &lt;head&gt;</span><br><span class="line">    &lt;meta charset&#x3D;&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;title&gt;利用storage事件实时监视Web Storage中的数据&lt;&#x2F;title&gt;</span><br><span class="line">  &lt;&#x2F;head&gt;</span><br><span class="line"></span><br><span class="line">  &lt;body&gt;</span><br><span class="line">    &lt;script type&#x3D;&quot;text&#x2F;javascript&quot;&gt;</span><br><span class="line">      &#x2F;&#x2F;利用storage事件实时监视wev Storage中的数据</span><br><span class="line">      window.addEventListener(&#39;storage&#39;, function(e) &#123; &#x2F;&#x2F;e只是一个传参</span><br><span class="line">        console.log(e)</span><br><span class="line">        &#x2F;&#x2F;获取被修改的键值</span><br><span class="line">        if(e.key &#x3D;&#x3D; &#39;test&#39;) &#123;</span><br><span class="line">          &#x2F;&#x2F;获取将要被添加内容的元素</span><br><span class="line">          var output &#x3D; document.getElementById(&#39;output&#39;);</span><br><span class="line">          &#x2F;&#x2F;将获取到的修改值在元素中输出</span><br><span class="line">          output.innerHTML &#x3D; &#39;原有值：&#39; + e.oldValue;</span><br><span class="line">          output.innerHTML +&#x3D; &#39;&lt;br &#x2F;&gt;新值:&#39; + e.newValue;</span><br><span class="line">          output.innerHTML +&#x3D; &#39;&lt;br &#x2F;&gt;变动页面地址：&#39; + e.url;</span><br><span class="line"></span><br><span class="line">          &#x2F;&#x2F;分别打印会发现内容一致</span><br><span class="line">          console.log(e.storageArea);</span><br><span class="line">          console.log(localStorage);</span><br><span class="line">          &#x2F;&#x2F;此行代码只在Chrome浏览器中有效</span><br><span class="line">          console.log(e.storageArea &#x3D;&#x3D;&#x3D; localStorage); &#x2F;&#x2F;输出true</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;, false);</span><br><span class="line"></span><br><span class="line">    &lt;&#x2F;script&gt;</span><br><span class="line">    &lt;output id&#x3D;&quot;output&quot;&gt;&lt;&#x2F;output&gt;</span><br><span class="line">  &lt;&#x2F;body&gt;</span><br><span class="line"></span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
 
-<p>可以看得出来，所有的参数都需要后台返回，其实我们也可以前端获取,但是不安全,后台我是用Node来写的,贴一下代码</p>
-<p>npm安装<code>wechat_interaction_jsapi</code>,之后调用<code>new Jsapi</code>传入AppId和AppSecret</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var Jsapi &#x3D; require(&#39;wechat_interaction_jsapi&#39;);</span><br><span class="line">const jssdk &#x3D; new Jsapi(&#39;wx***************11&#39;,&#39;6ce********************387&#39;)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;获取token</span><br><span class="line">jssdk.getAccessToken().then(function(re)&#123;</span><br><span class="line">	console.log(re)</span><br><span class="line">&#125;).catch(function(err)&#123;</span><br><span class="line">	console.log(err)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;获取jsapiticket</span><br><span class="line">jssdk.getJsApiTicket().then(function(re)&#123;</span><br><span class="line">	console.log(re)</span><br><span class="line">&#125;).catch(function(err)&#123;</span><br><span class="line">	console.log(err)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;获取签名</span><br><span class="line">app.get(&#39;&#x2F;wxapi&#39;,function(req,res,next)&#123;</span><br><span class="line">	jssdk.getSignPackage(req.query.url).then(function(re)&#123;</span><br><span class="line">		re.url &#x3D; req.query.url</span><br><span class="line">		res.json(re)</span><br><span class="line">	&#125;).catch(function(err)&#123;</span><br><span class="line">		console.log(err)</span><br><span class="line">	&#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<p>以上就是我对微信分享的一些理解，如果文章由于我学识浅薄，导致您发现有严重谬误的地方，请一定在评论中指出，我会在第一时间修正我的博文，以避免误人子弟。</p>
-]]></content>
+<h2 id="被监听的代码"><a href="#被监听的代码" class="headerlink" title="被监听的代码"></a>被监听的代码</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">  &lt;head&gt;</span><br><span class="line">    &lt;meta charset&#x3D;&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;title&gt;用于修改localStorage 中数据的页面的代码&lt;&#x2F;title&gt;</span><br><span class="line">  &lt;&#x2F;head&gt;</span><br><span class="line"></span><br><span class="line">  &lt;body&gt;</span><br><span class="line">    &lt;span&gt;请输入一些值：&lt;&#x2F;span&gt;&lt;input type&#x3D;&quot;text&quot; id&#x3D;&quot;text1&quot; &#x2F;&gt;</span><br><span class="line">    &lt;button onclick&#x3D;&quot;setLOcalStorage()&quot;&gt;设置&lt;&#x2F;button&gt;</span><br><span class="line">  &lt;&#x2F;body&gt;</span><br><span class="line">  &lt;script type&#x3D;&quot;text&#x2F;javascript&quot;&gt;</span><br><span class="line">    function setLOcalStorage() &#123;</span><br><span class="line">      localStorage.clear();</span><br><span class="line">      &#x2F;&#x2F;设置test键值下的内容等于input框中的内容</span><br><span class="line">      localStorage.test &#x3D; document.getElementById(&#39;text1&#39;).value;</span><br><span class="line">    &#125;</span><br><span class="line">  &lt;&#x2F;script&gt;</span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
-        <category>微信</category>
+        <category>javaScript</category>
       </categories>
       <tags>
-        <tag>微信</tag>
+        <tag>javaScript</tag>
       </tags>
   </entry>
   <entry>
@@ -8968,6 +9543,47 @@ npm install vuex --save</code></pre><h2 id="使用"><a href="#使用" class="hea
       </tags>
   </entry>
   <entry>
+    <title>记一次失败的微信分享</title>
+    <url>/2019/04/24/86-%E5%BE%AE%E4%BF%A1%E5%88%86%E4%BA%AB/</url>
+    <content><![CDATA[<hr style='filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)' color='#FF0000' size='1' />
+
+<blockquote>
+<p>一直都很想做一下微信分享,奈何一直抽不出时间,今天来和大家分享一下我的失败过程</p>
+</blockquote>
+<a id="more"></a>
+
+<p>我们知道微信分享会自动获取页面的title标签做为我们的分享标题，但是分享的详细描述和图标呢？如果需要自定义，我们就需要调取微信分享接口</p>
+<p>看看微信的官网怎么说的 -&gt; <a href="https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1445241432" target="_blank" rel="noopener">戳我戳我</a></p>
+<h2 id="流程步骤"><a href="#流程步骤" class="headerlink" title="流程步骤"></a>流程步骤</h2><p>第一步、我们需要知道, H5调用微信分享需要后端传递<code>生成签名的时间戳</code>,<code>生成签名的随机串</code>,<code>签名</code>,<code>公众号的唯一标识</code>,所以我们需要一个后端来配合我们</p>
+<p>第二步、求人不如求几,自己搭建一个Node服务器,去请求微信分享接口所需要的签名</p>
+<p>第三步、请求的时候发现需要在微信公众号配置IP白名单,才可以进行请求,顺手添加一下</p>
+<p><img src="https://csblogimage.oss-cn-hangzhou.aliyuncs.com/86-1-%E5%BE%AE%E4%BF%A1IP%E7%99%BD%E5%90%8D%E5%8D%95.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,size_16,text_Qnku6ZmI5YWI55Sf55qE5bCP5YmN56uv,color_FFFFFF,shadow_50,t_100,g_se,x_10,y_10" alt="微信IP白名单"></p>
+<p>第四步、我们的后台就可以开始请求了,<code>获取token</code>,<code>获取jsapiticket</code>,<code>获取签名</code>,具体代码下面会贴出</p>
+<p>第五步、我们发现当前请求的页面和分享链接的域名需要在微信公众号中设置<code>微信JS接口安全域名</code></p>
+<p><img src="https://csblogimage.oss-cn-hangzhou.aliyuncs.com/86-2-%E5%BE%AE%E4%BF%A1JS%E6%8E%A5%E5%8F%A3%E5%AE%89%E5%85%A8%E5%9F%9F%E5%90%8D.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,size_16,text_Qnku6ZmI5YWI55Sf55qE5bCP5YmN56uv,color_FFFFFF,shadow_50,t_100,g_se,x_10,y_10" alt="微信JS接口安全域名"></p>
+<p>But,它需要备案的域名…一般都是公司企业进行备案,所以我使用到了<code>Natapp</code>进行内网映射外网,这里就不多做介绍了</p>
+<p>到这里,备案的域名我们就绕过去了</p>
+<p>第六步、可以开始写前端代码了,在<code>wx.config</code>中配置好后,<code>wx.ready</code>中就可以开始进行分享了,具体代码下面会贴出</p>
+<p>第七步、将页面放到微信开发工具上,打开debug模式,测试一下看看,咦…,配置都对,为什么还是不能分享?找找万能的百度</p>
+<p><img src="https://csblogimage.oss-cn-hangzhou.aliyuncs.com/86-3-%E5%BE%AE%E4%BF%A1%E5%88%86%E4%BA%AB.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,size_16,text_Qnku6ZmI5YWI55Sf55qE5bCP5YmN56uv,color_FFFFFF,shadow_50,t_100,g_se,x_10,y_10" alt="微信分享1"><br><img src="https://csblogimage.oss-cn-hangzhou.aliyuncs.com/86-4-%E5%BE%AE%E4%BF%A1%E5%88%86%E4%BA%AB.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,size_16,text_Qnku6ZmI5YWI55Sf55qE5bCP5YmN56uv,color_FFFFFF,shadow_50,t_100,g_se,x_10,y_10" alt="微信分享2"><br><img src="https://csblogimage.oss-cn-hangzhou.aliyuncs.com/86-5-%E5%BE%AE%E4%BF%A1%E5%88%86%E4%BA%AB.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,size_16,text_Qnku6ZmI5YWI55Sf55qE5bCP5YmN56uv,color_FFFFFF,shadow_50,t_100,g_se,x_10,y_10" alt="微信分享3"></p>
+<p>绕过了备案,绕不过认证,要钱的…散了吧…最终还是已失败告终</p>
+<h2 id="核心代码"><a href="#核心代码" class="headerlink" title="核心代码"></a>核心代码</h2><p>首先安装 <code>weixin-js-sdk</code> ,之后引入进来 <code>import wx from &#39;weixin-js-sdk&#39;</code>我们看看具体是怎么实现的</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">this.$axios.get(&#39;http:&#x2F;&#x2F;127.0.0.1:3000&#x2F;wxapi&#39;, &#123;</span><br><span class="line">	params: &#123;</span><br><span class="line">		&#39;url&#39;: window.location.href</span><br><span class="line">	&#125;</span><br><span class="line">&#125;).then((res) &#x3D;&gt; &#123;</span><br><span class="line">	console.log(res)</span><br><span class="line">	wx.config(&#123;</span><br><span class="line">		debug: true, &#x2F;&#x2F; 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。</span><br><span class="line">		appId: res.data.appId, &#x2F;&#x2F; 必填，公众号的唯一标识</span><br><span class="line">		timestamp: res.data.timestamp, &#x2F;&#x2F; 必填，生成签名的时间戳</span><br><span class="line">		nonceStr: res.data.nonceStr, &#x2F;&#x2F; 必填，生成签名的随机串</span><br><span class="line">		signature: res.data.signature, &#x2F;&#x2F; 必填，签名</span><br><span class="line">		&#x2F;&#x2F; 需要分享的列表项:发送给朋友,分享到朋友圈,分享到QQ,分享到QQ空间</span><br><span class="line">		jsApiList: [&#39;onMenuShareTimeline&#39;, &#39;onMenuShareAppMessage&#39;, &#39;updateTimelineShareData&#39;] &#x2F;&#x2F; 必填，需要使用的JS接口列表</span><br><span class="line">	&#125;);</span><br><span class="line"></span><br><span class="line">	wx.error(function(result) &#123;</span><br><span class="line">		alert(&#39;报错&#39;)</span><br><span class="line">		&#x2F;&#x2F; config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。</span><br><span class="line">		alert(result + &#39;测试报错，上线后就可以修复&#39;);</span><br><span class="line">	&#125;);</span><br><span class="line">	wx.ready(function() &#123;</span><br><span class="line">		&#x2F;&#x2F; 分享到朋友圈</span><br><span class="line">		&#x2F;&#x2F; config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后，config是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在ready函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在ready函数中。</span><br><span class="line">		alert(&#39;ready成功&#39;)</span><br><span class="line"></span><br><span class="line">		&#x2F;&#x2F;认证JsApi</span><br><span class="line">		wx.checkJsApi(&#123;</span><br><span class="line">			jsApiList: [&quot;onMenuShareTimeline&quot;],</span><br><span class="line">		&#125;);</span><br><span class="line"></span><br><span class="line">		&#x2F;&#x2F;分享到朋友圈</span><br><span class="line">		wx.updateTimelineShareData(&#123;</span><br><span class="line">			title: &quot;陈先生分享一下&quot;, &#x2F;&#x2F; 分享标题</span><br><span class="line">			desc: &quot;没什么好描述的&quot;, &#x2F;&#x2F;分享描述</span><br><span class="line">			link: &#39;http:&#x2F;&#x2F;n9gtsp.natappfree.cc&#39;, &#x2F;&#x2F; 分享链接,域名和路径必须与js安全域名的一致</span><br><span class="line">			imgUrl: &#39;https:&#x2F;&#x2F;timgsa.baidu.com&#x2F;timg?image&amp;quality&#x3D;80&amp;size&#x3D;b9999_10000&amp;sec&#x3D;1555931928218&amp;di&#x3D;c510b8f413124ec54a1c15adaa8830b9&amp;imgtype&#x3D;0&amp;src&#x3D;http%3A%2F%2Fimg.gifhome.com%2Fgif%2Femoji%2F2018%2Ff5f3d4c76dc94fdb8a0d2e6cf7f02904.jpg&#39; &#x2F;&#x2F; 分享图标</span><br><span class="line">		&#125;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">		&#x2F;&#x2F;分享给朋友</span><br><span class="line">		wx.updateAppMessageShareData(&#123;</span><br><span class="line">			title: &quot;陈先生分享一下&quot;, &#x2F;&#x2F; 分享标题</span><br><span class="line">			desc: &quot;没什么好描述的&quot;, &#x2F;&#x2F;分享描述</span><br><span class="line">			link: &#39;http:&#x2F;&#x2F;n9gtsp.natappfree.cc&#39;, &#x2F;&#x2F; 分享链接,域名和路径必须与js安全域名的一致</span><br><span class="line">			imgUrl: &#39;https:&#x2F;&#x2F;timgsa.baidu.com&#x2F;timg?image&amp;quality&#x3D;80&amp;size&#x3D;b9999_10000&amp;sec&#x3D;1555931928218&amp;di&#x3D;c510b8f413124ec54a1c15adaa8830b9&amp;imgtype&#x3D;0&amp;src&#x3D;http%3A%2F%2Fimg.gifhome.com%2Fgif%2Femoji%2F2018%2Ff5f3d4c76dc94fdb8a0d2e6cf7f02904.jpg&#39; &#x2F;&#x2F; 分享图标</span><br><span class="line">		&#125;);</span><br><span class="line">	&#125;)</span><br><span class="line"></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>可以看得出来，所有的参数都需要后台返回，其实我们也可以前端获取,但是不安全,后台我是用Node来写的,贴一下代码</p>
+<p>npm安装<code>wechat_interaction_jsapi</code>,之后调用<code>new Jsapi</code>传入AppId和AppSecret</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var Jsapi &#x3D; require(&#39;wechat_interaction_jsapi&#39;);</span><br><span class="line">const jssdk &#x3D; new Jsapi(&#39;wx***************11&#39;,&#39;6ce********************387&#39;)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;获取token</span><br><span class="line">jssdk.getAccessToken().then(function(re)&#123;</span><br><span class="line">	console.log(re)</span><br><span class="line">&#125;).catch(function(err)&#123;</span><br><span class="line">	console.log(err)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;获取jsapiticket</span><br><span class="line">jssdk.getJsApiTicket().then(function(re)&#123;</span><br><span class="line">	console.log(re)</span><br><span class="line">&#125;).catch(function(err)&#123;</span><br><span class="line">	console.log(err)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;获取签名</span><br><span class="line">app.get(&#39;&#x2F;wxapi&#39;,function(req,res,next)&#123;</span><br><span class="line">	jssdk.getSignPackage(req.query.url).then(function(re)&#123;</span><br><span class="line">		re.url &#x3D; req.query.url</span><br><span class="line">		res.json(re)</span><br><span class="line">	&#125;).catch(function(err)&#123;</span><br><span class="line">		console.log(err)</span><br><span class="line">	&#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>以上就是我对微信分享的一些理解，如果文章由于我学识浅薄，导致您发现有严重谬误的地方，请一定在评论中指出，我会在第一时间修正我的博文，以避免误人子弟。</p>
+]]></content>
+      <categories>
+        <category>微信</category>
+      </categories>
+      <tags>
+        <tag>微信</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Node的一些事</title>
     <url>/2019/09/08/89-node%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BA%8B/</url>
     <content><![CDATA[<hr style='filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)' color='#FF0000' size='1' />
@@ -9030,62 +9646,6 @@ npm install vuex --save</code></pre><h2 id="使用"><a href="#使用" class="hea
       </categories>
       <tags>
         <tag>electron-vue</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Vue-cli 2.0 打包配置不同环境</title>
-    <url>/2019/09/14/92-vue%E6%89%93%E5%8C%85%E9%85%8D%E7%BD%AE/</url>
-    <content><![CDATA[<hr style='filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)' color='#FF0000' size='1' />
-
-<blockquote>
-<p>项目会部署到线上不同的环境,看看怎么配置</p>
-</blockquote>
-<a id="more"></a>
-
-<ol>
-<li><p>复制config&gt;prod.env.js，创建一个test.env.js，并修改环境为test。</p>
-</li>
-<li><p>复制build&gt;webpack.prod.conf.js，创建一个webpack.test.conf.js，并修改文件中出现的prod单词，替换为test</p>
-</li>
-<li><p>webpack.base.conf.js和utils.js 改为<code>process.env.NODE_ENV === &#39;production&#39; || &#39;test&#39;</code></p>
-</li>
-<li><p>vue-loader.conf.js 修改为 <code>const isProduction = process.env.NODE_ENV === &#39;production&#39; || process.env.NODE_ENV === &#39;test&#39;</code></p>
-</li>
-<li><p>package.json中改 <code>&quot;test&quot;: &quot;node build/test.build.js&quot;</code>,<code>&quot;all&quot;: &quot;npm run build &amp;&amp; npm run test&quot;</code></p>
-</li>
-<li><p>复制build.js文件,命名为test.build.js,改为 <code>process.env.NODE_ENV = &#39;test&#39;</code>,<code>const webpackConfig = require(&#39;./webpack.test.conf&#39;)</code></p>
-</li>
-</ol>
-<blockquote>
-<p>配置不同的打包文件</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let buildFolder;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; 创建不同的打包地址</span><br><span class="line">if (processEnv &#x3D;&#x3D; &#39;production&#39;) &#123;</span><br><span class="line">  buildFolder &#x3D; &#39;distPro&#39;;  &#x2F;&#x2F; 生产</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">if (processEnv &#x3D;&#x3D; &#39;test&#39;) &#123;</span><br><span class="line">  buildFolder &#x3D; &#39;distTest&#39;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">build: &#123;</span><br><span class="line">  &#x2F;&#x2F; Template for index.html</span><br><span class="line">  index: path.resolve(__dirname, &#96;..&#x2F;$&#123;buildFolder&#125;&#x2F;index.html&#96;),</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F; Paths</span><br><span class="line">  assetsRoot: path.resolve(__dirname, &#96;..&#x2F;$&#123;buildFolder&#125;&#96;),</span><br><span class="line">  assetsSubDirectory: &#39;static&#39;,</span><br><span class="line">  assetsPublicPath: &#39;.&#x2F;&#39;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>配置不同的url</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">let baseUrl&#x3D; &quot;&quot;;</span><br><span class="line">switch (process.env.NODE_ENV) &#123;</span><br><span class="line">  case &#39;development&#39;:</span><br><span class="line">    baseUrl &#x3D; &quot;&#x2F;mgr&#x2F;&quot; &#x2F;&#x2F;开发环境url</span><br><span class="line">    break</span><br><span class="line">  case &#39;test&#39;:</span><br><span class="line">    baseUrl &#x3D; &quot;&#x2F;dev&#x2F;mgr&#x2F;&quot; &#x2F;&#x2F;测试环境中的url</span><br><span class="line">    break</span><br><span class="line">  case &#39;production&#39;:</span><br><span class="line">    baseUrl &#x3D; &quot;&#x2F;mgr&#x2F;&quot; &#x2F;&#x2F;生产环境url</span><br><span class="line">    break</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var NewApiRootUrl &#x3D; baseUrl;</span><br></pre></td></tr></table></figure>
-
-
-<h2 id="另一种思路"><a href="#另一种思路" class="headerlink" title="另一种思路"></a>另一种思路</h2><p>上面那种做法是比较偷懒的,相当于把test直接和prod绑在一起,也是可以分开的</p>
-<ol>
-<li>在config/index.js中新增一个对象类似这样的</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">module.exports &#x3D; &#123;</span><br><span class="line">    dev: &#123;&#125;,</span><br><span class="line">    build: &#123;&#125;,</span><br><span class="line">    test: &#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>然后再test中配置需要的参数</p>
-<ol start="2">
-<li>在各个配置里面,把刚刚上面提到的那些 <code>|| &#39;test&#39;</code> 修改为相对于的方法,指向到config/index.js中的test方法,其实原理都是一样的</li>
-</ol>
-<p>以上就是我对vue-cli 2.0打包配置 的一些理解，如果文章由于我学识浅薄，导致您发现有严重谬误的地方，请一定在评论中指出，我会在第一时间修正我的博文，以避免误人子弟。</p>
-]]></content>
-      <categories>
-        <category>vue-cli</category>
-      </categories>
-      <tags>
-        <tag>vue-cli</tag>
       </tags>
   </entry>
   <entry>
@@ -9178,6 +9738,62 @@ npm install vuex --save</code></pre><h2 id="使用"><a href="#使用" class="hea
       </categories>
       <tags>
         <tag>electron-vue</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Vue-cli 2.0 打包配置不同环境</title>
+    <url>/2019/09/14/92-vue%E6%89%93%E5%8C%85%E9%85%8D%E7%BD%AE/</url>
+    <content><![CDATA[<hr style='filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)' color='#FF0000' size='1' />
+
+<blockquote>
+<p>项目会部署到线上不同的环境,看看怎么配置</p>
+</blockquote>
+<a id="more"></a>
+
+<ol>
+<li><p>复制config&gt;prod.env.js，创建一个test.env.js，并修改环境为test。</p>
+</li>
+<li><p>复制build&gt;webpack.prod.conf.js，创建一个webpack.test.conf.js，并修改文件中出现的prod单词，替换为test</p>
+</li>
+<li><p>webpack.base.conf.js和utils.js 改为<code>process.env.NODE_ENV === &#39;production&#39; || &#39;test&#39;</code></p>
+</li>
+<li><p>vue-loader.conf.js 修改为 <code>const isProduction = process.env.NODE_ENV === &#39;production&#39; || process.env.NODE_ENV === &#39;test&#39;</code></p>
+</li>
+<li><p>package.json中改 <code>&quot;test&quot;: &quot;node build/test.build.js&quot;</code>,<code>&quot;all&quot;: &quot;npm run build &amp;&amp; npm run test&quot;</code></p>
+</li>
+<li><p>复制build.js文件,命名为test.build.js,改为 <code>process.env.NODE_ENV = &#39;test&#39;</code>,<code>const webpackConfig = require(&#39;./webpack.test.conf&#39;)</code></p>
+</li>
+</ol>
+<blockquote>
+<p>配置不同的打包文件</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let buildFolder;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; 创建不同的打包地址</span><br><span class="line">if (processEnv &#x3D;&#x3D; &#39;production&#39;) &#123;</span><br><span class="line">  buildFolder &#x3D; &#39;distPro&#39;;  &#x2F;&#x2F; 生产</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">if (processEnv &#x3D;&#x3D; &#39;test&#39;) &#123;</span><br><span class="line">  buildFolder &#x3D; &#39;distTest&#39;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">build: &#123;</span><br><span class="line">  &#x2F;&#x2F; Template for index.html</span><br><span class="line">  index: path.resolve(__dirname, &#96;..&#x2F;$&#123;buildFolder&#125;&#x2F;index.html&#96;),</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F; Paths</span><br><span class="line">  assetsRoot: path.resolve(__dirname, &#96;..&#x2F;$&#123;buildFolder&#125;&#96;),</span><br><span class="line">  assetsSubDirectory: &#39;static&#39;,</span><br><span class="line">  assetsPublicPath: &#39;.&#x2F;&#39;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>配置不同的url</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">let baseUrl&#x3D; &quot;&quot;;</span><br><span class="line">switch (process.env.NODE_ENV) &#123;</span><br><span class="line">  case &#39;development&#39;:</span><br><span class="line">    baseUrl &#x3D; &quot;&#x2F;mgr&#x2F;&quot; &#x2F;&#x2F;开发环境url</span><br><span class="line">    break</span><br><span class="line">  case &#39;test&#39;:</span><br><span class="line">    baseUrl &#x3D; &quot;&#x2F;dev&#x2F;mgr&#x2F;&quot; &#x2F;&#x2F;测试环境中的url</span><br><span class="line">    break</span><br><span class="line">  case &#39;production&#39;:</span><br><span class="line">    baseUrl &#x3D; &quot;&#x2F;mgr&#x2F;&quot; &#x2F;&#x2F;生产环境url</span><br><span class="line">    break</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var NewApiRootUrl &#x3D; baseUrl;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="另一种思路"><a href="#另一种思路" class="headerlink" title="另一种思路"></a>另一种思路</h2><p>上面那种做法是比较偷懒的,相当于把test直接和prod绑在一起,也是可以分开的</p>
+<ol>
+<li>在config/index.js中新增一个对象类似这样的</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">module.exports &#x3D; &#123;</span><br><span class="line">    dev: &#123;&#125;,</span><br><span class="line">    build: &#123;&#125;,</span><br><span class="line">    test: &#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后再test中配置需要的参数</p>
+<ol start="2">
+<li>在各个配置里面,把刚刚上面提到的那些 <code>|| &#39;test&#39;</code> 修改为相对于的方法,指向到config/index.js中的test方法,其实原理都是一样的</li>
+</ol>
+<p>以上就是我对vue-cli 2.0打包配置 的一些理解，如果文章由于我学识浅薄，导致您发现有严重谬误的地方，请一定在评论中指出，我会在第一时间修正我的博文，以避免误人子弟。</p>
+]]></content>
+      <categories>
+        <category>vue-cli</category>
+      </categories>
+      <tags>
+        <tag>vue-cli</tag>
       </tags>
   </entry>
   <entry>
@@ -9345,6 +9961,30 @@ npm install vuex --save</code></pre><h2 id="使用"><a href="#使用" class="hea
       </tags>
   </entry>
   <entry>
+    <title>获取url参数记录</title>
+    <url>/2019/09/25/98-%E8%8E%B7%E5%8F%96url%E5%8F%82%E6%95%B0/</url>
+    <content><![CDATA[<hr style='filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)' color='#FF0000' size='1' />
+
+<blockquote>
+<p>简单的获取url做个记录</p>
+</blockquote>
+<a id="more"></a>
+
+<p>简单,但是又容易忘,又不想刻意的去背,在这里做个简单的记录吧</p>
+<h3 id="第一种"><a href="#第一种" class="headerlink" title="第一种"></a>第一种</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function getUrlParam(name)&#123;</span><br><span class="line">  &#x2F;&#x2F;构造一个含有目标参数的正则表达式对象</span><br><span class="line">  var reg &#x3D; new RegExp(&quot;(^|&amp;)&quot; + name + &quot;&#x3D;([^&amp;]*)(&amp;|$)&quot;);</span><br><span class="line">  &#x2F;&#x2F;匹配目标参数</span><br><span class="line">  var r &#x3D; window.location.search.substr(1).match(reg);</span><br><span class="line">  &#x2F;&#x2F;返回参数值</span><br><span class="line">  if (r!&#x3D;null) return unescape(r[2]); return null;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="第二种"><a href="#第二种" class="headerlink" title="第二种"></a>第二种</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function getQueryVariable(variable)&#123;</span><br><span class="line">  var query &#x3D; window.location.search.substring(1);</span><br><span class="line">  var vars &#x3D; query.split(&quot;&amp;&quot;);</span><br><span class="line">  for (var i&#x3D;0;i&lt;vars.length;i++) &#123;</span><br><span class="line">    var pair &#x3D; vars[i].split(&quot;&#x3D;&quot;);</span><br><span class="line">    if(pair[0] &#x3D;&#x3D; variable)&#123;return pair[1];&#125;</span><br><span class="line">  &#125;</span><br><span class="line">  return(false);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>还有更多的方法就不介绍了,百度上面都有,上面这两个方法是我比较常用的</p>
+]]></content>
+      <categories>
+        <category>javaScript</category>
+      </categories>
+      <tags>
+        <tag>javaScript</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>CSS变量学习</title>
     <url>/2019/09/19/97-CSS%E5%8F%98%E9%87%8F%E5%AD%A6%E4%B9%A0/</url>
     <content><![CDATA[<hr style='filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)' color='#FF0000' size='1' />
@@ -9438,30 +10078,6 @@ npm install vuex --save</code></pre><h2 id="使用"><a href="#使用" class="hea
       </categories>
       <tags>
         <tag>CSS</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>获取url参数记录</title>
-    <url>/2019/09/25/98-%E8%8E%B7%E5%8F%96url%E5%8F%82%E6%95%B0/</url>
-    <content><![CDATA[<hr style='filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)' color='#FF0000' size='1' />
-
-<blockquote>
-<p>简单的获取url做个记录</p>
-</blockquote>
-<a id="more"></a>
-
-<p>简单,但是又容易忘,又不想刻意的去背,在这里做个简单的记录吧</p>
-<h3 id="第一种"><a href="#第一种" class="headerlink" title="第一种"></a>第一种</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function getUrlParam(name)&#123;</span><br><span class="line">  &#x2F;&#x2F;构造一个含有目标参数的正则表达式对象</span><br><span class="line">  var reg &#x3D; new RegExp(&quot;(^|&amp;)&quot; + name + &quot;&#x3D;([^&amp;]*)(&amp;|$)&quot;);</span><br><span class="line">  &#x2F;&#x2F;匹配目标参数</span><br><span class="line">  var r &#x3D; window.location.search.substr(1).match(reg);</span><br><span class="line">  &#x2F;&#x2F;返回参数值</span><br><span class="line">  if (r!&#x3D;null) return unescape(r[2]); return null;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="第二种"><a href="#第二种" class="headerlink" title="第二种"></a>第二种</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function getQueryVariable(variable)&#123;</span><br><span class="line">  var query &#x3D; window.location.search.substring(1);</span><br><span class="line">  var vars &#x3D; query.split(&quot;&amp;&quot;);</span><br><span class="line">  for (var i&#x3D;0;i&lt;vars.length;i++) &#123;</span><br><span class="line">    var pair &#x3D; vars[i].split(&quot;&#x3D;&quot;);</span><br><span class="line">    if(pair[0] &#x3D;&#x3D; variable)&#123;return pair[1];&#125;</span><br><span class="line">  &#125;</span><br><span class="line">  return(false);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>还有更多的方法就不介绍了,百度上面都有,上面这两个方法是我比较常用的</p>
-]]></content>
-      <categories>
-        <category>javaScript</category>
-      </categories>
-      <tags>
-        <tag>javaScript</tag>
       </tags>
   </entry>
   <entry>

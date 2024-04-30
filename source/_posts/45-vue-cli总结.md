@@ -709,7 +709,7 @@ router.replace 跟 router.push 很像，唯一的不同就是，它不会向 his
 
 > vuex是vue的一个插件,是一个专为 Vue.js 应用程序开发的状态管理模式。(状态:数据,改变数据和获取数据)
 
-[数据仓库具体链接-->戳我](https://www.chensheng.group/2017/11/09/50-Vuex的使用/)
+[数据仓库具体链接-->戳我](https://www.chensheng.group/2017/11/09/44-Vuex%E7%9A%84%E4%BD%BF%E7%94%A8/)
 
 ## axios
 
