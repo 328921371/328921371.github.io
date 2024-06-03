@@ -1,0 +1,98 @@
+// Custom styles.
+//  自定义样式文件
+
+// 自定义菜单样式
+.menu {
+  text-align: right;
+}
+.menu-item:hover{
+  background: $gray-lighter;
+}
+
+// 文章边框阴影
+.posts-expand .home {
+  padding: 25px;
+  padding-bottom: 30px;
+  background-color: white;
+  -webkit-box-shadow: 0 0 5px rgba(202, 203, 203, .5);
+  -moz-box-shadow: 0 0 5px rgba(202, 203, 204, .5);
+}
+
+.posts-expand>article{
+  // padding: 25px;
+  padding-bottom: 30px;
+  background-color: white;
+  // -webkit-box-shadow: 0 0 5px rgba(202, 203, 203, .5);
+  // -moz-box-shadow: 0 0 5px rgba(202, 203, 204, .5);
+}
+
+// 文章标题
+.posts-expand .post-title {
+  line-height: 1.2;
+  font-family: Georgia, sans;
+  margin: 20px 0px;
+}
+.post-meta {
+  margin-top: 5px;
+  margin-bottom: 20px;
+}
+
+// 文章内链接文本样式
+.post-body p a{
+  color: #0593d3; //原始链接颜色
+  border-bottom: none;
+  border-bottom: 1px solid #0593d3; //底部分割线颜色
+  &:hover {
+    color: #fc6423; //鼠标经过颜色
+    border-bottom: none;
+    border-bottom: 1px solid #fc6423; //底部分割线颜色
+  }
+}
+//修改不蒜子数据颜色
+.busuanzi-value {
+  color: #1890ff;
+}
+
+//窗口波动效果相关样式
+if hexo-config('wobble')  {
+  .wobbleTransparentBK{
+    background-color: rgba(0,0,0,0) !important;
+  }
+
+  .wobbleTransparentLine{
+    border-color: rgba(0,0,0,0) !important;
+  }
+
+  //防止sidebar和footer同时开启动效时堆叠异常
+  //  不开的话搜索框会被遮挡
+  #sidebar, header {
+    z-index: 1 !important;
+  }
+}
+
+//自定义回到顶部样式
+// .back-to-top {
+//   right: 60px !important;
+//   width: 70px;  //图片素材宽度
+//   height: 900px;  //图片素材高度
+//   top: -900px;
+//   bottom: unset;
+//   transition: all .5s ease-in-out;
+//   background: url("/images/scroll.png");
+//
+//   //隐藏箭头图标
+//   > i {
+//     display: none;
+//   }
+//
+//   &.back-to-top-on {
+//     bottom: unset;
+//     top: 100vh < (900px + 200px) ? calc( 100vh - 900px - 200px ) : 0px;
+//   }
+// }
+
+@media (min-width: 1600px) {
+  .posts-expand .post-title {
+    font-size: 37px;
+  }
+}
