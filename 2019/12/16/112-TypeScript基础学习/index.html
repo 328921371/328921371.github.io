@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.2.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"www.chensheng.group","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.20.0","exturl":false,"sidebar":{"position":"right","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":true,"style":"mac"},"fold":{"enable":false,"height":500},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false,"trigger":"auto"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="TypeScript现在已经越来越受到前端的使用了,和ECMAScript 6一样,慢慢的普及开来了">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TypeScript基础学习">
+<meta property="og:url" content="https://www.chensheng.group/2019/12/16/112-TypeScript%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/index.html">
+<meta property="og:site_name" content="陈先生的小前端">
+<meta property="og:description" content="TypeScript现在已经越来越受到前端的使用了,和ECMAScript 6一样,慢慢的普及开来了">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-12-16T09:52:00.000Z">
+<meta property="article:modified_time" content="2024-06-02T16:07:19.373Z">
+<meta property="article:author" content="陈晟">
+<meta property="article:tag" content="TypeScript">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://www.chensheng.group/2019/12/16/112-TypeScript%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://www.chensheng.group/2019/12/16/112-TypeScript%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/","path":"2019/12/16/112-TypeScript基础学习/","title":"TypeScript基础学习"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>TypeScript基础学习 | 陈先生的小前端</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="陈先生的小前端" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">陈先生的小前端</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-house-chimney fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-list fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE"><span class="nav-number">1.</span> <span class="nav-text">安装和配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%98%E9%87%8F%E7%B1%BB%E5%9E%8B"><span class="nav-number">2.</span> <span class="nav-text">变量类型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#enum%E7%B1%BB%E5%9E%8B"><span class="nav-number">2.1.</span> <span class="nav-text">enum类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#any%E7%B1%BB%E5%9E%8B"><span class="nav-number">2.2.</span> <span class="nav-text">any类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Tuple%E7%B1%BB%E5%9E%8B"><span class="nav-number">2.3.</span> <span class="nav-text">Tuple类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#void%E7%B1%BB%E5%9E%8B"><span class="nav-number">2.4.</span> <span class="nav-text">void类型</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TypeScript%E7%9A%84%E5%87%BD%E6%95%B0%E5%A3%B0%E6%98%8E"><span class="nav-number">3.</span> <span class="nav-text">TypeScript的函数声明</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E5%8F%82%E6%95%B0%E5%BD%A2%E5%BC%8F"><span class="nav-number">3.1.</span> <span class="nav-text">函数参数形式</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8F%AF%E9%80%89%E5%8F%82%E6%95%B0"><span class="nav-number">3.1.1.</span> <span class="nav-text">可选参数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%BB%98%E8%AE%A4%E5%8F%82%E6%95%B0"><span class="nav-number">3.1.2.</span> <span class="nav-text">默认参数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%89%A9%E4%BD%99%E5%8F%82%E6%95%B0"><span class="nav-number">3.1.3.</span> <span class="nav-text">剩余参数</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E7%9A%84%E4%B8%89%E7%A7%8D%E5%A3%B0%E6%98%8E%E6%96%B9%E5%BC%8F"><span class="nav-number">4.</span> <span class="nav-text">函数的三种声明方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E4%B8%AD%E5%8F%98%E9%87%8F%E7%9A%84%E4%BD%9C%E7%94%A8%E5%9F%9F"><span class="nav-number">5.</span> <span class="nav-text">函数中变量的作用域</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E7%BB%84"><span class="nav-number">6.</span> <span class="nav-text">数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="nav-number">7.</span> <span class="nav-text">字符串</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%A5%E6%9C%9F"><span class="nav-number">8.</span> <span class="nav-text">日期</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%A3%B0%E6%98%8E"><span class="nav-number">9.</span> <span class="nav-text">正则表达式声明</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#RegExp%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95"><span class="nav-number">9.1.</span> <span class="nav-text">RegExp常用方法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B1%BB%E7%9A%84%E5%A3%B0%E6%98%8E%E5%92%8C%E4%BD%BF%E7%94%A8"><span class="nav-number">10.</span> <span class="nav-text">类的声明和使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B1%BB%E7%9A%84%E4%BF%AE%E9%A5%B0%E7%AC%A6"><span class="nav-number">10.1.</span> <span class="nav-text">类的修饰符</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B1%BB%E7%9A%84%E7%BB%A7%E6%89%BF%E5%92%8C%E9%87%8D%E5%86%99"><span class="nav-number">11.</span> <span class="nav-text">类的继承和重写</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B1%BB%E6%96%B9%E6%B3%95%E7%BB%A7%E6%89%BF"><span class="nav-number">11.1.</span> <span class="nav-text">类方法继承</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B1%BB%E6%96%B9%E6%B3%95%E9%87%8D%E5%86%99"><span class="nav-number">11.2.</span> <span class="nav-text">类方法重写</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A5%E5%8F%A3"><span class="nav-number">12.</span> <span class="nav-text">接口</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A7%84%E8%8C%83%E5%87%BD%E6%95%B0%E7%B1%BB%E5%9E%8B%E6%8E%A5%E5%8F%A3"><span class="nav-number">12.1.</span> <span class="nav-text">规范函数类型接口</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4"><span class="nav-number">13.</span> <span class="nav-text">命名空间</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="陈晟"
+      src="/img/touxiang.jpg">
+  <p class="site-author-name" itemprop="name">陈晟</p>
+  <div class="site-description" itemprop="description">请不要在最能吃苦的日子选择安逸</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">165</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">36</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">56</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/328921371" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;328921371" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:328921371@qq.com" title="E-Mail → mailto:328921371@qq.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.chensheng.group/2019/12/16/112-TypeScript%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/img/touxiang.jpg">
+      <meta itemprop="name" content="陈晟">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="陈先生的小前端">
+      <meta itemprop="description" content="请不要在最能吃苦的日子选择安逸">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="TypeScript基础学习 | 陈先生的小前端">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          TypeScript基础学习
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-12-16 17:52:00" itemprop="dateCreated datePublished" datetime="2019-12-16T17:52:00+08:00">2019-12-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/TypeScript/" itemprop="url" rel="index"><span itemprop="name">TypeScript</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><hr style='filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)' color='#FF0000' size='1' />
+
+<blockquote>
+<p>TypeScript现在已经越来越受到前端的使用了,和ECMAScript 6一样,慢慢的普及开来了</p>
+</blockquote>
+<span id="more"></span>
+
+<p>TypeScript和其他的区别和好处在哪里我就不说了,既然选择学习它,就一定有它的优点</p>
+<p>本篇学习技术胖的视频…谢谢大佬的分享</p>
+<h3 id="安装和配置"><a href="#安装和配置" class="headerlink" title="安装和配置"></a>安装和配置</h3><p>命令窗口打开 </p>
+<ol>
+<li><p>安装插件: npm install typescript -g</p>
+</li>
+<li><p>初始化项目: 进入你的编程文件夹后,可以使用npm init -y来初始化项目,生成package.json文件。</p>
+</li>
+<li><p>创建tsconfig.json文件: 在终端中输入tsc –init</p>
+</li>
+</ol>
+<p>默认情况下,tsc会使用默认的编译配置编译目录中的所有.ts文件。通过书写tsconfig.json,我们可以配置tsc的编译行为,达到想要的结果：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;compilerOptions&quot;: &#123;</span><br><span class="line">    &quot;module&quot;: &quot;commonjs&quot;,   //指定生成哪个模块系统代码</span><br><span class="line">    &quot;target&quot;: &quot;es5&quot;,        //目标代码类型</span><br><span class="line">    &quot;noImplicitAny&quot;: false, //在表达式和声明上有隐含的&#x27;any&#x27;类型时报错。</span><br><span class="line">    &quot;sourceMap&quot;: false,     //用于debug   </span><br><span class="line">    &quot;rootDir&quot;:&quot;./src&quot;,      //仅用来控制输出的目录结构--outDir。</span><br><span class="line">    &quot;outDir&quot;:&quot;./build&quot;,     //重定向输出目录。   </span><br><span class="line">    &quot;watch&quot;:true            //在监视模式下运行编译器。会监视输出文件,在它们改变时重新编译。</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;include&quot;:[</span><br><span class="line">    &quot;./src/**/*&quot;</span><br><span class="line">  ],</span><br><span class="line">  &quot;exclude&quot;:[</span><br><span class="line">    &quot;views&quot;,</span><br><span class="line">    &quot;static&quot;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li><p>安装@types&#x2F;node:  npm install –save-dev @types&#x2F;node,这个主要是解决模块的声明文件问题。</p>
+</li>
+<li><p>写完ts文件,可以使用tsc Hello.ts 转化成 Hello.js,也可以在Vscode的任务菜单下,打开运行生成任务,然后选择tsc：构建-tsconfig.json</p>
+</li>
+</ol>
+<p>到此准备工作都已经做完了,现在开始正式的写ts</p>
+<h3 id="变量类型"><a href="#变量类型" class="headerlink" title="变量类型"></a>变量类型</h3><p>TypeScript最大的一个特点就是变量是强类型的,也就是说,在声明变量的时候,我们必须给他一个类型。所以我们先来看一下有哪些类型</p>
+<p>TypeScript中的数据类型有：</p>
+<ul>
+<li>Undefined : 未定义;</li>
+<li>Number:数值类型;</li>
+<li>string : 字符串类型;</li>
+<li>Boolean: 布尔类型；</li>
+<li>enum：枚举类型；</li>
+<li>any : 任意类型,一个牛X的类型；</li>
+<li>void：空类型；</li>
+<li>Array : 数组类型;</li>
+<li>Tuple : 元祖类型；</li>
+<li>Null ：空类型。</li>
+</ul>
+<p>我们先来看一下怎样声明一个变量</p>
+<p>普通的是这样的 <code>var name = &#39;csing&#39; </code></p>
+<p>TypeScript声明时需要一个类型 <code>var name:string = &#39;csing&#39;</code></p>
+<p>和vue组件中prop的概念有点类似,提前定义好变量类型</p>
+<p>一些我们常用的变量类型就不说了,说一下上面我们不经常用到的几个类型</p>
+<h4 id="enum类型"><a href="#enum类型" class="headerlink" title="enum类型"></a>enum类型</h4><p>枚举类型,我们用的比较少,什么场景下使用呢?有很多值是多个并且是固定的,比如：</p>
+<p>一年的季节：春、夏、秋、冬 有四个结果。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">enum JiJie&#123;c,x,q,d&#125;</span><br><span class="line">console.log(JiJie.c) // 返回0,类似数组索引</span><br><span class="line"></span><br><span class="line">// 也可以进行赋值</span><br><span class="line">enum JiJie&#123;</span><br><span class="line">  c= &#x27;春&#x27;,</span><br><span class="line">  x= &#x27;夏&#x27;,</span><br><span class="line">  q= &#x27;秋&#x27;,</span><br><span class="line">  d= &#x27;冬&#x27;</span><br><span class="line">&#125;</span><br><span class="line">console.log(JiJie.c) // 返回&#x27;春&#x27;这个字</span><br></pre></td></tr></table></figure>
+
+<h4 id="any类型"><a href="#any类型" class="headerlink" title="any类型"></a>any类型</h4><p>既然ts需要提前定义好变量类型,为什么又要有any类型呢</p>
+<p>因为一个写惯了前端的人,有时候不自觉的就分不清类型了。<br>这是个不好的习惯,也是前端的痛,就因为这个原因,JavaScript也多次被人诟病说大型项目不适合用JavaScript。<br>但是习惯一旦养成,改是需要时间和磨练的。TypeScript友好的为我们提供了一种特殊的类型any,比如我们在程序中不断变化着类型,又不想让程序报错,这时候就可以使用any了。</p>
+<h4 id="Tuple类型"><a href="#Tuple类型" class="headerlink" title="Tuple类型"></a>Tuple类型</h4><p>元祖是一种特殊的数组,元祖类型允许表示一个已知元素数量和类型的数组,各元素的类型不必相同。<br>比如,你可以定义一对值分别为string和number类型的元祖。元祖在实际开发中使用的非常少,大家了解一下就可以了,不做过多介绍。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">//声明一个元祖类型</span><br><span class="line">let x : [string,number]</span><br><span class="line">//正确的初始化</span><br><span class="line">x = [&#x27;hello&#x27;,10]</span><br><span class="line">//错误的初始化方法</span><br><span class="line">x = [10,&#x27;hello&#x27;]</span><br></pre></td></tr></table></figure>
+
+<h4 id="void类型"><a href="#void类型" class="headerlink" title="void类型"></a>void类型</h4><p>一般是用在函数里面的,学习过java的同学应该比较熟悉,当函数没有返回值的时候,就要定义一个void</p>
+<h3 id="TypeScript的函数声明"><a href="#TypeScript的函数声明" class="headerlink" title="TypeScript的函数声明"></a>TypeScript的函数声明</h3><p>函数的声明需要注意以下几点</p>
+<ol>
+<li>声明(定义)函数必须加 function 关键字</li>
+<li>函数名与变量名一样,命名规则按照标识符规则</li>
+<li>函数参数可有可无,多个参数之间用逗号隔开</li>
+<li>每个参数参数由名字与类型组成,之间用分号隔开</li>
+<li>函数的返回值可有可无,没有时,返回类型为 void</li>
+<li>大括号中是函数体。</li>
+</ol>
+<p>举个例子,我要创建一个函数,来说明自己几岁</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">function speckAge(age:number):string&#123;</span><br><span class="line">  return &#x27;我现在&#x27;+age+&#x27;岁了&#x27; </span><br><span class="line">&#125;</span><br><span class="line">var age:number = 18</span><br><span class="line">var result:string = speckAge(age)</span><br><span class="line">console.log(result)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>在函数调用的时候,我们需要按照形参的规则传递实参,有几个形参就要传递几个实参,并且每一个实参的类型要与对应的形参类型一致。</p>
+</blockquote>
+<p>什么是形参? 函数定义的时候写的参数是形参。<br>什么是实参? 调用函数时传递的具体值就是实参。</p>
+<h4 id="函数参数形式"><a href="#函数参数形式" class="headerlink" title="函数参数形式"></a>函数参数形式</h4><p>TypeScript的函数参数是比较灵活的,函数的形参分为:可选形参、默认形参、剩余参数形参等。</p>
+<h5 id="可选参数"><a href="#可选参数" class="headerlink" title="可选参数"></a>可选参数</h5><p>可选参数,就是我们定义形参的时候,可以定义一个可传可不传的参数。这种参数,在定义函数的时候通过?标注。</p>
+<p><code>function speckAge(age:number,name?:string):string&#123;&#125;</code></p>
+<p>当name没有值传入的时候,会给一个默认是undefined</p>
+<h5 id="默认参数"><a href="#默认参数" class="headerlink" title="默认参数"></a>默认参数</h5><p>默认参数就更好理解了,就是我们不传递的时候,他会给我们一个默认值,而不是undefined了。</p>
+<p><code>function speckAge(age:number = 18,name?:string = &#39;csing&#39;):string&#123;&#125;</code></p>
+<p>当没有值传入时使用默认值,当有值传入时,优先使用实参</p>
+<h5 id="剩余参数"><a href="#剩余参数" class="headerlink" title="剩余参数"></a>剩余参数</h5><p>有时候我们有这样的需求,我传递给函数的参数个数不确定。例如：我要介绍自己很多兴趣。这时候你不能限制我,我要随心所欲。</p>
+<p>剩余参数就是形参是一个数组,传递几个实参过来都可以直接存在形参的数组中。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">function interest(...qui:string[]):string&#123;</span><br><span class="line">  let yy:string = &#x27;我喜欢&#x27;</span><br><span class="line">  for(let key in qui)&#123;</span><br><span class="line">    yy = yy + qui[key]</span><br><span class="line">    if(parseInt(key) &lt; qui.length - 1)&#123;</span><br><span class="line">      yy=yy+&#x27;、&#x27;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">var result:string  =  interest(&#x27;唱&#x27;,&#x27;跳&#x27;,&#x27;rap&#x27;,&#x27;篮球&#x27;,&#x27;Music&#x27;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="函数的三种声明方式"><a href="#函数的三种声明方式" class="headerlink" title="函数的三种声明方式"></a>函数的三种声明方式</h3><p>其实原理和我们之前的差不多</p>
+<ul>
+<li>函数声明法</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">function add(n1:number,n2:number):number&#123;</span><br><span class="line">    return n1+n2</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>函数表达式法 ,声明了必须使用</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var add2 = function(n1:number,n2:number):number&#123;</span><br><span class="line">    return n1+n2</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>箭头函数</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var add3 = (n1:number,n2:number):number=&gt;&#123;</span><br><span class="line">    return n1+n2</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>和之前的不同就是声明的时候需要定义好变量类型</p>
+<h3 id="函数中变量的作用域"><a href="#函数中变量的作用域" class="headerlink" title="函数中变量的作用域"></a>函数中变量的作用域</h3><p>这个和js的一样,没什么好说的,函数已经都介绍完了,接下来说一下数组</p>
+<h3 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h3><p>声明数组的方法和我们之前差不多,区别在于声明数组的时候需要定义数组内的变量格式</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let arr1:number[]     //声明一个数值类型的数组</span><br><span class="line">let arr2:Array&lt;string&gt;  //声明一个字符串类型的数组</span><br></pre></td></tr></table></figure>
+
+<p>字面量赋值法: </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">//定义一个数组时，直接给数组赋值</span><br><span class="line">let arr2:number[] = [1,2,3,4,5]</span><br><span class="line">//定义数组 的同事给数组赋值</span><br><span class="line">let arr3:Array&lt;string&gt; = [&#x27;随便&#x27;,&#x27;一个&#x27;,&#x27;单词&#x27;]</span><br><span class="line">let arr4:Array&lt;boolean&gt; = [ true,false,false]</span><br><span class="line"></span><br><span class="line">// 声明了什么类似,只能用这个类型</span><br></pre></td></tr></table></figure>
+
+<p>构造函数赋值法:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">let arr1:number[] = new Array()</span><br><span class="line">let ara2:number[] = new Array(1,2,3,4,5)</span><br><span class="line">let arr3:Array&lt;string&gt; = new Array(&#x27;随便&#x27;,&#x27;一个&#x27;,&#x27;单词&#x27;)</span><br><span class="line">let arr4:Array&lt;boolean&gt; = new Array(true,false,false)</span><br></pre></td></tr></table></figure>
+
+<h3 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let str1:string = &#x27;一个字符&#x27;</span><br><span class="line">let str2:String = new String(&quot;另一个字符&quot;)</span><br></pre></td></tr></table></figure>
+
+<p>用法和js的一样,获取字符串长度,截取什么的</p>
+<h3 id="日期"><a href="#日期" class="headerlink" title="日期"></a>日期</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">let d:Date = new Date()</span><br></pre></td></tr></table></figure>
+
+<p>其他用法和js一样</p>
+<h3 id="正则表达式声明"><a href="#正则表达式声明" class="headerlink" title="正则表达式声明"></a>正则表达式声明</h3><p>创建正则表达式也提供了两种方法，一种是才采用new 关键字，另一种是采用字面量的方式。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">// 构造函数法</span><br><span class="line">let reg1:RegExp = new RegExp(&quot;csing&quot;)  //表示字符串规则里含有csing</span><br><span class="line">let reg2:RegExp = new RegExp(&quot;csing&quot;,&#x27;gi&#x27;)</span><br><span class="line"></span><br><span class="line">// 字面量创建</span><br><span class="line">let reg3:RegExp = /csing/</span><br><span class="line">let reg4:RegExp = /csing/gi</span><br></pre></td></tr></table></figure>
+
+<h4 id="RegExp常用方法"><a href="#RegExp常用方法" class="headerlink" title="RegExp常用方法"></a>RegExp常用方法</h4><p>RegExp对象包含两个方法：test( )和exec( ),功能基本相似，用于测试字符串匹配。</p>
+<p>test(string) ：在字符串中查找是否存在指定的正则表达式并返回布尔值，如果存在则返回 true，不存在则返回 false。<br>exec(string) : 用于在字符串中查找指定正则表达式，如果 exec() 方法执行成功，则返回包含该查找字符串的相关信息数组。如果执行失败，则返回 null。</p>
+<h3 id="类的声明和使用"><a href="#类的声明和使用" class="headerlink" title="类的声明和使用"></a>类的声明和使用</h3><p>关于类,在ES6中也有提到过,今天再学习一下类的使用</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">class CaiXuKun&#123;</span><br><span class="line">  name:string;</span><br><span class="line">  age:number;</span><br><span class="line">  constructor(name:string,age:number)&#123;</span><br><span class="line">    this.name = name</span><br><span class="line">    this.age = age </span><br><span class="line">  &#125;</span><br><span class="line">  say()&#123;</span><br><span class="line">    console.log(&#x27;大家好,我是菜虚鲲&#x27;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">let kun:CaiXuKun = new CaiXuKun(&#x27;菜虚鲲&#x27;,18)</span><br><span class="line">console.log(kun)</span><br><span class="line">kun.say()</span><br></pre></td></tr></table></figure>
+
+<p>我们先用class关键字声明了一个类，并在里边声明了name和age属性。constructor为构造函数。构造函数的主要作用是给类中封装的属性进行赋值。</p>
+<p>使用和定义类其实很简单，关键是理解类的思想。要有抽象逻辑的能力，这样才能复用和增强维护性。</p>
+<h4 id="类的修饰符"><a href="#类的修饰符" class="headerlink" title="类的修饰符"></a>类的修饰符</h4><p>TypeScript语言和后端的很像，类中属性的访问可以用访问修饰符来进行限制。访问修饰符分为：public、protected、private。</p>
+<ul>
+<li>public:公有修饰符，可以在类内或者类外使用public修饰的属性或者行为，默认修饰符。</li>
+<li>protected:受保护的修饰符，可以本类和子类中使用protected修饰的属性和行为。</li>
+<li>private : 私有修饰符，只可以在类内使用private修饰的属性和行为。</li>
+</ul>
+<p>直接在代码中说话,还是刚刚那个代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">class CaiXuKun&#123;</span><br><span class="line">  public sex:string</span><br><span class="line">  protected name:string</span><br><span class="line">  private age:number</span><br><span class="line">  public constructor(sex:string,name:string,age:number)&#123;</span><br><span class="line">    this.sex=sex</span><br><span class="line">    this.name=name</span><br><span class="line">    this.age=age</span><br><span class="line">  &#125;</span><br><span class="line">  public sayHello()&#123;</span><br><span class="line">    console.log(&#x27;我的鲲们,你们好&#x27;)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  protected sayLove()&#123;</span><br><span class="line">    console.log(&#x27;老虎油&#x27;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">let kun:CaiXuKun = new CaiXuKun(&#x27;女&#x27;,&#x27;菜虚鲲&#x27;,18)</span><br><span class="line"></span><br><span class="line">console.log(kun.sex)</span><br><span class="line">console.log(kun.name)   //报错</span><br><span class="line">console.log(kun.age)    //报错</span><br><span class="line">kun.sayHello()</span><br><span class="line">kun.sayLove()    //报错</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>public是都可以使用的,protected只能自己本类或者后面继承的子类可以使用,private只能自己本类使用</p>
+</blockquote>
+<p>还有一个修饰符叫作只读修饰符,用的比较少,有点类似const</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">class Man&#123;</span><br><span class="line">  public readonly sex:string = &#x27;男&#x27;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var man:Man = new Man()</span><br><span class="line">man.sex=&#x27;女&#x27; //报错</span><br></pre></td></tr></table></figure>
+
+<h3 id="类的继承和重写"><a href="#类的继承和重写" class="headerlink" title="类的继承和重写"></a>类的继承和重写</h3><h4 id="类方法继承"><a href="#类方法继承" class="headerlink" title="类方法继承"></a>类方法继承</h4><p>类的继承和ES6的相类似</p>
+<p>首先创建一个父类</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">class CaiXuKun&#123;</span><br><span class="line">  public name:string</span><br><span class="line">  public age : number</span><br><span class="line">  public skill: string</span><br><span class="line">  constructor(name:string,age:number,skill:string)&#123;</span><br><span class="line">    this.name = name</span><br><span class="line">    this.age = age</span><br><span class="line">    this.skill = skill</span><br><span class="line">  &#125;</span><br><span class="line">  public interest()&#123;</span><br><span class="line">    console.log(&#x27;我是两年半的练习生&#x27;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">let cxk:CaiXuKun = new CaiXuKun(&#x27;菜虚鲲&#x27;,18,&#x27;唱,跳,rap,篮球,music&#x27;)</span><br><span class="line">cxk.interest()</span><br></pre></td></tr></table></figure>
+
+<p>这时候准备继承一下这个类,子类有父类所有的特点</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">class KunKun extends CaiXuKun&#123;</span><br><span class="line">  public xingxiang:string = &#x27;娘娘腔&#x27;</span><br><span class="line">  public jineng()&#123;</span><br><span class="line">    console.log(&#x27;人家用小拳拳打你胸口&#x27;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">let kk = new KunKun(&#x27;菜虚鲲&#x27;,18,&#x27;唱,跳,rap,篮球,music&#x27;)</span><br><span class="line">kk.interest()</span><br><span class="line">kk.jineng()</span><br></pre></td></tr></table></figure>
+
+<h4 id="类方法重写"><a href="#类方法重写" class="headerlink" title="类方法重写"></a>类方法重写</h4><p>重写就是在子类中重写父类的方法</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">class KunKun extends CaiXuKun&#123;</span><br><span class="line">  public xingxiang:string = &#x27;娘娘腔&#x27;</span><br><span class="line">  public interest()&#123;</span><br><span class="line">    super.interest()</span><br><span class="line">    console.log(&#x27;鸡你太美&#x27;)</span><br><span class="line">  &#125;</span><br><span class="line">  public jineng()&#123;</span><br><span class="line">    console.log(&#x27;人家用小拳拳打你胸口&#x27;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+
+<p>重写过后,再调用<code>interest</code>这个方法,会将两个都输出出来</p>
+<p>类的基础学习大概就这么多啦</p>
+<h3 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h3><p>在通常情况下，接口是用来定义一些规范，使用这些接口，就必须实现按照接口中的规范来走。</p>
+<p>定义接口的关键字是<code>interface</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">interface KunKun &#123;</span><br><span class="line">  sex:string</span><br><span class="line">  interest:string</span><br><span class="line">&#125;</span><br><span class="line">let cxk:KunKun =&#123; sex:&#x27;女&#x27;,interest:&#x27;鸡你太美&#x27;&#125;</span><br><span class="line">console.log(cxk)</span><br></pre></td></tr></table></figure>
+
+<p>如果有一些参数是可传可不传的,可以用?代替</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">interface KunKun &#123;</span><br><span class="line">  sex:string</span><br><span class="line">  interest:string</span><br><span class="line">  music?:Boolean</span><br><span class="line">&#125;</span><br><span class="line">let cxk:KunKun =&#123; sex:&#x27;女&#x27;,interest:&#x27;鸡你太美&#x27;,music:true&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h4 id="规范函数类型接口"><a href="#规范函数类型接口" class="headerlink" title="规范函数类型接口"></a>规范函数类型接口</h4><p>我们还可以使用接口来规范函数类型的接口，我们需要哪些资源，在函数中进行匹配，最后返回是否匹配成功。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">interface  SearchMan&#123;</span><br><span class="line">    (source:string,subString:string):boolean</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">let mySearch:SearchMan</span><br><span class="line"></span><br><span class="line">mySearch = function(source:string,subString:string):boolean&#123;</span><br><span class="line">    let flag =source.search(subString)</span><br><span class="line">    return (flag != -1)</span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">console.log(mySearch(&#x27;高、富、帅&#x27;,&#x27;胖&#x27;))  //false</span><br></pre></td></tr></table></figure>
+
+<h3 id="命名空间"><a href="#命名空间" class="headerlink" title="命名空间"></a>命名空间</h3><p>命名空间，又称内部模块，被用于组织有些具有内在联系的特性和对象。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">namespace shuaiGe&#123;</span><br><span class="line">  export class Dehua&#123;</span><br><span class="line">    public name:string = &#x27;刘德华&#x27;</span><br><span class="line">    talk()&#123;</span><br><span class="line">      console.log(&#x27;我是帅哥刘德华&#x27;)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">namespace bajie&#123;</span><br><span class="line">  export class Dehua&#123;</span><br><span class="line">    public name:string = &#x27;马德华&#x27;</span><br><span class="line">    talk()&#123;</span><br><span class="line">      console.log(&#x27;我是二师兄马德华&#x27;)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">let dehua1:shuaiGe.Dehua = new shuaiGe.Dehua()</span><br><span class="line">let dehua2:shuaiGe.Dehua = new bajie.Dehua()</span><br><span class="line">dehua1.talk()</span><br><span class="line">dehua2.talk()</span><br></pre></td></tr></table></figure>
+
+<p>如果你已经学到了这里，我建议你也学一下ES6的语法，因为Typescript的语法和ES6的有很多都一样，比如说promise，async&#x2F;await所以我就不在这里讲述了。有兴趣的小伙伴可以学一下。</p>
+<p>以上就是我对TypeScript基础的一些理解,如果文章由于我学识浅薄,导致您发现有严重谬误的地方,请一定在评论中指出,我会在第一时间修正我的博文,以避免误人子弟。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>请我一杯咖啡吧！</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/img/wechatpay.png" alt="陈晟 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/img/alipay.png" alt="陈晟 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>陈晟
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://www.chensheng.group/2019/12/16/112-TypeScript%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/" title="TypeScript基础学习">https://www.chensheng.group/2019/12/16/112-TypeScript基础学习/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/TypeScript/" rel="tag"><i class="fa fa-tag"></i> TypeScript</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/12/13/111-Vue-cli%E4%BD%BF%E7%94%A8history%E6%A8%A1%E5%BC%8F/" rel="prev" title="vue使用history模式部署ng服务器">
+                  <i class="fa fa-angle-left"></i> vue使用history模式部署ng服务器
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2019/12/18/113-vue-cli4.0%E5%AD%A6%E4%B9%A0/" rel="next" title="vue-cli 4.0学习">
+                  vue-cli 4.0学习 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">闽ICP备2022007916号-1 </a>
+  </div>
+  <div class="copyright">
+    &copy; 2016 – 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">陈晟</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">489k</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script><script src="/js/pjax.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+</html>

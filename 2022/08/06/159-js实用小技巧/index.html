@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.2.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"www.chensheng.group","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.20.0","exturl":false,"sidebar":{"position":"right","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":true,"style":"mac"},"fold":{"enable":false,"height":500},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false,"trigger":"auto"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="记录一下 JavaScript开发中非常有用的小技巧, 欢迎各位大佬补充">
+<meta property="og:type" content="article">
+<meta property="og:title" content="js实用小技巧">
+<meta property="og:url" content="https://www.chensheng.group/2022/08/06/159-js%E5%AE%9E%E7%94%A8%E5%B0%8F%E6%8A%80%E5%B7%A7/index.html">
+<meta property="og:site_name" content="陈先生的小前端">
+<meta property="og:description" content="记录一下 JavaScript开发中非常有用的小技巧, 欢迎各位大佬补充">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-08-06T12:10:00.000Z">
+<meta property="article:modified_time" content="2024-06-02T16:07:19.378Z">
+<meta property="article:author" content="陈晟">
+<meta property="article:tag" content="javaScript">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://www.chensheng.group/2022/08/06/159-js%E5%AE%9E%E7%94%A8%E5%B0%8F%E6%8A%80%E5%B7%A7/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://www.chensheng.group/2022/08/06/159-js%E5%AE%9E%E7%94%A8%E5%B0%8F%E6%8A%80%E5%B7%A7/","path":"2022/08/06/159-js实用小技巧/","title":"js实用小技巧"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>js实用小技巧 | 陈先生的小前端</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="陈先生的小前端" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">陈先生的小前端</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-house-chimney fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-list fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%BB%9A%E5%8A%A8%E5%88%B0%E9%A1%B5%E9%9D%A2%E9%A1%B6%E9%83%A8"><span class="nav-number">1.</span> <span class="nav-text">滚动到页面顶部</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%BB%9A%E5%8A%A8%E5%88%B0%E9%A1%B5%E9%9D%A2%E5%BA%95%E9%83%A8"><span class="nav-number">2.</span> <span class="nav-text">滚动到页面底部</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%BB%9A%E5%8A%A8%E5%85%83%E7%B4%A0%E5%88%B0%E5%8F%AF%E8%A7%81%E5%8C%BA%E5%9F%9F"><span class="nav-number">3.</span> <span class="nav-text">滚动元素到可见区域</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%A8%E5%B1%8F%E6%98%BE%E7%A4%BA%E5%85%83%E7%B4%A0"><span class="nav-number">4.</span> <span class="nav-text">全屏显示元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%80%E5%87%BA%E6%B5%8F%E8%A7%88%E5%99%A8%E5%85%A8%E5%B1%8F%E7%8A%B6%E6%80%81"><span class="nav-number">5.</span> <span class="nav-text">退出浏览器全屏状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="nav-number">6.</span> <span class="nav-text">获取数据类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%81%9C%E6%AD%A2%E5%86%92%E6%B3%A1%E4%BA%8B%E4%BB%B6"><span class="nav-number">7.</span> <span class="nav-text">停止冒泡事件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%B1%E6%8B%B7%E8%B4%9D%E4%B8%80%E4%B8%AA%E5%AF%B9%E8%B1%A1%E5%A6%82%E4%BD%95%E5%A4%8D%E5%88%B6%E6%B7%B1%E5%BA%A6%E5%B5%8C%E5%A5%97%E7%9A%84%E5%AF%B9%E8%B1%A1%EF%BC%9F"><span class="nav-number">8.</span> <span class="nav-text">深拷贝一个对象如何复制深度嵌套的对象？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A1%AE%E5%AE%9A%E8%AE%BE%E5%A4%87%E7%B1%BB%E5%9E%8B"><span class="nav-number">9.</span> <span class="nav-text">确定设备类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E6%B5%8F%E8%A7%88%E5%99%A8%E7%B1%BB%E5%9E%8B%E5%8F%8A%E5%85%B6%E7%89%88%E6%9C%AC"><span class="nav-number">10.</span> <span class="nav-text">获取浏览器类型及其版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AEcookies"><span class="nav-number">11.</span> <span class="nav-text">设置cookies</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A0%E9%99%A4cookies"><span class="nav-number">12.</span> <span class="nav-text">删除cookies</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%9F%E6%88%90%E9%9A%8F%E6%9C%BA%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="nav-number">13.</span> <span class="nav-text">生成随机字符串</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E9%A6%96%E5%AD%97%E6%AF%8D%E5%A4%A7%E5%86%99"><span class="nav-number">14.</span> <span class="nav-text">字符串首字母大写</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%9F%E6%88%90%E6%8C%87%E5%AE%9A%E8%8C%83%E5%9B%B4%E5%86%85%E7%9A%84%E9%9A%8F%E6%9C%BA%E6%95%B0"><span class="nav-number">15.</span> <span class="nav-text">生成指定范围内的随机数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%93%E4%B9%B1%E6%95%B0%E7%BB%84%E7%9A%84%E9%A1%BA%E5%BA%8F"><span class="nav-number">16.</span> <span class="nav-text">打乱数组的顺序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%8E%E6%95%B0%E7%BB%84%E4%B8%AD%E8%8E%B7%E5%8F%96%E9%9A%8F%E6%9C%BA%E5%80%BC"><span class="nav-number">17.</span> <span class="nav-text">从数组中获取随机值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%BC%E5%BC%8F%E5%8C%96%E8%B4%A7%E5%B8%81"><span class="nav-number">18.</span> <span class="nav-text">格式化货币</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="陈晟"
+      src="/img/touxiang.jpg">
+  <p class="site-author-name" itemprop="name">陈晟</p>
+  <div class="site-description" itemprop="description">请不要在最能吃苦的日子选择安逸</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">165</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">36</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">56</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/328921371" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;328921371" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:328921371@qq.com" title="E-Mail → mailto:328921371@qq.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.chensheng.group/2022/08/06/159-js%E5%AE%9E%E7%94%A8%E5%B0%8F%E6%8A%80%E5%B7%A7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/img/touxiang.jpg">
+      <meta itemprop="name" content="陈晟">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="陈先生的小前端">
+      <meta itemprop="description" content="请不要在最能吃苦的日子选择安逸">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="js实用小技巧 | 陈先生的小前端">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          js实用小技巧
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-08-06 20:10:00" itemprop="dateCreated datePublished" datetime="2022-08-06T20:10:00+08:00">2022-08-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/javaScript/" itemprop="url" rel="index"><span itemprop="name">javaScript</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><hr style='filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)' color='#FF0000' size='1' />
+
+<blockquote>
+<p>记录一下 JavaScript开发中非常有用的小技巧, 欢迎各位大佬补充</p>
+</blockquote>
+<span id="more"></span>
+
+<h3 id="滚动到页面顶部"><a href="#滚动到页面顶部" class="headerlink" title="滚动到页面顶部"></a>滚动到页面顶部</h3><p>我们可以使用 window.scrollTo() 平滑滚动到页面顶部。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">const scrollToTop = () =&gt; &#123;</span><br><span class="line">  window.scrollTo(&#123; top: 0, left: 0, behavior: &quot;smooth&quot; &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="滚动到页面底部"><a href="#滚动到页面底部" class="headerlink" title="滚动到页面底部"></a>滚动到页面底部</h3><p>当然，如果知道页面的高度，也可以平滑滚动到页面底部。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">const scrollToBottom = () =&gt; &#123;</span><br><span class="line">  window.scrollTo(&#123;</span><br><span class="line">    top: document.documentElement.offsetHeight,</span><br><span class="line">    left: 0,</span><br><span class="line">    behavior: &quot;smooth&quot;,</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>这里记录一下,element平滑滚动到表单error位置</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">this.$nextTick(() =&gt; &#123;</span><br><span class="line">  let isError = document.getElementsByClassName(&#x27;is-error&#x27;)</span><br><span class="line">  // 滚动到指定节点</span><br><span class="line">  isError[0].scrollIntoView(&#123;</span><br><span class="line">    // 值有start,center,end，nearest，当前显示在视图区域中间</span><br><span class="line">    block: &#x27;center&#x27;,</span><br><span class="line">    // 值有auto,instant,smooth，缓动动画（当前是慢速的）</span><br><span class="line">    behavior: &#x27;smooth&#x27;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="滚动元素到可见区域"><a href="#滚动元素到可见区域" class="headerlink" title="滚动元素到可见区域"></a>滚动元素到可见区域</h3><p>有时我们需要将元素滚动到可见区域，我们应该怎么做？使用 scrollIntoView 就足够了。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">const smoothScroll = (element) =&gt; &#123;</span><br><span class="line">  element.scrollIntoView(&#123;</span><br><span class="line">    behavior: &quot;smooth&quot;,</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="全屏显示元素"><a href="#全屏显示元素" class="headerlink" title="全屏显示元素"></a>全屏显示元素</h3><p>你一定遇到过这样的场景，需要全屏播放视频，并在浏览器中全屏打开页面。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">const goToFullScreen = (element) =&gt; &#123;</span><br><span class="line">  element = element || document.body;</span><br><span class="line">  if (element.requestFullscreen) &#123;</span><br><span class="line">    element.requestFullscreen();</span><br><span class="line">  &#125; else if (element.mozRequestFullScreen) &#123;</span><br><span class="line">    element.mozRequestFullScreen();</span><br><span class="line">  &#125; else if (element.msRequestFullscreen) &#123;</span><br><span class="line">    element.msRequestFullscreen();</span><br><span class="line">  &#125; else if (element.webkitRequestFullscreen) &#123;</span><br><span class="line">    element.webkitRequestFullScreen();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="退出浏览器全屏状态"><a href="#退出浏览器全屏状态" class="headerlink" title="退出浏览器全屏状态"></a>退出浏览器全屏状态</h3><p>是的，这个和第4点一起使用，你也会有退出浏览器全屏状态的场景。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">const goExitFullscreen = () =&gt; &#123;</span><br><span class="line">  if (document.exitFullscreen) &#123;</span><br><span class="line">    document.exitFullscreen();</span><br><span class="line">  &#125; else if (document.msExitFullscreen) &#123;</span><br><span class="line">    document.msExitFullscreen();</span><br><span class="line">  &#125; else if (document.mozCancelFullScreen) &#123;</span><br><span class="line">    document.mozCancelFullScreen();</span><br><span class="line">  &#125; else if (document.webkitExitFullscreen) &#123;</span><br><span class="line">    document.webkitExitFullscreen();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="获取数据类型"><a href="#获取数据类型" class="headerlink" title="获取数据类型"></a>获取数据类型</h3><p>如何通过函数获取变量的数据类型？</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">const getType = (value) =&gt; &#123;</span><br><span class="line">  const match = Object.prototype.toString.call(value).match(/ (\w+)]/)</span><br><span class="line">  return match[1].toLocaleLowerCase()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">getType() // undefined</span><br><span class="line">getType(&#123;&#125;&#125;) // object</span><br><span class="line">getType([]) // array</span><br><span class="line">getType(1) // number</span><br><span class="line">getType(&#x27;fatfish&#x27;) // string</span><br><span class="line">getType(true) // boolean</span><br><span class="line">getType(/fatfish/) // regexp</span><br></pre></td></tr></table></figure>
+
+<h3 id="停止冒泡事件"><a href="#停止冒泡事件" class="headerlink" title="停止冒泡事件"></a>停止冒泡事件</h3><p>一种适用于所有平台的防止事件冒泡的方法。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">const stopPropagation = (event) =&gt; &#123;</span><br><span class="line">  event = event || window.event;</span><br><span class="line">  if (event.stopPropagation) &#123;</span><br><span class="line">    event.stopPropagation();</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">    event.cancelBubble = true;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="深拷贝一个对象如何复制深度嵌套的对象？"><a href="#深拷贝一个对象如何复制深度嵌套的对象？" class="headerlink" title="深拷贝一个对象如何复制深度嵌套的对象？"></a>深拷贝一个对象如何复制深度嵌套的对象？</h3><blockquote>
+<p>适用于对象嵌套对象</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">const deepCopy = (obj, hash = new WeakMap()) =&gt; &#123;</span><br><span class="line">  if (obj instanceof Date) &#123;</span><br><span class="line">    return new Date(obj);</span><br><span class="line">  &#125;</span><br><span class="line">  if (obj instanceof RegExp) &#123;</span><br><span class="line">    return new RegExp(obj);</span><br><span class="line">  &#125;</span><br><span class="line">  if (hash.has(obj)) &#123;</span><br><span class="line">    return hash.get(obj);</span><br><span class="line">  &#125;</span><br><span class="line">  let allDesc = Object.getOwnPropertyDescriptors(obj);</span><br><span class="line">  let cloneObj = Object.create(Object.getPrototypeOf(obj), allDesc);</span><br><span class="line">  hash.set(obj, cloneObj);</span><br><span class="line">  for (let key of Reflect.ownKeys(obj)) &#123;</span><br><span class="line">    if (obj[key] &amp;&amp; typeof obj[key] === &quot;object&quot;) &#123;</span><br><span class="line">      cloneObj[key] = deepCopy(obj[key], hash);</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      cloneObj[key] = obj[key];</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  return cloneObj;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="确定设备类型"><a href="#确定设备类型" class="headerlink" title="确定设备类型"></a>确定设备类型</h3><p>我们经常必须这样做才能在手机上显示 A 逻辑，在 PC 上显示 B 逻辑。基本上，设备类型是通过识别浏览器的 userAgent 来确定的。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">const isMobile = () =&gt; &#123;</span><br><span class="line">  return !!navigator.userAgent.match(</span><br><span class="line">    /(iPhone|iPod|Android|ios|iOS|iPad|Backerry|WebOS|Symbian|Windows Phone|Phone)/i</span><br><span class="line">  );</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>###判断设备是安卓还是IOS </p>
+<p>除了区分是移动端还是PC端，很多时候我们还需要区分当前设备是Android还是IOS。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">const isAndroid = () =&gt; &#123;</span><br><span class="line">  return /android/i.test(navigator.userAgent.toLowerCase());</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">const isIOS = () =&gt; &#123;</span><br><span class="line">  let reg = /iPhone|iPad|iPod|iOS|Macintosh/i;</span><br><span class="line">  return reg.test(navigator.userAgent.toLowerCase());</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="获取浏览器类型及其版本"><a href="#获取浏览器类型及其版本" class="headerlink" title="获取浏览器类型及其版本"></a>获取浏览器类型及其版本</h3><p>作为前端开发人员，您可能会遇到各种兼容性问题，这时候可能需要获取浏览器的类型和版本。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">const getExplorerInfo = () =&gt; &#123;</span><br><span class="line">  let t = navigator.userAgent.toLowerCase();</span><br><span class="line">  return 0 &lt;= t.indexOf(&quot;msie&quot;)</span><br><span class="line">    ? &#123;</span><br><span class="line">        //ie &lt; 11</span><br><span class="line">        type: &quot;IE&quot;,</span><br><span class="line">        version: Number(t.match(/msie ([\d]+)/)[1]),</span><br><span class="line">      &#125;</span><br><span class="line">    : !!t.match(/trident\/.+?rv:(([\d.]+))/)</span><br><span class="line">    ? &#123;</span><br><span class="line">        // ie 11</span><br><span class="line">        type: &quot;IE&quot;,</span><br><span class="line">        version: 11,</span><br><span class="line">      &#125;</span><br><span class="line">    : 0 &lt;= t.indexOf(&quot;edge&quot;)</span><br><span class="line">    ? &#123;</span><br><span class="line">        type: &quot;Edge&quot;,</span><br><span class="line">        version: Number(t.match(/edge\/([\d]+)/)[1]),</span><br><span class="line">      &#125;</span><br><span class="line">    : 0 &lt;= t.indexOf(&quot;firefox&quot;)</span><br><span class="line">    ? &#123;</span><br><span class="line">        type: &quot;Firefox&quot;,</span><br><span class="line">        version: Number(t.match(/firefox\/([\d]+)/)[1]),</span><br><span class="line">      &#125;</span><br><span class="line">    : 0 &lt;= t.indexOf(&quot;chrome&quot;)</span><br><span class="line">    ? &#123;</span><br><span class="line">        type: &quot;Chrome&quot;,</span><br><span class="line">        version: Number(t.match(/chrome\/([\d]+)/)[1]),</span><br><span class="line">      &#125;</span><br><span class="line">    : 0 &lt;= t.indexOf(&quot;opera&quot;)</span><br><span class="line">    ? &#123;</span><br><span class="line">        type: &quot;Opera&quot;,</span><br><span class="line">        version: Number(t.match(/opera.([\d]+)/)[1]),</span><br><span class="line">      &#125;</span><br><span class="line">    : 0 &lt;= t.indexOf(&quot;Safari&quot;)</span><br><span class="line">    ? &#123;</span><br><span class="line">        type: &quot;Safari&quot;,</span><br><span class="line">        version: Number(t.match(/version\/([\d]+)/)[1]),</span><br><span class="line">      &#125;</span><br><span class="line">    : &#123;</span><br><span class="line">        type: t,</span><br><span class="line">        version: -1,</span><br><span class="line">      &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="设置cookies"><a href="#设置cookies" class="headerlink" title="设置cookies"></a>设置cookies</h3><p>cookie 可能是我见过的最糟糕的 API，它很难使用，以至于我们不得不重新封装它以最大限度地提高开发效率。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">const setCookie = (key, value, expire) =&gt; &#123;</span><br><span class="line">  const d = new Date();</span><br><span class="line">  d.setDate(d.getDate() + expire);</span><br><span class="line">  document.cookie = `$&#123;key&#125;=$&#123;value&#125;;expires=$&#123;d.toUTCString()&#125;`;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>获取 cookie除了写入 cookie 之外，我们还将参与其读取操作。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">const getCookie = (key) =&gt; &#123;</span><br><span class="line">  const cookieStr = unescape(document.cookie);</span><br><span class="line">  const arr = cookieStr.split(&quot;; &quot;);</span><br><span class="line">  let cookieValue = &quot;&quot;;</span><br><span class="line">  for (let i = 0; i &lt; arr.length; i++) &#123;</span><br><span class="line">    const temp = arr[i].split(&quot;=&quot;);</span><br><span class="line">    if (temp[0] === key) &#123;</span><br><span class="line">      cookieValue = temp[1];</span><br><span class="line">      break;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  return cookieValue;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="删除cookies"><a href="#删除cookies" class="headerlink" title="删除cookies"></a>删除cookies</h3><p>删除cookie 的想法是什么？其实，只要把它的过期时间设置为这一刻，它就会立即过期。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">const delCookie = (key) =&gt; &#123;</span><br><span class="line">  document.cookie = `$&#123;encodeURIComponent(key)&#125;=;expires=$&#123;new Date()&#125;`;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="生成随机字符串"><a href="#生成随机字符串" class="headerlink" title="生成随机字符串"></a>生成随机字符串</h3><p>不知道大家有没有遇到过需要生成随机字符串的场景。我遇到过很多次，每次都要google一遍，直到学会这个工具功能。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">const randomString = (len) =&gt; &#123;</span><br><span class="line">  let chars = &quot;ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz123456789&quot;;</span><br><span class="line">  let strLen = chars.length;</span><br><span class="line">  let randomStr = &quot;&quot;;</span><br><span class="line">  for (let i = 0; i &lt; len; i++) &#123;</span><br><span class="line">    randomStr += chars.charAt(Math.floor(Math.random() * strLen));</span><br><span class="line">  &#125;</span><br><span class="line">  return randomStr;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">randomString(10) // pfkMfjEJ6x</span><br><span class="line">randomString(20) // ce6tEx1km4idRNMtym2S</span><br></pre></td></tr></table></figure>
+
+<h3 id="字符串首字母大写"><a href="#字符串首字母大写" class="headerlink" title="字符串首字母大写"></a>字符串首字母大写</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">const fistLetterUpper = (str) =&gt; &#123;</span><br><span class="line">  return str.charAt(0).toUpperCase() + str.slice(1);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">fistLetterUpper(&#x27;fatfish&#x27;) // Fatfish</span><br></pre></td></tr></table></figure>
+
+<h3 id="生成指定范围内的随机数"><a href="#生成指定范围内的随机数" class="headerlink" title="生成指定范围内的随机数"></a>生成指定范围内的随机数</h3><p>也许出于测试目的，我经常需要生成一定范围内的随机数。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">const randomNum = (min, max) =&gt; Math.floor(Math.random() * (max - min + 1)) + min;</span><br><span class="line"></span><br><span class="line">randomNum(1, 10) // 6</span><br><span class="line">randomNum(10, 20) // 11</span><br></pre></td></tr></table></figure>
+
+<h3 id="打乱数组的顺序"><a href="#打乱数组的顺序" class="headerlink" title="打乱数组的顺序"></a>打乱数组的顺序</h3><p>如何打乱数组的原始顺序？</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">const shuffleArray = (array) =&gt; &#123;</span><br><span class="line">  return array.sort(() =&gt; 0.5 - Math.random())</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">let arr = [ 1, -1, 10, 5 ]</span><br><span class="line"></span><br><span class="line">shuffleArray(arr) // [5, -1, 10, 1]</span><br><span class="line">shuffleArray(arr) // [1, 10, -1, 5]</span><br></pre></td></tr></table></figure>
+
+<h3 id="从数组中获取随机值"><a href="#从数组中获取随机值" class="headerlink" title="从数组中获取随机值"></a>从数组中获取随机值</h3><p>之前做过一个抽奖项目，需要让数组中的奖品随机出现。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">const getRandomValue = array =&gt; array[Math.floor(Math.random() * array.length)]; </span><br><span class="line">const prizes = [  &#x27;$100&#x27;, &#x27; &#x27;, &#x27; &#x27; ]</span><br><span class="line"></span><br><span class="line">getRandomValue(prizes) //  </span><br><span class="line">getRandomValue(prizes) //  </span><br><span class="line">getRandomValue(prizes) //  </span><br></pre></td></tr></table></figure>
+
+<h3 id="格式化货币"><a href="#格式化货币" class="headerlink" title="格式化货币"></a>格式化货币</h3><p>格式化货币的方式有很多，比如这两种方式。</p>
+<p>第一种方法</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">const formatMoney = (money) =&gt; &#123;</span><br><span class="line">  return money.replace(new RegExp(`(?!^)(?=(\\d&#123;3&#125;)+$&#123;money.includes(&#x27;.&#x27;) ? &#x27;\\.&#x27; : &#x27;$&#x27;&#125;)`, &#x27;g&#x27;), &#x27;,&#x27;)  </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">formatMoney(&#x27;123456789&#x27;) // &#x27;123,456,789&#x27;</span><br><span class="line">formatMoney(&#x27;123456789.123&#x27;) // &#x27;123,456,789.123&#x27;</span><br><span class="line">formatMoney(&#x27;123&#x27;) // &#x27;123&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>第二种方式</p>
+<p>正则表达式让我们很头疼，不是吗？所以我们需要找到一种更简单的方式来格式化货币。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">const formatMoney = (money) =&gt; &#123;</span><br><span class="line">  return money.toLocaleString()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">formatMoney(123456789) // &#x27;123,456,789&#x27;</span><br><span class="line">formatMoney(123456789.123) // &#x27;123,456,789.123&#x27;</span><br><span class="line">formatMoney(123) // &#x27;123&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>从各个地方摘录过来的,后续会继续补充,侵删~</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>请我一杯咖啡吧！</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/img/wechatpay.png" alt="陈晟 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/img/alipay.png" alt="陈晟 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>陈晟
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://www.chensheng.group/2022/08/06/159-js%E5%AE%9E%E7%94%A8%E5%B0%8F%E6%8A%80%E5%B7%A7/" title="js实用小技巧">https://www.chensheng.group/2022/08/06/159-js实用小技巧/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/javaScript/" rel="tag"><i class="fa fa-tag"></i> javaScript</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/06/24/158-%E5%8D%95%E8%A1%8Cjs/" rel="prev" title="单行JS小工具">
+                  <i class="fa fa-angle-left"></i> 单行JS小工具
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/10/01/160-uni-app%E5%88%86%E5%8C%85/" rel="next" title="uni-app分包">
+                  uni-app分包 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">闽ICP备2022007916号-1 </a>
+  </div>
+  <div class="copyright">
+    &copy; 2016 – 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">陈晟</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">489k</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script><script src="/js/pjax.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+</html>

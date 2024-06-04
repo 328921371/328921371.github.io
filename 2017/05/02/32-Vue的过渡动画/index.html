@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.2.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"www.chensheng.group","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.20.0","exturl":false,"sidebar":{"position":"right","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":true,"style":"mac"},"fold":{"enable":false,"height":500},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false,"trigger":"auto"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Vue 在插入、更新或者移除 DOM 时，提供多种不同方式的应用过渡效果。今天和大家分享一下学习的过程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue过渡动画">
+<meta property="og:url" content="https://www.chensheng.group/2017/05/02/32-Vue%E7%9A%84%E8%BF%87%E6%B8%A1%E5%8A%A8%E7%94%BB/index.html">
+<meta property="og:site_name" content="陈先生的小前端">
+<meta property="og:description" content="Vue 在插入、更新或者移除 DOM 时，提供多种不同方式的应用过渡效果。今天和大家分享一下学习的过程">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2017-05-02T07:46:55.000Z">
+<meta property="article:modified_time" content="2024-06-02T16:07:19.380Z">
+<meta property="article:author" content="陈晟">
+<meta property="article:tag" content="Vue">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://www.chensheng.group/2017/05/02/32-Vue%E7%9A%84%E8%BF%87%E6%B8%A1%E5%8A%A8%E7%94%BB/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://www.chensheng.group/2017/05/02/32-Vue%E7%9A%84%E8%BF%87%E6%B8%A1%E5%8A%A8%E7%94%BB/","path":"2017/05/02/32-Vue的过渡动画/","title":"Vue过渡动画"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Vue过渡动画 | 陈先生的小前端</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="陈先生的小前端" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">陈先生的小前端</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-house-chimney fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-list fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9C%A8CSS%E4%B8%AD%E8%AE%BE%E7%BD%AE%E8%BF%87%E6%B8%A1%E6%95%88%E6%9E%9C"><span class="nav-number">1.</span> <span class="nav-text">在CSS中设置过渡效果</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9C%A8CSS%E4%B8%AD%E8%AE%BE%E7%BD%AE%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C"><span class="nav-number">2.</span> <span class="nav-text">在CSS中设置动画效果</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BE%9D%E6%8D%AE%E5%8A%A8%E7%94%BB%E5%BA%93%E8%AE%BE%E7%BD%AE%E5%8A%A8%E7%94%BB"><span class="nav-number">3.</span> <span class="nav-text">依据动画库设置动画</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9C%A8javascript%E6%A0%87%E7%AD%BE%E4%B8%AD%E8%AE%BE%E7%BD%AE%E5%8A%A8%E7%94%BB"><span class="nav-number">4.</span> <span class="nav-text">在javascript标签中设置动画</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E7%9A%84javascript%E5%8A%A8%E7%94%BB%E9%92%A9%E5%AD%90%E6%9C%89%E5%93%AA%E4%BA%9B"><span class="nav-number">5.</span> <span class="nav-text">常见的javascript动画钩子有哪些</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96%E6%B8%B2%E6%9F%93"><span class="nav-number">6.</span> <span class="nav-text">初始化渲染</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A4%9A%E5%85%83%E7%B4%A0%E8%BF%87%E6%B8%A1"><span class="nav-number">7.</span> <span class="nav-text">多元素过渡</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A4%9A%E7%BB%84%E4%BB%B6%E8%BF%87%E6%B8%A1"><span class="nav-number">8.</span> <span class="nav-text">多组件过渡</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%97%E8%A1%A8%E8%BF%87%E6%B8%A1"><span class="nav-number">9.</span> <span class="nav-text">列表过渡</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="陈晟"
+      src="/img/touxiang.jpg">
+  <p class="site-author-name" itemprop="name">陈晟</p>
+  <div class="site-description" itemprop="description">请不要在最能吃苦的日子选择安逸</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">165</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">36</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">56</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/328921371" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;328921371" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:328921371@qq.com" title="E-Mail → mailto:328921371@qq.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.chensheng.group/2017/05/02/32-Vue%E7%9A%84%E8%BF%87%E6%B8%A1%E5%8A%A8%E7%94%BB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/img/touxiang.jpg">
+      <meta itemprop="name" content="陈晟">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="陈先生的小前端">
+      <meta itemprop="description" content="请不要在最能吃苦的日子选择安逸">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Vue过渡动画 | 陈先生的小前端">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Vue过渡动画
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2017-05-02 15:46:55" itemprop="dateCreated datePublished" datetime="2017-05-02T15:46:55+08:00">2017-05-02</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Vue/" itemprop="url" rel="index"><span itemprop="name">Vue</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><hr style='filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)' color='#FF0000' size='1' />
+
+<blockquote>
+<p>Vue 在插入、更新或者移除 DOM 时，提供多种不同方式的应用过渡效果。今天和大家分享一下学习的过程</p>
+</blockquote>
+<span id="more"></span>
+
+<p>过渡的方法可以由以下几种进行实现：</p>
+<ol>
+<li>在 CSS 过渡和动画中自动应用 class</li>
+<li>可以配合使用第三方 CSS 动画库，如 Animate.css</li>
+<li>在过渡钩子函数中使用 JavaScript 直接操作 DOM</li>
+<li>可以配合使用第三方 JavaScript 动画库，如 Velocity.js</li>
+</ol>
+<h1 id="在CSS中设置过渡效果"><a href="#在CSS中设置过渡效果" class="headerlink" title="在CSS中设置过渡效果"></a>在CSS中设置过渡效果</h1><blockquote>
+<p>transition 标签里 放入需要过渡的内容</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;transition name=<span class="string">&#x27;fade&#x27;</span>&gt;</span><br><span class="line">	<span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">v-if</span>=<span class="string">&quot;seen&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">span</span>&gt;</span>我是要过渡的内容<span class="tag">&lt;/<span class="name">span</span>&gt;</span> <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">&lt;/transition&gt;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>在style中写入过渡的内容，假设过渡的名字为fade，实现淡入淡出的效果</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&lt;style type=<span class="string">&quot;text/css&quot;</span>&gt;</span><br><span class="line">	.<span class="property">fade</span>-enter-active&#123;</span><br><span class="line">		<span class="comment">/* 进入完成 */</span></span><br><span class="line">		<span class="attr">transition</span>: all 1s ease;</span><br><span class="line">		<span class="attr">opacity</span>: <span class="number">1</span>; 	</span><br><span class="line">	&#125;</span><br><span class="line">	.<span class="property">fade</span>-enter&#123;</span><br><span class="line">		<span class="comment">/* 进入之前 */</span></span><br><span class="line">		<span class="attr">opacity</span>: <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	.<span class="property">fade</span>-leave-active&#123;</span><br><span class="line">		<span class="comment">/* 离开完成 */</span></span><br><span class="line">		<span class="attr">transition</span>: all 1s linear;</span><br><span class="line">		<span class="attr">opacity</span>: <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	.<span class="property">fade</span>-leave&#123;</span><br><span class="line">		<span class="comment">/* 离开之前 */</span></span><br><span class="line">		<span class="attr">opacity</span>: <span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>原理稍微介绍一下</p>
+</blockquote>
+<ol>
+<li><p>transition 标签 vue 会自动给其加上对应的样式(v-enter v-enter-active v-leave v-leave-active),v则是我们定义的name的值</p>
+</li>
+<li><p>带 active 的样式 一定要写在对应的非 active 样式之前</p>
+</li>
+</ol>
+<h1 id="在CSS中设置动画效果"><a href="#在CSS中设置动画效果" class="headerlink" title="在CSS中设置动画效果"></a>在CSS中设置动画效果</h1><p>之前是过渡，现在我们来看一下动画是怎么实现的，方法和过渡差不多：</p>
+<p>一、首先将需要执行动画的元素放到 transition 标签内</p>
+<p>二、其次给transition标签起一个名字,transition name&#x3D;’bounce’,Vue会自动为transition标签里的目标元素，在适当的添加或删除 </p>
+<blockquote>
+<p>我们来看一下Vue自动生成的类有哪些：</p>
+</blockquote>
+<ol>
+<li>v-enter: 定义进入过渡的开始状态。在元素被插入时生效，在下一个帧移除。</li>
+<li>v-enter-active: 定义过渡的状态。在元素整个过渡过程中作用，在元素被插入时生效，在 transition&#x2F;animation 完成之后移除。 这个类可以被用来定义过渡的过程时间，延迟和曲线函数。</li>
+<li>v-enter-to: 2.1.8版及以上 定义进入过渡的结束状态。在元素被插入一帧后生效（于此同时 v-enter 被删除），在 transition&#x2F;animation 完成之后移除。</li>
+<li>v-leave: 定义离开过渡的开始状态。在离开过渡被触发时生效，在下一个帧移除。</li>
+<li>v-leave-active: 定义过渡的状态。在元素整个过渡过程中作用，在离开过渡被触发后立即生效，在 transition&#x2F;animation 完成之后移除。 这个类可以被用来定义过渡的过程时间，延迟和曲线函数。</li>
+<li>v-leave-to: 2.1.8版及以上 定义离开过渡的结束状态。在离开过渡被触发一帧后生效（于此同时 v-leave 被删除），在 transition&#x2F;animation 完成之后移除。</li>
+</ol>
+<p>三、在style中定义动画 animation: bounce-in 1s ease-in; 这里只是举个例子，animation可以根据具体的情况自行定义</p>
+<p>四、再将动画补全 @keyframes bounce-in{ }，@keyframes的内容根据自身需求来写</p>
+<blockquote>
+<p>补充</p>
+</blockquote>
+<ol>
+<li>v- 是这些类名的前缀。使用 <transition name="bounce"> 可以重置前缀</li>
+<li>可以在transition标签中添加 :duration&#x3D;”{ enter: 500, leave: 800 }” 来控制时间</li>
+</ol>
+<h1 id="依据动画库设置动画"><a href="#依据动画库设置动画" class="headerlink" title="依据动画库设置动画"></a>依据动画库设置动画</h1><ol>
+<li>首先引入animate.css</li>
+<li>将自定义动画的动画内容 放入transition标签内</li>
+<li>将需要的动画 放在 animated后面,注意前面的class,一定要加</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;transition</span><br><span class="line">	name=<span class="string">&#x27;custom&#x27;</span></span><br><span class="line">	enter-active-<span class="keyword">class</span>=<span class="string">&#x27;animated bounceInLeft&#x27;</span></span><br><span class="line">	leave-active-<span class="keyword">class</span>=<span class="string">&#x27;animated bounceOutRight&#x27;</span></span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+
+<h1 id="在javascript标签中设置动画"><a href="#在javascript标签中设置动画" class="headerlink" title="在javascript标签中设置动画"></a>在javascript标签中设置动画</h1><p>这里举一个简单的例子，可以去官方文档查看一下具体的例子</p>
+<p>一、首先在transition标签中,写入响应的事件,后面’’中填写的是函数名</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;transition</span><br><span class="line">	name=<span class="string">&#x27;fade&#x27;</span></span><br><span class="line">	@before-enter=<span class="string">&#x27;beforeEnter&#x27;</span></span><br><span class="line">	@enter=<span class="string">&#x27;enter&#x27;</span></span><br><span class="line">	@before-leave=<span class="string">&#x27;beforeLeave&#x27;</span></span><br><span class="line">	@leave=<span class="string">&quot;leave&quot;</span>	</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+
+<p>二、在Vue的实例中,methods里面写入实现相应的函数</p>
+<blockquote>
+<p>一定要注意,函数需要传入参数,在enter 和 leave 的函数中,要调用 done()，当只用 JavaScript 过渡的时候， 在 enter 和 leave 中，回调函数 done 是必须的 。否则，它们会被同步调用，过渡会立即完成</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">beforeEnter</span>(<span class="params">el</span>) &#123;</span><br><span class="line">	$(el).<span class="title function_">css</span>(&#123;</span><br><span class="line">		opacity : <span class="number">0</span></span><br><span class="line">	&#125;)</span><br><span class="line">&#125;,</span><br><span class="line"><span class="title function_">enter</span>(<span class="params">el,done</span>)&#123;</span><br><span class="line">	$(el).<span class="title function_">animate</span>(&#123;</span><br><span class="line">		opacity : <span class="number">1</span></span><br><span class="line">	&#125;,<span class="number">1000</span>,<span class="string">&#x27;linear&#x27;</span>,<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">		<span class="title function_">done</span>()</span><br><span class="line">	&#125;)	 </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>动画的效果根据实际的情况进行描写，这里只是介绍了一种动画钩子，还有很多的动画钩子有兴趣的可以去试一下，运用的原理是一样的</p>
+<h1 id="常见的javascript动画钩子有哪些"><a href="#常见的javascript动画钩子有哪些" class="headerlink" title="常见的javascript动画钩子有哪些"></a>常见的javascript动画钩子有哪些</h1><ol>
+<li>@before-enter&#x3D;”beforeEnter”</li>
+<li>@enter&#x3D;”enter” &#x2F;&#x2F;调用done()</li>
+<li>@after-enter&#x3D;”afterEnter”</li>
+<li>@enter-cancelled&#x3D;”enterCancelled” &#x2F;&#x2F;动画取消进入触发</li>
+<li>@before-leave&#x3D;”beforeLeave”</li>
+<li>@leave&#x3D;”leave”&#x2F;&#x2F;调用done()</li>
+<li>@after-leave&#x3D;”afterLeave”</li>
+<li>@leave-cancelled&#x3D;”leaveCancelled” &#x2F;&#x2F;动画取消离开触发,leaveCancelled 只用于 v-show 中</li>
+</ol>
+<h1 id="初始化渲染"><a href="#初始化渲染" class="headerlink" title="初始化渲染"></a>初始化渲染</h1><blockquote>
+<p>在transition标签中写入appear属性, vue会加上这个初始渲染动画,和过渡一样，同样也可以自定义 CSS 类名,自定义 JavaScript 钩子.</p>
+</blockquote>
+<p>定义CSS类名:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;transition</span><br><span class="line">  appear</span><br><span class="line">  appear-<span class="keyword">class</span>=<span class="string">&quot;custom-appear-class&quot;</span></span><br><span class="line">  appear-to-<span class="keyword">class</span>=<span class="string">&quot;custom-appear-to-class&quot;</span> (<span class="number">2.1</span><span class="number">.8</span>+)</span><br><span class="line">  appear-active-<span class="keyword">class</span>=<span class="string">&quot;custom-appear-active-class&quot;</span></span><br><span class="line">&gt;</span><br><span class="line">&lt;/transition&gt;</span><br></pre></td></tr></table></figure>
+
+<p>自定义 JavaScript 钩子:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;transition</span><br><span class="line">	appear</span><br><span class="line">	@before-appear=<span class="string">&#x27;beforeAppear&#x27;</span></span><br><span class="line">	@appear=<span class="string">&#x27;appear&#x27;</span></span><br><span class="line">	@before-enter=<span class="string">&#x27;beforeEnter&#x27;</span></span><br><span class="line">	@enter=<span class="string">&#x27;enter&#x27;</span></span><br><span class="line">	@before-leave=<span class="string">&#x27;beforeLeave&#x27;</span></span><br><span class="line">	@leave=<span class="string">&#x27;leave&#x27;</span></span><br><span class="line">	:css=<span class="string">&#x27;false&#x27;</span></span><br><span class="line">	&gt;</span><br><span class="line">&lt;/transition&gt;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>分享一下学习的体会</p>
+</blockquote>
+<ol>
+<li>before-appear是初始动画之前 </li>
+<li>appear为开始初始动画,这样写的好处是不影响我们进行动画的切换</li>
+<li>css属性: 有时候有css过渡 ,如果说为false,Vue 会跳过 CSS 的检测。这也可以避免过渡过程中 CSS 的影响</li>
+</ol>
+<h1 id="多元素过渡"><a href="#多元素过渡" class="headerlink" title="多元素过渡"></a>多元素过渡</h1><p>文档给出了例子，我这里就不再重复了，归纳一下具体的一些知识点</p>
+<ul>
+<li>transition 标签中要添加 mode&#x3D;”out-in” <ul>
+<li>in-out: 新元素先进行过渡，完成之后当前元素过渡离开。</li>
+<li>out-in: 当前元素先进行过渡，完成之后新元素过渡进入。</li>
+</ul>
+</li>
+<li>一般来说transition 标签只能有一个标签在最外层,但是可以用v-if来控制</li>
+<li>相同标签名进行 if else 切换,一定要加上 key且值要不一样</li>
+</ul>
+<h1 id="多组件过渡"><a href="#多组件过渡" class="headerlink" title="多组件过渡"></a>多组件过渡</h1><p>多个组件的过渡简单很多 - 我们不需要使用 key 特性。相反，我们只需要使用动态组件:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;transition name=<span class="string">&quot;component-fade&quot;</span> mode=<span class="string">&quot;out-in&quot;</span>&gt;</span><br><span class="line">  <span class="language-xml"><span class="tag">&lt;<span class="name">component</span> <span class="attr">:is</span>=<span class="string">&quot;view&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">component</span>&gt;</span></span></span><br><span class="line">&lt;/transition&gt;</span><br></pre></td></tr></table></figure>
+
+<p>在CSS中写入过渡:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">.<span class="property">component</span>-fade-enter-active, .<span class="property">component</span>-fade-leave-active &#123;</span><br><span class="line">  <span class="attr">transition</span>: opacity .3s ease;</span><br><span class="line">&#125;</span><br><span class="line">.<span class="property">component</span>-fade-enter, .<span class="property">component</span>-fade-leave-to</span><br><span class="line"><span class="comment">/* .component-fade-leave-active for below version 2.1.8 */</span> &#123;</span><br><span class="line">  <span class="attr">opacity</span>: <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="列表过渡"><a href="#列表过渡" class="headerlink" title="列表过渡"></a>列表过渡</h1><p>与transition不同,列表过渡使用的是:transition-group 过渡组</p>
+<blockquote>
+<p>不同于 transition标签,它会以一个真实元素呈现：默认为一个 <span>。你也可以通过 tag 特性更换为其他元素。内部元素 总是需要 提供唯一的 key 属性值,添加的class 会传递到 生成的标签上</p>
+</blockquote>
+<p>例如:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;transition-group name=<span class="string">&quot;list&quot;</span> tag=<span class="string">&quot;div&quot;</span> <span class="keyword">class</span>=<span class="string">&#x27;aa&#x27;</span>&gt;</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">span</span> <span class="attr">v-for</span>=<span class="string">&quot;item in items&quot;</span> <span class="attr">v-bind:key</span>=<span class="string">&quot;item&quot;</span> <span class="attr">class</span>=<span class="string">&quot;list-item&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      &#123;&#123; item &#125;&#125;</span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">span</span>&gt;</span></span></span><br><span class="line">&lt;/transition-group&gt;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><transition-group> 组件还有一个特殊之处。不仅可以进入和离开动画，还可以改变定位。<br>要使用这个新功能只需了解新增的 v-move 特性，它会在元素的改变定位的过程中应用</p>
+</blockquote>
+<p>例如: </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.<span class="property">list</span>-move&#123;</span><br><span class="line">	<span class="attr">transition</span>: all <span class="number">0.</span>4s linear;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>需要在 list-leave-active 中添加  position: absolute  目的是让他不占位置</li>
+<li>过渡的元素最好display: inline-block,因为transform适用所有块元素以及某些行内元素(但是不包括span)</li>
+</ol>
+<p>官方文档给出了更为详细的例子，有兴趣的小伙伴可以去看一下</p>
+<p>这篇的过渡动画写的有点略长，以上就是我对Vue过渡动画的一些理解，有哪里不对的欢迎提出</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>请我一杯咖啡吧！</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/img/wechatpay.png" alt="陈晟 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/img/alipay.png" alt="陈晟 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>陈晟
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://www.chensheng.group/2017/05/02/32-Vue%E7%9A%84%E8%BF%87%E6%B8%A1%E5%8A%A8%E7%94%BB/" title="Vue过渡动画">https://www.chensheng.group/2017/05/02/32-Vue的过渡动画/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Vue/" rel="tag"><i class="fa fa-tag"></i> Vue</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2017/04/26/31-Vue%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/" rel="prev" title="Vue生命周期的使用">
+                  <i class="fa fa-angle-left"></i> Vue生命周期的使用
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2017/05/10/33-Vue%E8%BF%87%E6%B8%A1%E5%8A%A8%E7%94%BB%E7%9A%84%E5%B0%8F%E4%BE%8B%E5%AD%90/" rel="next" title="Vue过渡动画的demo">
+                  Vue过渡动画的demo <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">闽ICP备2022007916号-1 </a>
+  </div>
+  <div class="copyright">
+    &copy; 2016 – 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">陈晟</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">489k</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script><script src="/js/pjax.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+</html>

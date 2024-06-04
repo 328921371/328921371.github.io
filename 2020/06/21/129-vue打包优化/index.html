@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.2.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"www.chensheng.group","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.20.0","exturl":false,"sidebar":{"position":"right","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":true,"style":"mac"},"fold":{"enable":false,"height":500},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false,"trigger":"auto"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="随着项目越来越大,打包的速度也变的很慢,甚至出现了node内存溢出,今天来一起学习一下打包的一些优化">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vue-cli 打包优化">
+<meta property="og:url" content="https://www.chensheng.group/2020/06/21/129-vue%E6%89%93%E5%8C%85%E4%BC%98%E5%8C%96/index.html">
+<meta property="og:site_name" content="陈先生的小前端">
+<meta property="og:description" content="随着项目越来越大,打包的速度也变的很慢,甚至出现了node内存溢出,今天来一起学习一下打包的一些优化">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-06-21T07:06:00.000Z">
+<meta property="article:modified_time" content="2024-06-02T16:07:19.374Z">
+<meta property="article:author" content="陈晟">
+<meta property="article:tag" content="vue-cli">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://www.chensheng.group/2020/06/21/129-vue%E6%89%93%E5%8C%85%E4%BC%98%E5%8C%96/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://www.chensheng.group/2020/06/21/129-vue%E6%89%93%E5%8C%85%E4%BC%98%E5%8C%96/","path":"2020/06/21/129-vue打包优化/","title":"vue-cli 打包优化"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>vue-cli 打包优化 | 陈先生的小前端</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="陈先生的小前端" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">陈先生的小前端</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-house-chimney fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-list fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#node%E5%86%85%E5%AD%98%E6%BA%A2%E5%87%BA"><span class="nav-number">1.</span> <span class="nav-text">node内存溢出</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8HappyPack%E5%A4%9A%E8%BF%9B%E7%A8%8B%E8%BF%9B%E8%A1%8Cloader%E5%A4%84%E7%90%86"><span class="nav-number">2.</span> <span class="nav-text">使用HappyPack多进程进行loader处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AEloader%E7%9A%84-include-exclude"><span class="nav-number">3.</span> <span class="nav-text">配置loader的 include &amp; exclude</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE-resolve-modules"><span class="nav-number">4.</span> <span class="nav-text">配置 resolve.modules</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E6%89%93%E5%8C%85%E5%90%8E%E7%9A%84%E6%96%87%E4%BB%B6%E4%BD%93%E7%A7%AF"><span class="nav-number">5.</span> <span class="nav-text">查看打包后的文件体积</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8webpack-parallel-uglify-plugin%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%8E%8B%E7%BC%A9JS"><span class="nav-number">6.</span> <span class="nav-text">使用webpack-parallel-uglify-plugin多线程压缩JS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8E%BB%E9%99%A4map%E6%96%87%E4%BB%B6-%E5%B9%B6%E5%BC%80%E5%90%AFgzip%E6%89%93%E5%8C%85"><span class="nav-number">7.</span> <span class="nav-text">去除map文件,并开启gzip打包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-DllPlugin-%E5%92%8C-DllReferencePlugin-%E9%A2%84%E7%BC%96%E8%AF%91%E8%B5%84%E6%BA%90%E6%A8%A1%E5%9D%97"><span class="nav-number">8.</span> <span class="nav-text">使用 DllPlugin 和 DllReferencePlugin 预编译资源模块</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="陈晟"
+      src="/img/touxiang.jpg">
+  <p class="site-author-name" itemprop="name">陈晟</p>
+  <div class="site-description" itemprop="description">请不要在最能吃苦的日子选择安逸</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">165</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">36</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">56</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/328921371" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;328921371" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:328921371@qq.com" title="E-Mail → mailto:328921371@qq.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.chensheng.group/2020/06/21/129-vue%E6%89%93%E5%8C%85%E4%BC%98%E5%8C%96/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/img/touxiang.jpg">
+      <meta itemprop="name" content="陈晟">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="陈先生的小前端">
+      <meta itemprop="description" content="请不要在最能吃苦的日子选择安逸">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="vue-cli 打包优化 | 陈先生的小前端">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          vue-cli 打包优化
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-06-21 15:06:00" itemprop="dateCreated datePublished" datetime="2020-06-21T15:06:00+08:00">2020-06-21</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/vue-cli/" itemprop="url" rel="index"><span itemprop="name">vue-cli</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><hr style='filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)' color='#FF0000' size='1' />
+
+<blockquote>
+<p>随着项目越来越大,打包的速度也变的很慢,甚至出现了node内存溢出,今天来一起学习一下打包的一些优化</p>
+</blockquote>
+<span id="more"></span>
+
+<h3 id="node内存溢出"><a href="#node内存溢出" class="headerlink" title="node内存溢出"></a>node内存溢出</h3><p>有些时候,打包或者编译会报这个错误: <code>FATAL ERROR: Ineffective mark-compacts near heap limit Allocation failed</code></p>
+<p>是因为Node是基于V8引擎,我们的64位电脑只能支持到1.4G的内存,超过这个就会报错,解决方法如下</p>
+<p>cnpm install -g increase-memory-limit 全局安装<code>increase-memory-limit</code></p>
+<p>进入项目文件夹,运行：<code>increase-memory-limit</code></p>
+<p>如果还是不行,在packjson中修改build命令</p>
+<p><code>&quot;build&quot;: &quot;node --max_old_space_size=8192 build/build.js&quot;</code></p>
+<blockquote>
+<p>如果是多人合作的项目,也可以直接将increase-memory-limit配置到文件当中,做法如下</p>
+</blockquote>
+<p>npm install increase-memory-limit -S<br>npm install cross-env -S</p>
+<p>在packjson中添加命令<code>&quot;fix-memory-limit&quot;: &quot;cross-env LIMIT=8192 increase-memory-limit&quot;</code></p>
+<p>直接运行 <code>npm run fix-memory-limit</code> 就可以了</p>
+<p>可以在&#x2F;node_modules&#x2F;.bin&#x2F;文件中看到,文件被修改了运行内存</p>
+<h3 id="使用HappyPack多进程进行loader处理"><a href="#使用HappyPack多进程进行loader处理" class="headerlink" title="使用HappyPack多进程进行loader处理"></a>使用HappyPack多进程进行loader处理</h3><p>优化原理: </p>
+<ol>
+<li>由于运行在 Node.js 之上的 Webpack 是单线程模型的,所以 Webpack 需要处理的事情只能一件一件地做,不能多件事一起做。</li>
+<li>而 HappyPack 的处理思路是：将原有的 webpack 对 loader 的执行过程,从单一进程的形式扩展多进程模式,从而加速代码构建。</li>
+</ol>
+<p><code>cnpm i happypack -S</code> 安装插件</p>
+<p>修改<code>build/webpack.base.conf.js</code> 文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">const HappyPack = require(&#x27;happypack&#x27;);</span><br><span class="line">// node 提供的系统操作模块</span><br><span class="line">const os = require(&#x27;os&#x27;);</span><br><span class="line">// 根据我的系统的内核BS数量 指定BS线程池个数 也可以其他数量</span><br><span class="line">const happyThreadPool = HappyPack.ThreadPool(&#123; size: os.cpus().length &#125;);</span><br><span class="line"> </span><br><span class="line">module.exports = &#123;</span><br><span class="line">  module: &#123;</span><br><span class="line">    rules: [</span><br><span class="line">      &#123;</span><br><span class="line">        test: /\.js$/,</span><br><span class="line">        //把对.js 的文件处理交给id为happyBabel 的HappyPack 的实例执行</span><br><span class="line">        loader: &#x27;happypack/loader?id=happyBabel&#x27;,</span><br><span class="line">        include: [resolve(&#x27;src&#x27;)],</span><br><span class="line">        //排除node_modules 目录下的文件</span><br><span class="line">        exclude: /node_modules/</span><br><span class="line">      &#125;,</span><br><span class="line">    ]</span><br><span class="line">  &#125;,</span><br><span class="line">  plugins: [</span><br><span class="line">    new HappyPack(&#123;</span><br><span class="line">        //用id来标识 happypack处理那里类文件</span><br><span class="line">      id: &#x27;happyBabel&#x27;,</span><br><span class="line">      //如何处理  用法和loader 的配置一样</span><br><span class="line">      loaders: [&#123;</span><br><span class="line">        loader: &#x27;babel-loader?cacheDirectory=true&#x27;,</span><br><span class="line">      &#125;],</span><br><span class="line">      //共享进程池</span><br><span class="line">      threadPool: happyThreadPool,</span><br><span class="line">      //允许 HappyPack 输出日志</span><br><span class="line">      verbose: true,</span><br><span class="line">    &#125;)</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>如果报错的话,说明当前使用的webpack版本没有自带os,需要自己安装</p>
+</blockquote>
+<p>npm i webpack-parallel-uglify-plugin -D<br>npm i os -D</p>
+<h3 id="配置loader的-include-exclude"><a href="#配置loader的-include-exclude" class="headerlink" title="配置loader的 include &amp; exclude"></a>配置loader的 include &amp; exclude</h3><p>优化原理</p>
+<ol>
+<li>webpack 的 loaders 里的每个子项都可以有 include 和 exclude 属性：</li>
+</ol>
+<ul>
+<li>include：导入的文件将由加载程序转换的路径或文件数组（把要处理的目录包括进来）</li>
+<li>exclude：不能满足的条件（排除不处理的目录）</li>
+</ul>
+<ol start="2">
+<li>我们可以使用 include 更精确地指定要处理的目录，这可以减少不必要的遍历，从而减少性能损失。</li>
+<li>同时使用 exclude 对于已经明确知道的，不需要处理的目录，予以排除，从而进一步提升性能。</li>
+</ol>
+<p>打开 build&#x2F;webpack.base.conf.js 文件,添加如下 include , exclude 配置：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">module: &#123;</span><br><span class="line">  rules: [</span><br><span class="line">    &#123;</span><br><span class="line">      test: /.vue$/,</span><br><span class="line">      loader: &#x27;vue-loader&#x27;,</span><br><span class="line">      options: vueLoaderConfig,</span><br><span class="line">      include: [resolve(&#x27;src&#x27;)],  // 添加配置</span><br><span class="line">      exclude: /node_modules(?!(autotrack|dom-utils))|vendor.dll.js/ // 添加配置</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      test: /.js$/,</span><br><span class="line">      loader: &#x27;babel-loader&#x27;,</span><br><span class="line">      include: [resolve(&#x27;src&#x27;), resolve(&#x27;test&#x27;), resolve(&#x27;node_modules/webpack-dev-server/client&#x27;)], // 添加配置</span><br><span class="line">      exclude: /node_modules/ // 添加配置</span><br><span class="line">    &#125;</span><br><span class="line">  // ...</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="配置-resolve-modules"><a href="#配置-resolve-modules" class="headerlink" title="配置 resolve.modules"></a>配置 resolve.modules</h3><p>优化原理:</p>
+<ol>
+<li>webpack 的 resolve.modules 是用来配置模块库（即 node_modules）所在的位置。当 js 里出现 import ‘vue’ 这样不是相对、也不是绝对路径的写法时,它便会到 node_modules 目录下去找。</li>
+<li>在默认配置下,webpack 会采用向上递归搜索的方式去寻找。但通常项目目录里只有一个 node_modules,且是在项目根目录。为了减少搜索范围,可我们以直接写明 node_modules 的全路径。</li>
+</ol>
+<p>修改<code>build/webpack.base.conf.js</code> 文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">module.exports = &#123;</span><br><span class="line">  resolve: &#123;</span><br><span class="line">    extensions: [&#x27;.js&#x27;, &#x27;.vue&#x27;, &#x27;.json&#x27;],</span><br><span class="line">    modules: [</span><br><span class="line">      resolve(&#x27;src&#x27;),</span><br><span class="line">      resolve(&#x27;node_modules&#x27;)</span><br><span class="line">    ],</span><br><span class="line">    alias: &#123;</span><br><span class="line">      &#x27;vue$&#x27;: &#x27;vue/dist/vue.esm.js&#x27;,</span><br><span class="line">      &#x27;@&#x27;: resolve(&#x27;src&#x27;),</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="查看打包后的文件体积"><a href="#查看打包后的文件体积" class="headerlink" title="查看打包后的文件体积"></a>查看打包后的文件体积</h3><p>打包的时候 <code>npm run build --report</code></p>
+<h3 id="使用webpack-parallel-uglify-plugin多线程压缩JS"><a href="#使用webpack-parallel-uglify-plugin多线程压缩JS" class="headerlink" title="使用webpack-parallel-uglify-plugin多线程压缩JS"></a>使用webpack-parallel-uglify-plugin多线程压缩JS</h3><p>优化原理:</p>
+<ol>
+<li>默认情况下 webpack 使用 UglifyJS 插件进行代码压缩,但由于其采用单线程压缩,速度很慢。</li>
+<li>我们可以改用 webpack-parallel-uglify-plugin 插件,它可以并行运行 UglifyJS 插件,从而更加充分、合理的使用 CPU 资源,从而大大减少构建时间。</li>
+</ol>
+<p><code>npm i webpack-parallel-uglify-plugin</code> 安装</p>
+<p>修改<code>build/webpack.prod.conf.js</code> 文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">const ParallelUglifyPlugin = require(&#x27;webpack-parallel-uglify-plugin&#x27;);</span><br><span class="line">// 删掉webpack提供的UglifyJS插件</span><br><span class="line">//new UglifyJsPlugin(&#123;</span><br><span class="line">//  uglifyOptions: &#123;</span><br><span class="line">//    compress: &#123;</span><br><span class="line">//      warnings: false</span><br><span class="line">//    &#125;</span><br><span class="line">//  &#125;,</span><br><span class="line">//  sourceMap: config.build.productionSourceMap,</span><br><span class="line">//  parallel: true</span><br><span class="line">//&#125;),</span><br><span class="line">// 增加 webpack-parallel-uglify-plugin来替换</span><br><span class="line">  new ParallelUglifyPlugin(&#123;</span><br><span class="line">    cacheDir: &#x27;.cache/&#x27;,</span><br><span class="line">    uglifyJS:&#123;</span><br><span class="line">      output: &#123;</span><br><span class="line">        comments: false</span><br><span class="line">      &#125;,</span><br><span class="line">      compress: &#123;</span><br><span class="line">        drop_debugger: true,</span><br><span class="line">        drop_console: true,</span><br><span class="line">        pure_funcs: [&#x27;console.log&#x27;]</span><br><span class="line">      &#125;,</span><br><span class="line">      warnings: false</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>warnings 有一些webpack的版本是放在compress里面的</p>
+</blockquote>
+<p>可能打包后会报错:</p>
+<p>ERROR in Encountered an error while minifying static&#x2F;js&#x2F;vendor.js:<br>Maximum call stack size exceeded</p>
+<p>不要紧,是因为vendor.js这个文件太大了,导致压缩失败,继续往下走,后面把第三方库抽离出来后就不会报错了</p>
+<h3 id="去除map文件-并开启gzip打包"><a href="#去除map文件-并开启gzip打包" class="headerlink" title="去除map文件,并开启gzip打包"></a>去除map文件,并开启gzip打包</h3><p><code>cnpm install --save-dev compression-webpack-plugin@1.1.11</code>安装,这里一定要带版本号安装,否则会报错</p>
+<p>在config&#x2F;index中修改</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">build: &#123;</span><br><span class="line">  productionSourceMap: false,</span><br><span class="line">  productionGzip: true</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>dev中的配置也可以稍微修改一选</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">devtool: &#x27;eval&#x27;(最快速度)</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用-DllPlugin-和-DllReferencePlugin-预编译资源模块"><a href="#使用-DllPlugin-和-DllReferencePlugin-预编译资源模块" class="headerlink" title="使用 DllPlugin 和 DllReferencePlugin 预编译资源模块"></a>使用 DllPlugin 和 DllReferencePlugin 预编译资源模块</h3><p>优化原理:</p>
+<ol>
+<li>我们的项目依赖中通常会引用大量的 npm 包,而这些包在正常的开发过程中并不会进行修改,但是在每一次构建过程中却需要反复的将其解析,而下面介绍的两个插件就是用来规避此类损耗的：</li>
+</ol>
+<ul>
+<li>DllPlugin 插件：作用是预先编译一些模块。</li>
+<li>DllReferencePlugin 插件：它的所用则是把这些预先编译好的模块引用起来。</li>
+</ul>
+<ol start="2">
+<li>注意：DllPlugin 必须要在 DllReferencePlugin 执行前先执行一次,dll 这个概念应该也是借鉴了 windows 程序开发中的 dll 文件的设计理念。</li>
+</ol>
+<p>实践: </p>
+<p>新建一个配置文件，比如build&#x2F;webpack.dll.conf.js</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">const path = require(&#x27;path&#x27;)</span><br><span class="line">const webpack = require(&#x27;webpack&#x27;)</span><br><span class="line">module.exports = &#123;</span><br><span class="line">  entry: &#123;</span><br><span class="line">    vendor: [&#x27;vue&#x27;,&#x27;vue-router&#x27;,&#x27;cs-ruler&#x27;]</span><br><span class="line">  &#125;,</span><br><span class="line">  output: &#123;</span><br><span class="line">    path: path.join(__dirname, &#x27;../static/js&#x27;), // 打包后文件输出的位置</span><br><span class="line">    filename: &#x27;[name].dll.js&#x27;,</span><br><span class="line">    library: &#x27;[name]_library&#x27;</span><br><span class="line">  &#125;,</span><br><span class="line">  plugins: [</span><br><span class="line">    new webpack.DllPlugin(&#123;</span><br><span class="line">      path: path.join(__dirname, &#x27;.&#x27;, &#x27;[name]-manifest.json&#x27;),</span><br><span class="line">      name: &#x27;[name]_library&#x27;,</span><br><span class="line">      context: __dirname //必填，不然在web网页中找不到 &#x27;_dll_[name]&#x27;，会报错</span><br><span class="line">    &#125;),</span><br><span class="line">    // 压缩打包的文件</span><br><span class="line">    new webpack.optimize.UglifyJsPlugin(&#123;</span><br><span class="line">      compress: &#123;</span><br><span class="line">        warnings: false</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>vendor里面就是第三方库</p>
+</blockquote>
+<p>编辑 package.json 文件,添加一条编译命令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;dll&quot;: &quot;webpack --config build/webpack.dll.conf.js&quot;</span><br></pre></td></tr></table></figure>
+
+<p>npm run dll 成功以后，static下会有dll.vendor.js，根目录下会有vendor.manifest.json</p>
+<p>ok，到这里，抽离依赖库的事情就完成了，那么接下来问题就是怎么引用呢，怎么在dev和build跑呢？</p>
+<p>这里补了一点dll和commonsChunk概念上的区别，commonsChunk之所以慢和大，是因为每次run的时候，都会去做一次打包，而实际上我们不会一直去更新我们引用的依赖库，所以dll的做法就等于是，事先先打包好依赖库，然后只对每次都修改的js做打包。</p>
+<p>好了,继续</p>
+<p>修改build&#x2F;webpack.dev.conf.js 和 build&#x2F;webpack.prod.conf.js, 添加DllReferencePlugin的配置</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">const webpack = require(&#x27;webpack&#x27;);</span><br><span class="line"></span><br><span class="line">//.....</span><br><span class="line">plugins: [</span><br><span class="line">  new webpack.DllReferencePlugin(&#123;</span><br><span class="line">    context: __dirname,</span><br><span class="line">    manifest: require(&#x27;./vendor-manifest.json&#x27;)</span><br><span class="line">  &#125;)</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<p>最后再index.html中添加<code>&lt;script src=&quot;/static/js/vendor.dll.js&quot;&gt;&lt;/script&gt;</code></p>
+<p>到这里,vue打包优化配置基本结束</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>请我一杯咖啡吧！</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/img/wechatpay.png" alt="陈晟 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/img/alipay.png" alt="陈晟 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>陈晟
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://www.chensheng.group/2020/06/21/129-vue%E6%89%93%E5%8C%85%E4%BC%98%E5%8C%96/" title="vue-cli 打包优化">https://www.chensheng.group/2020/06/21/129-vue打包优化/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/vue-cli/" rel="tag"><i class="fa fa-tag"></i> vue-cli</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/06/05/128-vue%E6%89%93%E5%8C%85%E5%8E%BB%E9%99%A4log/" rel="prev" title="vue-cli 打包删除console.log">
+                  <i class="fa fa-angle-left"></i> vue-cli 打包删除console.log
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/06/26/130-Echart%E5%85%A8%E5%9B%BD%E5%9C%B0%E5%9B%BE%E4%B8%8B%E9%92%BB/" rel="next" title="echars地图数据下钻">
+                  echars地图数据下钻 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">闽ICP备2022007916号-1 </a>
+  </div>
+  <div class="copyright">
+    &copy; 2016 – 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">陈晟</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">489k</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script><script src="/js/pjax.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.2.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"www.chensheng.group","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.20.0","exturl":false,"sidebar":{"position":"right","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":true,"style":"mac"},"fold":{"enable":false,"height":500},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false,"trigger":"auto"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="2020年的第一篇博客,手把手教你在vue中使用百度AI开放平台的百度人脸识别能力">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vue中实现人脸识别">
+<meta property="og:url" content="https://www.chensheng.group/2020/01/20/116-%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB/index.html">
+<meta property="og:site_name" content="陈先生的小前端">
+<meta property="og:description" content="2020年的第一篇博客,手把手教你在vue中使用百度AI开放平台的百度人脸识别能力">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://csblogimage.oss-cn-hangzhou.aliyuncs.com/116-1-%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB.jpg?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,size_16,text_Qnku6ZmI5YWI55Sf55qE5bCP5YmN56uv,color_FFFFFF,shadow_50,t_100,g_se,x_10,y_10">
+<meta property="og:image" content="https://csblogimage.oss-cn-hangzhou.aliyuncs.com/116-2-%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB.jpg?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,size_16,text_Qnku6ZmI5YWI55Sf55qE5bCP5YmN56uv,color_FFFFFF,shadow_50,t_100,g_se,x_10,y_10">
+<meta property="og:image" content="https://csblogimage.oss-cn-hangzhou.aliyuncs.com/116-3-%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB.jpg?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,size_16,text_Qnku6ZmI5YWI55Sf55qE5bCP5YmN56uv,color_FFFFFF,shadow_50,t_100,g_se,x_10,y_10">
+<meta property="article:published_time" content="2020-01-20T02:28:00.000Z">
+<meta property="article:modified_time" content="2024-06-03T03:01:33.227Z">
+<meta property="article:author" content="陈晟">
+<meta property="article:tag" content="人脸识别">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://csblogimage.oss-cn-hangzhou.aliyuncs.com/116-1-%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB.jpg?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,size_16,text_Qnku6ZmI5YWI55Sf55qE5bCP5YmN56uv,color_FFFFFF,shadow_50,t_100,g_se,x_10,y_10">
+
+
+<link rel="canonical" href="https://www.chensheng.group/2020/01/20/116-%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://www.chensheng.group/2020/01/20/116-%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB/","path":"2020/01/20/116-人脸识别/","title":"vue中实现人脸识别"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>vue中实现人脸识别 | 陈先生的小前端</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="陈先生的小前端" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">陈先生的小前端</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-house-chimney fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-list fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%99%BE%E5%BA%A6%E6%99%BA%E8%83%BD%E4%BA%91"><span class="nav-number">1.</span> <span class="nav-text">百度智能云</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Node%E6%9C%8D%E5%8A%A1%E7%AB%AF"><span class="nav-number">2.</span> <span class="nav-text">Node服务端</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%8D%E7%AB%AF%E9%83%A8%E5%88%86"><span class="nav-number">3.</span> <span class="nav-text">前端部分</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%8A%E4%BC%A0%E5%9B%BE%E7%89%87%E5%88%B0%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB%E5%BA%93"><span class="nav-number">3.1.</span> <span class="nav-text">上传图片到人脸识别库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB"><span class="nav-number">3.2.</span> <span class="nav-text">人脸识别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#tracking%E6%A0%B8%E5%BF%83%E5%8A%9F%E8%83%BD"><span class="nav-number">3.3.</span> <span class="nav-text">tracking核心功能</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%8C%E6%95%B4%E4%BB%A3%E7%A0%81"><span class="nav-number">3.4.</span> <span class="nav-text">完整代码</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="陈晟"
+      src="/img/touxiang.jpg">
+  <p class="site-author-name" itemprop="name">陈晟</p>
+  <div class="site-description" itemprop="description">请不要在最能吃苦的日子选择安逸</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">165</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">36</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">56</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/328921371" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;328921371" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:328921371@qq.com" title="E-Mail → mailto:328921371@qq.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.chensheng.group/2020/01/20/116-%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/img/touxiang.jpg">
+      <meta itemprop="name" content="陈晟">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="陈先生的小前端">
+      <meta itemprop="description" content="请不要在最能吃苦的日子选择安逸">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="vue中实现人脸识别 | 陈先生的小前端">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          vue中实现人脸识别
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-01-20 10:28:00" itemprop="dateCreated datePublished" datetime="2020-01-20T10:28:00+08:00">2020-01-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB/" itemprop="url" rel="index"><span itemprop="name">人脸识别</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><hr style='filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)' color='#FF0000' size='1' />
+
+<blockquote>
+<p>2020年的第一篇博客,手把手教你在vue中使用百度AI开放平台的百度人脸识别能力</p>
+</blockquote>
+<span id="more"></span>
+
+<p>开始敲代码之前,先做好准备工作</p>
+<h3 id="百度智能云"><a href="#百度智能云" class="headerlink" title="百度智能云"></a>百度智能云</h3><p>1、先去百度智能云注册一个账号</p>
+<p><a target="_blank" rel="noopener" href="https://cloud.baidu.com/campaign/Annualceremony-2020/index.html?track=cp:nsem%7Cpf:pc%7Cpp:npinzhuan-biaoti%7Cpu:wenzineirong%7Cci:2020ndsd%7Ckw:2180026">官方网站</a></p>
+<p>2、创建人脸识别应用</p>
+<p>进入页面后,在侧边栏选择人脸识别,在应用列表中创建一个新的应用,填写【应用名称】和【应用描述】,其他的使用默认值就可以了</p>
+<p><img src="https://csblogimage.oss-cn-hangzhou.aliyuncs.com/116-1-%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB.jpg?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,size_16,text_Qnku6ZmI5YWI55Sf55qE5bCP5YmN56uv,color_FFFFFF,shadow_50,t_100,g_se,x_10,y_10"></p>
+<p>3、获取秘钥</p>
+<p>应用创建成功后,记录下自己的API Key、Secret Key</p>
+<p><img src="https://csblogimage.oss-cn-hangzhou.aliyuncs.com/116-2-%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB.jpg?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,size_16,text_Qnku6ZmI5YWI55Sf55qE5bCP5YmN56uv,color_FFFFFF,shadow_50,t_100,g_se,x_10,y_10"></p>
+<p>根据百度文档的API,第一次需要讲API Key、Secret Key传过去,用来获取Access Token,之后每一次请求都将这个token传递过去就可以了</p>
+<p>4、创建人脸库</p>
+<p>新建应用后,在人脸库管理中新增一个库,用来保存人脸识别的图片,这里图片就不贴出来了</p>
+<p>至此,需要准备的东西已经准备好了</p>
+<h3 id="Node服务端"><a href="#Node服务端" class="headerlink" title="Node服务端"></a>Node服务端</h3><p>服务端的基本东西都要先引入进来,常用的就是express、bodyParser、axios、fs、qs，跨域也顺便处理一下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">var express = require(&#x27;express&#x27;);</span><br><span class="line"></span><br><span class="line">var bodyParser = require(&#x27;body-parser&#x27;);</span><br><span class="line"></span><br><span class="line">var axios = require(&#x27;axios&#x27;);</span><br><span class="line"></span><br><span class="line">var fs = require(&#x27;fs&#x27;);</span><br><span class="line"></span><br><span class="line">var qs = require(&#x27;querystring&#x27;);</span><br><span class="line"></span><br><span class="line">var app = express();</span><br><span class="line"></span><br><span class="line">app.use(bodyParser.urlencoded(&#123;limit: &#x27;50mb&#x27;, extended: true&#125;));</span><br><span class="line">app.use(bodyParser.json(&#123;limit : &quot;50mb&quot;&#125;));  </span><br><span class="line"></span><br><span class="line">app.all(&#x27;*&#x27;, function(req, res, next) &#123;</span><br><span class="line">  res.header(&quot;Access-Control-Allow-Origin&quot;, &quot;*&quot;);</span><br><span class="line">  res.header(&quot;Access-Control-Allow-Credentials&quot;, &quot;true&quot;);</span><br><span class="line">  res.header(&quot;Access-Control-Allow-Headers&quot;, &quot;Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, X-Requested-By, If-Modified-Since, X-File-Name, X-File-Type, Cache-Control, Origin&quot;);</span><br><span class="line">  res.header(&quot;Access-Control-Allow-Methods&quot;,&quot;PUT,POST,GET,DELETE,OPTIONS&quot;);</span><br><span class="line">  next();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<div class="note info"><p>用于后期需要传入图片,默认的大小为2048Kb左右,所以我们需要稍微调大一点</p>
+</div>
+
+<p>1、获取Access Token的接口</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">// 人脸识别-获取Access Token</span><br><span class="line">app.post(&#x27;/getToken&#x27;,function(req,res)&#123;</span><br><span class="line">  const param = qs.stringify(&#123;</span><br><span class="line">    &#x27;grant_type&#x27;: &#x27;client_credentials&#x27;,</span><br><span class="line">    &#x27;client_id&#x27;: &#x27;你的client_id&#x27;,</span><br><span class="line">    &#x27;client_secret&#x27;: &#x27;你的client_secret&#x27;</span><br><span class="line">  &#125;);</span><br><span class="line">  axios.post(&#x27;https://aip.baidubce.com/oauth/2.0/token&#x27;, param).then((msg) =&gt; &#123;</span><br><span class="line">    // 获取access_token</span><br><span class="line">    res.send(msg.data)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>2、注册人脸库</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">app.post(&#x27;/initFace&#x27;,function(req,res)&#123;</span><br><span class="line">  </span><br><span class="line">  // 请求接口</span><br><span class="line">  var url = &#x27;https://aip.baidubce.com/rest/2.0/face/v3/faceset/user/add?access_token=&#x27; + req.body.access_token</span><br><span class="line">  // 请求的图片数据</span><br><span class="line">  </span><br><span class="line">  // 请求数据</span><br><span class="line">  var data = &#123;</span><br><span class="line">    image_type: &#x27;BASE64&#x27;,</span><br><span class="line">    image: req.body.img,</span><br><span class="line">    group_id: &#x27;ceshiGroup&#x27;, // 之前注册人脸管理库的名字</span><br><span class="line">    user_id: &#x27;csing&#x27; ,      // 这张图片的id</span><br><span class="line">  &#125;</span><br><span class="line"> </span><br><span class="line">  axios(&#123;</span><br><span class="line">    method: &quot;POST&quot;,</span><br><span class="line">    headers: &#123; &quot;Content-Type&quot;: &quot;application/x-www-form-urlencoded&quot; &#125;,</span><br><span class="line">    url: url,</span><br><span class="line">    data: qs.stringify(data),</span><br><span class="line">  &#125;).then((msg)=&gt;&#123;</span><br><span class="line">    console.log(msg.data)</span><br><span class="line">    res.send(msg.data)</span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>3、监测人脸</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">app.post(&#x27;/checkFace&#x27;,function(req,res)&#123;</span><br><span class="line">  </span><br><span class="line">  // 请求接口</span><br><span class="line">  var url = &#x27;https://aip.baidubce.com/rest/2.0/face/v3/search?access_token=&#x27; + req.body.access_token</span><br><span class="line">  // 请求的图片数据</span><br><span class="line">  </span><br><span class="line">  // 请求数据</span><br><span class="line">  var data = &#123;</span><br><span class="line">    image_type: &#x27;BASE64&#x27;,</span><br><span class="line">    image: req.body.img,</span><br><span class="line">    group_id_list: &#x27;ceshiGroup&#x27;, // 之前注册人脸管理库的名字</span><br><span class="line">    liveness_control: &#x27;HIGH&#x27;     // 活体监测</span><br><span class="line">  &#125;</span><br><span class="line"> </span><br><span class="line">  axios(&#123;</span><br><span class="line">    method: &quot;POST&quot;,</span><br><span class="line">    headers: &#123; &quot;Content-Type&quot;: &quot;application/x-www-form-urlencoded&quot; &#125;,</span><br><span class="line">    url: url,</span><br><span class="line">    data: qs.stringify(data),</span><br><span class="line">  &#125;).then((msg)=&gt;&#123;</span><br><span class="line">    res.send(msg.data)</span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<div class="note info"><p>主要就是这三个核心的代码,用来获取Token,注册人脸和识别人脸</p>
+</div>
+
+<h3 id="前端部分"><a href="#前端部分" class="headerlink" title="前端部分"></a>前端部分</h3><p>人脸识别分为两部分的</p>
+<p>人脸注册和人脸识别</p>
+<p>这两种分别用两种不同的方式</p>
+<ol>
+<li>一种是input的图片上传方式来注册人脸识别库</li>
+<li>另一种是调用照相机自动识别人脸进行第二步的人脸识别</li>
+</ol>
+<p>这样不一样的需求就都满足到了</p>
+<h4 id="上传图片到人脸识别库"><a href="#上传图片到人脸识别库" class="headerlink" title="上传图片到人脸识别库"></a>上传图片到人脸识别库</h4><p>基本的思路是这样的</p>
+<p>进入页面后,执行两部操作</p>
+<ol>
+<li><p>获取Access_token并保存</p>
+</li>
+<li><p>初始监听图片选择,这样做的目的是用户点击input后,拍照或者选择照片,可以识别到用户的动作,将图片自动处理保存</p>
+</li>
+</ol>
+<p>直接看看具体的代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div class=&quot;hello&quot;&gt;</span><br><span class="line">    &lt;div&gt;该页面为初始化识别库,添加识别人脸&lt;/div&gt;</span><br><span class="line">    &lt;br&gt;&lt;br&gt;</span><br><span class="line">    &lt;input type=&quot;file&quot; capture=&#x27;camera&#x27; accept=&#x27;image/*&#x27;&gt;</span><br><span class="line">    &lt;br&gt;&lt;br&gt;</span><br><span class="line">    &lt;button @click=&quot;postFace&quot;&gt;上传人脸识别库&lt;/button&gt;</span><br><span class="line">    </span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">  export default &#123;</span><br><span class="line">    name: &#x27;HelloWorld&#x27;,</span><br><span class="line">    data() &#123;</span><br><span class="line">      return &#123;</span><br><span class="line">        access_token: &#x27;&#x27;,</span><br><span class="line">        imgbase64: &#x27;&#x27;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    methods: &#123;</span><br><span class="line">      // 初始监听图片选择</span><br><span class="line">      initListenMsg()&#123;</span><br><span class="line">        var inputs = document.querySelectorAll(&#x27;input[type=file]&#x27;);</span><br><span class="line">        var _this = this</span><br><span class="line"></span><br><span class="line">        inputs[0].onchange = function() &#123;</span><br><span class="line">          var file = document.querySelector(&#x27;input&#x27;).files[0];</span><br><span class="line">          var reader = new FileReader();</span><br><span class="line">           // 文件读取成功完成时触发</span><br><span class="line">          reader.onload = function(e)&#123;</span><br><span class="line">            // onload事件的回调函数接受一个事件对象，该对象的target.result就是文件的内容</span><br><span class="line">            _this.imgbase64 = e.target.result.replace(/^data:image\/\w+;base64,/, &quot;&quot;);</span><br><span class="line">          &#125;;</span><br><span class="line">          reader.readAsDataURL(file);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">      // 初始化调用Token</span><br><span class="line">      getToken()&#123;</span><br><span class="line">        this.$axios.post(&#x27;http://192.168.50.35:3000/getToken&#x27;,&#123;&#125;).then((res)=&gt;&#123;</span><br><span class="line">          console.log(res)</span><br><span class="line">          this.access_token = res.data.access_token</span><br><span class="line">        &#125;)</span><br><span class="line">      &#125;,</span><br><span class="line">      // 添加人脸</span><br><span class="line">      postFace()&#123;</span><br><span class="line">        this.$axios.post(&#x27;http://192.168.50.35:3000/initFace&#x27;,&#123;</span><br><span class="line">          access_token: this.access_token,</span><br><span class="line">          img: this.imgbase64</span><br><span class="line">        &#125;).then((res)=&gt;&#123;</span><br><span class="line">          if(res.data.error_code == 0)&#123;</span><br><span class="line">            alert(&#x27;上传百度云AI人脸库管理成功&#x27;)</span><br><span class="line">          &#125;else&#123;</span><br><span class="line">            alert(&#x27;人脸已存在,请勿重复添加&#x27;)</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">    mounted() &#123;</span><br><span class="line">      this.initListenMsg();</span><br><span class="line">      this.getToken();</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="人脸识别"><a href="#人脸识别" class="headerlink" title="人脸识别"></a>人脸识别</h4><p>图片上传到人脸库中了,接下来就要实验一下,人脸识别是否可以识别到库里面自己的照片</p>
+<p>注册人脸库的时候,相机并没有像以前在其他的地方看到的人脸识别那样,有一个框框,自动识别到人脸后拍照上传,具体要怎么做呢,来看看思路</p>
+<p>需要用到一个插件,tracking.js, 所以第一步先 <code>npm install tracking</code> 安装</p>
+<p>接下里,解释一下这个插件应该怎么使用 </p>
+<p>现在dom中创建两个元素</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;video width=&quot;320&quot; height=&quot;240&quot; ref=&quot;videoDom&quot; id=&quot;video&quot; preload autoplay loop muted&gt;&lt;/video&gt;</span><br><span class="line">&lt;canvas width=&quot;320&quot; height=&quot;240&quot; ref=&quot;canvasDOM&quot;&gt;&lt;/canvas&gt;</span><br></pre></td></tr></table></figure>
+
+<p>这里的<mark class="label primary">video</mark>是用来展示视频流的,也就是摄像头调用后,在video中可以看到我们的脸</p>
+<mark class="label primary">canvas</mark>则是用来绘制识别人脸的框框,所以这两个元素我们需要使用定位重叠起来
+
+<h4 id="tracking核心功能"><a href="#tracking核心功能" class="headerlink" title="tracking核心功能"></a>tracking核心功能</h4><p>解释一下核心的代码,完整的代码再末尾会贴出</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">// 这一步就是用来开启摄像头的,tracking的插件已经帮我们封装好了</span><br><span class="line">tracking.track(this.video, this.tracker, &#123; camera: true &#125;);</span><br><span class="line"></span><br><span class="line">// 初始化tracking参数,官方文档没有解释是干嘛用的,先照这些</span><br><span class="line">this.tracker = new tracking.ObjectTracker(&quot;face&quot;);</span><br><span class="line">this.tracker.setInitialScale(4);</span><br><span class="line">this.tracker.setStepSize(2);</span><br><span class="line">this.tracker.setEdgesDensity(0.1);</span><br><span class="line"></span><br><span class="line">// 这里启动监听,也就是检查是否有人脸</span><br><span class="line">this.tracker.on(&quot;track&quot;, event =&gt; &#123;</span><br><span class="line">  // 将event的方法传递过去</span><br><span class="line">  this.onTracked(event);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">// 如果是读取视频，可以用trackerTask.stop trackerTask.run来暂停、开始视频</span><br><span class="line">this.trackerTask = tracking.track(this.video, this.tracker);</span><br></pre></td></tr></table></figure>
+
+<p>再看看监听的核心功能有哪些</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"> onTracked(event)&#123;</span><br><span class="line">  // 画框框</span><br><span class="line">  this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);</span><br><span class="line">  event.data.forEach(rect =&gt; &#123;</span><br><span class="line">    this.context.lineWidth = 1;</span><br><span class="line">    this.context.strokeStyle = &quot;#a64ceb&quot;;</span><br><span class="line">    this.context.strokeRect(rect.x, rect.y, rect.width, rect.height);</span><br><span class="line">    this.context.font = &quot;11px Helvetica&quot;;</span><br><span class="line">    this.context.fillStyle = &quot;#fff&quot;;</span><br><span class="line">    // 如果有数据,说明有人脸了</span><br><span class="line">    if (event.data.length &gt; 0) &#123;</span><br><span class="line">      console.log(&#x27;监测到人脸&#x27;)</span><br><span class="line">    &#125;    </span><br><span class="line">  &#125;);</span><br><span class="line">  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="完整代码"><a href="#完整代码" class="headerlink" title="完整代码"></a>完整代码</h4><p>摄像头的调用已经实现了,接下来对人脸进行截图,识别,就和之前注册人脸库一样的逻辑了,这里就不多讲了,直接贴完整代码吧</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;div class=&quot;user-icon&quot;&gt;</span><br><span class="line">      &lt;video width=&quot;320&quot; height=&quot;240&quot; ref=&quot;videoDom&quot; id=&quot;video&quot; preload autoplay loop muted&gt;&lt;/video&gt;</span><br><span class="line">      &lt;canvas width=&quot;320&quot; height=&quot;240&quot; ref=&quot;canvasDOM&quot;&gt;&lt;/canvas&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">    </span><br><span class="line">    &lt;div&gt;&#123;&#123;loding&#125;&#125;&lt;/div&gt;</span><br><span class="line">    &lt;div class=&quot;button&quot; @click=&quot;initTracker&quot;&gt;假设我是个按钮,点击之后我要人脸识别了&lt;/div&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">  require(&#x27;tracking/build/tracking-min.js&#x27;)</span><br><span class="line">  require(&#x27;tracking/build/data/face-min.js&#x27;)</span><br><span class="line">  // 嘴巴等特征,后期可添加</span><br><span class="line">  // require(&#x27;tracking/build/data/mouth-min.js&#x27;)</span><br><span class="line">  // require(&#x27;tracking/build/data/eye-min.js&#x27;)</span><br><span class="line">  //var objects = new tracking.ObjectTracker([&#x27;face&#x27;, &#x27;eye&#x27;, &#x27;mouth&#x27;]);</span><br><span class="line">  // require(&#x27;tracking/examples/assets/stats.min.js&#x27;)</span><br><span class="line"></span><br><span class="line">  export default &#123;</span><br><span class="line">    name: &#x27;testTracking&#x27;,</span><br><span class="line">    data() &#123;</span><br><span class="line">      return &#123;</span><br><span class="line">        // 记录拍照到了几次</span><br><span class="line">        count: 0,</span><br><span class="line">        isdetected: &#x27;请您保持脸部在画面中央&#x27;,</span><br><span class="line">        loding: &#x27;&#x27;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    methods: &#123;</span><br><span class="line">      // 初始化racker</span><br><span class="line">      initTracker()&#123;</span><br><span class="line">        // alert(&#x27;进来了&#x27;)</span><br><span class="line">        // alert(navigator.mediaDevices)</span><br><span class="line">         // 启用摄像头,这一个是原生调用摄像头的功能,不写的话有时候谷歌浏览器调用摄像头会失败</span><br><span class="line">        navigator.mediaDevices</span><br><span class="line">          .getUserMedia(&#123;video: true,audio: true&#125;)</span><br><span class="line">          .then(this.getMediaStreamSuccess)</span><br><span class="line">          .catch(this.getMediaStreamError)</span><br><span class="line">        </span><br><span class="line">        this.context  = this.canvas.getContext(&#x27;2d&#x27;)</span><br><span class="line"></span><br><span class="line">        // 初始化tracking参数</span><br><span class="line">        this.tracker = new tracking.ObjectTracker(&quot;face&quot;);</span><br><span class="line">        this.tracker.setInitialScale(4);</span><br><span class="line">        this.tracker.setStepSize(2);</span><br><span class="line">        this.tracker.setEdgesDensity(0.1);</span><br><span class="line">        this.tracker.on(&quot;track&quot;, event =&gt; &#123;</span><br><span class="line">          this.onTracked(event);</span><br><span class="line">        &#125;);</span><br><span class="line">        </span><br><span class="line">        // tracking启用摄像头,这里我选择调用原生的摄像头</span><br><span class="line">        // tracking.track(this.video, this.tracker, &#123; camera: true &#125;);</span><br><span class="line"></span><br><span class="line">        // 如果是读取视频，可以用trackerTask.stop trackerTask.run来暂停、开始视频</span><br><span class="line">        this.trackerTask = tracking.track(this.video, this.tracker);</span><br><span class="line">      &#125;,</span><br><span class="line">      // 监听中</span><br><span class="line">      onTracked(event)&#123;</span><br><span class="line">        // 判断终止条件, stop是异步的，不返回的话，还会一直截图</span><br><span class="line">        if (this.count &gt;= 21) &#123;</span><br><span class="line">          this.onStopTracking();</span><br><span class="line">          return;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        // 画框框</span><br><span class="line">        this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);</span><br><span class="line">        event.data.forEach(rect =&gt; &#123;</span><br><span class="line">          this.context.lineWidth = 1;</span><br><span class="line">          this.context.strokeStyle = &quot;#a64ceb&quot;;</span><br><span class="line">          //&#x27;#a64ceb&#x27;;</span><br><span class="line">          this.context.strokeRect(rect.x, rect.y, rect.width, rect.height);</span><br><span class="line">          this.context.font = &quot;11px Helvetica&quot;;</span><br><span class="line">          this.context.fillStyle = &quot;#fff&quot;;</span><br><span class="line">          // 截图</span><br><span class="line">          </span><br><span class="line">          if (event.data.length &gt; 0 &amp;&amp; this.count &lt;= 20) &#123;</span><br><span class="line">            if (this.count &lt; 0) &#123;</span><br><span class="line">              this.count = 0</span><br><span class="line">            &#125;</span><br><span class="line">            this.count += 1</span><br><span class="line">            if (this.count &gt; 20) &#123;</span><br><span class="line">              this.isdetected = &#x27;已检测到人脸，正在识别&#x27;</span><br><span class="line">              this.getPhoto()</span><br><span class="line">            &#125;</span><br><span class="line">          &#125; else &#123;</span><br><span class="line">            this.count -= 1</span><br><span class="line">            if (this.count &lt; 0)&#123;</span><br><span class="line">              this.isdetected = &#x27;请您保持脸部在画面中央&#x27;</span><br><span class="line">            &#125; </span><br><span class="line">          &#125;</span><br><span class="line">          </span><br><span class="line">          </span><br><span class="line">        &#125;);</span><br><span class="line">        // 视频中心展示文字</span><br><span class="line">        this.context.fillText(this.isdetected, 100,30);</span><br><span class="line">      &#125;,</span><br><span class="line">      // 停止监听</span><br><span class="line">      onStopTracking() &#123;</span><br><span class="line">        this.trackerTask.stop();</span><br><span class="line">        this.video.pause();</span><br><span class="line">        // 关闭摄像头</span><br><span class="line">        this.video.srcObject = null</span><br><span class="line">        window.stream.getTracks().forEach(track =&gt; track.stop())</span><br><span class="line">        </span><br><span class="line">      &#125;,</span><br><span class="line">      // 获取人脸照片</span><br><span class="line">      getPhoto()&#123;</span><br><span class="line">        this.isdetected = &#x27;&#x27;</span><br><span class="line">        this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);</span><br><span class="line">        let video = document.getElementById(&#x27;video&#x27;)</span><br><span class="line">        this.context.drawImage(video, 0,0, this.canvas.width, this.canvas.height)</span><br><span class="line">        let dataUrl = this.canvas.toDataURL(&#x27;image/jpeg&#x27;, 1);</span><br><span class="line">        this.imgbase64 = dataUrl.replace(/^data:image\/\w+;base64,/, &quot;&quot;);</span><br><span class="line">        // 开始人脸识别</span><br><span class="line">        this.postFace()</span><br><span class="line">        </span><br><span class="line">      &#125;,</span><br><span class="line">      // 初始化调用Token</span><br><span class="line">      getToken()&#123;</span><br><span class="line">        this.$axios.post(&#x27;http://192.168.50.35:3000/getToken&#x27;,&#123;&#125;).then((res)=&gt;&#123;</span><br><span class="line">          this.access_token = res.data.access_token</span><br><span class="line">        &#125;)</span><br><span class="line">      &#125;,</span><br><span class="line">      // 人脸验证</span><br><span class="line">      postFace()&#123;</span><br><span class="line">        this.loding = &#x27;正在识别中,请稍后................&#x27;</span><br><span class="line">        this.$axios.post(&#x27;http://192.168.50.35:3000/checkFace&#x27;,&#123;</span><br><span class="line">          access_token: this.access_token,</span><br><span class="line">          img: this.imgbase64</span><br><span class="line">        &#125;).then((res)=&gt;&#123;</span><br><span class="line">          console.log(res)</span><br><span class="line">           this.loding = &#x27;&#x27;</span><br><span class="line">          if(res.data.error_code !== 0)&#123;</span><br><span class="line">            if(res.data.error_code == 223120)&#123;</span><br><span class="line">              alert(&#x27;活体监测失败&#x27;)</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;else &#123;</span><br><span class="line">            if(res.data.result.user_list[0].score &gt; 80)&#123;</span><br><span class="line">              alert(&#x27;人脸识别成功&#x27;)</span><br><span class="line">            &#125;else&#123;</span><br><span class="line">              alert(&#x27;人脸识别失败,查不到&#x27;)</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">      &#125;,     </span><br><span class="line">      // 视频流启动</span><br><span class="line">      getMediaStreamSuccess(stream) &#123;</span><br><span class="line">        window.stream = stream</span><br><span class="line">        this.video.srcObject = stream</span><br><span class="line">      &#125;,</span><br><span class="line">      // 视频媒体流失败</span><br><span class="line">      getMediaStreamError(error) &#123;</span><br><span class="line">        alert(&#x27;视频媒体流获取错误&#x27; + error)</span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">    mounted() &#123;</span><br><span class="line">      this.video = this.$refs.videoDom</span><br><span class="line">      this.canvas = this.$refs.canvasDOM</span><br><span class="line">      </span><br><span class="line">      //初始化获取tonken</span><br><span class="line">      this.getToken();</span><br><span class="line">    &#125;,</span><br><span class="line">    destroyed() &#123;</span><br><span class="line">      </span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;style scoped&gt;</span><br><span class="line">  .user-icon &#123;</span><br><span class="line">    position: relative;</span><br><span class="line">    margin: 0 auto;</span><br><span class="line">    margin-top: 10px;</span><br><span class="line">    width: 360px;</span><br><span class="line">    height: 360px;</span><br><span class="line">  &#125;</span><br><span class="line">  .button &#123;</span><br><span class="line">    width: 90vw;</span><br><span class="line">    height: 50px;</span><br><span class="line">    line-height: 50px;</span><br><span class="line">    margin: 0 auto;</span><br><span class="line">    background-color: skyblue;</span><br><span class="line">    color: white;</span><br><span class="line">    text-align: center;</span><br><span class="line">    border-radius: 5px;</span><br><span class="line">    font-size: 16px;</span><br><span class="line">  &#125;</span><br><span class="line">  video, canvas &#123; </span><br><span class="line">    position: absolute;</span><br><span class="line">  &#125;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>完整的代码中包含了,人脸识别认证后自动截图,自动关闭摄像头等功能</p>
+<p>示意图,如果有人脸,是会有紫色的框框,这里因为没有人脸,所以没有</p>
+<p><img src="https://csblogimage.oss-cn-hangzhou.aliyuncs.com/116-3-%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB.jpg?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,size_16,text_Qnku6ZmI5YWI55Sf55qE5bCP5YmN56uv,color_FFFFFF,shadow_50,t_100,g_se,x_10,y_10"></p>
+<div class="note warning"><p>需要注意的是,在移动端,由于安全策略的原因,摄像头不能开启成功,录音等audio自动播放因为安全策略也都是不可以的.</p>
+</div>
+
+<p>以上就是我对vue中实现人脸识别的一些理解,如果文章由于我学识浅薄,导致您发现有严重谬误的地方,请一定在评论中指出,我会在第一时间修正我的博文,以避免误人子弟。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>请我一杯咖啡吧！</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/img/wechatpay.png" alt="陈晟 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/img/alipay.png" alt="陈晟 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>陈晟
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://www.chensheng.group/2020/01/20/116-%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB/" title="vue中实现人脸识别">https://www.chensheng.group/2020/01/20/116-人脸识别/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB/" rel="tag"><i class="fa fa-tag"></i> 人脸识别</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/12/20/115-Vue-cli%204.0%E6%89%93%E5%8C%85%E9%85%8D%E7%BD%AE/" rel="prev" title="Vue-cli 4.0 打包配置不同环境">
+                  <i class="fa fa-angle-left"></i> Vue-cli 4.0 打包配置不同环境
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/01/20/117-%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB/" rel="next" title="微信小程序中实现人脸识别和指纹识别">
+                  微信小程序中实现人脸识别和指纹识别 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">闽ICP备2022007916号-1 </a>
+  </div>
+  <div class="copyright">
+    &copy; 2016 – 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">陈晟</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">489k</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script><script src="/js/pjax.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+</html>

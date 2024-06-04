@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.2.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"www.chensheng.group","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.20.0","exturl":false,"sidebar":{"position":"right","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":true,"style":"mac"},"fold":{"enable":false,"height":500},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false,"trigger":"auto"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="今天就是除夕了,也只有放假才有时间写一写博客,把欠下的博客都补上">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vue源码学习-diff算法原理">
+<meta property="og:url" content="https://www.chensheng.group/2021/02/11/138-vue%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0-diff%E7%AE%97%E6%B3%95%E5%8E%9F%E7%90%86/index.html">
+<meta property="og:site_name" content="陈先生的小前端">
+<meta property="og:description" content="今天就是除夕了,也只有放假才有时间写一写博客,把欠下的博客都补上">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://csblogimage.oss-cn-hangzhou.aliyuncs.com/138-diff.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,size_16,text_Qnku6ZmI5YWI55Sf55qE5bCP5YmN56uv,color_FFFFFF,shadow_50,t_100,g_se,x_10,y_10">
+<meta property="article:published_time" content="2021-02-11T03:33:00.000Z">
+<meta property="article:modified_time" content="2024-06-02T16:07:19.376Z">
+<meta property="article:author" content="陈晟">
+<meta property="article:tag" content="Vue">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://csblogimage.oss-cn-hangzhou.aliyuncs.com/138-diff.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,size_16,text_Qnku6ZmI5YWI55Sf55qE5bCP5YmN56uv,color_FFFFFF,shadow_50,t_100,g_se,x_10,y_10">
+
+
+<link rel="canonical" href="https://www.chensheng.group/2021/02/11/138-vue%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0-diff%E7%AE%97%E6%B3%95%E5%8E%9F%E7%90%86/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://www.chensheng.group/2021/02/11/138-vue%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0-diff%E7%AE%97%E6%B3%95%E5%8E%9F%E7%90%86/","path":"2021/02/11/138-vue源码学习-diff算法原理/","title":"vue源码学习-diff算法原理"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>vue源码学习-diff算法原理 | 陈先生的小前端</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="陈先生的小前端" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">陈先生的小前端</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-house-chimney fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-list fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#diff%E7%AE%97%E6%B3%95%E7%9A%84%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6"><span class="nav-number">1.</span> <span class="nav-text">diff算法的时间复杂度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#diff%E7%AE%97%E6%B3%95%E5%8E%9F%E7%90%86"><span class="nav-number">2.</span> <span class="nav-text">diff算法原理</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="陈晟"
+      src="/img/touxiang.jpg">
+  <p class="site-author-name" itemprop="name">陈晟</p>
+  <div class="site-description" itemprop="description">请不要在最能吃苦的日子选择安逸</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">165</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">36</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">56</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/328921371" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;328921371" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:328921371@qq.com" title="E-Mail → mailto:328921371@qq.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.chensheng.group/2021/02/11/138-vue%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0-diff%E7%AE%97%E6%B3%95%E5%8E%9F%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/img/touxiang.jpg">
+      <meta itemprop="name" content="陈晟">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="陈先生的小前端">
+      <meta itemprop="description" content="请不要在最能吃苦的日子选择安逸">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="vue源码学习-diff算法原理 | 陈先生的小前端">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          vue源码学习-diff算法原理
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-02-11 11:33:00" itemprop="dateCreated datePublished" datetime="2021-02-11T11:33:00+08:00">2021-02-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Vue/" itemprop="url" rel="index"><span itemprop="name">Vue</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><hr style='filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)' color='#FF0000' size='1' />
+
+<blockquote>
+<p>今天就是除夕了,也只有放假才有时间写一写博客,把欠下的博客都补上</p>
+</blockquote>
+<span id="more"></span>
+
+<p>diff算法是我们在学习vue时经常听到的,像什么vue异步更新DOM,虚拟DOM的变化,都和diff算法有关,那什么是diff算法,他的作用又是什么呢</p>
+<h3 id="diff算法的时间复杂度"><a href="#diff算法的时间复杂度" class="headerlink" title="diff算法的时间复杂度"></a>diff算法的时间复杂度</h3><p> 两个树的完全的 diff 算法是一个时间复杂度为 O(n3) , Vue 进行了优化·O(n3) 复杂度的问题转换成 O(n) 复杂度的问题(只比较同级不考虑跨级问题)  在前端当中， 你很少会跨越层级地移动Dom元素。 所 以 Virtual Dom只会对同一个层级的元素进行对比。</p>
+<h3 id="diff算法原理"><a href="#diff算法原理" class="headerlink" title="diff算法原理"></a>diff算法原理</h3><blockquote>
+<p>简单的来说,diff算法是为了比较新的DOM树和旧的DOM树,以此来算出,哪些DOM可以复用,新增哪些DOM,移除哪些DOM,优化DOM树的渲染</p>
+</blockquote>
+<p>自己总结的原理大概是这样的: </p>
+<ol>
+<li>目的: 比较 <code>新的树</code> 和 <code>旧的树</code></li>
+</ol>
+<blockquote>
+<p>在新的树和旧的树头部插入指针, 尾部也插入指针, 进行双指针循环遍历比较</p>
+</blockquote>
+<ol start="2">
+<li>如何进行比较:</li>
+</ol>
+<p>假设,旧的DOM树和新的DOM树开头相同,指针从开头比较(针对元素新增在末尾,前面相同的DOM元素可以复用)<br>如果开头不一样的话,指针从尾部开始比较(针对元素新增在开头,后面相同的DOM元素可以复用)<br>如果尾部也不一样,会比较新的头和旧的尾(针对末尾的DOM元素移动到了开头)<br>要是也不一样,比较新的尾和旧的头(针对开始的DOM元素移动到了末尾)<br>都不一样,从开头开始遍历(从头开始遍历父级节点和子级节点)</p>
+<p>详细的图片在底下,可以比较图片进行理解</p>
+<ol start="3">
+<li>如何循环遍历:</li>
+</ol>
+<p>首先同级比较, 在比较子节点</p>
+<blockquote>
+<p>同级比较: 也就是父节点和父节点比较,子节点和子节点比较</p>
+</blockquote>
+<p>如果父级节点相同,再比较子节点</p>
+<p>比较的时候,是这样判断的: </p>
+<ul>
+<li>新的有,旧的也有,使用旧的</li>
+<li>新的有,旧的没有,插入新的</li>
+<li>新的没有,旧的有,删除旧的</li>
+<li>当比较父级的时候,判断子节点是否存在也是这样判断的,都存在的情况下,进行深入递归遍历</li>
+</ul>
+<p><img src="https://csblogimage.oss-cn-hangzhou.aliyuncs.com/138-diff.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,size_16,text_Qnku6ZmI5YWI55Sf55qE5bCP5YmN56uv,color_FFFFFF,shadow_50,t_100,g_se,x_10,y_10" alt="示例图片"></p>
+<p>看看图片中的最后一条</p>
+<p>假设 旧的数据为 ABCD , 新的数据为 CDME</p>
+<p>由于都不满足比较的四点基本判断,所以直接从开头开始遍历</p>
+<ol>
+<li>首先判断新的DOM树的第一个’C’,发现旧的有,移动到第一个</li>
+<li>然后判断新的DOM树的第二个’D’,发现旧的有,移动到第二个</li>
+<li>再判断’M’和’E’,发现都没有,直接插入</li>
+<li>最后将AB直接删除</li>
+</ol>
+<blockquote>
+<p>这就是为什么v-for要用Key,不加的话会使用上面的diff算法进行暴力比对</p>
+</blockquote>
+<p>知道了大致的流程,我们再去源码中看看具体的代码是怎么实现的(源码的位置在core&#x2F;vdom&#x2F;patch.js中)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line">const oldCh = oldVnode.children // 老的儿子 </span><br><span class="line">const ch = vnode.children // 新的儿子 </span><br><span class="line">if (isUndef(vnode.text)) &#123;</span><br><span class="line">  if (isDef(oldCh) &amp;&amp; isDef(ch)) &#123; // 比较孩子        </span><br><span class="line">    if (oldCh !== ch) updateChildren(elm, oldCh, ch, insertedVnodeQueue, removeOnly)</span><br><span class="line">  &#125; else if (isDef(ch)) &#123; // 新的儿子有 老的没有        </span><br><span class="line">    if (isDef(oldVnode.text)) &#123;</span><br><span class="line">      nodeOps.setTextContent(elm, &#x27;&#x27;) // 将老的清空   </span><br><span class="line">      addVnodes(elm, null, ch, 0, ch.length - 1, insertedVnodeQueue)</span><br><span class="line">    &#125;   </span><br><span class="line">  &#125; else if (isDef(oldCh)) &#123; // 如果老的有新的没有 就删除        </span><br><span class="line">    removeVnodes(oldCh, 0, oldCh.length - 1)</span><br><span class="line">  &#125; else if (isDef(oldVnode.text)) &#123; // 老的有文本 新的没文本</span><br><span class="line">    nodeOps.setTextContent(elm, &#x27;&#x27;) // 将老的清空    </span><br><span class="line">  &#125;</span><br><span class="line">&#125; else if (oldVnode.text !== vnode.text) &#123; // 文本不相同替换   </span><br><span class="line">  nodeOps.setTextContent(elm, vnode.text)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function updateChildren(parentElm, oldCh, newCh, insertedVnodeQueue, removeOnly) &#123;</span><br><span class="line">  let oldStartIdx = 0</span><br><span class="line">  let newStartIdx = 0</span><br><span class="line">  let oldEndIdx = oldCh.length - 1</span><br><span class="line">  let oldStartVnode = oldCh[0]</span><br><span class="line">  let oldEndVnode = oldCh[oldEndIdx]</span><br><span class="line">  let newEndIdx = newCh.length - 1</span><br><span class="line">  let newStartVnode = newCh[0]</span><br><span class="line">  let newEndVnode = newCh[newEndIdx]</span><br><span class="line">  let oldKeyToIdx, idxInOld, vnodeToMove, refElm</span><br><span class="line">  // removeOnly is a special flag used only by &lt;transition-group&gt;    </span><br><span class="line">  // to ensure removed elements stay in correct relative positions    </span><br><span class="line">  // during leaving transitions    </span><br><span class="line">  const canMove = !removeOnly</span><br><span class="line">  if (process.env.NODE_ENV !== &#x27;production&#x27;) &#123;</span><br><span class="line">    checkDuplicateKeys(newCh)</span><br><span class="line">  &#125;</span><br><span class="line">  while (oldStartIdx &lt;= oldEndIdx &amp;&amp; newStartIdx &lt;= newEndIdx) &#123;</span><br><span class="line">    if (isUndef(oldStartVnode)) &#123;</span><br><span class="line">      oldStartVnode = oldCh[++oldStartIdx] // Vnode has been moved left     </span><br><span class="line">    &#125; else if (isUndef(oldEndVnode)) &#123;</span><br><span class="line">      oldEndVnode = oldCh[--oldEndIdx]</span><br><span class="line">    &#125; else if (sameVnode(oldStartVnode, newStartVnode)) &#123;</span><br><span class="line">      patchVnode(oldStartVnode, newStartVnode, insertedVnodeQueue, newCh, newStartIdx) oldStartVnode = oldCh[++</span><br><span class="line">        oldStartIdx] newStartVnode = newCh[++newStartIdx]</span><br><span class="line">    &#125; else if (sameVnode(oldEndVnode, newEndVnode)) &#123;</span><br><span class="line">      patchVnode(oldEndVnode, newEndVnode, insertedVnodeQueue, newCh, newEndIdx) oldEndVnode = oldCh[--oldEndIdx] newEndVnode =</span><br><span class="line">        newCh[--newEndIdx]</span><br><span class="line">    &#125; else if (sameVnode(oldStartVnode, newEndVnode)) &#123; // Vnode moved right        </span><br><span class="line">      patchVnode(oldStartVnode, newEndVnode, insertedVnodeQueue, newCh, newEndIdx) canMove &amp;&amp; nodeOps.insertBefore(</span><br><span class="line">          parentElm, oldStartVnode.elm, nodeOps.nextSibling(oldEndVnode.elm)) oldStartVnode = oldCh[++oldStartIdx] newEndVnode =</span><br><span class="line">        newCh[--newEndIdx]</span><br><span class="line">    &#125; else if (sameVnode(oldEndVnode, newStartVnode)) &#123; // Vnode moved left        </span><br><span class="line">      patchVnode(oldEndVnode, newStartVnode, insertedVnodeQueue, newCh, newStartIdx) canMove &amp;&amp; nodeOps.insertBefore(</span><br><span class="line">        parentElm, oldEndVnode.elm, oldStartVnode.elm) oldEndVnode = oldCh[--oldEndIdx] newStartVnode = newCh[++</span><br><span class="line">        newStartIdx]</span><br><span class="line">    &#125; else &#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">      if (isUndef(oldKeyToIdx)) oldKeyToIdx = createKeyToOldIdx(oldCh, oldStartIdx, oldEndIdx) idxInOld = isDef(</span><br><span class="line">        newStartVnode.key) ? oldKeyToIdx[newStartVnode.key] : findIdxInOld(newStartVnode, oldCh, oldStartIdx,</span><br><span class="line">        oldEndIdx) if (isUndef(idxInOld)) &#123; // New element          </span><br><span class="line">        createElm(newStartVnode, insertedVnodeQueue, parentElm, oldStartVnode.elm, false, newCh, newStartIdx)</span><br><span class="line">      &#125; else &#123;</span><br><span class="line">        vnodeToMove = oldCh[idxInOld]</span><br><span class="line">        if (sameVnode(vnodeToMove, newStartVnode)) &#123;</span><br><span class="line">          patchVnode(vnodeToMove, newStartVnode, insertedVnodeQueue, newCh, newStartIdx) oldCh[idxInOld] = undefined canMove &amp;&amp;</span><br><span class="line">            nodeOps.insertBefore(parentElm, vnodeToMove.elm, oldStartVnode.elm)</span><br><span class="line">        &#125; else &#123; // same key but different element. treat as new element           </span><br><span class="line">          createElm(newStartVnode, insertedVnodeQueue, parentElm, oldStartVnode.elm, false, newCh, newStartIdx)</span><br><span class="line">        &#125;</span><br><span class="line">      &#125; newStartVnode = newCh[++newStartIdx]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  if (oldStartIdx &gt; oldEndIdx) &#123;</span><br><span class="line">    refElm = isUndef(newCh[newEndIdx + 1]) ? null : newCh[newEndIdx + 1].elm addVnodes(parentElm, refElm, newCh,</span><br><span class="line">      newStartIdx, newEndIdx, insertedVnodeQueue)</span><br><span class="line">  &#125;</span><br><span class="line">  a</span><br><span class="line">  else if (newStartIdx &gt; newEndIdx) &#123;</span><br><span class="line">    removeVnodes(oldCh, oldStartIdx, oldEndIdx)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>以上就是我对diff算法的一些理解,如果文章由于我学识浅薄,导致您发现有严重谬误的地方,请一定在评论中指出,我会在第一时间修正我的博文,以避免误人子弟。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>请我一杯咖啡吧！</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/img/wechatpay.png" alt="陈晟 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/img/alipay.png" alt="陈晟 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>陈晟
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://www.chensheng.group/2021/02/11/138-vue%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0-diff%E7%AE%97%E6%B3%95%E5%8E%9F%E7%90%86/" title="vue源码学习-diff算法原理">https://www.chensheng.group/2021/02/11/138-vue源码学习-diff算法原理/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Vue/" rel="tag"><i class="fa fa-tag"></i> Vue</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/11/08/137-vue%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0-%E6%A8%A1%E6%9D%BF%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/" rel="prev" title="vue源码学习-模板编译原理">
+                  <i class="fa fa-angle-left"></i> vue源码学习-模板编译原理
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/02/11/140-%E5%85%B3%E4%BA%8ECSS%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BA%8B(2)/" rel="next" title="关于CSS的一些事(2)">
+                  关于CSS的一些事(2) <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">闽ICP备2022007916号-1 </a>
+  </div>
+  <div class="copyright">
+    &copy; 2016 – 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">陈晟</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">489k</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script><script src="/js/pjax.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+</html>

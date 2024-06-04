@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.2.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"www.chensheng.group","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.20.0","exturl":false,"sidebar":{"position":"right","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":true,"style":"mac"},"fold":{"enable":false,"height":500},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false,"trigger":"auto"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="今天来聊一聊CSS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="关于CSS的一些事(一)">
+<meta property="og:url" content="https://www.chensheng.group/2018/02/24/55-%E5%85%B3%E4%BA%8ECSS%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BA%8B/index.html">
+<meta property="og:site_name" content="陈先生的小前端">
+<meta property="og:description" content="今天来聊一聊CSS">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-02-24T06:19:22.000Z">
+<meta property="article:modified_time" content="2024-06-02T16:07:19.383Z">
+<meta property="article:author" content="陈晟">
+<meta property="article:tag" content="CSS">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://www.chensheng.group/2018/02/24/55-%E5%85%B3%E4%BA%8ECSS%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BA%8B/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://www.chensheng.group/2018/02/24/55-%E5%85%B3%E4%BA%8ECSS%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BA%8B/","path":"2018/02/24/55-关于CSS的一些事/","title":"关于CSS的一些事(一)"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>关于CSS的一些事(一) | 陈先生的小前端</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="陈先生的小前端" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">陈先生的小前端</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-house-chimney fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-list fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#display-none-%E5%92%8C-visibility-hidden%E7%9A%84%E5%8C%BA%E5%88%AB%EF%BC%9F"><span class="nav-number">1.</span> <span class="nav-text">display:none 和 visibility:hidden的区别？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CSS%E4%B8%AD-link-%E5%92%8C-import-%E7%9A%84%E5%8C%BA%E5%88%AB%E6%98%AF%EF%BC%9F"><span class="nav-number">2.</span> <span class="nav-text">CSS中 link 和@import 的区别是？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#position-absolute%E5%92%8Cfloat%E5%B1%9E%E6%80%A7%E7%9A%84%E5%BC%82%E5%90%8C"><span class="nav-number">3.</span> <span class="nav-text">position:absolute和float属性的异同</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#box-sizing%E5%B1%9E%E6%80%A7"><span class="nav-number">4.</span> <span class="nav-text">box-sizing属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CSS-%E9%80%89%E6%8B%A9%E7%AC%A6%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%9F%E5%93%AA%E4%BA%9B%E5%B1%9E%E6%80%A7%E5%8F%AF%E4%BB%A5%E7%BB%A7%E6%89%BF%EF%BC%9F%E4%BC%98%E5%85%88%E7%BA%A7%E7%AE%97%E6%B3%95%E5%A6%82%E4%BD%95%E8%AE%A1%E7%AE%97%EF%BC%9F-CSS3%E6%96%B0%E5%A2%9E%E4%BC%AA%E7%B1%BB%E6%9C%89%E9%82%A3%E4%BA%9B%EF%BC%9F"><span class="nav-number">5.</span> <span class="nav-text">CSS 选择符有哪些？哪些属性可以继承？优先级算法如何计算？ CSS3新增伪类有那些？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#inline-block%E5%AF%B9%E9%BD%90%E9%97%AE%E9%A2%98"><span class="nav-number">6.</span> <span class="nav-text">inline-block对齐问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%88%B6%E5%AD%90%E5%85%83%E7%B4%A0%E9%A1%B6%E9%83%A8%E9%87%8D%E5%90%88"><span class="nav-number">7.</span> <span class="nav-text">父子元素顶部重合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CSS3%E6%9C%89%E5%93%AA%E4%BA%9B%E6%96%B0%E7%89%B9%E6%80%A7"><span class="nav-number">8.</span> <span class="nav-text">CSS3有哪些新特性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BFC%E8%A7%84%E8%8C%83"><span class="nav-number">9.</span> <span class="nav-text">BFC规范</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#css%E4%B8%AD%E5%B8%B8%E8%A7%81%E7%9A%84%E5%85%BC%E5%AE%B9%E6%80%A7%E9%97%AE%E9%A2%98"><span class="nav-number">10.</span> <span class="nav-text">css中常见的兼容性问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CSS3%E7%94%BB%E5%9B%BE%E5%BD%A2"><span class="nav-number">11.</span> <span class="nav-text">CSS3画图形</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="陈晟"
+      src="/img/touxiang.jpg">
+  <p class="site-author-name" itemprop="name">陈晟</p>
+  <div class="site-description" itemprop="description">请不要在最能吃苦的日子选择安逸</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">165</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">36</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">56</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/328921371" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;328921371" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:328921371@qq.com" title="E-Mail → mailto:328921371@qq.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.chensheng.group/2018/02/24/55-%E5%85%B3%E4%BA%8ECSS%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BA%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/img/touxiang.jpg">
+      <meta itemprop="name" content="陈晟">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="陈先生的小前端">
+      <meta itemprop="description" content="请不要在最能吃苦的日子选择安逸">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="关于CSS的一些事(一) | 陈先生的小前端">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          关于CSS的一些事(一)
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-02-24 14:19:22" itemprop="dateCreated datePublished" datetime="2018-02-24T14:19:22+08:00">2018-02-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/CSS/" itemprop="url" rel="index"><span itemprop="name">CSS</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><hr style='filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)' color='#FF0000' size='1' />
+
+<blockquote>
+<p>今天来聊一聊CSS</p>
+</blockquote>
+<span id="more"></span>
+
+<p>我的博客始终没有讲到css,不是因为它不重要,而是太杂了,知识点零碎的太多了,今天说一些容易混淆的知识点</p>
+<h3 id="display-none-和-visibility-hidden的区别？"><a href="#display-none-和-visibility-hidden的区别？" class="headerlink" title="display:none 和 visibility:hidden的区别？"></a>display:none 和 visibility:hidden的区别？</h3><p>display:none  隐藏对应的元素，在文档布局中不再给它分配空间，它各边的元素会合拢，就当他从来不存在。</p>
+<p>visibility:hidden  隐藏对应的元素，但是在文档布局中仍保留原来的空间。</p>
+<p>需要注意一点,绑定元素监听的时候,display:none是可以监听到的,在vue中,v-show就是动态切换display属性,所以需要监听的元素不要使用v-if</p>
+<h3 id="CSS中-link-和-import-的区别是？"><a href="#CSS中-link-和-import-的区别是？" class="headerlink" title="CSS中 link 和@import 的区别是？"></a>CSS中 link 和@import 的区别是？</h3><ol>
+<li>link属于HTML标签，而@import是CSS提供的; </li>
+<li>页面被加载的时，link会同时被加载，而@import引用的CSS会等到页面被加载完再加载;</li>
+<li>import只在IE5以上才能识别，而link是HTML标签，无兼容问题; </li>
+<li>link方式的样式的权重 高于@import的权重.</li>
+</ol>
+<h3 id="position-absolute和float属性的异同"><a href="#position-absolute和float属性的异同" class="headerlink" title="position:absolute和float属性的异同"></a>position:absolute和float属性的异同</h3><p>A：共同点：<br>对内联元素设置<code>float</code>和<code>absolute</code>属性，可以让元素脱离文档流，并且可以设置其宽高。</p>
+<p>B：不同点：<br>float仍会占据位置，position会覆盖文档流中的其他元素。</p>
+<h3 id="box-sizing属性"><a href="#box-sizing属性" class="headerlink" title="box-sizing属性"></a>box-sizing属性</h3><p>box-sizing属性主要用来控制元素的盒模型的解析模式。默认值是content-box。</p>
+<p>content-box：让元素维持W3C的标准盒模型。元素的宽度&#x2F;高度由border + padding + content的宽度&#x2F;高度决定，设置width&#x2F;height属性指的是content部分的宽&#x2F;高</p>
+<p>border-box：让元素维持IE传统盒模型（IE6以下版本和IE6~7的怪异模式）。设置width&#x2F;height属性指的是border + padding + content</p>
+<p>标准浏览器下，按照W3C规范对盒模型解析，一旦修改了元素的边框或内距，就会影响元素的盒子尺寸，就不得不重新计算元素的盒子尺寸，从而影响整个页面的布局。</p>
+<h3 id="CSS-选择符有哪些？哪些属性可以继承？优先级算法如何计算？-CSS3新增伪类有那些？"><a href="#CSS-选择符有哪些？哪些属性可以继承？优先级算法如何计算？-CSS3新增伪类有那些？" class="headerlink" title="CSS 选择符有哪些？哪些属性可以继承？优先级算法如何计算？ CSS3新增伪类有那些？"></a>CSS 选择符有哪些？哪些属性可以继承？优先级算法如何计算？ CSS3新增伪类有那些？</h3><ol>
+<li>id选择器（ # myid）</li>
+<li>类选择器（.myclassname）</li>
+<li>标签选择器（div, h1, p）</li>
+<li>相邻选择器（h1 + p）</li>
+<li>子选择器（ul &gt; li）</li>
+<li>后代选择器（li a）</li>
+<li>通配符选择器（ * ）</li>
+<li>属性选择器（a[rel &#x3D; “external”]）</li>
+<li>伪类选择器（a: hover, li:nth-child）</li>
+</ol>
+<blockquote>
+<p>哪些属性可以继承</p>
+</blockquote>
+<ul>
+<li><p>可继承的样式： font-size font-family color, text-indent;</p>
+</li>
+<li><p>不可继承的样式：border padding margin width height ;</p>
+</li>
+<li><p>优先级就近原则，同权重情况下样式定义最近者为准;</p>
+</li>
+<li><p>载入样式以最后载入的定位为准;</p>
+</li>
+</ul>
+<blockquote>
+<p>优先级</p>
+</blockquote>
+<p>!important &gt; 内联 &gt; id &gt; class &gt; tag  </p>
+<blockquote>
+<p>CSS3新增伪类举例</p>
+</blockquote>
+<ul>
+<li>p:first-of-type 选择属于其父元素的首个 <p> 元素的每个 <p> 元素。</li>
+<li>p:last-of-type  选择属于其父元素的最后 <p> 元素的每个 <p> 元素。</li>
+<li>p:only-of-type  选择属于其父元素唯一的 <p> 元素的每个 <p> 元素。</li>
+<li>p:only-child    选择属于其父元素的唯一子元素的每个 <p> 元素。</li>
+<li>p:nth-child(2)  选择属于其父元素的第二个子元素的每个 <p> 元素。</li>
+<li>:enabled  :disabled 控制表单控件的禁用状态。</li>
+<li>:checked        单选框或复选框被选中。</li>
+</ul>
+<h3 id="inline-block对齐问题"><a href="#inline-block对齐问题" class="headerlink" title="inline-block对齐问题"></a>inline-block对齐问题</h3><p>出现这个问题的原因归根结底就是inline-block的特性，两个inline-block之间的布局类似两个行内元素，但是可以设置width，height，上下margin。。。<br>类似行内元素布局，两个inline-block元素并排时，没有写明vertical-align时，默认是以baseline对齐的，<br>而inlineblock元素的baseline在哪里就要分有文字和没文字的情况，没有文字的情况baseline就是“margin-bottom的那条线”<br>有文字的情况baseline就是“最后一行文本的baseline”</p>
+<h3 id="父子元素顶部重合"><a href="#父子元素顶部重合" class="headerlink" title="父子元素顶部重合"></a>父子元素顶部重合</h3><p>不知道大家有没有试过,子元素写<code>margin-top:100px;</code>,父级元素却下移了</p>
+<p>当父元素没有设置padding值以及border值时，出现了一个bug–父元素的上方与子元素的上方完全重合在了一起，无法分开。所以才会导致上述这种父元素和子元素同时向下的情况。</p>
+<p>对于这种问题解决方法有下面几种：</p>
+<ul>
+<li>给父元素添加padding-top值</li>
+<li>给父元素添加border值</li>
+<li>给父元素添加属性overflow:hidden;</li>
+<li>给父元素或者子元素声明浮动float</li>
+<li>使父元素或子元素声明为绝对定位：position:absolute;</li>
+<li>给父元素添加属性 overflow:auto; positon:relative；</li>
+</ul>
+<h3 id="CSS3有哪些新特性"><a href="#CSS3有哪些新特性" class="headerlink" title="CSS3有哪些新特性"></a>CSS3有哪些新特性</h3><p>CSS3实现圆角（border-radius），阴影（box-shadow），<br>对文字加特效（text-shadow、），线性渐变（gradient），旋转（transform）<br>transform:rotate(9deg) scale(0.85,0.90) translate(0px,-30px) skew(-9deg,0deg);&#x2F;&#x2F;旋转,缩放,定位,倾斜<br>增加了更多的CSS选择器  多背景 rgba<br>在CSS3中唯一引入的伪元素是::selection.<br>媒体查询，多栏布局<br>border-image</p>
+<h3 id="BFC规范"><a href="#BFC规范" class="headerlink" title="BFC规范"></a>BFC规范</h3><p>BFC，块级格式化上下文，一个创建了新的BFC的盒子是独立布局的，盒子里面的子元素的样式不会影响到外面的元素。<br>在同一个BFC中的两个毗邻的块级盒在垂直方向（和布局方向有关系）的margin会发生折叠。<br>（W3C CSS 2.1 规范中的一个概念，它决定了元素如何对其内容进行布局，以及与其他元素的关系和相互作用。）</p>
+<h3 id="css中常见的兼容性问题"><a href="#css中常见的兼容性问题" class="headerlink" title="css中常见的兼容性问题"></a>css中常见的兼容性问题</h3><ul>
+<li><p>png24位的图片在iE6浏览器上出现背景，解决方案是做成PNG8.也可以引用一段脚本处理.</p>
+</li>
+<li><p>浏览器默认的margin和padding不同。解决方案是加一个全局的*{margin:0;padding:0;}来统一。</p>
+</li>
+<li><p>IE6双边距bug:块属性标签float后，又有横行的margin情况下，在ie6显示margin比设置的大。 </p>
+</li>
+<li><p>浮动ie产生的双倍距离（IE6双边距问题：在IE6下，如果对元素设置了浮动，同时又设置了margin-left或margin-right，margin值会加倍。）<br><code>#box&#123; float:left; width:10px; margin:0 0 0 100px;&#125; </code></p>
+</li>
+</ul>
+<p> 这种情况之下IE会产生20px的距离，解决方案是在float的标签样式控制中加入<code>_display:inline;</code>将其转化为行内属性。(_这个符号只有ie6会识别)</p>
+<ul>
+<li>渐进识别的方式，从总体中逐渐排除局部。</li>
+</ul>
+<p>  首先，巧妙的使用“\9”这一标记，将IE游览器从所有情况中分离出来。<br>  接着，再次使用“+”将IE8和IE7、IE6分离开来，这样IE8已经独立识别。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">.bb&#123;</span><br><span class="line">  background-color:#f1ee18;/*所有识别*/</span><br><span class="line">  .background-color:#00deff\9; /*IE6、7、8识别*/</span><br><span class="line">  +background-color:#a200ff;/*IE6、7识别*/</span><br><span class="line">  _background-color:#1e0bd1;/*IE6识别*/ </span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>IE下,可以使用获取常规属性的方法来获取自定义属性,<br>也可以使用getAttribute()获取自定义属性;<br>Firefox下,只能使用getAttribute()获取自定义属性.<br>解决方法:统一通过getAttribute()获取自定义属性.</p>
+</li>
+<li><p>IE下,event对象有x,y属性,但是没有pageX,pageY属性;<br>Firefox下,event对象有pageX,pageY属性,但是没有x,y属性.</p>
+</li>
+<li><p>解决方法：（条件注释）缺点是在IE浏览器下可能会增加额外的HTTP请求数。</p>
+</li>
+<li><p>Chrome 中文界面下默认会将小于 12px 的文本强制按照 12px 显示,<br>可通过加入 CSS 属性 -webkit-text-size-adjust: none; 解决.</p>
+</li>
+<li><p>超链接访问过后hover样式就不出现了 被点击访问过的超链接样式不在具有hover和active了解决方法是改变CSS属性的排列顺序:<br>L-V-H-A :  a:link {} a:visited {} a:hover {} a:active {}</p>
+</li>
+<li><p>怪异模式问题：漏写DTD声明，Firefox仍然会按照标准模式来解析网页，但在IE中会触发怪异模式。为避免怪异模式给我们带来不必要的麻烦，最好养成书写DTD声明的好习惯。现在可以使用<a target="_blank" rel="noopener" href="http://www.w3.org/TR/html5/single-page.html">html5</a>推荐的写法：<code>&lt;doctype html&gt;</code></p>
+</li>
+<li><p>上下margin重合问题<br>ie和ff都存在，相邻的两个div的margin-left和margin-right不会重合，但是margin-top和margin-bottom却会发生重合。<br>解决方法，养成良好的代码编写习惯，同时采用margin-top或者同时采用margin-bottom。</p>
+</li>
+<li><p>ie6对png图片格式支持不好(引用一段脚本处理)</p>
+</li>
+</ul>
+<h3 id="CSS3画图形"><a href="#CSS3画图形" class="headerlink" title="CSS3画图形"></a>CSS3画图形</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br></pre></td><td class="code"><pre><span class="line">&lt;div&gt;</span><br><span class="line">  &lt;!-- css3画三角形 --&gt;</span><br><span class="line">  &lt;div class=&quot;sanjiao&quot;&gt;&lt;/div&gt;</span><br><span class="line">  &lt;!-- 画对话框 --&gt;</span><br><span class="line">  &lt;div class=&quot;duihua&quot;&gt;你好啊&lt;/div&gt;</span><br><span class="line">  &lt;!-- 画菱形 --&gt;</span><br><span class="line">  &lt;div class=&quot;lingxing&quot;&gt;&lt;/div&gt;</span><br><span class="line">  &lt;!-- 画平行四边形 --&gt;</span><br><span class="line">  &lt;div class=&quot;pingxing&quot;&gt;&lt;/div&gt;</span><br><span class="line">  &lt;!-- 画五角星 --&gt;</span><br><span class="line">  &lt;div class=&quot;star&quot;&gt;&lt;/div&gt;</span><br><span class="line">  &lt;!-- 鸡蛋 --&gt;</span><br><span class="line">  &lt;div class=&#x27;egg&#x27;&gt;&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line"></span><br><span class="line">// 三角形</span><br><span class="line">  .sanjiao &#123;</span><br><span class="line">    border-top: 50px solid transparent;</span><br><span class="line">    border-bottom: 50px solid transparent;</span><br><span class="line">    border-left: 0px solid yellow;</span><br><span class="line">    border-right: 50px solid blue;</span><br><span class="line">    height: 0px;</span><br><span class="line">    width: 0px;</span><br><span class="line">    margin: 50px auto;</span><br><span class="line">  &#125;</span><br><span class="line">  // 对话框</span><br><span class="line">  .duihua &#123;</span><br><span class="line">    width:300px;</span><br><span class="line">    height:36px;</span><br><span class="line">    line-height: 36px;</span><br><span class="line">    text-align: center;</span><br><span class="line">    background-color: #a60;</span><br><span class="line">    border-radius: 6px;</span><br><span class="line">    color:#fff;</span><br><span class="line">    margin: 50px auto;</span><br><span class="line">    position: relative;</span><br><span class="line">  &#125;</span><br><span class="line">  .duihua::before &#123;</span><br><span class="line">    content: &#x27;&#x27;;</span><br><span class="line">    border-top: 10px solid transparent;</span><br><span class="line">    border-bottom: 10px solid transparent;</span><br><span class="line">    border-left: 0px solid #a60;</span><br><span class="line">    border-right: 10px solid #a60;</span><br><span class="line">    position: absolute;</span><br><span class="line">    left:-10px;</span><br><span class="line">    top:8px;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  // 菱形</span><br><span class="line">  .lingxing &#123;</span><br><span class="line">    width:100px;</span><br><span class="line">    height:100px;</span><br><span class="line">    background-color: orangered;</span><br><span class="line">    margin: 50px auto;</span><br><span class="line">    transform: rotate(45deg)</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  // 平行四边形</span><br><span class="line">  .pingxing &#123;</span><br><span class="line">    width:150px;</span><br><span class="line">    height:100px;</span><br><span class="line">    background-color: firebrick;</span><br><span class="line">    margin: 50px auto;</span><br><span class="line">    // 第一个是X轴倾斜的角度，第二个是Y轴倾斜的角度</span><br><span class="line">    transform: skew(20deg,20deg)</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  // 五角星</span><br><span class="line">  .star &#123;</span><br><span class="line">    position: relative;</span><br><span class="line">    border-top: 0px solid transparent;</span><br><span class="line">    border-bottom: 70px solid red;</span><br><span class="line">    border-left: 100px solid transparent;</span><br><span class="line">    border-right: 100px solid transparent;</span><br><span class="line">    height: 0px;</span><br><span class="line">    width: 0px;</span><br><span class="line">    margin: 50px auto;</span><br><span class="line">    transform: rotate(35deg)</span><br><span class="line">  &#125;</span><br><span class="line">  .star::before &#123;</span><br><span class="line">    content: &#x27;&#x27;;</span><br><span class="line">    border-top: 0px solid transparent;</span><br><span class="line">    border-bottom: 80px solid red;</span><br><span class="line">    border-left: 30px solid transparent;</span><br><span class="line">    border-right: 30px solid transparent;</span><br><span class="line">    height: 0px;</span><br><span class="line">    width: 0px;</span><br><span class="line">    position: absolute;</span><br><span class="line">    top: -45px;</span><br><span class="line">    left: -65px;</span><br><span class="line">    transform: rotate(-35deg)</span><br><span class="line">  &#125;</span><br><span class="line">  .star::after &#123;</span><br><span class="line">    content: &#x27;&#x27;;</span><br><span class="line">    border-top: 0px solid transparent;</span><br><span class="line">    border-bottom: 70px solid red;</span><br><span class="line">    border-left: 100px solid transparent;</span><br><span class="line">    border-right: 100px solid transparent;</span><br><span class="line">    height: 0px;</span><br><span class="line">    width: 0px;</span><br><span class="line">    position: absolute;</span><br><span class="line">    top: 3px;</span><br><span class="line">    left: -105px;</span><br><span class="line">    transform: rotate(-70deg)</span><br><span class="line">  &#125;</span><br><span class="line">  // 鸡蛋</span><br><span class="line">  .egg &#123;</span><br><span class="line">    width: 126px;</span><br><span class="line">    height: 180px;</span><br><span class="line">    background-color: #fa3;</span><br><span class="line">    // 斜杠之前的是设置X轴的，后面是设置Y轴的</span><br><span class="line">    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>请我一杯咖啡吧！</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/img/wechatpay.png" alt="陈晟 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/img/alipay.png" alt="陈晟 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>陈晟
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://www.chensheng.group/2018/02/24/55-%E5%85%B3%E4%BA%8ECSS%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BA%8B/" title="关于CSS的一些事(一)">https://www.chensheng.group/2018/02/24/55-关于CSS的一些事/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/CSS/" rel="tag"><i class="fa fa-tag"></i> CSS</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2018/02/23/54-%E5%89%8D%E7%AB%AF%E7%9A%84%E5%85%BC%E5%AE%B9%E9%97%AE%E9%A2%98/" rel="prev" title="前端的兼容解决方案">
+                  <i class="fa fa-angle-left"></i> 前端的兼容解决方案
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2018/02/25/56-axios%E5%B0%81%E8%A3%85/" rel="next" title="axios封装">
+                  axios封装 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">闽ICP备2022007916号-1 </a>
+  </div>
+  <div class="copyright">
+    &copy; 2016 – 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">陈晟</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">489k</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script><script src="/js/pjax.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+</html>

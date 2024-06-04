@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.2.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"www.chensheng.group","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.20.0","exturl":false,"sidebar":{"position":"right","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":true,"style":"mac"},"fold":{"enable":false,"height":500},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false,"trigger":"auto"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="element-ui这个框架想必大家都不陌生,今天学习一下如何动态更改主题色">
+<meta property="og:type" content="article">
+<meta property="og:title" content="element-ui动态换肤">
+<meta property="og:url" content="https://www.chensheng.group/2020/06/27/132-element-ui%E5%8A%A8%E6%80%81%E6%8D%A2%E8%82%A4/index.html">
+<meta property="og:site_name" content="陈先生的小前端">
+<meta property="og:description" content="element-ui这个框架想必大家都不陌生,今天学习一下如何动态更改主题色">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-06-27T03:30:00.000Z">
+<meta property="article:modified_time" content="2024-06-02T16:07:19.375Z">
+<meta property="article:author" content="陈晟">
+<meta property="article:tag" content="element">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://www.chensheng.group/2020/06/27/132-element-ui%E5%8A%A8%E6%80%81%E6%8D%A2%E8%82%A4/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://www.chensheng.group/2020/06/27/132-element-ui%E5%8A%A8%E6%80%81%E6%8D%A2%E8%82%A4/","path":"2020/06/27/132-element-ui动态换肤/","title":"element-ui动态换肤"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>element-ui动态换肤 | 陈先生的小前端</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="陈先生的小前端" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">陈先生的小前端</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-house-chimney fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-list fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="陈晟"
+      src="/img/touxiang.jpg">
+  <p class="site-author-name" itemprop="name">陈晟</p>
+  <div class="site-description" itemprop="description">请不要在最能吃苦的日子选择安逸</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">165</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">36</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">56</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/328921371" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;328921371" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:328921371@qq.com" title="E-Mail → mailto:328921371@qq.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.chensheng.group/2020/06/27/132-element-ui%E5%8A%A8%E6%80%81%E6%8D%A2%E8%82%A4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/img/touxiang.jpg">
+      <meta itemprop="name" content="陈晟">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="陈先生的小前端">
+      <meta itemprop="description" content="请不要在最能吃苦的日子选择安逸">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="element-ui动态换肤 | 陈先生的小前端">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          element-ui动态换肤
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-06-27 11:30:00" itemprop="dateCreated datePublished" datetime="2020-06-27T11:30:00+08:00">2020-06-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/element/" itemprop="url" rel="index"><span itemprop="name">element</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><hr style='filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)' color='#FF0000' size='1' />
+
+<blockquote>
+<p>element-ui这个框架想必大家都不陌生,今天学习一下如何动态更改主题色</p>
+</blockquote>
+<span id="more"></span>
+
+<p>官网有提供改变主题色的方法,但是那个仅适用于一次性的更改全局主题颜色</p>
+<p>如果我们想要实时根据ColorPicker颜色选择器进行动态换肤,要怎么实现呢</p>
+<p>首先新建一个vue组件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;el-tooltip effect=&quot;dark&quot; content=&quot;theme&quot; placement=&quot;bottom&quot;&gt;</span><br><span class="line">    &lt;el-color-picker</span><br><span class="line">    v-model=&quot;theme&quot;</span><br><span class="line">    class=&quot;theme-picker&quot;</span><br><span class="line">    size=&quot;small&quot;</span><br><span class="line">    popper-class=&quot;theme-picker-dropdown&quot;/&gt;</span><br><span class="line">  &lt;/el-tooltip&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line"></span><br><span class="line">const version = require(&#x27;element-ui/package.json&#x27;).version // element-ui version from node_modules</span><br><span class="line">const ORIGINAL_THEME = &#x27;#409EFF&#x27; // default color</span><br><span class="line"></span><br><span class="line">export default &#123;</span><br><span class="line">  data() &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      chalk: &#x27;&#x27;, // content of theme-chalk css</span><br><span class="line">      theme: ORIGINAL_THEME</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  watch: &#123;</span><br><span class="line">    theme(val, oldVal) &#123;</span><br><span class="line">      if (typeof val !== &#x27;string&#x27;) return</span><br><span class="line">      const themeCluster = this.getThemeCluster(val.replace(&#x27;#&#x27;, &#x27;&#x27;))</span><br><span class="line">      const originalCluster = this.getThemeCluster(oldVal.replace(&#x27;#&#x27;, &#x27;&#x27;))</span><br><span class="line">      const getHandler = (variable, id) =&gt; &#123;</span><br><span class="line">        return () =&gt; &#123;</span><br><span class="line">          const originalCluster = this.getThemeCluster(ORIGINAL_THEME.replace(&#x27;#&#x27;, &#x27;&#x27;))</span><br><span class="line">          const newStyle = this.updateStyle(this[variable], originalCluster, themeCluster)</span><br><span class="line"></span><br><span class="line">          let styleTag = document.getElementById(id)</span><br><span class="line">          if (!styleTag) &#123;</span><br><span class="line">            styleTag = document.createElement(&#x27;style&#x27;)</span><br><span class="line">            styleTag.setAttribute(&#x27;id&#x27;, id)</span><br><span class="line">            document.head.appendChild(styleTag)</span><br><span class="line">          &#125;</span><br><span class="line">          styleTag.innerText = newStyle</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      const chalkHandler = getHandler(&#x27;chalk&#x27;, &#x27;chalk-style&#x27;)</span><br><span class="line"></span><br><span class="line">      if (!this.chalk) &#123;</span><br><span class="line">        const url = `https://unpkg.com/element-ui@$&#123;version&#125;/lib/theme-chalk/index.css`</span><br><span class="line">        this.getCSSString(url, chalkHandler, &#x27;chalk&#x27;)</span><br><span class="line">      &#125; else &#123;</span><br><span class="line">        chalkHandler()</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      const styles = [].slice.call(document.querySelectorAll(&#x27;style&#x27;))</span><br><span class="line">        .filter(style =&gt; &#123;</span><br><span class="line">          const text = style.innerText</span><br><span class="line">          return new RegExp(oldVal, &#x27;i&#x27;).test(text) &amp;&amp; !/Chalk Variables/.test(text)</span><br><span class="line">        &#125;)</span><br><span class="line">      styles.forEach(style =&gt; &#123;</span><br><span class="line">        const &#123; innerText &#125; = style</span><br><span class="line">        if (typeof innerText !== &#x27;string&#x27;) return</span><br><span class="line">        style.innerText = this.updateStyle(innerText, originalCluster, themeCluster)</span><br><span class="line">      &#125;)</span><br><span class="line">      this.$message(&#123;</span><br><span class="line">        message: &#x27;换肤成功&#x27;,</span><br><span class="line">        type: &#x27;success&#x27;</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  methods: &#123;</span><br><span class="line">    updateStyle(style, oldCluster, newCluster) &#123;</span><br><span class="line">      let newStyle = style</span><br><span class="line">      oldCluster.forEach((color, index) =&gt; &#123;</span><br><span class="line">        newStyle = newStyle.replace(new RegExp(color, &#x27;ig&#x27;), newCluster[index])</span><br><span class="line">      &#125;)</span><br><span class="line">      return newStyle</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    getCSSString(url, callback, variable) &#123;</span><br><span class="line">      const xhr = new XMLHttpRequest()</span><br><span class="line">      xhr.onreadystatechange = () =&gt; &#123;</span><br><span class="line">        if (xhr.readyState === 4 &amp;&amp; xhr.status === 200) &#123;</span><br><span class="line">          this[variable] = xhr.responseText.replace(/@font-face&#123;[^&#125;]+&#125;/, &#x27;&#x27;)</span><br><span class="line">          callback()</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      xhr.open(&#x27;GET&#x27;, url)</span><br><span class="line">      xhr.send()</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    getThemeCluster(theme) &#123;</span><br><span class="line">      const tintColor = (color, tint) =&gt; &#123;</span><br><span class="line">        let red = parseInt(color.slice(0, 2), 16)</span><br><span class="line">        let green = parseInt(color.slice(2, 4), 16)</span><br><span class="line">        let blue = parseInt(color.slice(4, 6), 16)</span><br><span class="line"></span><br><span class="line">        if (tint === 0) &#123; // when primary color is in its rgb space</span><br><span class="line">          return [red, green, blue].join(&#x27;,&#x27;)</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">          red += Math.round(tint * (255 - red))</span><br><span class="line">          green += Math.round(tint * (255 - green))</span><br><span class="line">          blue += Math.round(tint * (255 - blue))</span><br><span class="line"></span><br><span class="line">          red = red.toString(16)</span><br><span class="line">          green = green.toString(16)</span><br><span class="line">          blue = blue.toString(16)</span><br><span class="line"></span><br><span class="line">          return `#$&#123;red&#125;$&#123;green&#125;$&#123;blue&#125;`</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      const shadeColor = (color, shade) =&gt; &#123;</span><br><span class="line">        let red = parseInt(color.slice(0, 2), 16)</span><br><span class="line">        let green = parseInt(color.slice(2, 4), 16)</span><br><span class="line">        let blue = parseInt(color.slice(4, 6), 16)</span><br><span class="line"></span><br><span class="line">        red = Math.round((1 - shade) * red)</span><br><span class="line">        green = Math.round((1 - shade) * green)</span><br><span class="line">        blue = Math.round((1 - shade) * blue)</span><br><span class="line"></span><br><span class="line">        red = red.toString(16)</span><br><span class="line">        green = green.toString(16)</span><br><span class="line">        blue = blue.toString(16)</span><br><span class="line"></span><br><span class="line">        return `#$&#123;red&#125;$&#123;green&#125;$&#123;blue&#125;`</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      const clusters = [theme]</span><br><span class="line">      for (let i = 0; i &lt;= 9; i++) &#123;</span><br><span class="line">        clusters.push(tintColor(theme, Number((i / 10).toFixed(2))))</span><br><span class="line">      &#125;</span><br><span class="line">      clusters.push(shadeColor(theme, 0.1))</span><br><span class="line">      return clusters</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>然后引入它就可以直接使用了</p>
+<p>感觉各位大佬的无私分享</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>请我一杯咖啡吧！</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/img/wechatpay.png" alt="陈晟 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/img/alipay.png" alt="陈晟 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>陈晟
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://www.chensheng.group/2020/06/27/132-element-ui%E5%8A%A8%E6%80%81%E6%8D%A2%E8%82%A4/" title="element-ui动态换肤">https://www.chensheng.group/2020/06/27/132-element-ui动态换肤/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/element/" rel="tag"><i class="fa fa-tag"></i> element</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/06/26/131-%E7%88%AC%E7%BD%91%E7%AB%99%E7%A5%9E%E5%99%A8/" rel="prev" title="神器扒网站——teleport ultra">
+                  <i class="fa fa-angle-left"></i> 神器扒网站——teleport ultra
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/07/04/133-JavaScript%E7%9A%84%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F/" rel="next" title="JavaScript的执行顺序">
+                  JavaScript的执行顺序 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">闽ICP备2022007916号-1 </a>
+  </div>
+  <div class="copyright">
+    &copy; 2016 – 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">陈晟</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">489k</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script><script src="/js/pjax.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+</html>

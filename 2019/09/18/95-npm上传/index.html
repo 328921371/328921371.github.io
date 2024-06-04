@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.2.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"www.chensheng.group","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.20.0","exturl":false,"sidebar":{"position":"right","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":true,"style":"mac"},"fold":{"enable":false,"height":500},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false,"trigger":"auto"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="很久之前就想把自己的组件抽离出来,作成一个单独的组件上传到npm中,今天来记录一下">
+<meta property="og:type" content="article">
+<meta property="og:title" content="npm上传自定义vue组件">
+<meta property="og:url" content="https://www.chensheng.group/2019/09/18/95-npm%E4%B8%8A%E4%BC%A0/index.html">
+<meta property="og:site_name" content="陈先生的小前端">
+<meta property="og:description" content="很久之前就想把自己的组件抽离出来,作成一个单独的组件上传到npm中,今天来记录一下">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://csblogimage.oss-cn-hangzhou.aliyuncs.com/95-rule.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,size_16,text_Qnku6ZmI5YWI55Sf55qE5bCP5YmN56uv,color_FFFFFF,shadow_50,t_100,g_se,x_10,y_10">
+<meta property="article:published_time" content="2019-09-18T05:15:00.000Z">
+<meta property="article:modified_time" content="2024-06-02T16:07:19.387Z">
+<meta property="article:author" content="陈晟">
+<meta property="article:tag" content="npm">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://csblogimage.oss-cn-hangzhou.aliyuncs.com/95-rule.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,size_16,text_Qnku6ZmI5YWI55Sf55qE5bCP5YmN56uv,color_FFFFFF,shadow_50,t_100,g_se,x_10,y_10">
+
+
+<link rel="canonical" href="https://www.chensheng.group/2019/09/18/95-npm%E4%B8%8A%E4%BC%A0/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://www.chensheng.group/2019/09/18/95-npm%E4%B8%8A%E4%BC%A0/","path":"2019/09/18/95-npm上传/","title":"npm上传自定义vue组件"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>npm上传自定义vue组件 | 陈先生的小前端</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="陈先生的小前端" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">陈先生的小前端</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-house-chimney fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-list fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B0%E5%BB%BA%E9%A1%B9%E7%9B%AE"><span class="nav-number">1.</span> <span class="nav-text">新建项目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%AC%E5%9C%B0%E8%B0%83%E8%AF%95"><span class="nav-number">2.</span> <span class="nav-text">本地调试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%94%B9%E9%80%A0%E6%88%90vue%E6%8F%92%E4%BB%B6"><span class="nav-number">3.</span> <span class="nav-text">改造成vue插件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9package-json%E6%96%87%E4%BB%B6"><span class="nav-number">4.</span> <span class="nav-text">修改package.json文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9-gitignore%E6%96%87%E4%BB%B6"><span class="nav-number">5.</span> <span class="nav-text">修改.gitignore文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9webpack-config-js%E6%96%87%E4%BB%B6"><span class="nav-number">6.</span> <span class="nav-text">修改webpack.config.js文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%AC%E5%9C%B0%E6%89%93%E5%8C%85"><span class="nav-number">7.</span> <span class="nav-text">本地打包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%91%E5%B8%83%E5%88%B0npm%E4%B8%8A-%E6%B3%A8%E6%84%8F%E9%95%9C%E5%83%8F%E5%9C%B0%E5%9D%80%E8%A6%81%E6%8C%87%E5%90%91npm%E7%9A%84%E5%9C%B0%E5%9D%80"><span class="nav-number">8.</span> <span class="nav-text">发布到npm上(注意镜像地址要指向npm的地址)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%8E%E8%AF%9D"><span class="nav-number">9.</span> <span class="nav-text">后话</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="陈晟"
+      src="/img/touxiang.jpg">
+  <p class="site-author-name" itemprop="name">陈晟</p>
+  <div class="site-description" itemprop="description">请不要在最能吃苦的日子选择安逸</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">165</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">36</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">56</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/328921371" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;328921371" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:328921371@qq.com" title="E-Mail → mailto:328921371@qq.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.chensheng.group/2019/09/18/95-npm%E4%B8%8A%E4%BC%A0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/img/touxiang.jpg">
+      <meta itemprop="name" content="陈晟">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="陈先生的小前端">
+      <meta itemprop="description" content="请不要在最能吃苦的日子选择安逸">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="npm上传自定义vue组件 | 陈先生的小前端">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          npm上传自定义vue组件
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-09-18 13:15:00" itemprop="dateCreated datePublished" datetime="2019-09-18T13:15:00+08:00">2019-09-18</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/npm/" itemprop="url" rel="index"><span itemprop="name">npm</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><hr style='filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)' color='#FF0000' size='1' />
+
+<blockquote>
+<p>很久之前就想把自己的组件抽离出来,作成一个单独的组件上传到npm中,今天来记录一下</p>
+</blockquote>
+<span id="more"></span>
+
+<h3 id="新建项目"><a href="#新建项目" class="headerlink" title="新建项目"></a>新建项目</h3><p>虽然是用vue-cli搭的项目,当我们上传组件的时候就不在原来的项目上做了,新建一个项目来弄</p>
+<p><code>vue init webpack-simple ruler(项目名)</code></p>
+<p>项目的基本结构如下</p>
+<p><img src="https://csblogimage.oss-cn-hangzhou.aliyuncs.com/95-rule.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,size_16,text_Qnku6ZmI5YWI55Sf55qE5bCP5YmN56uv,color_FFFFFF,shadow_50,t_100,g_se,x_10,y_10" alt="项目结构图"></p>
+<h3 id="本地调试"><a href="#本地调试" class="headerlink" title="本地调试"></a>本地调试</h3><p>在App.vue中直接引入本地的组件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import ruler from &#x27;./page/ruler.vue&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>本地调试有一个要注意的地方,<code>webpack-simple</code>的项目,在index.html默认引入一个<code>&lt;script src=&quot;/dist/build.js&quot;&gt;&lt;/script&gt;</code></p>
+<p>这里的名字与你打包之后的js名字不一样的话,需要修改</p>
+<h3 id="改造成vue插件"><a href="#改造成vue插件" class="headerlink" title="改造成vue插件"></a>改造成vue插件</h3><p>在组件的文件夹下创建一个index.js文件</p>
+<p>这个文件作用是将组件导出</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">// 引入组件</span><br><span class="line">import CsingRuler from &#x27;./ruler.vue&#x27;</span><br><span class="line"></span><br><span class="line">CsingRuler.install = Vue =&gt; Vue.component(CsingRuler.name, CsingRuler); //这里的name是.vue文件里面定义的</span><br><span class="line"></span><br><span class="line">if (typeof window !== &#x27;undefined&#x27; &amp;&amp; window.Vue) &#123;</span><br><span class="line">  window.Vue.use(CsingRuler);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">export default CsingRuler</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>在与APP.vue同级下创建一个index.js的文件(一个包下可能有多个组件)</p>
+<p>导入刚刚写好的index.js组件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">// 写好的组件</span><br><span class="line">import CsingRuler from &#x27;./page/index.js&#x27;;</span><br><span class="line"></span><br><span class="line">const components = [</span><br><span class="line">  CsingRuler,</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">const install = function(Vue, opts = &#123;&#125;) &#123;</span><br><span class="line">  components.map(component =&gt; &#123;</span><br><span class="line">    Vue.component(component.name, component); //到时候项目使用组件名,就是这个component.name</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/* 支持使用标签的方式引入 */</span><br><span class="line">if (typeof window !== &#x27;undefined&#x27; &amp;&amp; window.Vue) &#123;</span><br><span class="line">  install(window.Vue);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">export default &#123;</span><br><span class="line">  install,</span><br><span class="line">  CsingRuler,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="修改package-json文件"><a href="#修改package-json文件" class="headerlink" title="修改package.json文件"></a>修改package.json文件</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;name&quot;: &quot;cs-ruler&quot;, //模块名,不能重复</span><br><span class="line">  &quot;description&quot;: &quot;刻度尺组件&quot;,</span><br><span class="line">  &quot;version&quot;: &quot;1.0.4&quot;, //版本号,每次要更新</span><br><span class="line">  &quot;author&quot;: &quot;chensheng&quot;,</span><br><span class="line">  &quot;license&quot;: &quot;MIT&quot;, // 开源协议</span><br><span class="line">  &quot;private&quot;: false, // 因为组件包是公用的，所以private为false</span><br><span class="line">  &quot;scripts&quot;: &#123;</span><br><span class="line">    &quot;dev&quot;: &quot;cross-env NODE_ENV=development webpack-dev-server --open --hot&quot;,</span><br><span class="line">    &quot;build&quot;: &quot;cross-env NODE_ENV=production webpack --progress --hide-modules&quot;</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;main&quot;: &quot;dist/csingruler.js&quot;, // 配置main结点，如果不配置，我们在其他项目中就不用import XX from &#x27;包名&#x27;来引用了，只能以包名作为起点来指定相对的路径</span><br><span class="line">  &quot;dependencies&quot;: &#123;</span><br><span class="line">    &quot;vue&quot;: &quot;^2.5.11&quot;</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;browserslist&quot;: [</span><br><span class="line">    &quot;&gt; 1%&quot;,</span><br><span class="line">    &quot;last 2 versions&quot;,</span><br><span class="line">    &quot;not ie &lt;= 8&quot;</span><br><span class="line">  ],</span><br><span class="line">  &quot;devDependencies&quot;: &#123;</span><br><span class="line">    &quot;babel-core&quot;: &quot;^6.26.0&quot;,</span><br><span class="line">    &quot;babel-loader&quot;: &quot;^7.1.2&quot;,</span><br><span class="line">    &quot;babel-preset-env&quot;: &quot;^1.6.0&quot;,</span><br><span class="line">    &quot;babel-preset-stage-3&quot;: &quot;^6.24.1&quot;,</span><br><span class="line">    &quot;better-scroll&quot;: &quot;^1.15.2&quot;,</span><br><span class="line">    &quot;cross-env&quot;: &quot;^5.0.5&quot;,</span><br><span class="line">    &quot;css-loader&quot;: &quot;^0.28.7&quot;,</span><br><span class="line">    &quot;file-loader&quot;: &quot;^1.1.4&quot;,</span><br><span class="line">    &quot;less&quot;: &quot;^3.9.0&quot;,</span><br><span class="line">    &quot;less-loader&quot;: &quot;^5.0.0&quot;,</span><br><span class="line">    &quot;vue-loader&quot;: &quot;^13.0.5&quot;,</span><br><span class="line">    &quot;vue-template-compiler&quot;: &quot;^2.4.4&quot;,</span><br><span class="line">    &quot;webpack&quot;: &quot;^3.6.0&quot;,</span><br><span class="line">    &quot;webpack-dev-server&quot;: &quot;^2.9.1&quot;</span><br><span class="line">  &#125;,</span><br><span class="line">  // 指定代码所在的仓库地址</span><br><span class="line">  &quot;repository&quot;: &#123;</span><br><span class="line">    &quot;type&quot;: &quot;git&quot;,</span><br><span class="line">    &quot;url&quot;: &quot;git+https://github.com/328921371/ruler.git&quot;</span><br><span class="line">  &#125;,</span><br><span class="line">  // bug在哪里提</span><br><span class="line">  &quot;bugs&quot;: &#123;</span><br><span class="line">  	&quot;url&quot;: &quot;https://github.com/328921371/ruler/issues&quot;</span><br><span class="line">  &#125;,</span><br><span class="line">  // 项目官网的地址</span><br><span class="line">  &quot;homepage&quot;: &quot;https://github.com/328921371/ruler#readme&quot;,</span><br><span class="line">   // 指定打包后,包中存在的文件夹</span><br><span class="line">  &quot;files&quot;: [</span><br><span class="line">    &quot;dist&quot;,</span><br><span class="line">    &quot;src&quot;</span><br><span class="line">  ],</span><br><span class="line">  // 指定关键词</span><br><span class="line">  &quot;keywords&quot;: [</span><br><span class="line">    &quot;vue&quot;,</span><br><span class="line">    &quot;ruler&quot;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="修改-gitignore文件"><a href="#修改-gitignore文件" class="headerlink" title="修改.gitignore文件"></a>修改.gitignore文件</h3><p>因为要用dist文件夹，所以在.gitignore文件中把dist&#x2F;去掉。最后长这样</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">.DS_Store</span><br><span class="line">node_modules/</span><br><span class="line">npm-debug.log</span><br><span class="line">yarn-error.log</span><br><span class="line"></span><br><span class="line"># Editor directories and files</span><br><span class="line">.idea</span><br><span class="line">*.suo</span><br><span class="line">*.ntvs*</span><br><span class="line">*.njsproj</span><br><span class="line">*.sln</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="修改webpack-config-js文件"><a href="#修改webpack-config-js文件" class="headerlink" title="修改webpack.config.js文件"></a>修改webpack.config.js文件</h3><p>主要还是改输出部分,打包成自己想要的js文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">output: &#123;</span><br><span class="line">  path: path.resolve(__dirname, &#x27;./dist&#x27;),</span><br><span class="line">  publicPath: &#x27;/dist/&#x27;,</span><br><span class="line">  filename: &#x27;csingruler.js&#x27;,</span><br><span class="line">  library: &#x27;csingruler&#x27;,</span><br><span class="line">  libraryTarget: &#x27;umd&#x27;,</span><br><span class="line">  umdNamedDefine: true</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+
+<h3 id="本地打包"><a href="#本地打包" class="headerlink" title="本地打包"></a>本地打包</h3><p>npm run build</p>
+<p>npm pack</p>
+<p>然后在本地生成一个cs-ruler-1.0.1.tgz的包</p>
+<h3 id="发布到npm上-注意镜像地址要指向npm的地址"><a href="#发布到npm上-注意镜像地址要指向npm的地址" class="headerlink" title="发布到npm上(注意镜像地址要指向npm的地址)"></a>发布到npm上(注意镜像地址要指向npm的地址)</h3><p><code>npm login</code></p>
+<p>登录自己的npm账号,输入姓名,密码,邮箱</p>
+<p>然后注意一下返回的字段</p>
+<p><code>Logged in as 你的名字 on https://registry.npmjs.org/.</code></p>
+<p>这样说明是登录成功的</p>
+<p>如果是<code>Logged in as 你的名字 on https://registry.npm.taobao.org/.</code></p>
+<p>说明你登录的是淘宝的镜像..后面提交会报403的错误</p>
+<p>可以输入一下命令查看当前的登录源：<code>npm config get registry</code></p>
+<p>淘宝源，需要切回到npmjs源，输入以下命令： <code>npm config set registry=http://registry.npmjs.org</code></p>
+<p>最后再 npm publish 一下就可以了</p>
+<h3 id="后话"><a href="#后话" class="headerlink" title="后话"></a>后话</h3><p>这个<a target="_blank" rel="noopener" href="https://www.npmjs.com/package/cs-ruler?activeTab=dependencies">刻度尺组件</a>就是我打包上传的组件,有需要的可以安装使用</p>
+<p>以上就是我对npm上传vue组件的一些理解，如果文章由于我学识浅薄，导致您发现有严重谬误的地方，请一定在评论中指出，我会在第一时间修正我的博文，以避免误人子弟。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>请我一杯咖啡吧！</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/img/wechatpay.png" alt="陈晟 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/img/alipay.png" alt="陈晟 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>陈晟
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://www.chensheng.group/2019/09/18/95-npm%E4%B8%8A%E4%BC%A0/" title="npm上传自定义vue组件">https://www.chensheng.group/2019/09/18/95-npm上传/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/npm/" rel="tag"><i class="fa fa-tag"></i> npm</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/09/16/94-electron-vue%E9%85%8D%E7%BD%AE%E8%AF%B4%E6%98%8E/" rel="prev" title="electron-vue 配置说明">
+                  <i class="fa fa-angle-left"></i> electron-vue 配置说明
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2019/09/19/96-Vue%E4%B8%ADdirectives%E7%9A%84%E7%94%A8%E6%B3%95/" rel="next" title="Vue中directives的用法">
+                  Vue中directives的用法 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">闽ICP备2022007916号-1 </a>
+  </div>
+  <div class="copyright">
+    &copy; 2016 – 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">陈晟</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">489k</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script><script src="/js/pjax.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+</html>

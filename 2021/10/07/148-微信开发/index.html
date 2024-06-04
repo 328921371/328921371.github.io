@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.2.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"www.chensheng.group","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.20.0","exturl":false,"sidebar":{"position":"right","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":true,"style":"mac"},"fold":{"enable":false,"height":500},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false,"trigger":"auto"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="简单的介绍一下微信开发的一些注意事项">
+<meta property="og:type" content="article">
+<meta property="og:title" content="微信开发学习">
+<meta property="og:url" content="https://www.chensheng.group/2021/10/07/148-%E5%BE%AE%E4%BF%A1%E5%BC%80%E5%8F%91/index.html">
+<meta property="og:site_name" content="陈先生的小前端">
+<meta property="og:description" content="简单的介绍一下微信开发的一些注意事项">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://res.wx.qq.com/wxdoc/dist/assets/img/api-login.2fcc9f35.jpg">
+<meta property="article:published_time" content="2021-10-07T05:28:00.000Z">
+<meta property="article:modified_time" content="2024-06-02T16:07:19.377Z">
+<meta property="article:author" content="陈晟">
+<meta property="article:tag" content="javaScript">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://res.wx.qq.com/wxdoc/dist/assets/img/api-login.2fcc9f35.jpg">
+
+
+<link rel="canonical" href="https://www.chensheng.group/2021/10/07/148-%E5%BE%AE%E4%BF%A1%E5%BC%80%E5%8F%91/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://www.chensheng.group/2021/10/07/148-%E5%BE%AE%E4%BF%A1%E5%BC%80%E5%8F%91/","path":"2021/10/07/148-微信开发/","title":"微信开发学习"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>微信开发学习 | 陈先生的小前端</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="陈先生的小前端" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">陈先生的小前端</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-house-chimney fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-list fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFOpenID-UnionID"><span class="nav-number">1.</span> <span class="nav-text">什么是OpenID,UnionID</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFAccess-token"><span class="nav-number">2.</span> <span class="nav-text">什么是Access token</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BD%91%E9%A1%B5%E6%8E%88%E6%9D%83-%E5%85%AC%E4%BC%97%E5%8F%B7"><span class="nav-number">3.</span> <span class="nav-text">网页授权(公众号)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F%E7%82%B9"><span class="nav-number">3.1.</span> <span class="nav-text">注意点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8B%89%E5%8F%96%E7%94%A8%E6%88%B7%E4%BF%A1%E6%81%AF-%E9%9C%80scope%E4%B8%BA-snsapi-userinfo"><span class="nav-number">3.2.</span> <span class="nav-text">拉取用户信息(需scope为 snsapi_userinfo)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%AC%E4%BC%97%E5%8F%B7%E4%BD%BF%E7%94%A8%E5%BE%AE%E4%BF%A1JS-SDK"><span class="nav-number">4.</span> <span class="nav-text">公众号使用微信JS-SDK</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%91%E5%AE%9A%E5%9F%9F%E5%90%8D"><span class="nav-number">4.1.</span> <span class="nav-text">绑定域名</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BC%95%E5%85%A5JS%E6%96%87%E4%BB%B6"><span class="nav-number">4.2.</span> <span class="nav-text">引入JS文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%9A%E8%BF%87config%E6%8E%A5%E5%8F%A3%E6%B3%A8%E5%85%A5%E6%9D%83%E9%99%90%E9%AA%8C%E8%AF%81%E9%85%8D%E7%BD%AE"><span class="nav-number">4.3.</span> <span class="nav-text">通过config接口注入权限验证配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%9A%E8%BF%87ready%E6%8E%A5%E5%8F%A3%E5%A4%84%E7%90%86%E6%88%90%E5%8A%9F%E9%AA%8C%E8%AF%81"><span class="nav-number">4.4.</span> <span class="nav-text">通过ready接口处理成功验证</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%9A%E8%BF%87error%E6%8E%A5%E5%8F%A3%E5%A4%84%E7%90%86%E5%A4%B1%E8%B4%A5%E9%AA%8C%E8%AF%81"><span class="nav-number">4.5.</span> <span class="nav-text">通过error接口处理失败验证</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%8F%E7%A8%8B%E5%BA%8F%E6%8E%88%E6%9D%83-%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F"><span class="nav-number">5.</span> <span class="nav-text">小程序授权(微信小程序)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C%E7%8E%AF%E5%A2%83"><span class="nav-number">5.1.</span> <span class="nav-text">运行环境</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Promise-%E6%97%B6%E5%BA%8F%E5%B7%AE%E5%BC%82"><span class="nav-number">5.1.1.</span> <span class="nav-text">Promise 时序差异</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%99%BB%E5%BD%95%E6%B5%81%E7%A8%8B"><span class="nav-number">5.2.</span> <span class="nav-text">登录流程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8E%88%E6%9D%83"><span class="nav-number">5.3.</span> <span class="nav-text">授权</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E6%89%8B%E6%9C%BA%E5%8F%B7"><span class="nav-number">5.4.</span> <span class="nav-text">获取手机号</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F%E7%82%B9-1"><span class="nav-number">6.</span> <span class="nav-text">注意点</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%9F%9F%E5%90%8D%E9%85%8D%E7%BD%AE"><span class="nav-number">6.1.</span> <span class="nav-text">服务器域名配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HTTPS-%E8%AF%81%E4%B9%A6"><span class="nav-number">6.2.</span> <span class="nav-text">HTTPS 证书</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="陈晟"
+      src="/img/touxiang.jpg">
+  <p class="site-author-name" itemprop="name">陈晟</p>
+  <div class="site-description" itemprop="description">请不要在最能吃苦的日子选择安逸</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">165</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">36</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">56</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/328921371" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;328921371" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:328921371@qq.com" title="E-Mail → mailto:328921371@qq.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.chensheng.group/2021/10/07/148-%E5%BE%AE%E4%BF%A1%E5%BC%80%E5%8F%91/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/img/touxiang.jpg">
+      <meta itemprop="name" content="陈晟">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="陈先生的小前端">
+      <meta itemprop="description" content="请不要在最能吃苦的日子选择安逸">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="微信开发学习 | 陈先生的小前端">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          微信开发学习
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-10-07 13:28:00" itemprop="dateCreated datePublished" datetime="2021-10-07T13:28:00+08:00">2021-10-07</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/javaScript/" itemprop="url" rel="index"><span itemprop="name">javaScript</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><hr style='filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)' color='#FF0000' size='1' />
+
+<blockquote>
+<p>简单的介绍一下微信开发的一些注意事项</p>
+</blockquote>
+<span id="more"></span>
+
+<p><a target="_blank" rel="noopener" href="https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/Wechat_webpage_authorization.html#1">官网地址</a></p>
+<h3 id="什么是OpenID-UnionID"><a href="#什么是OpenID-UnionID" class="headerlink" title="什么是OpenID,UnionID"></a>什么是OpenID,UnionID</h3><p>做微信开发,绕不过两个名词 OpenID,UnionID</p>
+<ul>
+<li>OpenID</li>
+</ul>
+<p>获取OpenID是我们在做微信开发必须要做的一件事情,OpenID就理解成用户的唯一标识</p>
+<ul>
+<li>UnionID</li>
+</ul>
+<p>如果需要在多公众号、移动应用之间做用户共通，则需前往微信开放平台，将这些公众号和应用绑定到一个开放平台账号下<br>绑定后，一个用户虽然对多个公众号和应用有多个不同的OpenID，但他对所有这些同一开放平台账号下的公众号和应用，<br>只有一个UnionID，可以在用户管理-获取用户基本信息（UnionID机制）</p>
+<h3 id="什么是Access-token"><a href="#什么是Access-token" class="headerlink" title="什么是Access token"></a>什么是Access token</h3><p>access_token是公众号的全局唯一接口调用凭据，公众号调用各接口时都需使用access_token。</p>
+<p>公众号和小程序均可以使用AppID和AppSecret调用本接口来获取access_token。AppID和AppSecret可在“微信公众平台-开发-基本配置”页中获得。</p>
+<p>调用接口时，请登录“微信公众平台-开发-基本配置”提前将服务器IP地址添加到IP白名单中，点击查看设置方法，否则将无法调用成功。</p>
+<h3 id="网页授权-公众号"><a href="#网页授权-公众号" class="headerlink" title="网页授权(公众号)"></a>网页授权(公众号)</h3><p>接下来看看如何授权</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">let link = window.location.href;</span><br><span class="line">let appid = &#x27;appid&#x27;;</span><br><span class="line">let uri = encodeURIComponent(link);</span><br><span class="line">let authURL = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=$&#123;appid&#125;&amp;redirect_uri=$&#123;uri&#125;&amp;response_type=code&amp;scope=snsapi_userinfo&amp;state=123#wechat_redirect`;</span><br><span class="line">window.location.href = authURL;</span><br></pre></td></tr></table></figure>
+
+<p>通过代码可以看出,公众号使用跳转的方式进行网页授权,获取到用户的code,后端通过code,获取用户的openid</p>
+<blockquote>
+<p>关于网页授权的两种scope的区别说明</p>
+</blockquote>
+<ol>
+<li><p>以snsapi_base为scope发起的网页授权，是用来获取进入页面的用户的openid的，并且是静默授权并自动跳转到回调页的。用户感知的就是直接进入了回调页（往往是业务页面）</p>
+</li>
+<li><p>以snsapi_userinfo为scope发起的网页授权，是用来获取用户的基本信息的。但这种授权需要用户手动同意，并且由于用户同意过，所以无须关注，就可在授权后获取该用户的基本信息。</p>
+</li>
+<li><p>用户管理类接口中的“获取用户基本信息接口”，是在用户和公众号产生消息交互或关注后事件推送后，才能根据用户OpenID来获取用户基本信息。这个接口，包括其他微信接口，都是需要该用户（即openid）关注了公众号后，才能调用成功的。</p>
+</li>
+</ol>
+<blockquote>
+<p>关于特殊场景下的静默授权</p>
+</blockquote>
+<p>为什么我们的项目,使用的是snsapi_userinfo,也没有弹出授权?</p>
+<ol>
+<li><p>上面已经提到，对于以snsapi_base为scope的网页授权，就静默授权的，用户无感知；</p>
+</li>
+<li><p>对于已关注公众号的用户，如果用户从公众号的会话或者自定义菜单进入本公众号的网页授权页，即使是scope为snsapi_userinfo，也是静默授权，用户无感知。</p>
+</li>
+</ol>
+<p>对于公众号授权步骤,分为四步</p>
+<ol>
+<li><p>引导用户进入授权页面同意授权，获取code</p>
+</li>
+<li><p>通过code换取网页授权access_token（与基础支持中的access_token不同）</p>
+</li>
+<li><p>如果需要，开发者可以刷新网页授权access_token，避免过期</p>
+</li>
+<li><p>通过网页授权access_token和openid获取用户基本信息（支持UnionID机制）</p>
+</li>
+</ol>
+<h4 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h4><p>这里强调一下开发中可能会遇到的问题</p>
+<ul>
+<li>回调的链接问题</li>
+</ul>
+<ol>
+<li><p>若提示“该链接无法访问”，请检查参数是否填写错误，是否拥有scope参数对应的授权作用域权限。</p>
+</li>
+<li><p>由于授权操作安全等级较高，所以在发起授权请求时，微信会对授权链接做正则强匹配校验，如果链接的参数顺序不对，授权页面将无法正常访问</p>
+</li>
+<li><p>跳转回调redirect_uri，应当使用https链接来确保授权code的安全性。</p>
+</li>
+<li><p>回调的链接不支持 hash模式,需要做特殊处理</p>
+</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">let href = &#x27;&#x27;;</span><br><span class="line">const w = location.href.indexOf(&#x27;?&#x27;);</span><br><span class="line">const j = location.href.indexOf(&#x27;#&#x27;);</span><br><span class="line"></span><br><span class="line">// 处理微信回调url, 重新获取code</span><br><span class="line">if (w !== -1 &amp;&amp; j &gt; w) &#123;</span><br><span class="line">  href = location.href.substr(0, w) + location.href.substr(j, location.href.length) + location.search.replace(/\?/, &quot;&amp;&quot;);</span><br><span class="line">  location.href = href;</span><br><span class="line">  return</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>获取access_token问题</li>
+</ul>
+<ol>
+<li><p>通过code获取access_token,微信公众号配置IP白名单,才可以进行请求</p>
+</li>
+<li><p>由于公众号的secret和获取到的access_token安全级别都非常高，必须只保存在服务器，不允许传给客户端。后续刷新access_token、通过access_token获取用户信息等步骤，也必须从服务器发起。</p>
+</li>
+</ol>
+<h4 id="拉取用户信息-需scope为-snsapi-userinfo"><a href="#拉取用户信息-需scope为-snsapi-userinfo" class="headerlink" title="拉取用户信息(需scope为 snsapi_userinfo)"></a>拉取用户信息(需scope为 snsapi_userinfo)</h4><p>如果网页授权作用域为snsapi_userinfo，则此时开发者可以通过access_token和openid拉取用户信息了。</p>
+<p>到这里,公众号完成了基本的网页授权</p>
+<h3 id="公众号使用微信JS-SDK"><a href="#公众号使用微信JS-SDK" class="headerlink" title="公众号使用微信JS-SDK"></a>公众号使用微信JS-SDK</h3><p>JSSDK使用步骤</p>
+<h4 id="绑定域名"><a href="#绑定域名" class="headerlink" title="绑定域名"></a>绑定域名</h4><p>先登录微信公众平台进入“公众号设置”的“功能设置”里填写“JS接口安全域名”。</p>
+<p>备注：登录后可在“开发者中心”查看对应的接口权限。</p>
+<h4 id="引入JS文件"><a href="#引入JS文件" class="headerlink" title="引入JS文件"></a>引入JS文件</h4><ol>
+<li><p>在需要调用JS接口的页面引入如下JS文件，（支持https）：<a target="_blank" rel="noopener" href="http://res.wx.qq.com/open/js/jweixin-1.6.0.js">http://res.wx.qq.com/open/js/jweixin-1.6.0.js</a></p>
+</li>
+<li><p>也可以直接导入npm包<br>首先安装 weixin-js-sdk, 之后引入进来 import wx from ‘weixin-js-sdk’</p>
+</li>
+<li><p>也可以使用微信浏览器自带的方法(WeixinJSBridge)</p>
+</li>
+</ol>
+<h4 id="通过config接口注入权限验证配置"><a href="#通过config接口注入权限验证配置" class="headerlink" title="通过config接口注入权限验证配置"></a>通过config接口注入权限验证配置</h4><p>所有需要使用JS-SDK的页面必须先注入配置信息，否则将无法调用</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">wx.config(&#123;</span><br><span class="line">  debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。</span><br><span class="line">  appId: &#x27;&#x27;, // 必填，公众号的唯一标识</span><br><span class="line">  timestamp: , // 必填，生成签名的时间戳</span><br><span class="line">  nonceStr: &#x27;&#x27;, // 必填，生成签名的随机串</span><br><span class="line">  signature: &#x27;&#x27;,// 必填，签名</span><br><span class="line">  jsApiList: [] // 必填，需要使用的JS接口列表</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h4 id="通过ready接口处理成功验证"><a href="#通过ready接口处理成功验证" class="headerlink" title="通过ready接口处理成功验证"></a>通过ready接口处理成功验证</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wx.ready(function()&#123;</span><br><span class="line">  // config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后，config是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在ready函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在ready函数中。</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h4 id="通过error接口处理失败验证"><a href="#通过error接口处理失败验证" class="headerlink" title="通过error接口处理失败验证"></a>通过error接口处理失败验证</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wx.error(function(res)&#123;</span><br><span class="line">  // config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>到这里,微信公众号的JS-SDK就可以正常使用了,分享功能,音频接口,指纹识别,微信支付等可以在其他的博客看到使用的详细方法,更多的可以看看官方文档</p>
+<h3 id="小程序授权-微信小程序"><a href="#小程序授权-微信小程序" class="headerlink" title="小程序授权(微信小程序)"></a>小程序授权(微信小程序)</h3><p>在说到小程序之前,先说一下它和公众号的区别</p>
+<p>网页开发者可以使用到各种浏览器暴露出来的 DOM API，进行 DOM 选中和操作.</p>
+<p>而小程序的逻辑层和渲染层是分开的，逻辑层运行在 JSCore 中，并没有一个完整浏览器对象，因而缺少相关的DOM API和BOM API。</p>
+<h4 id="运行环境"><a href="#运行环境" class="headerlink" title="运行环境"></a>运行环境</h4><p>各平台脚本执行环境以及用于渲染非原生组件的环境是各不相同的：</p>
+<p>在 iOS、iPadOS 和 Mac OS 上，小程序逻辑层的 javascript 代码运行在 JavaScriptCore 中，视图层是由 WKWebView 来渲染的，环境有 iOS 14、iPad OS 14、Mac OS 11.4 等；<br>在 Android 上，小程序逻辑层的 javascript 代码运行在 V8 中，视图层是由基于 Mobile Chrome 内核的自研 XWeb 引擎来渲染的；<br>在 Windows 上，小程序逻辑层 javascript 和视图层 javascript 都是用 Chrome 内核；<br>在 开发工具上，小程序逻辑层的 javascript 代码是运行在 NW.js 中，视图层是由 Chromium Webview 来渲染的。</p>
+<table>
+<thead>
+<tr>
+<th>运行环境</th>
+<th>逻辑层</th>
+<th>渲染层</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>iOS</td>
+<td>JavaScriptCore</td>
+<td>WKWebView</td>
+</tr>
+<tr>
+<td>安卓</td>
+<td>V8</td>
+<td>chromium定制内核</td>
+</tr>
+<tr>
+<td>小程序开发者工具</td>
+<td>NWJS</td>
+<td>Chrome WebView</td>
+</tr>
+</tbody></table>
+<p>由于视图渲染的方式不一致,还是建议开发者需要在 iOS 和 Android 上分别检查小程序的真实表现</p>
+<p>除了样式的差异,在js上也有一定的区别</p>
+<h5 id="Promise-时序差异"><a href="#Promise-时序差异" class="headerlink" title="Promise 时序差异"></a>Promise 时序差异</h5><p>由于实现原因与 iOS JavaScriptCore 限制，iOS 环境下的 Promise 是一个使用 setTimeout 模拟的 Polyfill。这意味着 Promise 触发的任务为普通任务，而非微任务，进而导致 在 iOS 下的 Promise 时序会和标准存在差异。</p>
+<blockquote>
+<p>具体的宏任务和微任务的差别,这里不细讲了,博客的其他文章中有</p>
+</blockquote>
+<h4 id="登录流程"><a href="#登录流程" class="headerlink" title="登录流程"></a>登录流程</h4><p>回归正传,看看小程序的授权流程,上图</p>
+<p><img src="https://res.wx.qq.com/wxdoc/dist/assets/img/api-login.2fcc9f35.jpg" alt="登录流程时序"></p>
+<p>微信小程序的登录比较简单,简单来说只有几步</p>
+<ol>
+<li>调用 wx.login() 获取 临时登录凭证code ，并回传到开发者服务器。</li>
+<li>调用 auth.code2Session 接口，换取 用户唯一标识 OpenID 、用户在微信开放平台帐号下的唯一标识UnionID 和 会话密钥 session_key。</li>
+</ol>
+<h4 id="授权"><a href="#授权" class="headerlink" title="授权"></a>授权</h4><p>部分接口需要经过用户授权同意才能调用。我们把这些接口按使用范围分成多个scope，用户选择对scope来进行授权，当授权给一个 scope 之后，其对应的所有接口都可以直接使用。</p>
+<table>
+<thead>
+<tr>
+<th>scope</th>
+<th>对应接口</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>scope.userInfo</td>
+<td>wx.getUserInfo</td>
+<td>用户信息</td>
+</tr>
+<tr>
+<td>scope.userLocation</td>
+<td>wx.getLocation, wx.chooseLocation</td>
+<td>地理位置</td>
+</tr>
+<tr>
+<td>scope.userLocationBackground</td>
+<td>wx.startLocationUpdateBackground</td>
+<td>后台定位</td>
+</tr>
+<tr>
+<td>scope.werun</td>
+<td>wx.getWeRunData</td>
+<td>微信运动步数</td>
+</tr>
+<tr>
+<td>scope.record</td>
+<td>wx.startRecord</td>
+<td>录音功能</td>
+</tr>
+<tr>
+<td>scope.writePhotosAlbum</td>
+<td>wx.saveImageToPhotosAlbum, wx.saveVideoToPhotosAlbum</td>
+<td>保存到相册</td>
+</tr>
+<tr>
+<td>scope.camera</td>
+<td>camera 组件</td>
+<td>保存到相册</td>
+</tr>
+</tbody></table>
+<p>此类接口调用时：</p>
+<ul>
+<li>如果用户未接受，会弹窗询问用户，用户点击同意后方可调用接口；</li>
+<li>如果用户已授权，可以直接调用接口；</li>
+<li>如果用户已拒绝授权，则不会出现弹窗，而是直接进入接口 fail 回调。请开发者兼容用户拒绝授权的场景。</li>
+</ul>
+<p>开发者可以使用 wx.getSetting 获取用户当前的授权状态。然后判断用户是否拒绝授权,弹窗二次提醒用户是否授权,开发者可以调用 wx.openSetting 打开设置界面，引导用户开启授权。</p>
+<p><a target="_blank" rel="noopener" href="https://developers.weixin.qq.com/community/develop/doc/000cea2305cc5047af5733de751008">openSetting接口调整</a><br><a target="_blank" rel="noopener" href="https://developers.weixin.qq.com/miniprogram/dev/api/open-api/user-info/wx.getUserProfile.html#%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81">getUserInfo接口调整</a><br><a target="_blank" rel="noopener" href="https://developers.weixin.qq.com/community/develop/doc/000aee91a98d206bc6dbe722b51801">getLocation接口调整</a></p>
+<blockquote>
+<p>需要注意的是, getUserProfile获取用户昵称头像等,需要用户手动触发,每次调用都会弹窗</p>
+</blockquote>
+<h4 id="获取手机号"><a href="#获取手机号" class="headerlink" title="获取手机号"></a>获取手机号</h4><p>因为需要用户主动触发才能发起获取手机号接口，所以该功能不由 API 来调用，需用 button 组件的点击来触发。</p>
+<p>需要将 button 组件 open-type 的值设置为 getPhoneNumber，当用户点击并同意之后，可以通过 bindgetphonenumber 事件回调获取到微信服务器返回的加密数据， 然后在第三方服务端结合 session_key 以及 app_id 进行解密获取手机号。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;button open-type=&quot;getPhoneNumber&quot; bindgetphonenumber=&quot;getPhoneNumber&quot;&gt;&lt;/button&gt;</span><br><span class="line"></span><br><span class="line">getPhoneNumber (e) &#123;</span><br><span class="line">  console.log(e.detail.errMsg)</span><br><span class="line">  console.log(e.detail.iv)</span><br><span class="line">  console.log(e.detail.encryptedData)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 获取到的加密数据给到后端,获取手机号</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>在回调中调用 wx.login 登录，可能会刷新登录态。此时服务器使用 code 换取的 sessionKey 不是加密时使用的 sessionKey，导致解密失败。建议开发者提前进行 login；或者在回调中先使用 checkSession 进行登录态检查，避免 login 刷新登录态。</p>
+</blockquote>
+<h3 id="注意点-1"><a href="#注意点-1" class="headerlink" title="注意点"></a>注意点</h3><p>上传图片,下载,地图等功能,需要服务器配置安全域名</p>
+<blockquote>
+<p>地图有的时候需要用到<code>https://apis.map.qq.com</code>,也要配置域名</p>
+</blockquote>
+<p>如果项目中有用到web-view组件,H5的链接需要配置业务域名,配置时校验文件需要放在域名的根目录</p>
+<h4 id="服务器域名配置"><a href="#服务器域名配置" class="headerlink" title="服务器域名配置"></a>服务器域名配置</h4><p>服务器域名请在 「小程序后台-开发-开发设置-服务器域名」 中进行配置，配置时需要注意：</p>
+<ul>
+<li>域名只支持 https (wx.request、wx.uploadFile、wx.downloadFile) 和 wss (wx.connectSocket) 协议；</li>
+<li>域名不能使用 IP 地址（小程序的局域网 IP 除外）或 localhost；</li>
+<li>域名必须经过 ICP 备案；</li>
+<li>出于安全考虑，api.weixin.qq.com 不能被配置为服务器域名，相关API也不能在小程序内调用。 开发者应将 AppSecret 保存到后台服务器中，通过服务器使用 getAccessToken 接口获取 access_token，并调用相关 API；</li>
+<li>不支持配置父域名，使用子域名。</li>
+</ul>
+<h4 id="HTTPS-证书"><a href="#HTTPS-证书" class="headerlink" title="HTTPS 证书"></a>HTTPS 证书</h4><p>小程序必须使用 HTTPS&#x2F;WSS 发起网络请求。请求时系统会对服务器域名使用的 HTTPS 证书进行校验，如果校验失败，则请求不能成功发起。由于系统限制，不同平台对于证书要求的严格程度不同。为了保证小程序的兼容性，建议开发者按照最高标准进行证书配置，并使用相关工具检查现有证书是否符合要求。</p>
+<p>对证书要求如下：</p>
+<ul>
+<li>HTTPS 证书必须有效；<ul>
+<li>证书必须被系统信任，即根证书被已系统内置</li>
+<li>部署 SSL 证书的网站域名必须与证书颁发的域名一致</li>
+<li>证书必须在有效期内</li>
+<li>证书的信任链必需完整（需要服务器配置）</li>
+</ul>
+</li>
+<li>iOS 不支持自签名证书;</li>
+<li>iOS 下证书必须满足苹果 App Transport Security (ATS) 的要求;</li>
+<li>TLS 必须支持 1.2 及以上版本。部分旧 Android 机型还未支持 TLS 1.2，请确保 HTTPS 服务器的 TLS 版本支持 1.2 及以下版本;</li>
+<li>部分 CA 可能不被操作系统信任，请开发者在选择证书时注意小程序和各系统的相关通告。<ul>
+<li>Chrome 56&#x2F;57 内核对 WoSign、StartCom 证书限制周知</li>
+</ul>
+</li>
+</ul>
+<p>(…未完待续)</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>请我一杯咖啡吧！</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/img/wechatpay.png" alt="陈晟 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/img/alipay.png" alt="陈晟 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>陈晟
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://www.chensheng.group/2021/10/07/148-%E5%BE%AE%E4%BF%A1%E5%BC%80%E5%8F%91/" title="微信开发学习">https://www.chensheng.group/2021/10/07/148-微信开发/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/javaScript/" rel="tag"><i class="fa fa-tag"></i> javaScript</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/09/03/147-%E9%98%B2%E6%8A%96%E4%B8%8E%E8%8A%82%E6%B5%81/" rel="prev" title="防抖与节流">
+                  <i class="fa fa-angle-left"></i> 防抖与节流
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/11/01/149-%E5%87%BD%E6%95%B0%E6%9F%AF%E9%87%8C%E5%8C%96/" rel="next" title="函数柯里化">
+                  函数柯里化 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">闽ICP备2022007916号-1 </a>
+  </div>
+  <div class="copyright">
+    &copy; 2016 – 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">陈晟</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">489k</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script><script src="/js/pjax.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+</html>

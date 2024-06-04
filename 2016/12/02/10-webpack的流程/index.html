@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.2.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"www.chensheng.group","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.20.0","exturl":false,"sidebar":{"position":"right","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":true,"style":"mac"},"fold":{"enable":false,"height":500},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false,"trigger":"auto"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="最近开始学习webpack打包工具，和大家分享一下webpack的具体流程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="webpack的流程">
+<meta property="og:url" content="https://www.chensheng.group/2016/12/02/10-webpack%E7%9A%84%E6%B5%81%E7%A8%8B/index.html">
+<meta property="og:site_name" content="陈先生的小前端">
+<meta property="og:description" content="最近开始学习webpack打包工具，和大家分享一下webpack的具体流程">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2016-12-02T14:23:44.000Z">
+<meta property="article:modified_time" content="2024-06-02T16:07:19.372Z">
+<meta property="article:author" content="陈晟">
+<meta property="article:tag" content="webpack">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://www.chensheng.group/2016/12/02/10-webpack%E7%9A%84%E6%B5%81%E7%A8%8B/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://www.chensheng.group/2016/12/02/10-webpack%E7%9A%84%E6%B5%81%E7%A8%8B/","path":"2016/12/02/10-webpack的流程/","title":"webpack的流程"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>webpack的流程 | 陈先生的小前端</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="陈先生的小前端" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">陈先生的小前端</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-house-chimney fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-list fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Webpack%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-number">1.</span> <span class="nav-text">Webpack是什么?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%B9%E4%BA%8E%E6%A8%A1%E5%9D%97%E7%9A%84%E7%BB%84%E7%BB%87-%E9%80%9A%E5%B8%B8%E6%9C%89%E4%BB%A5%E4%B8%8B%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">对于模块的组织,通常有以下几种方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Webpack%E7%9A%84%E7%89%B9%E7%82%B9%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-number">3.</span> <span class="nav-text">Webpack的特点是什么?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Webpack%E7%9A%84%E5%AE%89%E8%A3%85"><span class="nav-number">4.</span> <span class="nav-text">Webpack的安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%93%E9%AA%8C"><span class="nav-number">5.</span> <span class="nav-text">体验</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%94%9F%E6%88%90-js-%E5%91%BD%E4%BB%A4-%E5%B0%86%E5%93%AA%E4%B8%AAjs%E6%89%93%E5%8C%85%E6%88%90%E5%93%AA%E4%B8%AAjs"><span class="nav-number">5.1.</span> <span class="nav-text">生成 js 命令(将哪个js打包成哪个js)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B0%86css-%E6%89%93%E5%8C%85-%E6%88%90-js%E2%80%93%E9%9C%80%E8%A6%81%E5%AE%89%E8%A3%85-%E5%8A%A0%E8%BD%BD%E5%99%A8-css%E5%8A%A0%E8%BD%BD%E5%99%A8-%E4%B8%8E-style%E5%8A%A0%E8%BD%BD%E5%99%A8"><span class="nav-number">5.2.</span> <span class="nav-text">将css 打包 成 js–需要安装 加载器(css加载器 与 style加载器)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE"><span class="nav-number">6.</span> <span class="nav-text">配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9B%B8%E5%85%B3%E9%85%8D%E7%BD%AE"><span class="nav-number">7.</span> <span class="nav-text">服务器相关配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ES6-%E8%BD%AC%E5%8C%96-ES5"><span class="nav-number">8.</span> <span class="nav-text">ES6 转化 ES5</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E4%B8%AA%E6%96%87%E4%BB%B6%E5%A4%B9%EF%BC%8C%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%80%E4%B8%8B%EF%BC%8C%E9%A6%96%E5%85%88%E5%85%A8%E5%B1%80%E5%AE%89%E8%A3%85webpack"><span class="nav-number">8.1.</span> <span class="nav-text">创建个文件夹，初始化一下，首先全局安装webpack</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%89%E8%A3%85babel"><span class="nav-number">8.2.</span> <span class="nav-text">安装babel</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E6%96%87%E4%BB%B6app-js%EF%BC%8C%E9%87%8C%E9%9D%A2%E5%86%99%E5%85%A5%E7%8E%B0%E5%9C%A8%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%8D%E5%85%A8%E6%94%AF%E6%8C%81%E7%9A%84es6%E4%BB%A3%E7%A0%81"><span class="nav-number">8.3.</span> <span class="nav-text">创建一个文件app.js，里面写入现在浏览器不全支持的es6代码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%9B%E5%BB%BAwebpack%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-number">8.4.</span> <span class="nav-text">创建webpack配置文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C-webpack"><span class="nav-number">8.5.</span> <span class="nav-text">运行 webpack</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="陈晟"
+      src="/img/touxiang.jpg">
+  <p class="site-author-name" itemprop="name">陈晟</p>
+  <div class="site-description" itemprop="description">请不要在最能吃苦的日子选择安逸</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">165</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">36</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">56</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/328921371" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;328921371" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:328921371@qq.com" title="E-Mail → mailto:328921371@qq.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.chensheng.group/2016/12/02/10-webpack%E7%9A%84%E6%B5%81%E7%A8%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/img/touxiang.jpg">
+      <meta itemprop="name" content="陈晟">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="陈先生的小前端">
+      <meta itemprop="description" content="请不要在最能吃苦的日子选择安逸">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="webpack的流程 | 陈先生的小前端">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          webpack的流程
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2016-12-02 22:23:44" itemprop="dateCreated datePublished" datetime="2016-12-02T22:23:44+08:00">2016-12-02</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/webpack/" itemprop="url" rel="index"><span itemprop="name">webpack</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><hr style='filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)' color='#FF0000' size='1' />
+
+<blockquote>
+<p>最近开始学习webpack打包工具，和大家分享一下webpack的具体流程</p>
+</blockquote>
+<span id="more"></span>
+
+
+<h3 id="Webpack是什么"><a href="#Webpack是什么" class="headerlink" title="Webpack是什么?"></a>Webpack是什么?</h3><ol>
+<li><p>一个打包工具: 将所有的资源都打包成一个js文件</p>
+</li>
+<li><p>一个模块加载工具</p>
+</li>
+<li><p>将各种资源都可以当做模块来处理</p>
+</li>
+</ol>
+<h3 id="对于模块的组织-通常有以下几种方法"><a href="#对于模块的组织-通常有以下几种方法" class="headerlink" title="对于模块的组织,通常有以下几种方法"></a>对于模块的组织,通常有以下几种方法</h3><ol>
+<li><p>通过书写在不同文件中,使用 script 标签进行加载</p>
+</li>
+<li><p>通过CommonJS文件加载,如: nodeJS 就使用这种方式</p>
+</li>
+<li><p>AMD 进行加载, require.js 使用的就是这种方式</p>
+</li>
+<li><p>ES6模块 通过import export</p>
+</li>
+</ol>
+<h3 id="Webpack的特点是什么"><a href="#Webpack的特点是什么" class="headerlink" title="Webpack的特点是什么?"></a>Webpack的特点是什么?</h3><ol>
+<li><p>Webpack 是 以 CommonJS 的形式来进行编写脚本的,但是对 AMD &#x2F; CMD 的支持也很全面的,方便<br>旧项目进行代码迁移</p>
+</li>
+<li><p>能被模块化的不仅仅是JS了</p>
+</li>
+<li><p>开发便捷,能够替代部分grunt&#x2F;gulp 的工作, 比如 打包,压缩,混淆,图片转base64 等</p>
+</li>
+<li><p>扩展性强,插件机制完善</p>
+</li>
+</ol>
+<blockquote>
+<p>名词解释:	<br>AMD 即异步模块加载机制,完整描述了模块的定义，依赖关系，引用关系以及加载机制<br>作为一个规范，只需定义其语法API，而不关心其实现。AMD规范简单到只有一个API，即define函数</p>
+</blockquote>
+<blockquote>
+<p>CMD 命令行(Command Processor) 一般指命令提示符,命令提示符是在操作系统中，提示进行命令输入的一种工作提示符。</p>
+</blockquote>
+<blockquote>
+<p>CommonJS 是一种规范，NodeJS是这种规范的实现。CommonJS API定义很多普通应用程序（主要指非浏览器的应用）使用的API<br>在兼容CommonJS的系统中，你可以实用JavaScript程序开发：</p>
+</blockquote>
+<h3 id="Webpack的安装"><a href="#Webpack的安装" class="headerlink" title="Webpack的安装"></a>Webpack的安装</h3><p>全局安装一个webpack</p>
+<pre><code>    npm install -g webpack
+</code></pre>
+<h3 id="体验"><a href="#体验" class="headerlink" title="体验"></a>体验</h3><h4 id="生成-js-命令-将哪个js打包成哪个js"><a href="#生成-js-命令-将哪个js打包成哪个js" class="headerlink" title="生成 js 命令(将哪个js打包成哪个js)"></a>生成 js 命令(将哪个js打包成哪个js)</h4><blockquote>
+<p>webpack .&#x2F;entry.js bundle.js</p>
+</blockquote>
+<h4 id="将css-打包-成-js–需要安装-加载器-css加载器-与-style加载器"><a href="#将css-打包-成-js–需要安装-加载器-css加载器-与-style加载器" class="headerlink" title="将css 打包 成 js–需要安装 加载器(css加载器 与 style加载器)"></a>将css 打包 成 js–需要安装 加载器(css加载器 与 style加载器)</h4><p>并安装插件<br>npm install css-loader<br>npm install style-loader </p>
+<pre><code>    注意: 这里需要在入口文件导入css , require(&#39;style-loader!css-loader!./style.css&#39;);
+    
+</code></pre>
+<p>同样执行 webpack .&#x2F;entry.js bundle.js</p>
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><ol>
+<li><p>配置文件名为: webpack.config.js 默认会找这个文件</p>
+</li>
+<li><p>打包命令 webpack</p>
+</li>
+</ol>
+<blockquote>
+<p>附上基本的 webpack.config.js 配置</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">    <span class="attr">entry</span>: <span class="string">&#x27;./entry.js&#x27;</span>,	<span class="comment">//	配置入口文件 (入口文件中可以导入其他js或css文件)(var content = require(&#x27;./content.js&#x27;) 和 require(&#x27;./style.css&#x27;);)</span></span><br><span class="line"></span><br><span class="line">    <span class="attr">output</span>: &#123;	<span class="comment">//	配置保存的路径</span></span><br><span class="line">        </span><br><span class="line">        <span class="attr">path</span>: __dirname,	<span class="comment">// 文件路径,__dirname 代表当前目录,当前文件所在的路径</span></span><br><span class="line">        </span><br><span class="line">        <span class="attr">filename</span>: <span class="string">&#x27;bundle.js&#x27;</span>	<span class="comment">// 打包后的文件名</span></span><br><span class="line">    &#125;,</span><br><span class="line">    </span><br><span class="line">    <span class="attr">module</span>: &#123;	<span class="comment">//模块部分</span></span><br><span class="line">    	</span><br><span class="line">        <span class="attr">loaders</span>: [	<span class="comment">// 加载器 可以配置多个</span></span><br><span class="line">            &#123;</span><br><span class="line">            	</span><br><span class="line">                <span class="attr">test</span>: <span class="regexp">/\.css$/</span>,	<span class="comment">//匹配以 .css 结尾的文件</span></span><br><span class="line">                </span><br><span class="line">                <span class="attr">loaders</span>: <span class="string">&#x27;style-loader!css-loader&#x27;</span>	<span class="comment">//指定加载的</span></span><br><span class="line">            &#125;</span><br><span class="line">        ]</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">// 配置web-dev-server</span></span><br><span class="line">		<span class="comment">// 第一种：iframe模式 顶部带一个黑条</span></span><br><span class="line">			<span class="comment">// 第二种：inline模块  不带黑条 true</span></span><br><span class="line">    <span class="attr">devServer</span>: &#123;</span><br><span class="line">	    <span class="attr">inline</span>: <span class="literal">false</span> </span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="服务器相关配置"><a href="#服务器相关配置" class="headerlink" title="服务器相关配置"></a>服务器相关配置</h3><blockquote>
+<p>作用:  当文件发送变化时,会自动执行重新生成文件</p>
+</blockquote>
+<p>全局安装:<br>npm install webpack-dev-server -g</p>
+<p>本地安装<br>npm install webpack-dev-server</p>
+<p>服务器运行(会生成 127.0.0.1:8080– 打开就可以看到了)<br>webpack-dev-server</p>
+<h3 id="ES6-转化-ES5"><a href="#ES6-转化-ES5" class="headerlink" title="ES6 转化 ES5"></a>ES6 转化 ES5</h3><h4 id="创建个文件夹，初始化一下，首先全局安装webpack"><a href="#创建个文件夹，初始化一下，首先全局安装webpack" class="headerlink" title="创建个文件夹，初始化一下，首先全局安装webpack"></a>创建个文件夹，初始化一下，首先全局安装webpack</h4><h4 id="安装babel"><a href="#安装babel" class="headerlink" title="安装babel"></a>安装babel</h4><pre><code>    npm install --save-dev babel-core babel-preset-es2015  
+    npm install --save-dev babel-loader  
+    
+</code></pre>
+<h4 id="创建一个文件app-js，里面写入现在浏览器不全支持的es6代码"><a href="#创建一个文件app-js，里面写入现在浏览器不全支持的es6代码" class="headerlink" title="创建一个文件app.js，里面写入现在浏览器不全支持的es6代码"></a>创建一个文件app.js，里面写入现在浏览器不全支持的es6代码</h4><pre><code>    let a = 111;  
+    let b = 222;  
+    var xxx = (c,d) =&gt; c*d;  
+    console.log(xxx(a,b));  
+</code></pre>
+<h4 id="创建webpack配置文件"><a href="#创建webpack配置文件" class="headerlink" title="创建webpack配置文件"></a>创建webpack配置文件</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">    <span class="attr">entry</span>: <span class="string">&#x27;./app.js&#x27;</span>,</span><br><span class="line">    <span class="attr">output</span>: &#123;</span><br><span class="line">        <span class="attr">path</span>: __dirname,</span><br><span class="line">        <span class="attr">filename</span>: <span class="string">&#x27;bundle.js&#x27;</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">module</span>: &#123;  </span><br><span class="line">        <span class="attr">loaders</span>: [&#123;  </span><br><span class="line">            <span class="attr">test</span>: <span class="regexp">/\.js$/</span>,  </span><br><span class="line">            <span class="attr">exclude</span>: <span class="regexp">/node_modules/</span>,  </span><br><span class="line">            <span class="attr">loader</span>: <span class="string">&#x27;babel-loader&#x27;</span> ,</span><br><span class="line">            <span class="attr">query</span>: &#123;</span><br><span class="line">                <span class="attr">presets</span>: [<span class="string">&#x27;es2015&#x27;</span>]</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;]  </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>entry和output都是通用的配置，与ES6无关，这里不展开。<br>重点在loaders配置，loader和query一定要配置test配置指定了哪些是ES6代码,<br>可以指定一个文件夹,则所有源代码一定要放在该文件夹下,<br>或者用一个 正则表达式指定哪些是ES6代码。只有ES6代码，才会编译。</p>
+</blockquote>
+<h4 id="运行-webpack"><a href="#运行-webpack" class="headerlink" title="运行 webpack"></a>运行 webpack</h4><p>出现下面这些指令则运行成功</p>
+<pre><code>    function(module, exports) &#123;  
+      
+    &quot;use strict&quot;;  
+      
+    var a = 111;  
+    var b = 222;  
+    var xxx = function xxx(c, d) &#123;  
+      return c * d;  
+    &#125;;  
+    console.log(xxx(a, b));  
+</code></pre>
+<p>以上是webpack的基本流程，如果有不对的地方，欢迎提出，谢谢</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>请我一杯咖啡吧！</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/img/wechatpay.png" alt="陈晟 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/img/alipay.png" alt="陈晟 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>陈晟
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://www.chensheng.group/2016/12/02/10-webpack%E7%9A%84%E6%B5%81%E7%A8%8B/" title="webpack的流程">https://www.chensheng.group/2016/12/02/10-webpack的流程/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/webpack/" rel="tag"><i class="fa fa-tag"></i> webpack</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2016/11/15/09-express%E8%AF%B7%E6%B1%82%E5%A4%84%E7%90%86%E7%AE%A1%E7%BA%BF/" rel="prev" title="express请求处理管线">
+                  <i class="fa fa-angle-left"></i> express请求处理管线
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2016/12/10/11-MongoDB%E6%80%BB%E7%BB%93/" rel="next" title="MongoDB 的安装与使用">
+                  MongoDB 的安装与使用 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">闽ICP备2022007916号-1 </a>
+  </div>
+  <div class="copyright">
+    &copy; 2016 – 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">陈晟</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">489k</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script><script src="/js/pjax.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+</html>

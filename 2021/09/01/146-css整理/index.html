@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.2.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"www.chensheng.group","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.20.0","exturl":false,"sidebar":{"position":"right","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":true,"style":"mac"},"fold":{"enable":false,"height":500},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false,"trigger":"auto"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="整理了一下常见的css的问题">
+<meta property="og:type" content="article">
+<meta property="og:title" content="css高频考题">
+<meta property="og:url" content="https://www.chensheng.group/2021/09/01/146-css%E6%95%B4%E7%90%86/index.html">
+<meta property="og:site_name" content="陈先生的小前端">
+<meta property="og:description" content="整理了一下常见的css的问题">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-09-01T06:42:00.000Z">
+<meta property="article:modified_time" content="2024-06-02T16:07:19.377Z">
+<meta property="article:author" content="陈晟">
+<meta property="article:tag" content="面试">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://www.chensheng.group/2021/09/01/146-css%E6%95%B4%E7%90%86/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://www.chensheng.group/2021/09/01/146-css%E6%95%B4%E7%90%86/","path":"2021/09/01/146-css整理/","title":"css高频考题"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>css高频考题 | 陈先生的小前端</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="陈先生的小前端" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">陈先生的小前端</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-house-chimney fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-list fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%8B%E7%BB%8D%E4%B8%80%E4%B8%8B%E6%A0%87%E5%87%86%E7%9A%84-CSS-%E7%9A%84%E7%9B%92%E5%AD%90%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.</span> <span class="nav-text">介绍一下标准的 CSS 的盒子模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CSS-%E9%80%89%E6%8B%A9%E7%AC%A6%E6%9C%89%E5%93%AA%E4%BA%9B"><span class="nav-number">2.</span> <span class="nav-text">CSS 选择符有哪些?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CSS-%E4%B8%AD%E5%93%AA%E4%BA%9B%E5%B1%9E%E6%80%A7%E5%8F%AF%E4%BB%A5%E7%BB%A7%E6%89%BF"><span class="nav-number">3.</span> <span class="nav-text">CSS 中哪些属性可以继承</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CSS3-%E6%96%B0%E5%A2%9E%E4%BC%AA%E7%B1%BB%E6%9C%89%E9%82%A3%E4%BA%9B"><span class="nav-number">4.</span> <span class="nav-text">CSS3 新增伪类有那些?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CSS3-%E6%9C%89%E5%93%AA%E4%BA%9B%E6%96%B0%E7%89%B9%E6%80%A7%EF%BC%9F"><span class="nav-number">5.</span> <span class="nav-text">CSS3 有哪些新特性？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E9%87%8A%E4%B8%80%E4%B8%8B-CSS3-%E7%9A%84-Flexbox%EF%BC%88%E5%BC%B9%E6%80%A7%E7%9B%92%E5%B8%83%E5%B1%80%E6%A8%A1%E5%9E%8B%EF%BC%89"><span class="nav-number">6.</span> <span class="nav-text">解释一下 CSS3 的 Flexbox（弹性盒布局模型）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#width-auto-%E5%92%8C-width-100-%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">7.</span> <span class="nav-text">width:auto 和 width:100%的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BFC%E8%A7%84%E8%8C%83%E7%9A%84%E7%90%86%E8%A7%A3-css%E4%B8%AD%E5%B8%B8%E8%A7%81%E7%9A%84%E5%85%BC%E5%AE%B9%E6%80%A7%E9%97%AE%E9%A2%98-margin-%E9%87%8D%E5%8F%A0%E9%97%AE%E9%A2%98%E7%9A%84%E7%90%86%E8%A7%A3-%E6%80%8E%E4%B9%88%E8%AE%A9-Chrome-%E6%94%AF%E6%8C%81%E5%B0%8F%E4%BA%8E-12px-%E7%9A%84%E6%96%87%E5%AD%97"><span class="nav-number">8.</span> <span class="nav-text">BFC规范的理解?css中常见的兼容性问题?margin 重叠问题的理解?怎么让 Chrome 支持小于 12px 的文字?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CSS-%E4%BC%98%E5%8C%96%E3%80%81%E6%8F%90%E9%AB%98%E6%80%A7%E8%83%BD%E7%9A%84%E6%96%B9%E6%B3%95%E6%9C%89%E5%93%AA%E4%BA%9B"><span class="nav-number">9.</span> <span class="nav-text">CSS 优化、提高性能的方法有哪些?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8%E7%BD%91%E9%A1%B5%E4%B8%AD%E5%BA%94%E8%AF%A5%E4%BD%BF%E7%94%A8%E5%A5%87%E6%95%B0%E8%BF%98%E6%98%AF%E5%81%B6%E6%95%B0%E7%9A%84%E5%AD%97%E4%BD%93%EF%BC%9F%E4%B8%BA%E4%BB%80%E4%B9%88%E5%91%A2%EF%BC%9F"><span class="nav-number">10.</span> <span class="nav-text">在网页中应该使用奇数还是偶数的字体？为什么呢？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E4%BF%AE%E6%94%B9-chrome-%E8%AE%B0%E4%BD%8F%E5%AF%86%E7%A0%81%E5%90%8E%E8%87%AA%E5%8A%A8%E5%A1%AB%E5%85%85%E8%A1%A8%E5%8D%95%E7%9A%84%E9%BB%84%E8%89%B2%E8%83%8C%E6%99%AF%EF%BC%9F"><span class="nav-number">11.</span> <span class="nav-text">如何修改 chrome 记住密码后自动填充表单的黄色背景？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%A9%E9%A1%B5%E9%9D%A2%E9%87%8C%E7%9A%84%E5%AD%97%E4%BD%93%E5%8F%98%E6%B8%85%E6%99%B0%EF%BC%8C%E5%8F%98%E7%BB%86%E7%94%A8-CSS-%E6%80%8E%E4%B9%88%E5%81%9A%EF%BC%9F"><span class="nav-number">12.</span> <span class="nav-text">让页面里的字体变清晰，变细用 CSS 怎么做？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-rem-%E5%B8%83%E5%B1%80%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9"><span class="nav-number">13.</span> <span class="nav-text">使用 rem 布局的优缺点</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="陈晟"
+      src="/img/touxiang.jpg">
+  <p class="site-author-name" itemprop="name">陈晟</p>
+  <div class="site-description" itemprop="description">请不要在最能吃苦的日子选择安逸</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">165</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">36</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">56</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/328921371" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;328921371" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:328921371@qq.com" title="E-Mail → mailto:328921371@qq.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.chensheng.group/2021/09/01/146-css%E6%95%B4%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/img/touxiang.jpg">
+      <meta itemprop="name" content="陈晟">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="陈先生的小前端">
+      <meta itemprop="description" content="请不要在最能吃苦的日子选择安逸">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="css高频考题 | 陈先生的小前端">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          css高频考题
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-09-01 14:42:00" itemprop="dateCreated datePublished" datetime="2021-09-01T14:42:00+08:00">2021-09-01</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E9%9D%A2%E8%AF%95/" itemprop="url" rel="index"><span itemprop="name">面试</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><hr style='filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)' color='#FF0000' size='1' />
+
+<blockquote>
+<p>整理了一下常见的css的问题</p>
+</blockquote>
+<span id="more"></span>
+
+<h3 id="介绍一下标准的-CSS-的盒子模型"><a href="#介绍一下标准的-CSS-的盒子模型" class="headerlink" title="介绍一下标准的 CSS 的盒子模型"></a>介绍一下标准的 CSS 的盒子模型</h3><ul>
+<li>有两种盒子模型：IE 盒模型（border-box）、W3C 标准盒模型（content-box）</li>
+<li>盒模型：分为内容（content）、填充（padding）、边界（margin）、边框（border）四个部分</li>
+</ul>
+<p>IE 盒模型和 W3C 标准盒模型的区别：</p>
+<ul>
+<li>W3C 标准盒模型：属性 width，height 只包含内容 content，不包含 border 和 padding</li>
+<li>IE 盒模型：属性 width，height 包含 content、border 和 padding，指的是 content + padding + border。</li>
+</ul>
+<blockquote>
+<p>如果将 box-sizing 设为 border-box 则用的是 IE 盒模型。</p>
+</blockquote>
+<h3 id="CSS-选择符有哪些"><a href="#CSS-选择符有哪些" class="headerlink" title="CSS 选择符有哪些?"></a>CSS 选择符有哪些?</h3><ol>
+<li>id 选择器（#myid）</li>
+<li>类选择器（.myclassname）</li>
+<li>标签选择器（div,h1,p）</li>
+<li>后代选择器（h1 p）</li>
+<li>相邻后代选择器（子）选择器（ul&gt;li）</li>
+<li>兄弟选择器（li~a）</li>
+<li>相邻兄弟选择器（li+a）</li>
+<li>属性选择器（a[rel&#x3D;”external”]）</li>
+<li>伪类选择器（a:hover,li:nth-child）</li>
+<li>伪元素选择器（::before、::after）</li>
+<li>通配符选择器（*）</li>
+</ol>
+<h3 id="CSS-中哪些属性可以继承"><a href="#CSS-中哪些属性可以继承" class="headerlink" title="CSS 中哪些属性可以继承"></a>CSS 中哪些属性可以继承</h3><ul>
+<li><p>字体系列属性<br>font、font-family、font-weight、font-size、font-style、font-variant、font-stretch、font-size-adjust</p>
+</li>
+<li><p>文本系列属性<br>text-indent、text-align、text-shadow、line-height、word-spacing、letter-spacing、text-transform、direction、color</p>
+</li>
+<li><p>表格布局属性<br>caption-sideborder-collapseempty-cells</p>
+</li>
+<li><p>列表属性<br>list-style-type、list-style-image、list-style-position、list-style</p>
+</li>
+<li><p>光标属性<br>cursor</p>
+</li>
+<li><p>元素可见性<br>visibility</p>
+</li>
+</ul>
+<h3 id="CSS3-新增伪类有那些"><a href="#CSS3-新增伪类有那些" class="headerlink" title="CSS3 新增伪类有那些?"></a>CSS3 新增伪类有那些?</h3><ul>
+<li>elem:nth-child(n)选中父元素下的第 n 个子元素，并且这个子元素的标签名为 elem，n可以接受具体的数值，也可以接受函数。</li>
+<li>elem:nth-last-child(n)作用同上，不过是从后开始查找。</li>
+<li>elem:last-child 选中最后一个子元素。</li>
+<li>elem:only-child 如果 elem 是父元素下唯一的子元素，则选中之。</li>
+<li>elem:nth-of-type(n)选中父元素下第 n 个 elem 类型元素，n 可以接受具体的数值，也可以接受函数。</li>
+<li>elem:first-of-type 选中父元素下第一个 elem 类型元素。</li>
+<li>elem:last-of-type 选中父元素下最后一个 elem 类型元素。</li>
+<li>elem:only-of-type 如果父元素下的子元素只有一个 elem 类型元素，则选中该元素。</li>
+<li>elem:empty 选中不包含子元素和内容的 elem 类型元素。</li>
+<li>elem:target 选择当前活动的 elem 元素。</li>
+<li>:not(elem)选择非 elem 元素的每个元素。</li>
+<li>:enabled 控制表单控件的禁用状态。</li>
+<li>:disabled 控制表单控件的禁用状态。</li>
+<li>:checked 单选框或复选框被选中。</li>
+</ul>
+<h3 id="CSS3-有哪些新特性？"><a href="#CSS3-有哪些新特性？" class="headerlink" title="CSS3 有哪些新特性？"></a>CSS3 有哪些新特性？</h3><ul>
+<li>圆角 （border-radius:8px）</li>
+<li>多列布局 （multi-column layout）</li>
+<li>阴影和反射 （Shadow\Reflect）</li>
+<li>文字特效 （text-shadow）</li>
+<li>文字渲染 （Text-decoration）</li>
+<li>线性渐变 （gradient）</li>
+<li>过渡 （transform）缩放，定位，倾斜，动画，多背景</li>
+</ul>
+<h3 id="解释一下-CSS3-的-Flexbox（弹性盒布局模型）"><a href="#解释一下-CSS3-的-Flexbox（弹性盒布局模型）" class="headerlink" title="解释一下 CSS3 的 Flexbox（弹性盒布局模型）"></a>解释一下 CSS3 的 Flexbox（弹性盒布局模型）</h3><p><a href="https://www.chensheng.group/2018/08/08/62-%E5%BC%B9%E6%80%A7%E5%B8%83%E5%B1%80%E6%B7%B1%E5%85%A5/">弹性布局深入</a></p>
+<h3 id="width-auto-和-width-100-的区别"><a href="#width-auto-和-width-100-的区别" class="headerlink" title="width:auto 和 width:100%的区别"></a>width:auto 和 width:100%的区别</h3><ul>
+<li><p>width:100%会使元素 box 的宽度等于父元素的 contentbox 的宽度。</p>
+</li>
+<li><p>width:auto 会使元素撑满整个父元素，margin、border、padding、content 区域会自动分配水平空间。</p>
+</li>
+</ul>
+<h3 id="BFC规范的理解-css中常见的兼容性问题-margin-重叠问题的理解-怎么让-Chrome-支持小于-12px-的文字"><a href="#BFC规范的理解-css中常见的兼容性问题-margin-重叠问题的理解-怎么让-Chrome-支持小于-12px-的文字" class="headerlink" title="BFC规范的理解?css中常见的兼容性问题?margin 重叠问题的理解?怎么让 Chrome 支持小于 12px 的文字?"></a>BFC规范的理解?css中常见的兼容性问题?margin 重叠问题的理解?怎么让 Chrome 支持小于 12px 的文字?</h3><p><a href="https://www.chensheng.group/2018/02/24/55-%E5%85%B3%E4%BA%8ECSS%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BA%8B/">那些你不知道的CSS</a></p>
+<h3 id="CSS-优化、提高性能的方法有哪些"><a href="#CSS-优化、提高性能的方法有哪些" class="headerlink" title="CSS 优化、提高性能的方法有哪些?"></a>CSS 优化、提高性能的方法有哪些?</h3><p>加载性能：</p>
+<ol>
+<li>css 压缩：将写好的 css 进行打包压缩，可以减少很多的体积。</li>
+<li>css 单一样式：当需要下边距和左边距的时候，很多时候选择:margin:top 0 bottom 0;但margin-bottom:bottom;margin-left:left;执行的效率更高。</li>
+<li>减少使用@import,而建议使用 link，因为后者在页面加载时一起加载，前者是等待页面加载完成之后再进行加载。</li>
+</ol>
+<p>选择器性能：</p>
+<ol>
+<li>关键选择器（keyselector）。选择器的最后面的部分为关键选择器（即用来匹配目标元素的部分）。CSS 选择符是从右到左进行匹配的。当使用后代选择器的时候，浏览器会遍历所有子元素来确定是否是指定的元素等等；</li>
+<li>如果规则拥有 ID 选择器作为其关键选择器，则不要为规则增加标签。过滤掉无关的规则（这样样式系统就不会浪费时间去匹配它们了）。</li>
+<li>避免使用通配规则，如*{}计算次数惊人！只对需要用到的元素进行选择。</li>
+<li>尽量少的去对标签进行选择，而是用 class。</li>
+<li>尽量少的去使用后代选择器，降低选择器的权重值。后代选择器的开销是最高的，尽量将选择器的深度降到最低，最高不要超过三层，更多的使用类来关联每一个标签元素。</li>
+<li>了解哪些属性是可以通过继承而来的，然后避免对这些属性重复指定规则。</li>
+</ol>
+<p>渲染性能：</p>
+<ol>
+<li>慎重使用高性能属性：浮动、定位。</li>
+<li>尽量减少页面重排、重绘。</li>
+<li>去除空规则：｛｝。空规则的产生原因一般来说是为了预留样式。去除这些空规则无疑能减少 css 文档体积。</li>
+<li>属性值为 0 时，不加单位。</li>
+<li>属性值为浮动小数 0.**，可以省略小数点之前的 0。</li>
+<li>标准化各种浏览器前缀：带浏览器前缀的在前。标准属性在后。</li>
+<li>不使用@import 前缀，它会影响 css 的加载速度。</li>
+<li>选择器优化嵌套，尽量避免层级过深。</li>
+<li>css 雪碧图，同一页面相近部分的小图标，方便使用，减少页面的请求次数，但是同时图片本身会变大，使用时，优劣考虑清楚，再使用。</li>
+<li>正确使用 display 的属性，由于 display 的作用，某些样式组合会无效，徒增样式体积的同时也影响解析性能。</li>
+<li>不滥用 web 字体。对于中文网站来说 WebFonts 可能很陌生，国外却很流行。webfonts通常体积庞大，而且一些浏览器在下载 webfonts 时会阻塞页面渲染损伤性能。</li>
+</ol>
+<p>可维护性、健壮性：</p>
+<ol>
+<li>将具有相同属性的样式抽离出来，整合并通过 class 在页面中进行使用，提高 css 的可维护性。</li>
+<li>样式与内容分离：将 css 代码定义到外部 css 中。</li>
+</ol>
+<blockquote>
+<p>上面的选择器性能的第一条,为什么CSS 选择符是从右到左进行匹配的 试想一下，如果采用从左至右的方式读取 CSS 规则，那么大多数规则读到最后（最右）才会发现是不匹配的，这样做会费时耗能，最后有很多都是无用的；而如果采取从右向左的方式，那么只要发现最右边选择器不匹配，就可以直接舍弃了，避免了许多无效匹配</p>
+</blockquote>
+<h3 id="在网页中应该使用奇数还是偶数的字体？为什么呢？"><a href="#在网页中应该使用奇数还是偶数的字体？为什么呢？" class="headerlink" title="在网页中应该使用奇数还是偶数的字体？为什么呢？"></a>在网页中应该使用奇数还是偶数的字体？为什么呢？</h3><ol>
+<li>偶数字号相对更容易和 web 设计的其他部分构成比例关系。比如：当我用了 14px 的正文字号，我可能会在一些地方用 14×0.5&#x3D;7px 的 margin，在另一些地方用 14×1.5&#x3D;21px 的标题字号。</li>
+<li>浏览器缘故，低版本的浏览器 ie6 会把奇数字体强制转化为偶数，即 13px 渲染为 14px。</li>
+<li>系统差别，早期的 Windows 里，中易宋体点阵只有 12 和 14、15、16px，唯独缺少 13px。</li>
+</ol>
+<h3 id="如何修改-chrome-记住密码后自动填充表单的黄色背景？"><a href="#如何修改-chrome-记住密码后自动填充表单的黄色背景？" class="headerlink" title="如何修改 chrome 记住密码后自动填充表单的黄色背景？"></a>如何修改 chrome 记住密码后自动填充表单的黄色背景？</h3><p>chrome 表单自动填充后，input 文本框的背景会变成黄色的，通过审查元素可以看到这是由于 chrome 会默认给自动填充的 input 表单加上 input:-webkit-autofill 私有属性，然后对其赋予以下样式：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  background-color:rgb(250,255,189)!important;</span><br><span class="line">  background-image:none!important;</span><br><span class="line">  color:rgb(0,0,0)!important;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>对 chrome 默认定义的 background-color，background-image，color 使用 important 是不能提高其优先级的，但是其他属性可使用</p>
+<p>使用足够大的纯色内阴影来覆盖 input 输入框的黄色背景，处理如下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">input:-webkit-autofill,textarea:-webkit-autofill,select:-webkit-autofill&#123;</span><br><span class="line">  -webkit-box-shadow: 000px 1000px white inset;</span><br><span class="line">  border: 1px solid #CCC !important;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="让页面里的字体变清晰，变细用-CSS-怎么做？"><a href="#让页面里的字体变清晰，变细用-CSS-怎么做？" class="headerlink" title="让页面里的字体变清晰，变细用 CSS 怎么做？"></a>让页面里的字体变清晰，变细用 CSS 怎么做？</h3><p>webkit 内核的私有属性：-webkit-font-smoothing，用于字体抗锯齿，使用后字体看起来会更清晰舒服。</p>
+<p>在 MacOS 测试环境下面设置-webkit-font-smoothing:antialiased;但是这个属性仅仅是面向MacOS，其他操作系统设</p>
+<h3 id="使用-rem-布局的优缺点"><a href="#使用-rem-布局的优缺点" class="headerlink" title="使用 rem 布局的优缺点"></a>使用 rem 布局的优缺点</h3><p>优点：<br>在屏幕分辨率千差万别的时代，只要将 rem 与屏幕分辨率关联起来就可以实现页面的整体缩放，使得在设备上的展现都统一起来了。而且现在浏览器基本都已经支持 rem 了，兼容性也非常的好。</p>
+<p>缺点：</p>
+<ol>
+<li>在奇葩的 dpr 设备上表现效果不太好，比如一些华为的高端机型用 rem 布局会出现错乱。</li>
+<li>使用 iframe 引用也会出现问题。</li>
+<li>rem 在多屏幕尺寸适配上与当前两大平台的设计哲学不一致。即大屏的出现到底是为了看得又大又清楚，还是为了看的更多的问题。</li>
+</ol>
+<p>(…未完待续)</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>请我一杯咖啡吧！</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/img/wechatpay.png" alt="陈晟 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/img/alipay.png" alt="陈晟 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>陈晟
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://www.chensheng.group/2021/09/01/146-css%E6%95%B4%E7%90%86/" title="css高频考题">https://www.chensheng.group/2021/09/01/146-css整理/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E9%9D%A2%E8%AF%95/" rel="tag"><i class="fa fa-tag"></i> 面试</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/09/01/145-html%E6%95%B4%E7%90%86/" rel="prev" title="html高频考题">
+                  <i class="fa fa-angle-left"></i> html高频考题
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/09/03/147-%E9%98%B2%E6%8A%96%E4%B8%8E%E8%8A%82%E6%B5%81/" rel="next" title="防抖与节流">
+                  防抖与节流 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">闽ICP备2022007916号-1 </a>
+  </div>
+  <div class="copyright">
+    &copy; 2016 – 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">陈晟</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">489k</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script><script src="/js/pjax.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+</html>

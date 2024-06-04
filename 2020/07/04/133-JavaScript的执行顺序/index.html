@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.2.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"www.chensheng.group","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.20.0","exturl":false,"sidebar":{"position":"right","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":true,"style":"mac"},"fold":{"enable":false,"height":500},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false,"trigger":"auto"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="如何理解JavaScript的事件循环?什么是宏任务和微任务?怎么理解消息队列的执行顺序?">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript的执行顺序">
+<meta property="og:url" content="https://www.chensheng.group/2020/07/04/133-JavaScript%E7%9A%84%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F/index.html">
+<meta property="og:site_name" content="陈先生的小前端">
+<meta property="og:description" content="如何理解JavaScript的事件循环?什么是宏任务和微任务?怎么理解消息队列的执行顺序?">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://csblogimage.oss-cn-hangzhou.aliyuncs.com/133-Js%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,size_16,text_Qnku6ZmI5YWI55Sf55qE5bCP5YmN56uv,color_FFFFFF,shadow_50,t_100,g_se,x_10,y_10">
+<meta property="article:published_time" content="2020-07-04T05:35:00.000Z">
+<meta property="article:modified_time" content="2024-06-02T16:07:19.375Z">
+<meta property="article:author" content="陈晟">
+<meta property="article:tag" content="javaScript">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://csblogimage.oss-cn-hangzhou.aliyuncs.com/133-Js%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,size_16,text_Qnku6ZmI5YWI55Sf55qE5bCP5YmN56uv,color_FFFFFF,shadow_50,t_100,g_se,x_10,y_10">
+
+
+<link rel="canonical" href="https://www.chensheng.group/2020/07/04/133-JavaScript%E7%9A%84%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://www.chensheng.group/2020/07/04/133-JavaScript%E7%9A%84%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F/","path":"2020/07/04/133-JavaScript的执行顺序/","title":"JavaScript的执行顺序"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>JavaScript的执行顺序 | 陈先生的小前端</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="陈先生的小前端" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">陈先生的小前端</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-house-chimney fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-list fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF"><span class="nav-number">1.</span> <span class="nav-text">事件循环</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%8F%E8%A7%82%E4%BB%BB%E5%8A%A1-MacroTask-%E5%92%8C%E5%BE%AE%E8%A7%82%E4%BB%BB%E5%8A%A1-MicroTask"><span class="nav-number">2.</span> <span class="nav-text">宏观任务(MacroTask)和微观任务(MicroTask)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Promise"><span class="nav-number">2.1.</span> <span class="nav-text">Promise</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#async-await"><span class="nav-number">2.2.</span> <span class="nav-text">async&#x2F;await</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%93%E5%B0%BE"><span class="nav-number">3.</span> <span class="nav-text">结尾</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="陈晟"
+      src="/img/touxiang.jpg">
+  <p class="site-author-name" itemprop="name">陈晟</p>
+  <div class="site-description" itemprop="description">请不要在最能吃苦的日子选择安逸</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">165</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">36</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">56</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/328921371" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;328921371" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:328921371@qq.com" title="E-Mail → mailto:328921371@qq.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.chensheng.group/2020/07/04/133-JavaScript%E7%9A%84%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/img/touxiang.jpg">
+      <meta itemprop="name" content="陈晟">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="陈先生的小前端">
+      <meta itemprop="description" content="请不要在最能吃苦的日子选择安逸">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="JavaScript的执行顺序 | 陈先生的小前端">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          JavaScript的执行顺序
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-07-04 13:35:00" itemprop="dateCreated datePublished" datetime="2020-07-04T13:35:00+08:00">2020-07-04</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/javaScript/" itemprop="url" rel="index"><span itemprop="name">javaScript</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><hr style='filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)' color='#FF0000' size='1' />
+
+<blockquote>
+<p>如何理解JavaScript的事件循环?什么是宏任务和微任务?怎么理解消息队列的执行顺序?</p>
+</blockquote>
+<span id="more"></span>
+
+<p>由于我们是一个前端的开发者,所以大多数接触到的是浏览器或者Node,我们该如何去使用JavaScript 引擎。</p>
+<p>当拿到一段 JavaScript 代码时,浏览器或者 Node 环境首先要做的就是,传递给 JavaScript 引擎,并且要求它去执行。</p>
+<p>我们都知道JavaScript是单线程,但是执行 JavaScript 并非一步到位,宿主环境当遇到一些事件时,会继续把一段代码传递给 JavaScript 引擎去执行,此外,我们可能还会提供 API 给 JavaScript 引擎,比如 setTimeout 这样的 API,它会允许 JavaScript 在特定的时机执行。</p>
+<div class="note info"><p>所以,我们首先应该形成一个感性的认知：一个 JavaScript 引擎会常驻于内存中,它等待着我们（宿主）把 JavaScript 代码或者函数传递给它执行。</p>
+</div>
+
+
+<p>在 ES3 和更早的版本中,JavaScript 本身还没有异步执行代码的能力,这也就意味着,宿主环境传递给 JavaScript 引擎一段代码,引擎就把代码直接顺次执行了,这个任务也就是宿主发起的任务。</p>
+<p>但是,在 ES5 之后,JavaScript 引入了 Promise,这样,不需要浏览器的安排,JavaScript 引擎本身也可以发起任务了。</p>
+<p>我们采纳 JSC 引擎的术语,把宿主发起的任务称为宏观任务,把 JavaScript 引擎发起的任务称为微观任务。</p>
+<h3 id="事件循环"><a href="#事件循环" class="headerlink" title="事件循环"></a>事件循环</h3><p>JavaScript 引擎等待宿主环境分配宏观任务,在操作系统中,通常等待的行为都是一个事件循环,所以在 Node 术语中,也会把这个部分称为事件循环(event loop)。</p>
+<p>JavaScript是单线程异步处理,其实也都是通过事件循环来实现的异步或模拟’多线程’。</p>
+<ul>
+<li><p>同步和异步任务在不同的执行”场所”,同步的进入主线程,异步的进入Event Table执行并注册函数。</p>
+</li>
+<li><p>当指定的异步事情完成时,Event Table会将这个函数移入Event Queue。</p>
+</li>
+<li><p>主线程内的任务执行完毕为空,会去Event Queue读取对应的函数,推入主线程执行。</p>
+</li>
+<li><p>js引擎的monitoring process进程会持续不断的检查主线程执行栈是否为空,一旦为空,就会去Event Queue那里检查是否有等待被调用的函数。上述过程会不断重复,也就是常说的Event Loop(事件循环)。</p>
+</li>
+</ul>
+<p>用个例子说明上述过程：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">let data = [];</span><br><span class="line">$.ajax(&#123;</span><br><span class="line">  url:www.javascript.com,</span><br><span class="line">  data:data,</span><br><span class="line">  success:() =&gt; &#123;</span><br><span class="line">    console.log(&#x27;发送成功!&#x27;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line">console.log(&#x27;代码执行结束&#x27;);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>ajax（异步任务）进入Event Table,注册回调函数success。</p>
+</li>
+<li><p>执行console.log(‘代码执行结束’)。（同步任务在主线程执行）</p>
+</li>
+<li><p>ajax事件完成,回调函数success进入Event Queue。</p>
+</li>
+<li><p>主线程从Event Queue读取回调函数success并执行。</p>
+</li>
+</ul>
+<p>我们可以大概理解：宏观任务的队列就相当于事件循环。总结起来就是下面这样</p>
+<p>主任务(宏任务)完 ——&gt; 所有微任务 ——&gt; 宏任务（找到宏任务其中一个任务队列执行,其中如果又有微任务,该任务队列执行完就执行微任务）——&gt; 宏任务中另外一个任务队列（里面有微任务就再执行微任务）。</p>
+<p><img src="https://csblogimage.oss-cn-hangzhou.aliyuncs.com/133-Js%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,size_16,text_Qnku6ZmI5YWI55Sf55qE5bCP5YmN56uv,color_FFFFFF,shadow_50,t_100,g_se,x_10,y_10" alt="图片"></p>
+<h3 id="宏观任务-MacroTask-和微观任务-MicroTask"><a href="#宏观任务-MacroTask-和微观任务-MicroTask" class="headerlink" title="宏观任务(MacroTask)和微观任务(MicroTask)"></a>宏观任务(MacroTask)和微观任务(MicroTask)</h3><p>之前我们说过了,宿主发起的任务称为宏观任务,把 JavaScript 引擎发起的任务称为微观任务</p>
+<p>除了广义的同步任务和异步任务,我们对任务有更精细的定义:</p>
+<p>macro-task(宏任务): 包括整体代码script,setTimeout,setInterval</p>
+<p>micro-task(微任务): Promise,process.nextTick</p>
+<p>那宏观任务和微观任务有什么关系呢?</p>
+<p>在宏观任务中,JavaScript 的 Promise 还会产生异步代码,JavaScript 必须保证这些异步代码在一个宏观任务中完成,因此,每个宏观任务中又包含了一个微观任务队列</p>
+<p>有了宏观任务和微观任务机制,我们就可以实现 JavaScript 引擎级和宿主级的任务了,例如：Promise 永远在队列尾部添加微观任务。setTimeout 等宿主 API,则会添加宏观任务。</p>
+<h4 id="Promise"><a href="#Promise" class="headerlink" title="Promise"></a>Promise</h4><p>Promise我们已经讲过很多次了,这里就不再重复说了,再看一次我之前再其他博客写过的代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">setTimeout(function()&#123; </span><br><span class="line">  console.log(4)</span><br><span class="line">&#125;, 0);</span><br><span class="line">new Promise(function(resolve)&#123;</span><br><span class="line">  console.log(1)</span><br><span class="line">  for( var i = 0 ; i &lt; 10000 ; i++ )&#123;</span><br><span class="line">    i == 9999 &amp;&amp; resolve()</span><br><span class="line">  &#125;</span><br><span class="line">  console.log(2)</span><br><span class="line">&#125;).then(function()&#123;</span><br><span class="line">  console.log(5)</span><br><span class="line">&#125;);</span><br><span class="line">console.log(3);</span><br></pre></td></tr></table></figure>
+
+<p>打印的结果是 ‘1, 2, 3, 5, 4’, 具体详情可以参考这篇博客 <a href="https://www.chensheng.group/2019/10/10/106-JS%E9%AB%98%E9%A2%91%E8%80%83%E9%A2%98%E5%88%86%E4%BA%AB/">陈先生的小前端-JS高频考题分享</a></p>
+<p>我们发现,不论代码顺序如何,4 必定发生在 5 之后,因为 Promise 产生的是 JavaScript 引擎内部的微任务,而 setTimeout 是浏览器 API,它产生宏任务。</p>
+<p>为了理解微任务始终先于宏任务,我们设计一个实验：执行一个耗时 1 秒的 Promise。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">setTimeout(()=&gt;&#123;</span><br><span class="line">  console.log(&quot;6&quot;)</span><br><span class="line">&#125;, 0) </span><br><span class="line">var r = new Promise((resolve, reject)=&gt;&#123;</span><br><span class="line">  console.log(&#x27;1&#x27;)</span><br><span class="line">  resolve()</span><br><span class="line">&#125;); </span><br><span class="line">r.then(()=&gt;&#123;</span><br><span class="line">  console.log(&#x27;3&#x27;)</span><br><span class="line">  var begin = Date.now(); </span><br><span class="line">  while(Date.now() - begin &lt; 1000);</span><br><span class="line">  console.log(&quot;4&quot;) </span><br><span class="line">  new Promise((resolve, reject)=&gt;&#123; </span><br><span class="line">    resolve()</span><br><span class="line">  &#125;).then(() =&gt; console.log(&quot;5&quot;))</span><br><span class="line">&#125;);</span><br><span class="line">console.log(&#x27;2&#x27;)</span><br></pre></td></tr></table></figure>
+
+<p>这里我们强制了 1 秒的执行耗时,这样,我们可以确保任务 5 是在 6 之后被添加到任务队列。<br>我们可以看到,即使耗时一秒的 4 执行完毕,再 enque 的 5,仍然先于 6 执行了,这很好地解释了微任务优先的原理。</p>
+<p>通过一系列的实验,我们可以总结一下如何分析异步执行的顺序：</p>
+<ul>
+<li>首先我们分析有多少个宏任务；</li>
+<li>在每个宏任务中,分析有多少个微任务；</li>
+<li>根据调用次序,确定宏任务中的微任务执行次序；</li>
+<li>根据宏任务的触发规则和调用次序,确定宏任务的执行次序；</li>
+<li>确定整个顺序。</li>
+</ul>
+<p>Promise 是 JavaScript 中的一个定义,但是实际编写代码时,我们可以发现,它似乎并不比回调的方式书写更简单,但是从 ES6 开始,我们有了 async&#x2F;await,这个语法改进跟 Promise 配合,能够有效地改善代码结构。</p>
+<p>之前一直没有说async&#x2F;await, 今天刚好一起介绍一下</p>
+<h4 id="async-await"><a href="#async-await" class="headerlink" title="async&#x2F;await"></a>async&#x2F;await</h4><p>其实async&#x2F;await 就是 promise的一个语法糖,让我们的代码看起来像是同步,更加的美观,先来看一下基本用法</p>
+<p>async 函数必定返回 Promise,我们把所有返回 Promise 的函数都可以认为是异步函数。</p>
+<p>async 函数是一种特殊语法,特征是在 function 关键字之前加上 async 关键字,这样,就定义了一个 async 函数,我们可以在其中使用 await 来等待一个 Promise。</p>
+<p>另外还有一个很有意思的语法规定,await 只能出现在 async 函数中。</p>
+<p>我们先看看async 起什么作用,而他又是怎么处理他的返回值的</p>
+<p>举个例子</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">methods: &#123;</span><br><span class="line">  testAsync() &#123;</span><br><span class="line">    return &quot;hello async&quot;;</span><br><span class="line">  &#125;,</span><br><span class="line">  async testAsync2() &#123;</span><br><span class="line">    return &quot;hello async&quot;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>分别输出这两个函数,你会发现很有趣的地方</p>
+<p>async 函数返回的是一个 Promise 对象,如果在函数中 return 一个直接量,async 会把这个直接量通过 Promise.resolve() 封装成 Promise 对象。</p>
+<p>假设我们没有return东西,那它就会返回一个Promise.resolve(undefined)。</p>
+<blockquote>
+<p>补充知识点: Promise.resolve(x) 可以看作是 new Promise(resolve &#x3D;&gt; resolve(x)) 的简写,可以用于快速封装字面量对象或其他对象,将其封装成 Promise 实例。</p>
+</blockquote>
+<p>现在来看看await,他等的是什么?</p>
+<p>一般来说,都认为 await 是在等待一个 async 函数完成。其实也可以用来等待普通函数,所以实际上 await 等是一个返回值 </p>
+<p>举个例子</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">methods: &#123;</span><br><span class="line">  async getData()&#123;</span><br><span class="line">    let sendMessage = &#123;</span><br><span class="line">      url: &#x27;/v2/music/search?q=周杰伦&#x27;,</span><br><span class="line">      PostData: &#123;&#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return await this.$store.dispatch(&#x27;Get&#x27;, sendMessage) // 这个是封装的方法,返回的是一个promise</span><br><span class="line">  &#125;,</span><br><span class="line">  test()&#123;</span><br><span class="line">    return &#x27;music&#x27;</span><br><span class="line">  &#125;,</span><br><span class="line">  async lookData()&#123;</span><br><span class="line">    let m1 = await this.getData()</span><br><span class="line">    let m2 = await this.test()</span><br><span class="line">    console.log(m1, m2)</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">&#125;,</span><br><span class="line">created() &#123;</span><br><span class="line">  this.lookData() // m1和m2都可以输出</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>单一的 Promise 链并不能发现 async&#x2F;await 的优势,但是,如果需要处理由多个 Promise 组成的 then 链的时候,优势就能体现出来了</p>
+<p>我们之前是用Promise 通过 then 链来解决多层回调地狱的问题</p>
+<p>现在又可以使用 async&#x2F;await 来进一步优化它,看起来更像一个同步了。</p>
+<h3 id="结尾"><a href="#结尾" class="headerlink" title="结尾"></a>结尾</h3><p>为了更好的理解 事件循环,宏观任务,微观任务,以及任务队列,直接上代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">console.log(&#x27;1&#x27;); //第一轮主线程【1】</span><br><span class="line"> </span><br><span class="line">setTimeout(function() &#123; //碰到set异步，丢入宏任务队列【set1】：我将它命名为set1</span><br><span class="line">     console.log(&#x27;2&#x27;);//第二轮宏任务执行，输出【2】</span><br><span class="line">     process.nextTick(function() &#123;//第二轮宏任务执行，碰到process，丢入微任务队列，【3】</span><br><span class="line">         console.log(&#x27;3&#x27;);</span><br><span class="line">     &#125;)</span><br><span class="line">     new Promise(function(resolve) &#123;//第二轮宏任务执行，输出【2，4】</span><br><span class="line">         console.log(&#x27;4&#x27;);</span><br><span class="line">        resolve();</span><br><span class="line">    &#125;).then(function() &#123;</span><br><span class="line">        console.log(&#x27;5&#x27;)//第二轮宏任务执行，碰到then丢入微任务队列，【3，5】</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br><span class="line">process.nextTick(function() &#123; //碰到process，丢入微任务队列【6】</span><br><span class="line">    console.log(&#x27;6&#x27;); //第一轮微任务执行</span><br><span class="line">&#125;)</span><br><span class="line">new Promise(function(resolve) &#123; </span><br><span class="line">    console.log(&#x27;7&#x27;); //new的同时执行代码，第一轮主线程此时输出【1，7】</span><br><span class="line">    resolve();</span><br><span class="line">&#125;).then(function() &#123;</span><br><span class="line">    console.log(&#x27;8&#x27;) //第一轮主线程中promise的then丢入微任务队列，此时微任务队列为【6，8】。当第一轮微任务执行，顺序输出【6，8】</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">setTimeout(function() &#123; //碰到set异步丢入宏任务队列，此时宏任务队列【set1.set2】：我将它命名为set2</span><br><span class="line">    console.log(&#x27;9&#x27;);//第三轮宏任务执行，输出【9】</span><br><span class="line">    process.nextTick(function() &#123; //第三轮宏中执行过程中添加到微任务【10】</span><br><span class="line">        console.log(&#x27;10&#x27;);</span><br><span class="line">    &#125;)</span><br><span class="line">    new Promise(function(resolve) &#123;</span><br><span class="line">        console.log(&#x27;11&#x27;);//第三轮宏任务执行，宏任务累计输出【9,11】</span><br><span class="line">        resolve();</span><br><span class="line">    &#125;).then(function() &#123;</span><br><span class="line">        console.log(&#x27;12&#x27;) //第三轮宏中执行过程中添加到微任务【10，12】</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>解答: </p>
+<p>第一轮：主线程输出：【1，7】，添加宏任务【set1，set2】，添加微任务【6，8】。执行完主线程，然后执行微任务输出【6，8】</p>
+<p>第二轮：执行宏任务其中一个任务队列set1:输出【2，4】，执行任务的过程，碰到有微任务，所以在微任务队列添加输出【3，5】的微任务，在set1宏任务执行完就执行该微任务，第二轮总输出：【2，4，3，5】</p>
+<p>第三轮：执行任务另一个任务队列set2：输出【9，11】，执行任务的过程，碰到有微任任务，所以在微任务队列添加输出【10，12】的微任务，在set2宏任务执行完就执行该微任务，第三轮总输出：【9，11，10，12】</p>
+<p>整段代码，共进行了三次事件循环，完整的输出为1，7，6，8，2，4，3，5，9，11，10，12。(请注意，node环境下的事件监听依赖libuv与前端环境不完全相同，输出顺序可能会有误差)</p>
+<p>以上就是我对JavaScript执行的一些理解,如果文章由于我学识浅薄,导致您发现有严重谬误的地方,请一定在评论中指出,我会在第一时间修正我的博文,以避免误人子弟。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>请我一杯咖啡吧！</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/img/wechatpay.png" alt="陈晟 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/img/alipay.png" alt="陈晟 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>陈晟
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://www.chensheng.group/2020/07/04/133-JavaScript%E7%9A%84%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F/" title="JavaScript的执行顺序">https://www.chensheng.group/2020/07/04/133-JavaScript的执行顺序/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/javaScript/" rel="tag"><i class="fa fa-tag"></i> javaScript</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/06/27/132-element-ui%E5%8A%A8%E6%80%81%E6%8D%A2%E8%82%A4/" rel="prev" title="element-ui动态换肤">
+                  <i class="fa fa-angle-left"></i> element-ui动态换肤
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/07/17/134-%E5%AF%8C%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/" rel="next" title="富文本编辑器">
+                  富文本编辑器 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">闽ICP备2022007916号-1 </a>
+  </div>
+  <div class="copyright">
+    &copy; 2016 – 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">陈晟</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">489k</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script><script src="/js/pjax.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.2.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"www.chensheng.group","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.20.0","exturl":false,"sidebar":{"position":"right","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":true,"style":"mac"},"fold":{"enable":false,"height":500},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false,"trigger":"auto"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="在之前，保存用户信息大多数都是放在Cookie中，但是安全性太低了，随着Html5的诞生，Web Storage也进入我们的视野，于是存储信息都转入到SessionStorage，今天就分享一下SessionStorage的共享问题">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SessionStorage的共享">
+<meta property="og:url" content="https://www.chensheng.group/2017/11/23/46-SessionStorage%E7%9A%84%E5%85%B1%E4%BA%AB/index.html">
+<meta property="og:site_name" content="陈先生的小前端">
+<meta property="og:description" content="在之前，保存用户信息大多数都是放在Cookie中，但是安全性太低了，随着Html5的诞生，Web Storage也进入我们的视野，于是存储信息都转入到SessionStorage，今天就分享一下SessionStorage的共享问题">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2017-11-23T14:05:55.000Z">
+<meta property="article:modified_time" content="2024-06-02T16:07:19.382Z">
+<meta property="article:author" content="陈晟">
+<meta property="article:tag" content="SessionStorage">
+<meta property="article:tag" content="LocalStorage">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://www.chensheng.group/2017/11/23/46-SessionStorage%E7%9A%84%E5%85%B1%E4%BA%AB/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://www.chensheng.group/2017/11/23/46-SessionStorage%E7%9A%84%E5%85%B1%E4%BA%AB/","path":"2017/11/23/46-SessionStorage的共享/","title":"SessionStorage的共享"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>SessionStorage的共享 | 陈先生的小前端</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="陈先生的小前端" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">陈先生的小前端</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-house-chimney fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-list fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8E%B0%E6%9C%89%E7%9A%84%E6%B5%8F%E8%A7%88%E5%99%A8%E5%AD%98%E5%82%A8%E6%9C%BA%E5%88%B6"><span class="nav-number">1.</span> <span class="nav-text">现有的浏览器存储机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E5%85%A8%E7%9A%84%E8%AE%A4%E8%AF%81token%E4%BF%9D%E5%AD%98"><span class="nav-number">2.</span> <span class="nav-text">安全的认证token保存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%86%E5%A4%9A%E6%A0%87%E7%AD%BE%E9%A1%B5%E6%80%8E%E4%B9%88%E5%8A%9E%EF%BC%9F"><span class="nav-number">3.</span> <span class="nav-text">但多标签页怎么办？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A9%E7%94%A8localStorage%E4%BA%8B%E4%BB%B6%E6%9D%A5%E8%B7%A8%E6%A0%87%E7%AD%BE%E9%A1%B5%E5%85%B1%E4%BA%ABsessionStorage"><span class="nav-number">4.</span> <span class="nav-text">利用localStorage事件来跨标签页共享sessionStorage</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E6%97%B6%E7%9B%91%E5%90%AC%E7%9A%84%E9%A1%B5%E9%9D%A2"><span class="nav-number">5.</span> <span class="nav-text">实时监听的页面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A2%AB%E7%9B%91%E5%90%AC%E7%9A%84%E9%A1%B5%E9%9D%A2"><span class="nav-number">6.</span> <span class="nav-text">被监听的页面</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="陈晟"
+      src="/img/touxiang.jpg">
+  <p class="site-author-name" itemprop="name">陈晟</p>
+  <div class="site-description" itemprop="description">请不要在最能吃苦的日子选择安逸</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">165</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">36</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">56</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/328921371" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;328921371" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:328921371@qq.com" title="E-Mail → mailto:328921371@qq.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.chensheng.group/2017/11/23/46-SessionStorage%E7%9A%84%E5%85%B1%E4%BA%AB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/img/touxiang.jpg">
+      <meta itemprop="name" content="陈晟">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="陈先生的小前端">
+      <meta itemprop="description" content="请不要在最能吃苦的日子选择安逸">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="SessionStorage的共享 | 陈先生的小前端">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          SessionStorage的共享
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2017-11-23 22:05:55" itemprop="dateCreated datePublished" datetime="2017-11-23T22:05:55+08:00">2017-11-23</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Storage/" itemprop="url" rel="index"><span itemprop="name">Storage</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><hr style='filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)' color='#FF0000' size='1' />
+
+<blockquote>
+<p>在之前，保存用户信息大多数都是放在Cookie中，但是安全性太低了，随着Html5的诞生，Web Storage也进入我们的视野，于是存储信息都转入到SessionStorage，今天就分享一下SessionStorage的共享问题</p>
+</blockquote>
+<span id="more"></span>
+
+<p>在之前的博客中有提到Cookie和Web Storage的区别与使用，但是使用起来并没有我们想象的那么顺心，Cookie使用起来，不同标签页可以共享，但是安全性不高，SessionStorage安全性是稍微好一些，但是在不同的标签页中又不能共享数据。百度一会，发现国外有一个大神对于这个问题提出了一个解决的方案，我总结了一下</p>
+<h3 id="现有的浏览器存储机制"><a href="#现有的浏览器存储机制" class="headerlink" title="现有的浏览器存储机制"></a>现有的浏览器存储机制</h3><ol>
+<li>localStorage：~5MB，数据永久保存直到用户手动删除</li>
+<li>sessionStorage：~5MB，数据只在当前标签页有效，当用户关闭浏览器时删除</li>
+<li>cookie：~4KB，可以设置成永久有效，当用户关闭浏览器时删除</li>
+</ol>
+<h3 id="安全的认证token保存"><a href="#安全的认证token保存" class="headerlink" title="安全的认证token保存"></a>安全的认证token保存</h3><p>一些重要的系统会要求当用户关闭标签页时会话立刻到期。</p>
+<p>为了达到这个目的，绝对不应该使用cookies来保存任何敏感信息（例如认证token）。</p>
+<p>这些问题就使得我们在保存认证token时应使用内存或sessionStorage。sessionStorage的好处是它允许跨多个页面保存数据，并且也支持浏览器刷新操作。这样用户就可以在多个页面之间跳转或刷新页面而保持登录状态。</p>
+<p>Good。我们将token保存在sessionStorage，并在每次请求服务器时将token放在请求头中来完成用户的身份认证。当用户关闭标签页，token会立即过期。</p>
+<h3 id="但多标签页怎么办？"><a href="#但多标签页怎么办？" class="headerlink" title="但多标签页怎么办？"></a>但多标签页怎么办？</h3><p>即便是在单页面应用中也有一个很常见的情况，用户经常希望打开多个标签页。而此场景下将token保存在sessionStorage中将会带来很差的用户体验，每次开启一个标签页都会要求用户重新登录。没错，sessionStorage不支持跨标签页共享数据。</p>
+<h3 id="利用localStorage事件来跨标签页共享sessionStorage"><a href="#利用localStorage事件来跨标签页共享sessionStorage" class="headerlink" title="利用localStorage事件来跨标签页共享sessionStorage"></a>利用localStorage事件来跨标签页共享sessionStorage</h3><p>当用户新开一个标签页时，我们先来询问其它已经打开的标签页是不是有需要给我们共享的sessionStorage数据。如果有，现有的标签页会通过localStorage事件来传递数据到新打开的标签页中，我们只需要复制一份到本地sessionStorage即可。</p>
+<blockquote>
+<p>传递过来的sessionStorage绝对不会保存在localStorage，从localStorage事件将数据中复制并保存到sessionStorage，这个流程是在同一个调用中完成，没有中间状态。而且数据是对应事件携带的，并不在localStorage中。这样就确保了数据的安全性。</p>
+</blockquote>
+<p>直接上代码：在代码中解释</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 为了简单明了删除了对IE的支持</span></span><br><span class="line">(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">	<span class="keyword">if</span> (!<span class="variable language_">sessionStorage</span>.<span class="property">length</span>) &#123;</span><br><span class="line">		<span class="comment">// 这个调用能触发目标事件，从而达到共享数据的目的</span></span><br><span class="line">		<span class="variable language_">localStorage</span>.<span class="title function_">setItem</span>(<span class="string">&#x27;getSessionStorage&#x27;</span>, <span class="title class_">Date</span>.<span class="title function_">now</span>());</span><br><span class="line">	&#125;;</span><br><span class="line">	<span class="comment">// 该事件是核心,调用监听事件</span></span><br><span class="line">	<span class="variable language_">window</span>.<span class="title function_">addEventListener</span>(<span class="string">&#x27;storage&#x27;</span>, <span class="keyword">function</span>(<span class="params">event</span>) &#123;</span><br><span class="line">		<span class="keyword">if</span> (event.<span class="property">key</span> == <span class="string">&#x27;getSessionStorage&#x27;</span>) &#123;</span><br><span class="line">			<span class="comment">// 已存在的标签页会收到这个事件</span></span><br><span class="line">			<span class="variable language_">localStorage</span>.<span class="title function_">setItem</span>(<span class="string">&#x27;sessionStorage&#x27;</span>, <span class="title class_">JSON</span>.<span class="title function_">stringify</span>(<span class="variable language_">sessionStorage</span>));</span><br><span class="line">			<span class="variable language_">localStorage</span>.<span class="title function_">removeItem</span>(<span class="string">&#x27;sessionStorage&#x27;</span>);</span><br><span class="line">		&#125; <span class="keyword">else</span> <span class="keyword">if</span> (event.<span class="property">key</span> == <span class="string">&#x27;sessionStorage&#x27;</span> &amp;&amp; !<span class="variable language_">sessionStorage</span>.<span class="property">length</span>) &#123;</span><br><span class="line">			<span class="comment">// 新开启的标签页会收到这个事件</span></span><br><span class="line">			<span class="keyword">var</span> data = <span class="title class_">JSON</span>.<span class="title function_">parse</span>(event.<span class="property">newValue</span>),</span><br><span class="line">					value;</span><br><span class="line">			<span class="keyword">for</span> (key <span class="keyword">in</span> data) &#123;</span><br><span class="line">				<span class="variable language_">sessionStorage</span>.<span class="title function_">setItem</span>(key, data[key]);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;);</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>代码其实不难理解，当打开新的页面，新页面的sessionStorage.length会空，于是就会调用localStorage.setItem()，其他标签页会判断event.key是否与刚刚保存的key值一致，若一致，说明改页面不是新的页面，则将页面中的session保存至localStorage，新打开的页面监听到有新的值，就将值通过event.newValue取出后赋给自己的SessionStorage，就实现了SessionStorage的共享。</p>
+</blockquote>
+<p>有些小伙伴对storage事件实时监听可能不太了解，这里稍微解释一下,后面会专门给出一个demo</p>
+<p>在事件处理函数中，触发事件的事件对象（event参数值）具有如下几个属性</p>
+<ol>
+<li>event.key 属性：属性值为在 session 或 localStorage 中被修改的数据键值。 </li>
+<li>event.oldValue 属性：属性值为在 sessionStorage 或 localStorage 中被修改的值。 </li>
+<li>event.newValue 属性：属性值为在 sessionStorage 或 localStorage 中被修改后的值 </li>
+<li>event.url 属性：属性值为修改 sessionStorage 或 localStorage 中值的页面的URL地址 </li>
+<li>event.storageArea 属性 : 属性值为被变动的 sessionStorage 对象或 localStorage 对象</li>
+</ol>
+<p>给出一个监听的小demo，好好研究一下吧，复制就可以使用</p>
+<h3 id="实时监听的页面"><a href="#实时监听的页面" class="headerlink" title="实时监听的页面"></a>实时监听的页面</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line">&lt;!<span class="variable constant_">DOCTYPE</span> html&gt;</span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">head</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">title</span>&gt;</span>利用storage事件实时监视Web Storage中的数据<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">body</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span>&gt;</span><span class="language-javascript"></span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml"></span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">            <span class="comment">//利用storage事件实时监视wev Storage中的数据</span></span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">            <span class="variable language_">window</span>.<span class="title function_">addEventListener</span>(<span class="string">&#x27;storage&#x27;</span>,<span class="keyword">function</span> (<span class="params">e</span>) &#123;<span class="comment">//e只是一个传参</span></span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">                <span class="comment">//获取被修改的键值</span></span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">                <span class="keyword">if</span> (e.<span class="property">key</span> == <span class="string">&#x27;test&#x27;</span>) &#123;</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">                    <span class="comment">//获取将要被添加内容的元素</span></span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">                    <span class="keyword">var</span> output = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;output&#x27;</span>);</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">                    <span class="comment">//将获取到的修改值在元素中输出</span></span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">                    output.<span class="property">innerHTML</span> = <span class="string">&#x27;原有值：&#x27;</span> + e.<span class="property">oldValue</span>;</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">                    output.<span class="property">innerHTML</span> += <span class="string">&#x27;&lt;br /&gt;新值:&#x27;</span> + e.<span class="property">newValue</span>;</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">                    output.<span class="property">innerHTML</span> += <span class="string">&#x27;&lt;br /&gt;变动页面地址：&#x27;</span> + <span class="title function_">utf8_decode</span>(<span class="built_in">unescape</span>(e.<span class="property">url</span>));</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml"></span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">                    <span class="comment">//分别打印会发现内容一致</span></span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">                    <span class="variable language_">console</span>.<span class="title function_">log</span>(e.<span class="property">storageArea</span>);</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">                    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">localStorage</span>);</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">                    <span class="comment">//此行代码只在Chrome浏览器中有效</span></span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">                    <span class="variable language_">console</span>.<span class="title function_">log</span>(e.<span class="property">storageArea</span> === <span class="variable language_">localStorage</span>);<span class="comment">//输出true</span></span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml"></span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">                &#125;</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">            &#125;,<span class="literal">false</span>);</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">            <span class="keyword">function</span> <span class="title function_">utf8_decode</span> (utftext) &#123;</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">                <span class="keyword">var</span> string = <span class="string">&#x27;&#x27;</span>;</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">                <span class="keyword">var</span> i = c = c1 = c2 = <span class="number">0</span>;</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">                <span class="comment">//获取URL所有字符</span></span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">                <span class="keyword">while</span> (i &lt; utftext.<span class="property">length</span>) &#123;</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">                    <span class="comment">//获取URL并将URL中所有 Unicode 编码获取</span></span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">                    c = utftext.<span class="title function_">charCodeAt</span>(i);</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">                    <span class="comment">//对 Unicode 编码进行处理转化成字符串</span></span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">                    <span class="keyword">if</span> (c &lt; <span class="number">128</span>) &#123;</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">                        string += <span class="title class_">String</span>.<span class="title function_">fromCharCode</span>(c);</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">                        i++;</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">                    &#125;</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">                    <span class="keyword">else</span> <span class="keyword">if</span> ((c &lt; <span class="number">191</span>) &amp;&amp; (c &lt; <span class="number">224</span>)) &#123;</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">                        c2 = utftext.<span class="title function_">charCodeAt</span>(i + <span class="number">1</span>);</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">                        string += <span class="title class_">String</span>.<span class="title function_">fromCharCode</span>(((c &amp; <span class="number">31</span>) &lt;&lt; <span class="number">6</span>) | (c2 &amp; <span class="number">63</span>));</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">                        i += <span class="number">2</span>;</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">                    &#125;</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">                    <span class="keyword">else</span> &#123;</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">                        c2 = utftext.<span class="title function_">charCodeAt</span>(i + <span class="number">1</span>);</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">                        c3 = utftext.<span class="title function_">charCodeAt</span>(i + <span class="number">2</span>);</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">                        string += <span class="title class_">String</span>.<span class="title function_">fromCharCode</span>(((c &amp; <span class="number">15</span>) &lt;&lt; <span class="number">12</span>) | ((c2 &amp; <span class="number">63</span>) &lt;&lt; <span class="number">6</span>) | (c3 &amp; <span class="number">63</span>));</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">                        i += <span class="number">3</span>;</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">                    &#125;</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">                &#125;</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">                <span class="keyword">return</span> string;</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">            &#125;</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">        </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">output</span> <span class="attr">id</span>=<span class="string">&quot;output&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">output</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+<h3 id="被监听的页面"><a href="#被监听的页面" class="headerlink" title="被监听的页面"></a>被监听的页面</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;!<span class="variable constant_">DOCTYPE</span> html&gt;</span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">head</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">title</span>&gt;</span>用于修改localStorage 中数据的页面的代码<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">body</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">                    请输入一些值：<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">id</span>=<span class="string">&quot;text1&quot;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">button</span> <span class="attr">onclick</span>=<span class="string">&quot;setLOcalStorage()&quot;</span>&gt;</span>设置<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span>&gt;</span><span class="language-javascript"></span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">        <span class="keyword">function</span> <span class="title function_">setLOcalStorage</span> () &#123;</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">            <span class="comment">//设置test键值下的内容等于input框中的内容</span></span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">            <span class="variable language_">localStorage</span>.<span class="property">test</span> = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;text1&#x27;</span>).<span class="property">value</span>;</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">        &#125;</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+<p>以上就是我对SessionStorage共享的一些理解看法，十分感觉各位大神对代码无私的分享</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>请我一杯咖啡吧！</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/img/wechatpay.png" alt="陈晟 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/img/alipay.png" alt="陈晟 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>陈晟
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://www.chensheng.group/2017/11/23/46-SessionStorage%E7%9A%84%E5%85%B1%E4%BA%AB/" title="SessionStorage的共享">https://www.chensheng.group/2017/11/23/46-SessionStorage的共享/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/SessionStorage/" rel="tag"><i class="fa fa-tag"></i> SessionStorage</a>
+              <a href="/tags/LocalStorage/" rel="tag"><i class="fa fa-tag"></i> LocalStorage</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2017/11/09/44-Vuex%E7%9A%84%E4%BD%BF%E7%94%A8/" rel="prev" title="Vuex的使用">
+                  <i class="fa fa-angle-left"></i> Vuex的使用
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2017/12/01/47-WebSocket%E7%9A%84%E4%BD%BF%E7%94%A8/" rel="next" title="WebSocket的使用">
+                  WebSocket的使用 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">闽ICP备2022007916号-1 </a>
+  </div>
+  <div class="copyright">
+    &copy; 2016 – 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">陈晟</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">489k</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script><script src="/js/pjax.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+</html>

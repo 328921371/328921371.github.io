@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.2.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"www.chensheng.group","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.20.0","exturl":false,"sidebar":{"position":"right","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":true,"style":"mac"},"fold":{"enable":false,"height":500},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false,"trigger":"auto"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="超时登录我们肯定都遇到过,PC端的解决办法经常都是返回到登录页重新登录,那小程序里面呢,要怎么实现">
+<meta property="og:type" content="article">
+<meta property="og:title" content="小程序登陆锁">
+<meta property="og:url" content="https://www.chensheng.group/2022/12/06/162-%E5%B0%8F%E7%A8%8B%E5%BA%8F%E7%99%BB%E9%99%86%E9%94%81/index.html">
+<meta property="og:site_name" content="陈先生的小前端">
+<meta property="og:description" content="超时登录我们肯定都遇到过,PC端的解决办法经常都是返回到登录页重新登录,那小程序里面呢,要怎么实现">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-12-06T07:14:13.000Z">
+<meta property="article:modified_time" content="2024-06-02T16:07:19.379Z">
+<meta property="article:author" content="陈晟">
+<meta property="article:tag" content="uniApp">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://www.chensheng.group/2022/12/06/162-%E5%B0%8F%E7%A8%8B%E5%BA%8F%E7%99%BB%E9%99%86%E9%94%81/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://www.chensheng.group/2022/12/06/162-%E5%B0%8F%E7%A8%8B%E5%BA%8F%E7%99%BB%E9%99%86%E9%94%81/","path":"2022/12/06/162-小程序登陆锁/","title":"小程序登陆锁"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>小程序登陆锁 | 陈先生的小前端</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="陈先生的小前端" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">陈先生的小前端</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-house-chimney fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-list fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#request-js"><span class="nav-number">1.</span> <span class="nav-text">request.js</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#login-js"><span class="nav-number">2.</span> <span class="nav-text">login.js</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="陈晟"
+      src="/img/touxiang.jpg">
+  <p class="site-author-name" itemprop="name">陈晟</p>
+  <div class="site-description" itemprop="description">请不要在最能吃苦的日子选择安逸</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">165</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">36</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">56</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/328921371" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;328921371" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:328921371@qq.com" title="E-Mail → mailto:328921371@qq.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.chensheng.group/2022/12/06/162-%E5%B0%8F%E7%A8%8B%E5%BA%8F%E7%99%BB%E9%99%86%E9%94%81/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/img/touxiang.jpg">
+      <meta itemprop="name" content="陈晟">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="陈先生的小前端">
+      <meta itemprop="description" content="请不要在最能吃苦的日子选择安逸">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="小程序登陆锁 | 陈先生的小前端">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          小程序登陆锁
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-12-06 15:14:13" itemprop="dateCreated datePublished" datetime="2022-12-06T15:14:13+08:00">2022-12-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/uniApp/" itemprop="url" rel="index"><span itemprop="name">uniApp</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><hr style='filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)' color='#FF0000' size='1' />
+
+<blockquote>
+<p>超时登录我们肯定都遇到过,PC端的解决办法经常都是返回到登录页重新登录,那小程序里面呢,要怎么实现</p>
+</blockquote>
+<span id="more"></span>
+
+<p>小程序用户在使用中,我们都知道,肯定不能退出到首页让用户重新登录,不然用户体验会很差,大致分为以下几种问题</p>
+<blockquote>
+<p>一般情况下,小程序token不会设置的那么短</p>
+</blockquote>
+<ol>
+<li><p>调用接口后,后端返回超时登录,这时候需要重新登录获取token</p>
+</li>
+<li><p>获取token后,需要重新调用之前的接口,把新的token带上,重新获取数据,让用户无感登录</p>
+</li>
+<li><p>如果页面同时请求了多个异步接口,只能调用一次登录的接口,否则会因为重新调用接口后,每个接口附带的token都不同,导致之前的token都失效了</p>
+</li>
+</ol>
+<p>带着问题,我们来看看如何解决</p>
+<div class="note info"><p>我们先来想想解决问题的思路</p>
+</div>
+
+<ol>
+<li>判断接口是否403超时登陆</li>
+<li>超时登录的时候记录当前的接口请求,并重新调用登录接口</li>
+<li>登录后重新调用刚刚记录的接口请求,并替换token</li>
+<li>如果有多个接口,判断第一个接口调用了登录,其他接口进行等待,不继续调用登录接口</li>
+</ol>
+<p>这里有几个难点,如何知道登录完成了,再去调用之前的接口,如何确保其他接口可以在登录完成后才继续执行</p>
+<p>直接看代码,注释和解释都在代码里</p>
+<p>首先创建<code>request.js</code>文件和<code>login.js</code>文件</p>
+<h3 id="request-js"><a href="#request-js" class="headerlink" title="request.js"></a>request.js</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br></pre></td><td class="code"><pre><span class="line">import axios from &#x27;axios&#x27;</span><br><span class="line">import &#123; refreshLogin&#125; from &quot;./login.js&quot;;</span><br><span class="line"></span><br><span class="line">let DELAYED = 1000; // 设置队列延时</span><br><span class="line">// 创建axios实例</span><br><span class="line">const service = axios.create(&#123;</span><br><span class="line">  baseURL: process.env.BASE_API, // api 的 base_url</span><br><span class="line">  timeout: 60000 // 请求超时时间</span><br><span class="line">&#125;)</span><br><span class="line">// request拦截器</span><br><span class="line">service.interceptors.request.use((config) =&gt; &#123;</span><br><span class="line">    </span><br><span class="line">    try&#123;</span><br><span class="line">      config.data = JSON.parse(config.data)</span><br><span class="line">    &#125;catch(e)&#123;</span><br><span class="line">      //TODO handle the exception</span><br><span class="line">    &#125;</span><br><span class="line">    if(config.data.token == undefined)&#123;</span><br><span class="line">      config.data.token = uni.getStorageSync(&#x27;LOGIN_TOKEN&#x27;)</span><br><span class="line">    &#125;</span><br><span class="line">    return config</span><br><span class="line">  &#125;,</span><br><span class="line">  (error) =&gt; &#123;</span><br><span class="line">    Promise.reject(error)</span><br><span class="line">  &#125;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">// response 拦截器</span><br><span class="line">service.interceptors.response.use(</span><br><span class="line">(response) =&gt; &#123;</span><br><span class="line">    return new Promise((resolve, reject) =&gt; &#123;</span><br><span class="line">      const res = response.data</span><br><span class="line">      // 先判断最外层</span><br><span class="line">      if (res.errno !== &#x27;10000&#x27;) &#123;</span><br><span class="line">        // 无效TOKEN,如过期等,则执行登出操作</span><br><span class="line">        if(res.errno == &#x27;90005&#x27;) &#123;&#125; else &#123;</span><br><span class="line">          // 统一报错处理</span><br><span class="line">          uni.hideToast();</span><br><span class="line">          uni.showToast(&#123;</span><br><span class="line">            title: res.errmsg,</span><br><span class="line">            duration: 5000,</span><br><span class="line">            icon: &#x27;none&#x27;</span><br><span class="line">          &#125;);</span><br><span class="line">        &#125;</span><br><span class="line">        resolve(response.data)</span><br><span class="line">      &#125; else if (res.data[0].sub_errno !== &#x27;10000&#x27;) &#123;</span><br><span class="line">        if(res.data[0].sub_errno == &#x27;403&#x27;) &#123;</span><br><span class="line">      		// 这里需要重新登录</span><br><span class="line">          const app = getApp();</span><br><span class="line">          const LOGIN_SWITCH = app.globalData.LOGIN_SWITCH;// login锁，确保没有登录冲突</span><br><span class="line">          if(LOGIN_SWITCH)&#123; //如果已锁说明有在重新登录,只需要等待一下 继续请求</span><br><span class="line">            setTimeout(() =&gt; &#123;</span><br><span class="line">              response.config.data = JSON.parse(response.config.data)</span><br><span class="line">              response.config.data.token = uni.getStorageSync(&#x27;LOGIN_TOKEN&#x27;)</span><br><span class="line">              resolve(service(response.config))</span><br><span class="line">            &#125;, DELAYED);</span><br><span class="line">          &#125;else&#123;</span><br><span class="line">            //重新登录并继续请求</span><br><span class="line">            refreshLogin().then(()=&gt;&#123;</span><br><span class="line">              response.config.data = JSON.parse(response.config.data)</span><br><span class="line">              response.config.data.token = uni.getStorageSync(&#x27;LOGIN_TOKEN&#x27;)</span><br><span class="line">              resolve(service(response.config))</span><br><span class="line">            &#125;)</span><br><span class="line">          &#125;</span><br><span class="line">          return;</span><br><span class="line">        &#125;  else &#123;</span><br><span class="line">          uni.hideToast();</span><br><span class="line">          resolve(response.data)</span><br><span class="line">          return;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125; else &#123;</span><br><span class="line">        // 正常数据返回</span><br><span class="line">        resolve(response.data)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;,</span><br><span class="line">  (error) =&gt; &#123;</span><br><span class="line">    let errorObj = &#123;</span><br><span class="line">    	data: [],</span><br><span class="line">      errmsg: &#x27;数据返回失败！&#x27;,</span><br><span class="line">      errno: &#x27;3289&#x27;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if (error &amp;&amp; error.response) &#123;</span><br><span class="line">      switch (error.response.status) &#123;</span><br><span class="line">      case 400: errorObj.message = &#x27;(c1400)&#x27; ; break; // 请求错误</span><br><span class="line">      case 401: errorObj.message = &#x27;(c1401)&#x27;; break; // 未授权</span><br><span class="line">      case 403: errorObj.message = &#x27;(c1403)&#x27;; break; // 拒绝访问</span><br><span class="line">      case 404: errorObj.message = &#x27;(c1404)&#x27;; break; // 请求出错</span><br><span class="line">      case 408: errorObj.message = &#x27;(c1408)&#x27;; break; // 请求超时</span><br><span class="line">      case 500: errorObj.message = &#x27;(c1500)&#x27;; break; // 服务器错误</span><br><span class="line">      case 501: errorObj.message = &#x27;(c1501)&#x27;; break; // 服务未实现</span><br><span class="line">      case 502: errorObj.message = &#x27;(c1502)&#x27;; break; // 网络错误</span><br><span class="line">      case 503: errorObj.message = &#x27;(c1503)&#x27;; break; // 服务不可用</span><br><span class="line">      case 504: errorObj.message = &#x27;(c1504)&#x27;; break; // 网络超时</span><br><span class="line">      case 505: errorObj.message = &#x27;(c1505)&#x27;; break; // HTTP版本不受支持</span><br><span class="line">      default: errorObj.message = `连接出错($&#123;error.response.status&#125;)!` // 连接出错</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">      errorObj.message = &#x27;(c3289)&#x27;</span><br><span class="line">    &#125;</span><br><span class="line">    uni.hideToast();</span><br><span class="line">    uni.showToast(&#123;</span><br><span class="line">      title: &#x27;网络繁忙,请稍后再试&#x27;,</span><br><span class="line">      duration: 2000,</span><br><span class="line">      icon: &#x27;none&#x27;</span><br><span class="line">    &#125;);</span><br><span class="line">    Promise.reject(error)</span><br><span class="line">  &#125;</span><br><span class="line">)</span><br><span class="line">//用来适配uniapp的语法</span><br><span class="line">axios.defaults.adapter = function(config) &#123;</span><br><span class="line">	return new Promise((resolve, reject) =&gt; &#123;</span><br><span class="line">		var settle = require(&#x27;axios/lib/core/settle&#x27;);</span><br><span class="line">		var buildURL = require(&#x27;axios/lib/helpers/buildURL&#x27;);</span><br><span class="line">		uni.request(&#123;</span><br><span class="line">			method: config.method.toUpperCase(),</span><br><span class="line">			url: buildURL(config.url, config.params, config.paramsSerializer),</span><br><span class="line">			// url: config.baseURL + buildURL(config.url, config.params, config.paramsSerializer),</span><br><span class="line">			header: config.headers,</span><br><span class="line">			data: config.data,</span><br><span class="line">			dataType: config.dataType,</span><br><span class="line">			responseType: config.responseType,</span><br><span class="line">			sslVerify: config.sslVerify,</span><br><span class="line">			complete: function complete(response) &#123;</span><br><span class="line">				response = &#123;</span><br><span class="line">					data: response.data,</span><br><span class="line">					status: response.statusCode,</span><br><span class="line">					errMsg: response.errMsg,</span><br><span class="line">					header: response.header,</span><br><span class="line">					config: config</span><br><span class="line">				&#125;;</span><br><span class="line">				settle(resolve, reject, response);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;)</span><br><span class="line">	&#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">export default service</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="login-js"><a href="#login-js" class="headerlink" title="login.js"></a>login.js</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">import axios from &#x27;./request.js&#x27;</span><br><span class="line">import utils from &#x27;./utils.js&#x27;</span><br><span class="line">import api from &#x27;./api.js&#x27;</span><br><span class="line">/**</span><br><span class="line"> * 重新登录======token不存在或过期</span><br><span class="line"> */</span><br><span class="line">export const refreshLogin = () =&gt; &#123;</span><br><span class="line">  const app = getApp();</span><br><span class="line">  app.globalData.LOGIN_SWITCH = true;</span><br><span class="line">  uni.removeStorageSync(&#x27;LOGIN_TOKEN&#x27;);</span><br><span class="line">  return new Promise(async (resolve, reject) =&gt; &#123;</span><br><span class="line">    try &#123;</span><br><span class="line">      const code = await getWxCode();</span><br><span class="line">      let json = &#123;</span><br><span class="line">        action: &#x27;weixinLogin&#x27;,</span><br><span class="line">        wxcode: code</span><br><span class="line">      &#125;</span><br><span class="line">      axios.request(&#123;</span><br><span class="line">      	url: api.url,</span><br><span class="line">      	method: &quot;POST&quot;,</span><br><span class="line">      	data: json,</span><br><span class="line">      	timeout: 10000</span><br><span class="line">      &#125;).then((response)=&gt;&#123;</span><br><span class="line">        let token = response.data[0].token;</span><br><span class="line">        uni.setStorageSync(&#x27;LOGIN_TOKEN&#x27;, token);</span><br><span class="line">        app.globalData.LOGIN_SWITCH = false;</span><br><span class="line">        resolve(token);</span><br><span class="line">      &#125;).catch((err)=&gt;&#123;</span><br><span class="line">        reject(err)</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125; catch (err) &#123;</span><br><span class="line">      reject(err)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 获取 小程序的code</span><br><span class="line"> */</span><br><span class="line">export const getWxCode = () =&gt; &#123;</span><br><span class="line">  return new Promise((resolve, reject) =&gt; &#123;</span><br><span class="line">    uni.login(&#123;</span><br><span class="line">      success(res) &#123;</span><br><span class="line">        if (res.code) &#123;</span><br><span class="line">          resolve(res.code);</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">          utils.toast(&#x27;登录失败，请重新进入小程序&#x27;)</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>简单来说,就是当超时的时候,只要有重新登录,就上个锁,其他的接口一直轮询等待</p>
+</blockquote>
+<p>以上就是我对登陆锁的一些理解,如果文章由于我学识浅薄,导致您发现有严重谬误的地方,请一定在评论中指出,我会在第一时间修正我的博文,以避免误人子弟。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>请我一杯咖啡吧！</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/img/wechatpay.png" alt="陈晟 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/img/alipay.png" alt="陈晟 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>陈晟
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://www.chensheng.group/2022/12/06/162-%E5%B0%8F%E7%A8%8B%E5%BA%8F%E7%99%BB%E9%99%86%E9%94%81/" title="小程序登陆锁">https://www.chensheng.group/2022/12/06/162-小程序登陆锁/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/uniApp/" rel="tag"><i class="fa fa-tag"></i> uniApp</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/11/12/161-uni-app%E9%85%8D%E7%BD%AEaxios/" rel="prev" title="uni-app配置axios">
+                  <i class="fa fa-angle-left"></i> uni-app配置axios
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2023/01/27/163-uni-app%E6%A8%A1%E5%9D%97%E5%8C%96%E6%89%93%E5%8C%85/" rel="next" title="uni-app模块化打包配置">
+                  uni-app模块化打包配置 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">闽ICP备2022007916号-1 </a>
+  </div>
+  <div class="copyright">
+    &copy; 2016 – 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">陈晟</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">489k</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script><script src="/js/pjax.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+</html>
