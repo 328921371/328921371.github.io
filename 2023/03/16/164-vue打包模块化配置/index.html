@@ -28,13 +28,13 @@
 <meta property="og:site_name" content="陈先生的小前端">
 <meta property="og:description" content="同一个项目给不同的环境配置打包命令">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://csblogimage.oss-cn-hangzhou.aliyuncs.com/156-1-vue%E8%87%AA%E5%AE%9A%E4%B9%89%E8%BF%90%E8%A1%8C.png">
+<meta property="og:image" content="https://csblogimage.oss-cn-hangzhou.aliyuncs.com/156-1-vue%E8%87%AA%E5%AE%9A%E4%B9%89%E8%BF%90%E8%A1%8C.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,size_16,text_Qnku6ZmI5YWI55Sf55qE5bCP5YmN56uv,color_FFFFFF,shadow_50,t_100,g_se,x_10,y_10">
 <meta property="article:published_time" content="2023-03-16T10:33:00.000Z">
-<meta property="article:modified_time" content="2024-06-02T16:07:19.379Z">
+<meta property="article:modified_time" content="2024-06-05T02:43:38.346Z">
 <meta property="article:author" content="陈晟">
 <meta property="article:tag" content="Vue">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://csblogimage.oss-cn-hangzhou.aliyuncs.com/156-1-vue%E8%87%AA%E5%AE%9A%E4%B9%89%E8%BF%90%E8%A1%8C.png">
+<meta name="twitter:image" content="https://csblogimage.oss-cn-hangzhou.aliyuncs.com/156-1-vue%E8%87%AA%E5%AE%9A%E4%B9%89%E8%BF%90%E8%A1%8C.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,size_16,text_Qnku6ZmI5YWI55Sf55qE5bCP5YmN56uv,color_FFFFFF,shadow_50,t_100,g_se,x_10,y_10">
 
 
 <link rel="canonical" href="https://www.chensheng.group/2023/03/16/164-vue%E6%89%93%E5%8C%85%E6%A8%A1%E5%9D%97%E5%8C%96%E9%85%8D%E7%BD%AE/">
@@ -159,7 +159,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">165</span>
+          <span class="site-state-item-count">166</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -268,7 +268,7 @@
 <p>有时候项目中可能会遇到,某一些模块,这个项目需要,某一些模块另外一个项目需要,今天记录几个自己平常项目中比较常用的办法</p>
 <p>假设现在有一个项目,A城市有一个单独的模块,B城市也有一个单独的模块,同时他们还有两个共同的页面,我们需要怎么区分呢</p>
 <p>先看看最后有哪些文件</p>
-<p><img src="https://csblogimage.oss-cn-hangzhou.aliyuncs.com/156-1-vue%E8%87%AA%E5%AE%9A%E4%B9%89%E8%BF%90%E8%A1%8C.png" alt="文件图片"></p>
+<p><img src="https://csblogimage.oss-cn-hangzhou.aliyuncs.com/156-1-vue%E8%87%AA%E5%AE%9A%E4%B9%89%E8%BF%90%E8%A1%8C.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,size_16,text_Qnku6ZmI5YWI55Sf55qE5bCP5YmN56uv,color_FFFFFF,shadow_50,t_100,g_se,x_10,y_10" alt="文件图片"></p>
 <h3 id="添加文件模块"><a href="#添加文件模块" class="headerlink" title="添加文件模块"></a>添加文件模块</h3><p>首先在views下创建四个文件夹 cityA,cityB,pageA,pageB分别代表了刚刚描述的模块</p>
 <p>每个文件夹下新增 <code>index.js</code>, <code>index.vue</code></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- index.js中的代码就是类似这样的,路径什么的都可以自己定义 --&gt;</span><br><span class="line">export const routes = [</span><br><span class="line">  &#123;</span><br><span class="line">    path: &quot;/city/a&quot;,</span><br><span class="line">    name: &quot;cityA&quot;,</span><br><span class="line">    component: () =&gt; import(/* webpackChunkName: &quot;cityA&quot; */ &quot;./index.vue&quot;),</span><br><span class="line">    meta: &#123;</span><br><span class="line">      title: &quot;定制化A页面&quot;,</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">];</span><br><span class="line"></span><br></pre></td></tr></table></figure>
@@ -408,7 +408,7 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">489k</span>
+    <span title="站点总字数">491k</span>
   </span>
 </div>
 <div class="busuanzi-count">

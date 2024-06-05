@@ -28,14 +28,14 @@
 <meta property="og:site_name" content="陈先生的小前端">
 <meta property="og:description" content="前一阵子由于网站拿去ICP的备案,所以停了一段时间,现在备案下来了,我们来学习一下垃圾回收">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://csblogimage.oss-cn-hangzhou.aliyuncs.com/142-1-%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6.jpg">
-<meta property="og:image" content="https://csblogimage.oss-cn-hangzhou.aliyuncs.com/142-2-%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6.jpg.jpg">
+<meta property="og:image" content="https://csblogimage.oss-cn-hangzhou.aliyuncs.com/142-1-%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6.jpg?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,size_16,text_Qnku6ZmI5YWI55Sf55qE5bCP5YmN56uv,color_FFFFFF,shadow_50,t_100,g_se,x_10,y_10">
+<meta property="og:image" content="https://csblogimage.oss-cn-hangzhou.aliyuncs.com/142-2-%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6.jpg.jpg?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,size_16,text_Qnku6ZmI5YWI55Sf55qE5bCP5YmN56uv,color_FFFFFF,shadow_50,t_100,g_se,x_10,y_10">
 <meta property="article:published_time" content="2021-08-30T13:35:00.000Z">
-<meta property="article:modified_time" content="2024-06-02T16:07:19.376Z">
+<meta property="article:modified_time" content="2024-06-05T02:43:44.351Z">
 <meta property="article:author" content="陈晟">
 <meta property="article:tag" content="javaScript">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://csblogimage.oss-cn-hangzhou.aliyuncs.com/142-1-%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6.jpg">
+<meta name="twitter:image" content="https://csblogimage.oss-cn-hangzhou.aliyuncs.com/142-1-%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6.jpg?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,size_16,text_Qnku6ZmI5YWI55Sf55qE5bCP5YmN56uv,color_FFFFFF,shadow_50,t_100,g_se,x_10,y_10">
 
 
 <link rel="canonical" href="https://www.chensheng.group/2021/08/30/142-%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E5%8E%9F%E7%90%86/">
@@ -160,7 +160,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">165</span>
+          <span class="site-state-item-count">166</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -320,7 +320,7 @@
 <li>若对象不存活，则释放不存活对象的空间。</li>
 <li>完成复制后，将 From 空间与 To 空间进行角色翻转（flip）。</li>
 </ol>
-<p><img src="https://csblogimage.oss-cn-hangzhou.aliyuncs.com/142-1-%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6.jpg" alt="算法示意图"></p>
+<p><img src="https://csblogimage.oss-cn-hangzhou.aliyuncs.com/142-1-%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6.jpg?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,size_16,text_Qnku6ZmI5YWI55Sf55qE5bCP5YmN56uv,color_FFFFFF,shadow_50,t_100,g_se,x_10,y_10" alt="算法示意图"></p>
 <h5 id="对象晋升"><a href="#对象晋升" class="headerlink" title="对象晋升"></a>对象晋升</h5><p>第二点提到的对象晋升,条件有两个: </p>
 <ul>
 <li>对象是否经历过Scavenge回收。</li>
@@ -333,7 +333,7 @@
 <p>从 2012 年起，所有现代浏览器都使用了标记-清除的垃圾回收方法，除了低版本 IE…它们采用的是引用计数方法。</p>
 <p>那什么叫标记清除呢？JavaScript 中有个全局对象，浏览器中是 window。定期的，垃圾回收期将从这个全局对象开始，找所有从这个全局对象开始引用的对象，再找这些对象引用的对象…对这些活着的对象进行标记，这是标记阶段。清除阶段会对标记的对象会与内存中的对象进行比较，然后清除内存中那些没有标记的对象。</p>
 <p>标记－清除法的一个问题就是不那么有效率，因为在标记－清除阶段，整个程序将会等待，所以如果程序出现卡顿的情况，那有可能是收集垃圾的过程。</p>
-<p><img src="https://csblogimage.oss-cn-hangzhou.aliyuncs.com/142-2-%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6.jpg.jpg" alt="算法示意图"></p>
+<p><img src="https://csblogimage.oss-cn-hangzhou.aliyuncs.com/142-2-%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6.jpg.jpg?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,size_16,text_Qnku6ZmI5YWI55Sf55qE5bCP5YmN56uv,color_FFFFFF,shadow_50,t_100,g_se,x_10,y_10" alt="算法示意图"></p>
 <h4 id="增量标记"><a href="#增量标记" class="headerlink" title="增量标记"></a>增量标记</h4><p>在新生代中，由于存活对象少，垃圾回收效率高，全停顿时间短，造成的影响小。但是老生代中，存活对象多，垃圾回收时间长，全停顿造成的影响大。为了减少全停顿的时间，V8对标记进行了优化，将一次停顿进行的标记过程，分成了很多小步。每执行完一小步就让应用逻辑执行一会儿，这样交替多次后完成标记。</p>
 <blockquote>
 <p>长时间的GC，会导致应用暂停和无响应，将会导致糟糕的用户体验。从2011年起，v8就将「全暂停」标记换成了增量标记。改进后的标记方式，最大停顿时间减少到原来的1&#x2F;6。</p>
@@ -431,7 +431,7 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">489k</span>
+    <span title="站点总字数">491k</span>
   </span>
 </div>
 <div class="busuanzi-count">

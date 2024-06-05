@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.2.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"www.chensheng.group","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.20.0","exturl":false,"sidebar":{"position":"right","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":true,"style":"mac"},"fold":{"enable":false,"height":500},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false,"trigger":"auto"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="现在的gitee,coding等代码托管的平台,都取消了pages服务,这里记录一下怎么在Serverless上部署静态资源">
+<meta property="og:type" content="article">
+<meta property="og:title" content="构建Serverless应用">
+<meta property="og:url" content="https://www.chensheng.group/2024/06/05/166-%E6%9E%84%E5%BB%BAServerless%E5%BA%94%E7%94%A8/index.html">
+<meta property="og:site_name" content="陈先生的小前端">
+<meta property="og:description" content="现在的gitee,coding等代码托管的平台,都取消了pages服务,这里记录一下怎么在Serverless上部署静态资源">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://csblogimage.oss-cn-hangzhou.aliyuncs.com/166-%E5%AD%98%E5%82%A8%E6%A1%B6.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,size_16,text_Qnku6ZmI5YWI55Sf55qE5bCP5YmN56uv,color_FFFFFF,shadow_50,t_100,g_se,x_10,y_10">
+<meta property="og:image" content="https://csblogimage.oss-cn-hangzhou.aliyuncs.com/166-%E5%AD%98%E5%82%A8%E6%A1%B6.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,size_16,text_Qnku6ZmI5YWI55Sf55qE5bCP5YmN56uv,color_FFFFFF,shadow_50,t_100,g_se,x_10,y_10">
+<meta property="og:image" content="https://csblogimage.oss-cn-hangzhou.aliyuncs.com/166-Serverless.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,size_16,text_Qnku6ZmI5YWI55Sf55qE5bCP5YmN56uv,color_FFFFFF,shadow_50,t_100,g_se,x_10,y_10">
+<meta property="article:published_time" content="2024-06-05T15:33:00.000Z">
+<meta property="article:modified_time" content="2024-06-05T02:45:03.625Z">
+<meta property="article:author" content="陈晟">
+<meta property="article:tag" content="GitHub">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://csblogimage.oss-cn-hangzhou.aliyuncs.com/166-%E5%AD%98%E5%82%A8%E6%A1%B6.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,size_16,text_Qnku6ZmI5YWI55Sf55qE5bCP5YmN56uv,color_FFFFFF,shadow_50,t_100,g_se,x_10,y_10">
+
+
+<link rel="canonical" href="https://www.chensheng.group/2024/06/05/166-%E6%9E%84%E5%BB%BAServerless%E5%BA%94%E7%94%A8/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://www.chensheng.group/2024/06/05/166-%E6%9E%84%E5%BB%BAServerless%E5%BA%94%E7%94%A8/","path":"2024/06/05/166-构建Serverless应用/","title":"构建Serverless应用"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>构建Serverless应用 | 陈先生的小前端</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="陈先生的小前端" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">陈先生的小前端</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-house-chimney fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-list fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C"><span class="nav-number">1.</span> <span class="nav-text">准备工作</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9E%84%E5%BB%BA-Serverless-Hexo-%E7%AB%99%E7%82%B9"><span class="nav-number"></span> <span class="nav-text">构建 Serverless Hexo 站点</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%88%9B%E5%BB%BAHexo%E9%9D%99%E6%80%81%E7%BD%91%E7%AB%99"><span class="nav-number">1.</span> <span class="nav-text">1. 创建Hexo静态网站</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85Hexo%E5%92%8C%E5%88%9D%E5%A7%8B%E5%8C%96%E9%A1%B9%E7%9B%AE"><span class="nav-number">1.1.</span> <span class="nav-text">安装Hexo和初始化项目</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E9%85%8D%E7%BD%AE%E8%85%BE%E8%AE%AF%E4%BA%91COS"><span class="nav-number">2.</span> <span class="nav-text">2. 配置腾讯云COS</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E8%85%BE%E8%AE%AF%E4%BA%91CLI%E4%B8%8A%E4%BC%A0%E9%9D%99%E6%80%81%E6%96%87%E4%BB%B6"><span class="nav-number">2.1.</span> <span class="nav-text">使用腾讯云CLI上传静态文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E9%85%8D%E7%BD%AE%E8%85%BE%E8%AE%AF%E4%BA%91Serverless%E6%9C%8D%E5%8A%A1"><span class="nav-number">3.</span> <span class="nav-text">3. 配置腾讯云Serverless服务</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85Serverless%E6%A1%86%E6%9E%B6"><span class="nav-number">3.1.</span> <span class="nav-text">安装Serverless框架</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AEServerless%E9%A1%B9%E7%9B%AE"><span class="nav-number">3.2.</span> <span class="nav-text">配置Serverless项目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%83%A8%E7%BD%B2Serverless%E9%A1%B9%E7%9B%AE"><span class="nav-number">3.3.</span> <span class="nav-text">部署Serverless项目</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E9%85%8D%E7%BD%AECDN"><span class="nav-number">4.</span> <span class="nav-text">4. 配置CDN</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2"><span class="nav-number">5.</span> <span class="nav-text">5. 实现自动化部署</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%93%E8%AE%BA"><span class="nav-number">6.</span> <span class="nav-text">结论</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%9B%E5%BB%BAServerless%E5%BA%94%E7%94%A8"><span class="nav-number"></span> <span class="nav-text">创建Serverless应用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%98%E5%82%A8%E6%A1%B6%E4%BF%AE%E6%94%B9"><span class="nav-number">1.</span> <span class="nav-text">存储桶修改</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%83%A8%E7%BD%B2Serverless"><span class="nav-number">2.</span> <span class="nav-text">部署Serverless</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%93%E8%AE%BA-1"><span class="nav-number">3.</span> <span class="nav-text">结论</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="陈晟"
+      src="/img/touxiang.jpg">
+  <p class="site-author-name" itemprop="name">陈晟</p>
+  <div class="site-description" itemprop="description">请不要在最能吃苦的日子选择安逸</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">166</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">36</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">56</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/328921371" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;328921371" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:328921371@qq.com" title="E-Mail → mailto:328921371@qq.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.chensheng.group/2024/06/05/166-%E6%9E%84%E5%BB%BAServerless%E5%BA%94%E7%94%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/img/touxiang.jpg">
+      <meta itemprop="name" content="陈晟">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="陈先生的小前端">
+      <meta itemprop="description" content="请不要在最能吃苦的日子选择安逸">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="构建Serverless应用 | 陈先生的小前端">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          构建Serverless应用
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2024-06-05 23:33:00" itemprop="dateCreated datePublished" datetime="2024-06-05T23:33:00+08:00">2024-06-05</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/GitHub/" itemprop="url" rel="index"><span itemprop="name">GitHub</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><hr style='filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)' color='#FF0000' size='1' />
+
+<blockquote>
+<p>现在的gitee,coding等代码托管的平台,都取消了pages服务,这里记录一下怎么在Serverless上部署静态资源</p>
+</blockquote>
+<span id="more"></span>
+
+<p>在Page-server服务不可用的情况下，使用腾讯云Serverless架构搭建一个Hexo静态博客是一个很好的选择。本文将详细介绍如何通过腾讯云Serverless架构，并绑定存储桶和Git来构建和部署你的Hexo博客</p>
+<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><p>在开始之前，我们需要准备以下工具和资源：</p>
+<ul>
+<li>Hexo（静态网站生成器）</li>
+<li>腾讯云账号（用于使用腾讯云Serverless服务）</li>
+<li>腾讯云命令行工具（CLI）</li>
+<li>GitHub（或其他Git服务）账号（用于托管源代码）</li>
+</ul>
+<div class="note primary"><p>两种方法部署,挑选适合自己的部署方式</p>
+</div>
+
+<blockquote class="blockquote-center">
+<p>方式一 </p>
+
+</blockquote>
+
+<h1 id="构建-Serverless-Hexo-站点"><a href="#构建-Serverless-Hexo-站点" class="headerlink" title="构建 Serverless Hexo 站点"></a>构建 Serverless Hexo 站点</h1><p><a target="_blank" rel="noopener" href="https://cloud.tencent.com/document/product/1154/40217">腾讯云官网地址</a></p>
+<blockquote>
+<p>以下记录在官网构建的基础上新增了 配置COS和Git绑定</p>
+</blockquote>
+<h2 id="1-创建Hexo静态网站"><a href="#1-创建Hexo静态网站" class="headerlink" title="1. 创建Hexo静态网站"></a>1. 创建Hexo静态网站</h2><h3 id="安装Hexo和初始化项目"><a href="#安装Hexo和初始化项目" class="headerlink" title="安装Hexo和初始化项目"></a>安装Hexo和初始化项目</h3><ol>
+<li>安装Hexo：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br></pre></td></tr></table></figure></li>
+<li>初始化Hexo项目：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo init my-blog</span><br><span class="line"><span class="built_in">cd</span> my-blog</span><br><span class="line">npm install</span><br></pre></td></tr></table></figure></li>
+<li>生成静态文件：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo generate</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="2-配置腾讯云COS"><a href="#2-配置腾讯云COS" class="headerlink" title="2. 配置腾讯云COS"></a>2. 配置腾讯云COS</h2><p>腾讯云对象存储（COS）适合托管静态文件。</p>
+<ol>
+<li>登录腾讯云控制台，进入COS服务。</li>
+<li>创建新存储桶，选择公共读私有写权限。</li>
+<li>在“基础配置”中启用静态网站托管，指定索引文档（如<code>index.html</code>）和错误文档（如<code>404.html</code>）。</li>
+</ol>
+<p><img src="https://csblogimage.oss-cn-hangzhou.aliyuncs.com/166-%E5%AD%98%E5%82%A8%E6%A1%B6.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,size_16,text_Qnku6ZmI5YWI55Sf55qE5bCP5YmN56uv,color_FFFFFF,shadow_50,t_100,g_se,x_10,y_10" alt="存储桶"></p>
+<h3 id="使用腾讯云CLI上传静态文件"><a href="#使用腾讯云CLI上传静态文件" class="headerlink" title="使用腾讯云CLI上传静态文件"></a>使用腾讯云CLI上传静态文件</h3><ol>
+<li>安装并配置腾讯云CLI：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pip install coscmd</span><br><span class="line">coscmd config -a &lt;SecretId&gt; -s &lt;SecretKey&gt; -b &lt;BucketName&gt; -r &lt;Region&gt;</span><br></pre></td></tr></table></figure></li>
+<li>上传静态文件到COS存储桶：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">coscmd upload -r public/ /</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="3-配置腾讯云Serverless服务"><a href="#3-配置腾讯云Serverless服务" class="headerlink" title="3. 配置腾讯云Serverless服务"></a>3. 配置腾讯云Serverless服务</h2><p>腾讯云Serverless框架帮助绑定存储桶和Git仓库，实现自动化部署。</p>
+<h3 id="安装Serverless框架"><a href="#安装Serverless框架" class="headerlink" title="安装Serverless框架"></a>安装Serverless框架</h3><ol>
+<li>安装Serverless框架：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g serverless</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="配置Serverless项目"><a href="#配置Serverless项目" class="headerlink" title="配置Serverless项目"></a>配置Serverless项目</h3><ol>
+<li>初始化Serverless项目：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">serverless create --template-url https://github.com/serverless/components/tree/master/templates/tencent-website --path my-hexo-blog</span><br><span class="line"><span class="built_in">cd</span> my-hexo-blog</span><br></pre></td></tr></table></figure></li>
+<li>修改<code>serverless.yml</code>配置文件，绑定COS存储桶和Git仓库：<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">org:</span> <span class="string">your-org-name</span></span><br><span class="line"><span class="attr">app:</span> <span class="string">your-app-name</span></span><br><span class="line"><span class="attr">stage:</span> <span class="string">dev</span></span><br><span class="line"><span class="attr">component:</span> <span class="string">&quot;@serverless/tencent-website&quot;</span></span><br><span class="line"><span class="attr">name:</span> <span class="string">my-hexo-blog</span></span><br><span class="line"></span><br><span class="line"><span class="attr">inputs:</span></span><br><span class="line">  <span class="attr">code:</span></span><br><span class="line">    <span class="attr">src:</span> <span class="string">./public</span></span><br><span class="line">    <span class="attr">hook:</span> <span class="string">npm</span> <span class="string">run</span> <span class="string">generate</span></span><br><span class="line">    <span class="attr">dist:</span> <span class="string">./public</span></span><br><span class="line">  <span class="attr">region:</span> <span class="string">ap-guangzhou</span></span><br><span class="line">  <span class="attr">bucket:</span> <span class="string">your-bucket-name</span></span><br><span class="line">  <span class="attr">protocol:</span> <span class="string">https</span></span><br><span class="line">  <span class="attr">host:</span> <span class="string">blog.yourdomain.com</span></span><br><span class="line">  <span class="attr">environment:</span></span><br><span class="line">    <span class="attr">variables:</span></span><br><span class="line">      <span class="attr">COS_SECRET_ID:</span> <span class="string">$&#123;env:COS_SECRET_ID&#125;</span></span><br><span class="line">      <span class="attr">COS_SECRET_KEY:</span> <span class="string">$&#123;env:COS_SECRET_KEY&#125;</span></span><br><span class="line">      <span class="attr">GIT_URL:</span> <span class="string">git@github.com:your-repo/your-blog.git</span></span><br><span class="line">      <span class="attr">GIT_BRANCH:</span> <span class="string">main</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="部署Serverless项目"><a href="#部署Serverless项目" class="headerlink" title="部署Serverless项目"></a>部署Serverless项目</h3><ol>
+<li>部署项目：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">serverless deploy</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="4-配置CDN"><a href="#4-配置CDN" class="headerlink" title="4. 配置CDN"></a>4. 配置CDN</h2><p>为了提高网站访问速度和全球可用性，可以使用腾讯云CDN进行加速：</p>
+<ol>
+<li>在腾讯云控制台中，进入CDN服务。</li>
+<li>添加新的CDN加速域名，源站类型选择COS。</li>
+<li>配置缓存规则和HTTP头。</li>
+</ol>
+<h2 id="5-实现自动化部署"><a href="#5-实现自动化部署" class="headerlink" title="5. 实现自动化部署"></a>5. 实现自动化部署</h2><p>每次更新博客内容并推送到Git仓库时，Serverless服务会自动将最新的静态文件部署到COS存储桶中。</p>
+<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>上面的方法是构建一个 Serverless Hexo 站点来部署你的hexo博客</p>
+<blockquote class="blockquote-center">
+<p>方式二 </p>
+
+</blockquote>
+
+<p><a target="_blank" rel="noopener" href="https://cloud.tencent.com/document/product/1154/39276">腾讯云官网</a></p>
+<p>这种方法是部署hexo打包后的public文件,之前介绍过了hexo打包部署直接上传到git或者coding,这次就不做介绍了</p>
+<h1 id="创建Serverless应用"><a href="#创建Serverless应用" class="headerlink" title="创建Serverless应用"></a>创建Serverless应用</h1><p>在腾讯云的控制台中找到Serverless.创建应用时</p>
+<ul>
+<li>创建方式: 应用市场</li>
+<li>模板: 快速部署website</li>
+</ul>
+<p>下一步的基础配置,写好应用名和存储桶的名称,Serverless会自动创建一个存储桶,点击保存</p>
+<h2 id="存储桶修改"><a href="#存储桶修改" class="headerlink" title="存储桶修改"></a>存储桶修改</h2><p>在存储桶的列表可以看到刚刚新增的存储桶,配置刚刚的存储桶</p>
+<ul>
+<li>在权限管理-存储桶访问权限中,把权限改为公有读私有写</li>
+<li>在基础配置-静态网址中,开启静态网址的服务</li>
+</ul>
+<p><img src="https://csblogimage.oss-cn-hangzhou.aliyuncs.com/166-%E5%AD%98%E5%82%A8%E6%A1%B6.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,size_16,text_Qnku6ZmI5YWI55Sf55qE5bCP5YmN56uv,color_FFFFFF,shadow_50,t_100,g_se,x_10,y_10" alt="存储桶"></p>
+<blockquote>
+<p>自2024年1月1日起，新创建的存储桶不支持使用存储桶默认域名（包括存储桶域名、静态网站域名、全球加速域名）在浏览器预览文件，而是直接下载。所以需要自己自定义域名</p>
+</blockquote>
+<h2 id="部署Serverless"><a href="#部署Serverless" class="headerlink" title="部署Serverless"></a>部署Serverless</h2><p>回到Serverless列表,进入应用后点击开发部署中的更新应用</p>
+<p>选择代码托管,仓库选择自己要部署的项目,存储桶配置根据自己的需求,选择全量覆盖还是增量更新</p>
+<p><img src="https://csblogimage.oss-cn-hangzhou.aliyuncs.com/166-Serverless.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,size_16,text_Qnku6ZmI5YWI55Sf55qE5bCP5YmN56uv,color_FFFFFF,shadow_50,t_100,g_se,x_10,y_10" alt="Serverless"></p>
+<h2 id="结论-1"><a href="#结论-1" class="headerlink" title="结论"></a>结论</h2><p>配置完成之后,后续提交到git仓库的内容,会同步更新到存储桶中,就可以直接访问页面了</p>
+<p>以上就是我对Serverless上部署静态资源的理解，如有错误，欢迎大佬指出 </p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>请我一杯咖啡吧！</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/img/wechatpay.png" alt="陈晟 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/img/alipay.png" alt="陈晟 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>陈晟
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://www.chensheng.group/2024/06/05/166-%E6%9E%84%E5%BB%BAServerless%E5%BA%94%E7%94%A8/" title="构建Serverless应用">https://www.chensheng.group/2024/06/05/166-构建Serverless应用/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/GitHub/" rel="tag"><i class="fa fa-tag"></i> GitHub</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2024/06/03/165-sourceTree%E4%B8%AD%E4%BD%BF%E7%94%A8SSH/" rel="prev" title="sourceTree中使用SSH">
+                  <i class="fa fa-angle-left"></i> sourceTree中使用SSH
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">闽ICP备2022007916号-1 </a>
+  </div>
+  <div class="copyright">
+    &copy; 2016 – 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">陈晟</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">491k</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script><script src="/js/pjax.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+</html>
