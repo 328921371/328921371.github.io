@@ -35,7 +35,7 @@
     settings.pointCountY = 5; //垂直点的数量。必须是奇数
     settings.movementLeft = false; //启用/禁用移动方向
     settings.movementRight = false; //启用/禁用移动方向
-    settings.movementTop = true; //启用/禁用移动方向
+    settings.movementTop = false; //启用/禁用移动方向
     settings.movementBottom = true; //启用/禁用移动方向
     settings.autoResize = true; //如果为true，大小将自动调整
     settings.debug = false; //启用/禁用调试模式

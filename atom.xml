@@ -6,7 +6,7 @@
   <link href="https://www.chensheng.group/atom.xml" rel="self"/>
   
   <link href="https://www.chensheng.group/"/>
-  <updated>2024-06-05T02:45:03.625Z</updated>
+  <updated>2024-06-06T06:37:21.177Z</updated>
   <id>https://www.chensheng.group/</id>
   
   <author>
@@ -15,6 +15,56 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>再次升级Next 8.x主题</title>
+    <link href="https://www.chensheng.group/2024/06/06/167-%E5%86%8D%E6%AC%A1%E5%8D%87%E7%BA%A7Next%208.x%E4%B8%BB%E9%A2%98/"/>
+    <id>https://www.chensheng.group/2024/06/06/167-%E5%86%8D%E6%AC%A1%E5%8D%87%E7%BA%A7Next%208.x%E4%B8%BB%E9%A2%98/</id>
+    <published>2024-06-06T15:33:00.000Z</published>
+    <updated>2024-06-06T06:37:21.177Z</updated>
+    
+    
+    <summary type="html">&lt;hr style=&#39;filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)&#39; color=&#39;#FF0000&#39; size=&#39;1&#39; /&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;theme-next已经不在维护了,所以最近换成了next-theme,后续的所有有关于next主题的优化,版本都是8.X的,这里记录一下next中对各个自定义文件的使用&lt;/p&gt;
+&lt;/blockquote&gt;</summary>
+    
+    
+    
+    <category term="hexo" scheme="https://www.chensheng.group/categories/hexo/"/>
+    
+    <category term="next" scheme="https://www.chensheng.group/categories/hexo/next/"/>
+    
+    
+    <category term="hexo" scheme="https://www.chensheng.group/tags/hexo/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Next 8.x 烟花特效</title>
+    <link href="https://www.chensheng.group/2024/06/06/168-Next%208.x%20%E7%83%9F%E8%8A%B1%E7%89%B9%E6%95%88/"/>
+    <id>https://www.chensheng.group/2024/06/06/168-Next%208.x%20%E7%83%9F%E8%8A%B1%E7%89%B9%E6%95%88/</id>
+    <published>2024-06-06T15:33:00.000Z</published>
+    <updated>2024-06-06T07:40:01.214Z</updated>
+    
+    
+    <summary type="html">&lt;hr style=&#39;filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)&#39; color=&#39;#FF0000&#39; size=&#39;1&#39; /&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Next主题升级,重新记录,鼠标点击烟花效果,和打字烟花效果&lt;/p&gt;
+&lt;/blockquote&gt;</summary>
+    
+    
+    
+    <category term="hexo" scheme="https://www.chensheng.group/categories/hexo/"/>
+    
+    <category term="next" scheme="https://www.chensheng.group/categories/hexo/next/"/>
+    
+    
+    <category term="hexo" scheme="https://www.chensheng.group/tags/hexo/"/>
+    
+  </entry>
   
   <entry>
     <title>构建Serverless应用</title>
@@ -887,52 +937,6 @@
     
     
     <category term="vue-cli" scheme="https://www.chensheng.group/tags/vue-cli/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>vue-cli 打包删除console.log</title>
-    <link href="https://www.chensheng.group/2020/06/05/128-vue%E6%89%93%E5%8C%85%E5%8E%BB%E9%99%A4log/"/>
-    <id>https://www.chensheng.group/2020/06/05/128-vue%E6%89%93%E5%8C%85%E5%8E%BB%E9%99%A4log/</id>
-    <published>2020-06-05T11:38:00.000Z</published>
-    <updated>2024-06-02T16:07:19.374Z</updated>
-    
-    
-    <summary type="html">&lt;hr style=&#39;filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)&#39; color=&#39;#FF0000&#39; size=&#39;1&#39; /&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;项目打包的时候想要删除console.log,但是又不想手动删除,万一编译的时候还要用,这时候就要自己开始配置了&lt;/p&gt;
-&lt;/blockquote&gt;</summary>
-    
-    
-    
-    <category term="vue-cli" scheme="https://www.chensheng.group/categories/vue-cli/"/>
-    
-    
-    <category term="vue-cli" scheme="https://www.chensheng.group/tags/vue-cli/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>vue源码学习-响应式原理</title>
-    <link href="https://www.chensheng.group/2020/05/31/127-vue%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0-%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86/"/>
-    <id>https://www.chensheng.group/2020/05/31/127-vue%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0-%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86/</id>
-    <published>2020-05-31T11:17:00.000Z</published>
-    <updated>2024-06-02T16:07:19.374Z</updated>
-    
-    
-    <summary type="html">&lt;hr style=&#39;filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)&#39; color=&#39;#FF0000&#39; size=&#39;1&#39; /&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;响应式原理是什么?为什么vue能监听到data里面的变化?为什么一定要把变量写在data里?为什么有时候数组监听不到?一起来学习一下吧&lt;/p&gt;
-&lt;/blockquote&gt;</summary>
-    
-    
-    
-    <category term="Vue" scheme="https://www.chensheng.group/categories/Vue/"/>
-    
-    
-    <category term="Vue" scheme="https://www.chensheng.group/tags/Vue/"/>
     
   </entry>
   

@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.2.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"www.chensheng.group","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.20.0","exturl":false,"sidebar":{"position":"right","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":true,"style":"mac"},"fold":{"enable":false,"height":500},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false,"trigger":"auto"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Next主题升级,重新记录,鼠标点击烟花效果,和打字烟花效果">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Next 8.x 烟花特效">
+<meta property="og:url" content="https://www.chensheng.group/2024/06/06/168-Next%208.x%20%E7%83%9F%E8%8A%B1%E7%89%B9%E6%95%88/index.html">
+<meta property="og:site_name" content="陈先生的小前端">
+<meta property="og:description" content="Next主题升级,重新记录,鼠标点击烟花效果,和打字烟花效果">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-06-06T15:33:00.000Z">
+<meta property="article:modified_time" content="2024-06-06T07:40:01.214Z">
+<meta property="article:author" content="陈晟">
+<meta property="article:tag" content="hexo">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://www.chensheng.group/2024/06/06/168-Next%208.x%20%E7%83%9F%E8%8A%B1%E7%89%B9%E6%95%88/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://www.chensheng.group/2024/06/06/168-Next%208.x%20%E7%83%9F%E8%8A%B1%E7%89%B9%E6%95%88/","path":"2024/06/06/168-Next 8.x 烟花特效/","title":"Next 8.x 烟花特效"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Next 8.x 烟花特效 | 陈先生的小前端</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="陈先生的小前端" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">陈先生的小前端</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-house-chimney fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-list fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="陈晟"
+      src="https://csblogimage.oss-cn-hangzhou.aliyuncs.com/chensheng.jpg">
+  <p class="site-author-name" itemprop="name">陈晟</p>
+  <div class="site-description" itemprop="description">请不要在最能吃苦的日子选择安逸</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">168</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">37</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">56</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/328921371" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;328921371" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:328921371@qq.com" title="E-Mail → mailto:328921371@qq.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.chensheng.group/2024/06/06/168-Next%208.x%20%E7%83%9F%E8%8A%B1%E7%89%B9%E6%95%88/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://csblogimage.oss-cn-hangzhou.aliyuncs.com/chensheng.jpg">
+      <meta itemprop="name" content="陈晟">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="陈先生的小前端">
+      <meta itemprop="description" content="请不要在最能吃苦的日子选择安逸">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Next 8.x 烟花特效 | 陈先生的小前端">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Next 8.x 烟花特效
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2024-06-06 23:33:00" itemprop="dateCreated datePublished" datetime="2024-06-06T23:33:00+08:00">2024-06-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/hexo/" itemprop="url" rel="index"><span itemprop="name">hexo</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/hexo/next/" itemprop="url" rel="index"><span itemprop="name">next</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><hr style='filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)' color='#FF0000' size='1' />
+
+<blockquote>
+<p>Next主题升级,重新记录,鼠标点击烟花效果,和打字烟花效果</p>
+</blockquote>
+<span id="more"></span>
+
+<p>在 <code>cource/js</code> 新增 <code>foreworks.js</code>文件, 以下代码基于 <a target="_blank" rel="noopener" href="https://github.com/NiklasKnaack/jquery-wobblewindow-plugin">大神的git</a> 修改的,粘贴就行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br></pre></td><td class="code"><pre><span class="line">class Fireworks &#123;</span><br><span class="line">  constructor() &#123;</span><br><span class="line">    this.canvas = document.createElement(&#x27;canvas&#x27;);</span><br><span class="line">    this.ctx = this.canvas.getContext(&#x27;2d&#x27;);</span><br><span class="line">    document.body.appendChild(this.canvas);</span><br><span class="line">    this.canvas.width = window.innerWidth;</span><br><span class="line">    this.canvas.height = window.innerHeight;</span><br><span class="line">    this.canvas.style.position = &#x27;fixed&#x27;;</span><br><span class="line">    this.canvas.style.top = &#x27;0&#x27;;</span><br><span class="line">    this.canvas.style.left = &#x27;0&#x27;;</span><br><span class="line">    this.canvas.style.pointerEvents = &#x27;none&#x27;;</span><br><span class="line">    this.canvas.style.zIndex = &#x27;9999&#x27;;</span><br><span class="line">    this.particles = [];</span><br><span class="line">    this.maxParticles = 20;  // 调整最大粒子数量</span><br><span class="line">    this.colors = [&#x27;#ff1461&#x27;, &#x27;#18FF92&#x27;, &#x27;#5A87FF&#x27;, &#x27;#FBF38C&#x27;];</span><br><span class="line"></span><br><span class="line">    window.addEventListener(&#x27;resize&#x27;, () =&gt; &#123;</span><br><span class="line">      this.canvas.width = window.innerWidth;</span><br><span class="line">      this.canvas.height = window.innerHeight;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    document.addEventListener(&#x27;click&#x27;, (e) =&gt; &#123;</span><br><span class="line">      this.createParticles(e.clientX, e.clientY);</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    document.addEventListener(&#x27;keydown&#x27;, (e) =&gt; &#123;</span><br><span class="line">      const activeElement = document.activeElement;</span><br><span class="line">      if (activeElement.tagName === &#x27;TEXTAREA&#x27; || (activeElement.tagName === &#x27;INPUT&#x27; &amp;&amp; (activeElement.type === &#x27;text&#x27; || activeElement.type === &#x27;search&#x27;))) &#123;</span><br><span class="line">        const &#123; left, top &#125; = this.getCaretCoordinates(activeElement);</span><br><span class="line">        console.log(left, top);</span><br><span class="line">        this.createParticles(left, top);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    this.loop();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  getCaretCoordinates(element) &#123;</span><br><span class="line">    const caret = getCaretCoordinates(element, element.selectionEnd);</span><br><span class="line">    const rect = element.getBoundingClientRect();</span><br><span class="line">    return &#123;</span><br><span class="line">      left: rect.left + caret.left + window.scrollX,</span><br><span class="line">      top: rect.top + caret.top + window.scrollY</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  createParticles(x, y) &#123;</span><br><span class="line">    for (let i = 0; i &lt; this.maxParticles; i++) &#123;</span><br><span class="line">      this.particles.push(new Particle(x, y, this.colors));</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  loop() &#123;</span><br><span class="line">    requestAnimationFrame(() =&gt; this.loop());</span><br><span class="line">    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);</span><br><span class="line">    this.particles = this.particles.filter(particle =&gt; particle.update(this.ctx));</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Particle &#123;</span><br><span class="line">  constructor(x, y, colors) &#123;</span><br><span class="line">    this.x = x;</span><br><span class="line">    this.y = y;</span><br><span class="line">    this.colors = colors;</span><br><span class="line">    this.color = this.colors[Math.floor(Math.random() * this.colors.length)];</span><br><span class="line">    this.radius = Math.random() * 2 + 1;  // 调整粒子的半径</span><br><span class="line">    this.speedX = Math.random() * 2 - 1;  // 调整粒子的水平速度</span><br><span class="line">    this.speedY = Math.random() * 4 - 2;  // 调整粒子的初始垂直速度</span><br><span class="line">    this.gravity = 0.2;  // 增加重力效果</span><br><span class="line">    this.alpha = 1;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  update(ctx) &#123;</span><br><span class="line">    this.x += this.speedX;</span><br><span class="line">    this.y += this.speedY;</span><br><span class="line">    this.speedY += this.gravity;  // 在垂直速度上添加重力</span><br><span class="line">    this.alpha -= 0.02;</span><br><span class="line">    if (this.alpha &lt;= 0) return false;</span><br><span class="line"></span><br><span class="line">    ctx.globalAlpha = this.alpha;</span><br><span class="line">    ctx.beginPath();</span><br><span class="line">    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);</span><br><span class="line">    ctx.fillStyle = this.color;</span><br><span class="line">    ctx.fill();</span><br><span class="line">    ctx.globalAlpha = 1;</span><br><span class="line"></span><br><span class="line">    return true;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">new Fireworks();</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>在 <code>cource/js</code> 新增 <code>caret.js</code>文件, 用来获取光标的位置,不需要打字烟花效果的可以不用 </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br></pre></td><td class="code"><pre><span class="line">/* jshint browser: true */</span><br><span class="line"></span><br><span class="line">(function () &#123;</span><br><span class="line"></span><br><span class="line">// We&#x27;ll copy the properties below into the mirror div.</span><br><span class="line">// Note that some browsers, such as Firefox, do not concatenate properties</span><br><span class="line">// into their shorthand (e.g. padding-top, padding-bottom etc. -&gt; padding),</span><br><span class="line">// so we have to list every single property explicitly.</span><br><span class="line">var properties = [</span><br><span class="line">  &#x27;direction&#x27;,  // RTL support</span><br><span class="line">  &#x27;boxSizing&#x27;,</span><br><span class="line">  &#x27;width&#x27;,  // on Chrome and IE, exclude the scrollbar, so the mirror div wraps exactly as the textarea does</span><br><span class="line">  &#x27;height&#x27;,</span><br><span class="line">  &#x27;overflowX&#x27;,</span><br><span class="line">  &#x27;overflowY&#x27;,  // copy the scrollbar for IE</span><br><span class="line"></span><br><span class="line">  &#x27;borderTopWidth&#x27;,</span><br><span class="line">  &#x27;borderRightWidth&#x27;,</span><br><span class="line">  &#x27;borderBottomWidth&#x27;,</span><br><span class="line">  &#x27;borderLeftWidth&#x27;,</span><br><span class="line">  &#x27;borderStyle&#x27;,</span><br><span class="line"></span><br><span class="line">  &#x27;paddingTop&#x27;,</span><br><span class="line">  &#x27;paddingRight&#x27;,</span><br><span class="line">  &#x27;paddingBottom&#x27;,</span><br><span class="line">  &#x27;paddingLeft&#x27;,</span><br><span class="line"></span><br><span class="line">  // https://developer.mozilla.org/en-US/docs/Web/CSS/font</span><br><span class="line">  &#x27;fontStyle&#x27;,</span><br><span class="line">  &#x27;fontVariant&#x27;,</span><br><span class="line">  &#x27;fontWeight&#x27;,</span><br><span class="line">  &#x27;fontStretch&#x27;,</span><br><span class="line">  &#x27;fontSize&#x27;,</span><br><span class="line">  &#x27;fontSizeAdjust&#x27;,</span><br><span class="line">  &#x27;lineHeight&#x27;,</span><br><span class="line">  &#x27;fontFamily&#x27;,</span><br><span class="line"></span><br><span class="line">  &#x27;textAlign&#x27;,</span><br><span class="line">  &#x27;textTransform&#x27;,</span><br><span class="line">  &#x27;textIndent&#x27;,</span><br><span class="line">  &#x27;textDecoration&#x27;,  // might not make a difference, but better be safe</span><br><span class="line"></span><br><span class="line">  &#x27;letterSpacing&#x27;,</span><br><span class="line">  &#x27;wordSpacing&#x27;,</span><br><span class="line"></span><br><span class="line">  &#x27;tabSize&#x27;,</span><br><span class="line">  &#x27;MozTabSize&#x27;</span><br><span class="line"></span><br><span class="line">];</span><br><span class="line"></span><br><span class="line">var isBrowser = (typeof window !== &#x27;undefined&#x27;);</span><br><span class="line">var isFirefox = (isBrowser &amp;&amp; window.mozInnerScreenX != null);</span><br><span class="line"></span><br><span class="line">function getCaretCoordinates(element, position, options) &#123;</span><br><span class="line">  if (!isBrowser) &#123;</span><br><span class="line">    throw new Error(&#x27;textarea-caret-position#getCaretCoordinates should only be called in a browser&#x27;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  var debug = options &amp;&amp; options.debug || false;</span><br><span class="line">  if (debug) &#123;</span><br><span class="line">    var el = document.querySelector(&#x27;#input-textarea-caret-position-mirror-div&#x27;);</span><br><span class="line">    if (el) el.parentNode.removeChild(el);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  // The mirror div will replicate the textarea&#x27;s style</span><br><span class="line">  var div = document.createElement(&#x27;div&#x27;);</span><br><span class="line">  div.id = &#x27;input-textarea-caret-position-mirror-div&#x27;;</span><br><span class="line">  document.body.appendChild(div);</span><br><span class="line"></span><br><span class="line">  var style = div.style;</span><br><span class="line">  var computed = window.getComputedStyle ? window.getComputedStyle(element) : element.currentStyle;  // currentStyle for IE &lt; 9</span><br><span class="line">  var isInput = element.nodeName === &#x27;INPUT&#x27;;</span><br><span class="line"></span><br><span class="line">  // Default textarea styles</span><br><span class="line">  style.whiteSpace = &#x27;pre-wrap&#x27;;</span><br><span class="line">  if (!isInput)</span><br><span class="line">    style.wordWrap = &#x27;break-word&#x27;;  // only for textarea-s</span><br><span class="line"></span><br><span class="line">  // Position off-screen</span><br><span class="line">  style.position = &#x27;absolute&#x27;;  // required to return coordinates properly</span><br><span class="line">  if (!debug)</span><br><span class="line">    style.visibility = &#x27;hidden&#x27;;  // not &#x27;display: none&#x27; because we want rendering</span><br><span class="line"></span><br><span class="line">  // Transfer the element&#x27;s properties to the div</span><br><span class="line">  properties.forEach(function (prop) &#123;</span><br><span class="line">    if (isInput &amp;&amp; prop === &#x27;lineHeight&#x27;) &#123;</span><br><span class="line">      // Special case for &lt;input&gt;s because text is rendered centered and line height may be != height</span><br><span class="line">      if (computed.boxSizing === &quot;border-box&quot;) &#123;</span><br><span class="line">        var height = parseInt(computed.height);</span><br><span class="line">        var outerHeight =</span><br><span class="line">          parseInt(computed.paddingTop) +</span><br><span class="line">          parseInt(computed.paddingBottom) +</span><br><span class="line">          parseInt(computed.borderTopWidth) +</span><br><span class="line">          parseInt(computed.borderBottomWidth);</span><br><span class="line">        var targetHeight = outerHeight + parseInt(computed.lineHeight);</span><br><span class="line">        if (height &gt; targetHeight) &#123;</span><br><span class="line">          style.lineHeight = height - outerHeight + &quot;px&quot;;</span><br><span class="line">        &#125; else if (height === targetHeight) &#123;</span><br><span class="line">          style.lineHeight = computed.lineHeight;</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">          style.lineHeight = 0;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125; else &#123;</span><br><span class="line">        style.lineHeight = computed.height;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      style[prop] = computed[prop];</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  if (isFirefox) &#123;</span><br><span class="line">    // Firefox lies about the overflow property for textareas: https://bugzilla.mozilla.org/show_bug.cgi?id=984275</span><br><span class="line">    if (element.scrollHeight &gt; parseInt(computed.height))</span><br><span class="line">      style.overflowY = &#x27;scroll&#x27;;</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">    style.overflow = &#x27;hidden&#x27;;  // for Chrome to not render a scrollbar; IE keeps overflowY = &#x27;scroll&#x27;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  div.textContent = element.value.substring(0, position);</span><br><span class="line">  // The second special handling for input type=&quot;text&quot; vs textarea:</span><br><span class="line">  // spaces need to be replaced with non-breaking spaces - http://stackoverflow.com/a/13402035/1269037</span><br><span class="line">  if (isInput)</span><br><span class="line">    div.textContent = div.textContent.replace(/\s/g, &#x27;\u00a0&#x27;);</span><br><span class="line"></span><br><span class="line">  var span = document.createElement(&#x27;span&#x27;);</span><br><span class="line">  // Wrapping must be replicated *exactly*, including when a long word gets</span><br><span class="line">  // onto the next line, with whitespace at the end of the line before (#7).</span><br><span class="line">  // The  *only* reliable way to do that is to copy the *entire* rest of the</span><br><span class="line">  // textarea&#x27;s content into the &lt;span&gt; created at the caret position.</span><br><span class="line">  // For inputs, just &#x27;.&#x27; would be enough, but no need to bother.</span><br><span class="line">  span.textContent = element.value.substring(position) || &#x27;.&#x27;;  // || because a completely empty faux span doesn&#x27;t render at all</span><br><span class="line">  div.appendChild(span);</span><br><span class="line"></span><br><span class="line">  var coordinates = &#123;</span><br><span class="line">    top: span.offsetTop + parseInt(computed[&#x27;borderTopWidth&#x27;]),</span><br><span class="line">    left: span.offsetLeft + parseInt(computed[&#x27;borderLeftWidth&#x27;]),</span><br><span class="line">    height: parseInt(computed[&#x27;lineHeight&#x27;])</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  if (debug) &#123;</span><br><span class="line">    span.style.backgroundColor = &#x27;#aaa&#x27;;</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">    document.body.removeChild(div);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  return coordinates;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">if (typeof module != &#x27;undefined&#x27; &amp;&amp; typeof module.exports != &#x27;undefined&#x27;) &#123;</span><br><span class="line">  module.exports = getCaretCoordinates;</span><br><span class="line">&#125; else if(isBrowser) &#123;</span><br><span class="line">  window.getCaretCoordinates = getCaretCoordinates;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#125;());</span><br></pre></td></tr></table></figure>
+
+<p>在 <code>source/_data</code> 中 新增 <code>body-end.njk</code> 文件.将刚刚那两个js引入</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src=&quot;/js/fireworks.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;script src=&quot;/js/caret.js&quot;&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>在 <code>_config.yml</code> 中开启,用备用主题的,就在备用主题中开启</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">custom_file_path:</span><br><span class="line">  bodyEnd: source/_data/body-end.njk</span><br></pre></td></tr></table></figure>
+
+<p>以上,就可以实现效果了</p>
+<p>感谢大佬们的无私贡献</p>
+
+    </div>
+
+    
+    
+    
+
+    
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>没办法,总要恰饭的嘛~~</div>
+  <button>
+    打赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/img/wechatpay.png" alt="陈晟 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/img/alipay.png" alt="陈晟 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>陈晟
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://www.chensheng.group/2024/06/06/168-Next%208.x%20%E7%83%9F%E8%8A%B1%E7%89%B9%E6%95%88/" title="Next 8.x 烟花特效">https://www.chensheng.group/2024/06/06/168-Next 8.x 烟花特效/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/hexo/" rel="tag"><i class="fa fa-tag"></i> hexo</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2024/06/05/166-%E6%9E%84%E5%BB%BAServerless%E5%BA%94%E7%94%A8/" rel="prev" title="构建Serverless应用">
+                  <i class="fa fa-angle-left"></i> 构建Serverless应用
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2024/06/06/167-%E5%86%8D%E6%AC%A1%E5%8D%87%E7%BA%A7Next%208.x%E4%B8%BB%E9%A2%98/" rel="next" title="再次升级Next 8.x主题">
+                  再次升级Next 8.x主题 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+<div class="footer-item-box">
+  <div class="copyright">
+    &copy; 2016 – 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">陈晟</span>
+  </div>
+
+<div class="footer-fenge">|</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">501k</span>
+  </span>
+</div>
+</div>
+
+<div class="footer-item-box">
+  <div>欢迎访问</div>
+  <div class="footer-fenge">|</div>
+  <div >Mr.Chen的小前端</div>
+  <div class="footer-fenge">|</div>
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">闽ICP备2022007916号-1 </a>
+  </div>
+
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span>我的第</span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+      <span>位朋友,</span>
+    </span>
+    <span id="busuanzi_container_site_pv">
+
+      <span>&nbsp;历经</span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+      <span>次回眸才与你相遇</span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.umd.js" integrity="sha256-a+H7FYzJv6oU2hfsfDGM2Ohw/cR9v+hPfxHCLdmCrE8=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script><script src="/js/pjax.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+<script src="/js/fireworks.js"></script>
+<script src="/js/caret.js"></script>
+<script src="/js/wobblewindow.js"></script>
+<script src="/js/wobble-header.js"></script>
+
+
+</body>
+</html>
