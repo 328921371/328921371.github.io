@@ -20,31 +20,31 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"www.chensheng.group","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.20.0","exturl":false,"sidebar":{"position":"right","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":true,"style":"mac"},"fold":{"enable":false,"height":500},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false,"trigger":"auto"}}</script><script src="/js/config.js"></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"www.chensheng.group","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.20.0","exturl":false,"sidebar":{"position":"right","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":true,"style":"mac"},"fold":{"enable":true,"height":200},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false,"trigger":"auto"}}</script><script src="/js/config.js"></script>
 
     <meta name="description" content="现在的gitee,coding等代码托管的平台,都取消了pages服务,这里记录一下怎么在Serverless上部署静态资源">
 <meta property="og:type" content="article">
 <meta property="og:title" content="构建Serverless应用">
-<meta property="og:url" content="https://www.chensheng.group/2024/06/05/166-%E6%9E%84%E5%BB%BAServerless%E5%BA%94%E7%94%A8/index.html">
+<meta property="og:url" content="https://www.chensheng.group/2023/07/11/166-%E6%9E%84%E5%BB%BAServerless%E5%BA%94%E7%94%A8/index.html">
 <meta property="og:site_name" content="陈先生的小前端">
 <meta property="og:description" content="现在的gitee,coding等代码托管的平台,都取消了pages服务,这里记录一下怎么在Serverless上部署静态资源">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://csblogimage.oss-cn-hangzhou.aliyuncs.com/166-%E5%AD%98%E5%82%A8%E6%A1%B6.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,size_16,text_Qnku6ZmI5YWI55Sf55qE5bCP5YmN56uv,color_FFFFFF,shadow_50,t_100,g_se,x_10,y_10">
 <meta property="og:image" content="https://csblogimage.oss-cn-hangzhou.aliyuncs.com/166-%E5%AD%98%E5%82%A8%E6%A1%B6.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,size_16,text_Qnku6ZmI5YWI55Sf55qE5bCP5YmN56uv,color_FFFFFF,shadow_50,t_100,g_se,x_10,y_10">
 <meta property="og:image" content="https://csblogimage.oss-cn-hangzhou.aliyuncs.com/166-Serverless.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,size_16,text_Qnku6ZmI5YWI55Sf55qE5bCP5YmN56uv,color_FFFFFF,shadow_50,t_100,g_se,x_10,y_10">
-<meta property="article:published_time" content="2024-06-05T15:33:00.000Z">
-<meta property="article:modified_time" content="2024-06-05T02:45:03.625Z">
+<meta property="article:published_time" content="2023-07-11T15:33:00.000Z">
+<meta property="article:modified_time" content="2024-06-06T08:22:09.475Z">
 <meta property="article:author" content="陈晟">
 <meta property="article:tag" content="GitHub">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://csblogimage.oss-cn-hangzhou.aliyuncs.com/166-%E5%AD%98%E5%82%A8%E6%A1%B6.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,size_16,text_Qnku6ZmI5YWI55Sf55qE5bCP5YmN56uv,color_FFFFFF,shadow_50,t_100,g_se,x_10,y_10">
 
 
-<link rel="canonical" href="https://www.chensheng.group/2024/06/05/166-%E6%9E%84%E5%BB%BAServerless%E5%BA%94%E7%94%A8/">
+<link rel="canonical" href="https://www.chensheng.group/2023/07/11/166-%E6%9E%84%E5%BB%BAServerless%E5%BA%94%E7%94%A8/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://www.chensheng.group/2024/06/05/166-%E6%9E%84%E5%BB%BAServerless%E5%BA%94%E7%94%A8/","path":"2024/06/05/166-构建Serverless应用/","title":"构建Serverless应用"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://www.chensheng.group/2023/07/11/166-%E6%9E%84%E5%BB%BAServerless%E5%BA%94%E7%94%A8/","path":"2023/07/11/166-构建Serverless应用/","title":"构建Serverless应用"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
 <title>构建Serverless应用 | 陈先生的小前端</title>
@@ -211,7 +211,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.chensheng.group/2024/06/05/166-%E6%9E%84%E5%BB%BAServerless%E5%BA%94%E7%94%A8/">
+    <link itemprop="mainEntityOfPage" href="https://www.chensheng.group/2023/07/11/166-%E6%9E%84%E5%BB%BAServerless%E5%BA%94%E7%94%A8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="https://csblogimage.oss-cn-hangzhou.aliyuncs.com/chensheng.jpg">
@@ -240,7 +240,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2024-06-05 23:33:00" itemprop="dateCreated datePublished" datetime="2024-06-05T23:33:00+08:00">2024-06-05</time>
+      <time title="创建时间：2023-07-11 23:33:00" itemprop="dateCreated datePublished" datetime="2023-07-11T23:33:00+08:00">2023-07-11</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -390,7 +390,7 @@
   </li>
   <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="https://www.chensheng.group/2024/06/05/166-%E6%9E%84%E5%BB%BAServerless%E5%BA%94%E7%94%A8/" title="构建Serverless应用">https://www.chensheng.group/2024/06/05/166-构建Serverless应用/</a>
+      <a href="https://www.chensheng.group/2023/07/11/166-%E6%9E%84%E5%BB%BAServerless%E5%BA%94%E7%94%A8/" title="构建Serverless应用">https://www.chensheng.group/2023/07/11/166-构建Serverless应用/</a>
   </li>
   <li class="post-copyright-license">
       <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -406,13 +406,13 @@
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2024/06/03/165-sourceTree%E4%B8%AD%E4%BD%BF%E7%94%A8SSH/" rel="prev" title="sourceTree中使用SSH">
+                <a href="/2023/05/03/165-sourceTree%E4%B8%AD%E4%BD%BF%E7%94%A8SSH/" rel="prev" title="sourceTree中使用SSH">
                   <i class="fa fa-angle-left"></i> sourceTree中使用SSH
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2024/06/06/168-Next%208.x%20%E7%83%9F%E8%8A%B1%E7%89%B9%E6%95%88/" rel="next" title="Next 8.x 烟花特效">
-                  Next 8.x 烟花特效 <i class="fa fa-angle-right"></i>
+                <a href="/2023/09/12/167-%E5%86%8D%E6%AC%A1%E5%8D%87%E7%BA%A7Next%208.x%E4%B8%BB%E9%A2%98/" rel="next" title="再次升级Next 8.x主题">
+                  再次升级Next 8.x主题 <i class="fa fa-angle-right"></i>
                 </a>
             </div>
           </div>
@@ -528,6 +528,29 @@
 <script src="/js/caret.js"></script>
 <script src="/js/wobblewindow.js"></script>
 <script src="/js/wobble-header.js"></script>
+
+  
+<script src="/js/darkmode-js.min.js"></script>
+
+<script>
+var options = {
+  bottom: '720px', // default: '32px'
+  right: '64px', // default: '32px'
+  left: 'unset', // default: 'unset'
+  time: '0.5s', // default: '0.3s'
+  mixColor: 'transparent', // default: '#fff', transparent
+  backgroundColor: 'transparent',  // default: '#fff', transparent
+  buttonColorDark: '#100f2c',  // default: '#100f2c'
+  buttonColorLight: '#fff', // default: '#fff'
+  saveInCookies: true, // default: true,
+  label: '', // default: '' 🌓
+  autoMatchOsTheme: true // default: true
+}
+const darkmode = new Darkmode(options);
+darkmode.showWidget();
+</script>
+
+
 
 
 </body>

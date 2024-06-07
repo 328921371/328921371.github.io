@@ -307,7 +307,8 @@
     };
 
     // ---
-    function render() {
+    WobbleWindow.prototype.render = render;
+    function render(color) {
       ctx.clearRect(0, 0, settings.canvasWidth, settings.canvasHeight);
 
       // ---
@@ -370,7 +371,14 @@
         ctx.stroke();
       }
       if (settings.bodyColor.length > 0) {
-        ctx.fillStyle = settings.bodyColor;
+        // 获取缓存中的darkmode
+        var darkmode = localStorage.getItem('darkmode');
+        if (darkmode == 'true') {
+          ctx.fillStyle = '#333333';
+        }else{
+          ctx.fillStyle = '#f5f5f5';
+        }
+        // ctx.fillStyle = settings.bodyColor;
         ctx.fill();
       }
       // ctx.globalCompositeOperation = 'source-out';

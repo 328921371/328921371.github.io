@@ -6,7 +6,7 @@
   <link href="https://www.chensheng.group/atom.xml" rel="self"/>
   
   <link href="https://www.chensheng.group/"/>
-  <updated>2024-06-06T06:37:21.177Z</updated>
+  <updated>2024-06-06T08:45:37.254Z</updated>
   <id>https://www.chensheng.group/</id>
   
   <author>
@@ -17,36 +17,11 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>再次升级Next 8.x主题</title>
-    <link href="https://www.chensheng.group/2024/06/06/167-%E5%86%8D%E6%AC%A1%E5%8D%87%E7%BA%A7Next%208.x%E4%B8%BB%E9%A2%98/"/>
-    <id>https://www.chensheng.group/2024/06/06/167-%E5%86%8D%E6%AC%A1%E5%8D%87%E7%BA%A7Next%208.x%E4%B8%BB%E9%A2%98/</id>
-    <published>2024-06-06T15:33:00.000Z</published>
-    <updated>2024-06-06T06:37:21.177Z</updated>
-    
-    
-    <summary type="html">&lt;hr style=&#39;filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)&#39; color=&#39;#FF0000&#39; size=&#39;1&#39; /&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;theme-next已经不在维护了,所以最近换成了next-theme,后续的所有有关于next主题的优化,版本都是8.X的,这里记录一下next中对各个自定义文件的使用&lt;/p&gt;
-&lt;/blockquote&gt;</summary>
-    
-    
-    
-    <category term="hexo" scheme="https://www.chensheng.group/categories/hexo/"/>
-    
-    <category term="next" scheme="https://www.chensheng.group/categories/hexo/next/"/>
-    
-    
-    <category term="hexo" scheme="https://www.chensheng.group/tags/hexo/"/>
-    
-  </entry>
-  
-  <entry>
     <title>Next 8.x 烟花特效</title>
     <link href="https://www.chensheng.group/2024/06/06/168-Next%208.x%20%E7%83%9F%E8%8A%B1%E7%89%B9%E6%95%88/"/>
     <id>https://www.chensheng.group/2024/06/06/168-Next%208.x%20%E7%83%9F%E8%8A%B1%E7%89%B9%E6%95%88/</id>
     <published>2024-06-06T15:33:00.000Z</published>
-    <updated>2024-06-06T07:40:01.214Z</updated>
+    <updated>2024-06-06T08:45:37.254Z</updated>
     
     
     <summary type="html">&lt;hr style=&#39;filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)&#39; color=&#39;#FF0000&#39; size=&#39;1&#39; /&gt;
@@ -67,11 +42,36 @@
   </entry>
   
   <entry>
+    <title>再次升级Next 8.x主题</title>
+    <link href="https://www.chensheng.group/2023/09/12/167-%E5%86%8D%E6%AC%A1%E5%8D%87%E7%BA%A7Next%208.x%E4%B8%BB%E9%A2%98/"/>
+    <id>https://www.chensheng.group/2023/09/12/167-%E5%86%8D%E6%AC%A1%E5%8D%87%E7%BA%A7Next%208.x%E4%B8%BB%E9%A2%98/</id>
+    <published>2023-09-12T15:33:00.000Z</published>
+    <updated>2024-06-06T08:22:27.512Z</updated>
+    
+    
+    <summary type="html">&lt;hr style=&#39;filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)&#39; color=&#39;#FF0000&#39; size=&#39;1&#39; /&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;theme-next已经不在维护了,所以最近换成了next-theme,后续的所有有关于next主题的优化,版本都是8.X的,这里记录一下next中对各个自定义文件的使用&lt;/p&gt;
+&lt;/blockquote&gt;</summary>
+    
+    
+    
+    <category term="hexo" scheme="https://www.chensheng.group/categories/hexo/"/>
+    
+    <category term="next" scheme="https://www.chensheng.group/categories/hexo/next/"/>
+    
+    
+    <category term="hexo" scheme="https://www.chensheng.group/tags/hexo/"/>
+    
+  </entry>
+  
+  <entry>
     <title>构建Serverless应用</title>
-    <link href="https://www.chensheng.group/2024/06/05/166-%E6%9E%84%E5%BB%BAServerless%E5%BA%94%E7%94%A8/"/>
-    <id>https://www.chensheng.group/2024/06/05/166-%E6%9E%84%E5%BB%BAServerless%E5%BA%94%E7%94%A8/</id>
-    <published>2024-06-05T15:33:00.000Z</published>
-    <updated>2024-06-05T02:45:03.625Z</updated>
+    <link href="https://www.chensheng.group/2023/07/11/166-%E6%9E%84%E5%BB%BAServerless%E5%BA%94%E7%94%A8/"/>
+    <id>https://www.chensheng.group/2023/07/11/166-%E6%9E%84%E5%BB%BAServerless%E5%BA%94%E7%94%A8/</id>
+    <published>2023-07-11T15:33:00.000Z</published>
+    <updated>2024-06-06T08:22:09.475Z</updated>
     
     
     <summary type="html">&lt;hr style=&#39;filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)&#39; color=&#39;#FF0000&#39; size=&#39;1&#39; /&gt;
@@ -91,10 +91,10 @@
   
   <entry>
     <title>sourceTree中使用SSH</title>
-    <link href="https://www.chensheng.group/2024/06/03/165-sourceTree%E4%B8%AD%E4%BD%BF%E7%94%A8SSH/"/>
-    <id>https://www.chensheng.group/2024/06/03/165-sourceTree%E4%B8%AD%E4%BD%BF%E7%94%A8SSH/</id>
-    <published>2024-06-03T15:33:00.000Z</published>
-    <updated>2024-06-05T01:56:06.543Z</updated>
+    <link href="https://www.chensheng.group/2023/05/03/165-sourceTree%E4%B8%AD%E4%BD%BF%E7%94%A8SSH/"/>
+    <id>https://www.chensheng.group/2023/05/03/165-sourceTree%E4%B8%AD%E4%BD%BF%E7%94%A8SSH/</id>
+    <published>2023-05-03T15:33:00.000Z</published>
+    <updated>2024-06-06T08:21:54.331Z</updated>
     
     
     <summary type="html">&lt;hr style=&#39;filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)&#39; color=&#39;#FF0000&#39; size=&#39;1&#39; /&gt;

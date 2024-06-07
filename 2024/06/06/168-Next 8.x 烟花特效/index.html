@@ -20,7 +20,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"www.chensheng.group","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.20.0","exturl":false,"sidebar":{"position":"right","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":true,"style":"mac"},"fold":{"enable":false,"height":500},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false,"trigger":"auto"}}</script><script src="/js/config.js"></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"www.chensheng.group","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.20.0","exturl":false,"sidebar":{"position":"right","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":true,"style":"mac"},"fold":{"enable":true,"height":200},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false,"trigger":"auto"}}</script><script src="/js/config.js"></script>
 
     <meta name="description" content="Next主题升级,重新记录,鼠标点击烟花效果,和打字烟花效果">
 <meta property="og:type" content="article">
@@ -30,7 +30,7 @@
 <meta property="og:description" content="Next主题升级,重新记录,鼠标点击烟花效果,和打字烟花效果">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-06-06T15:33:00.000Z">
-<meta property="article:modified_time" content="2024-06-06T07:40:01.214Z">
+<meta property="article:modified_time" content="2024-06-06T08:45:37.254Z">
 <meta property="article:author" content="陈晟">
 <meta property="article:tag" content="hexo">
 <meta name="twitter:card" content="summary">
@@ -279,7 +279,7 @@
 <p>在 <code>_config.yml</code> 中开启,用备用主题的,就在备用主题中开启</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">custom_file_path:</span><br><span class="line">  bodyEnd: source/_data/body-end.njk</span><br></pre></td></tr></table></figure>
 
-<p>以上,就可以实现效果了</p>
+<p>以上,就可以实现了,在我的博客里就可以看到效果</p>
 <p>感谢大佬们的无私贡献</p>
 
     </div>
@@ -337,14 +337,11 @@
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2024/06/05/166-%E6%9E%84%E5%BB%BAServerless%E5%BA%94%E7%94%A8/" rel="prev" title="构建Serverless应用">
-                  <i class="fa fa-angle-left"></i> 构建Serverless应用
+                <a href="/2023/09/12/167-%E5%86%8D%E6%AC%A1%E5%8D%87%E7%BA%A7Next%208.x%E4%B8%BB%E9%A2%98/" rel="prev" title="再次升级Next 8.x主题">
+                  <i class="fa fa-angle-left"></i> 再次升级Next 8.x主题
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2024/06/06/167-%E5%86%8D%E6%AC%A1%E5%8D%87%E7%BA%A7Next%208.x%E4%B8%BB%E9%A2%98/" rel="next" title="再次升级Next 8.x主题">
-                  再次升级Next 8.x主题 <i class="fa fa-angle-right"></i>
-                </a>
             </div>
           </div>
     </footer>
@@ -459,6 +456,29 @@
 <script src="/js/caret.js"></script>
 <script src="/js/wobblewindow.js"></script>
 <script src="/js/wobble-header.js"></script>
+
+  
+<script src="/js/darkmode-js.min.js"></script>
+
+<script>
+var options = {
+  bottom: '720px', // default: '32px'
+  right: '64px', // default: '32px'
+  left: 'unset', // default: 'unset'
+  time: '0.5s', // default: '0.3s'
+  mixColor: 'transparent', // default: '#fff', transparent
+  backgroundColor: 'transparent',  // default: '#fff', transparent
+  buttonColorDark: '#100f2c',  // default: '#100f2c'
+  buttonColorLight: '#fff', // default: '#fff'
+  saveInCookies: true, // default: true,
+  label: '', // default: '' 🌓
+  autoMatchOsTheme: true // default: true
+}
+const darkmode = new Darkmode(options);
+darkmode.showWidget();
+</script>
+
+
 
 
 </body>
