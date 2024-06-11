@@ -1372,7 +1372,7 @@ pre code {
   vertical-align: middle;
 }
 .links-of-author a::before {
-  background: #297fff;
+  background: #ffe9b5;
   display: inline-block;
   margin-right: 3px;
   transform: translateY(-2px);
@@ -2978,16 +2978,6 @@ header.header {
 }
 .reward-container button:hover {
   background: #f55;
-}
-.darkmode-toggle {
-  right: 56px !important;
-  width: 70px !important;
-  height: 200px !important;
-  top: 81px;
-  transition: all 0.5s ease-in-out;
-  background: url("/img/scroll.png") !important;
-  background-position: bottom !important;
-  border-radius: 0 !important;
 }
 .footer-item-box {
   display: flex;

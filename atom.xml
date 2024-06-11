@@ -6,7 +6,7 @@
   <link href="https://www.chensheng.group/atom.xml" rel="self"/>
   
   <link href="https://www.chensheng.group/"/>
-  <updated>2024-06-06T08:45:37.254Z</updated>
+  <updated>2024-06-11T15:48:50.863Z</updated>
   <id>https://www.chensheng.group/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Next 8.x 水波纹动画</title>
+    <link href="https://www.chensheng.group/2024/06/11/169-Next%208.x%20%E6%B0%B4%E6%B3%A2%E7%BA%B9%E5%8A%A8%E7%94%BB/"/>
+    <id>https://www.chensheng.group/2024/06/11/169-Next%208.x%20%E6%B0%B4%E6%B3%A2%E7%BA%B9%E5%8A%A8%E7%94%BB/</id>
+    <published>2024-06-11T15:33:00.000Z</published>
+    <updated>2024-06-11T15:48:50.863Z</updated>
+    
+    
+    <summary type="html">&lt;hr style=&#39;filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)&#39; color=&#39;#FF0000&#39; size=&#39;1&#39; /&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;顶部的菜单栏的水波纹特效,做一个记录&lt;/p&gt;
+&lt;/blockquote&gt;</summary>
+    
+    
+    
+    <category term="hexo" scheme="https://www.chensheng.group/categories/hexo/"/>
+    
+    <category term="next" scheme="https://www.chensheng.group/categories/hexo/next/"/>
+    
+    
+    <category term="hexo" scheme="https://www.chensheng.group/tags/hexo/"/>
+    
+  </entry>
   
   <entry>
     <title>Next 8.x 烟花特效</title>
@@ -914,29 +939,6 @@
     
     
     <category term="echars" scheme="https://www.chensheng.group/tags/echars/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>vue-cli 打包优化</title>
-    <link href="https://www.chensheng.group/2020/06/21/129-vue%E6%89%93%E5%8C%85%E4%BC%98%E5%8C%96/"/>
-    <id>https://www.chensheng.group/2020/06/21/129-vue%E6%89%93%E5%8C%85%E4%BC%98%E5%8C%96/</id>
-    <published>2020-06-21T07:06:00.000Z</published>
-    <updated>2024-06-02T16:07:19.374Z</updated>
-    
-    
-    <summary type="html">&lt;hr style=&#39;filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)&#39; color=&#39;#FF0000&#39; size=&#39;1&#39; /&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;随着项目越来越大,打包的速度也变的很慢,甚至出现了node内存溢出,今天来一起学习一下打包的一些优化&lt;/p&gt;
-&lt;/blockquote&gt;</summary>
-    
-    
-    
-    <category term="vue-cli" scheme="https://www.chensheng.group/categories/vue-cli/"/>
-    
-    
-    <category term="vue-cli" scheme="https://www.chensheng.group/tags/vue-cli/"/>
     
   </entry>
   
