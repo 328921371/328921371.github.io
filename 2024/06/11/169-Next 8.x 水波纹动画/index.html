@@ -157,7 +157,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">169</span>
+          <span class="site-state-item-count">170</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -198,9 +198,6 @@
         <ul class="links-of-blogroll-list">
             <li class="links-of-blogroll-item">
               <a href="https://www.endlesswind.cn/" title="https:&#x2F;&#x2F;www.endlesswind.cn" rel="noopener" target="_blank">无尽的风</a>
-            </li>
-            <li class="links-of-blogroll-item">
-              <a href="https://www.ruanyifeng.com/" title="https:&#x2F;&#x2F;www.ruanyifeng.com" rel="noopener" target="_blank">阮一峰</a>
             </li>
         </ul>
       </div>
@@ -266,6 +263,20 @@
         </span>
     </span>
 
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Valine：</span>
+  
+    <a title="valine" href="/2024/06/11/169-Next%208.x%20%E6%B0%B4%E6%B3%A2%E7%BA%B9%E5%8A%A8%E7%94%BB/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2024/06/11/169-Next%208.x%20%E6%B0%B4%E6%B3%A2%E7%BA%B9%E5%8A%A8%E7%94%BB/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
   
 </div>
 
@@ -359,6 +370,9 @@
                 </a>
             </div>
             <div class="post-nav-item">
+                <a href="/2024/06/12/170-Next%208.x%20%E6%9A%97%E9%BB%91%E6%A8%A1%E5%BC%8F/" rel="next" title="Next 8.x 暗黑模式">
+                  Next 8.x 暗黑模式 <i class="fa fa-angle-right"></i>
+                </a>
             </div>
           </div>
     </footer>
@@ -370,6 +384,7 @@
 
 
 
+    <div class="comments" id="valine-comments"></div>
 </div>
   </main>
 
@@ -392,7 +407,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">515k</span>
+    <span title="站点总字数">518k</span>
   </span>
 </div>
 </div>
@@ -468,6 +483,21 @@
 
 
 
+
+
+<script class="next-config" data-name="valine" type="application/json">{"enable":true,"appId":"jD385ICqgsSXvIPjMqMoJhn5-gzGzoHsz","appKey":"Y3pbrUp0lQbqyJK8XRjke93m","serverURLs":"https://jd385icq.api.lncldglobal.com","placeholder":"（づ≧∀≦）づ╭❤～  客官,快来玩吖!","avatar":"mm","meta":["nick","mail","link"],"pageSize":10,"lang":null,"visitor":false,"comment_count":true,"recordIP":false,"enableQQ":false,"requiredFields":[],"notify":false,"verify":false,"language":"zh-cn","el":"#valine-comments","path":"/2024/06/11/169-Next%208.x%20%E6%B0%B4%E6%B3%A2%E7%BA%B9%E5%8A%A8%E7%94%BB/"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.valine.el)
+    .then(() => NexT.utils.getScript(
+      'https://fastly.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js',
+      { condition: window.Valine }
+    ))
+    .then(() => {
+      new Valine(CONFIG.valine);
+    });
+});
+</script>
 
 <script src="/js/fireworks.js"></script>
 <script src="/js/caret.js"></script>

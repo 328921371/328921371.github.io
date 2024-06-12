@@ -157,7 +157,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">169</span>
+          <span class="site-state-item-count">170</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -198,9 +198,6 @@
         <ul class="links-of-blogroll-list">
             <li class="links-of-blogroll-item">
               <a href="https://www.endlesswind.cn/" title="https:&#x2F;&#x2F;www.endlesswind.cn" rel="noopener" target="_blank">无尽的风</a>
-            </li>
-            <li class="links-of-blogroll-item">
-              <a href="https://www.ruanyifeng.com/" title="https:&#x2F;&#x2F;www.ruanyifeng.com" rel="noopener" target="_blank">阮一峰</a>
             </li>
         </ul>
       </div>
@@ -262,6 +259,20 @@
         </span>
     </span>
 
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Valine：</span>
+  
+    <a title="valine" href="/2020/05/02/125-%E7%94%9F%E6%88%90%E4%BA%8C%E7%BB%B4%E7%A0%81/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/05/02/125-%E7%94%9F%E6%88%90%E4%BA%8C%E7%BB%B4%E7%A0%81/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
   
 </div>
 
@@ -359,6 +370,7 @@
 
 
 
+    <div class="comments" id="valine-comments"></div>
 </div>
   </main>
 
@@ -381,7 +393,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">515k</span>
+    <span title="站点总字数">518k</span>
   </span>
 </div>
 </div>
@@ -457,6 +469,21 @@
 
 
 
+
+
+<script class="next-config" data-name="valine" type="application/json">{"enable":true,"appId":"jD385ICqgsSXvIPjMqMoJhn5-gzGzoHsz","appKey":"Y3pbrUp0lQbqyJK8XRjke93m","serverURLs":"https://jd385icq.api.lncldglobal.com","placeholder":"（づ≧∀≦）づ╭❤～  客官,快来玩吖!","avatar":"mm","meta":["nick","mail","link"],"pageSize":10,"lang":null,"visitor":false,"comment_count":true,"recordIP":false,"enableQQ":false,"requiredFields":[],"notify":false,"verify":false,"language":"zh-cn","el":"#valine-comments","path":"/2020/05/02/125-%E7%94%9F%E6%88%90%E4%BA%8C%E7%BB%B4%E7%A0%81/"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.valine.el)
+    .then(() => NexT.utils.getScript(
+      'https://fastly.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js',
+      { condition: window.Valine }
+    ))
+    .then(() => {
+      new Valine(CONFIG.valine);
+    });
+});
+</script>
 
 <script src="/js/fireworks.js"></script>
 <script src="/js/caret.js"></script>
