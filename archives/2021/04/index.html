@@ -181,6 +181,33 @@
   <div class="cc-license animated" itemprop="license">
     <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
   </div>
+<!--网易云音乐插件-->
+<!-- require APlayer -->
+<script src="/js/music/APlayer.js"></script>
+<!-- require MetingJS-->
+<script src="/js/music/Meting.js"></script> 
+<!--网易云playlist外链地址--> 
+
+<div>
+    <meting-js
+        server="netease"
+        type="song" 
+        id="4876202"
+        mini="false"
+        fixed="false"
+        list-folded="true"
+        autoplay="false"
+        volume="0.4"
+        theme="#FADFA3"
+        order="list"
+        loop="all"
+        preload="auto"
+        mutex="true">
+    </meting-js>
+</div>
+
+
+
 
         </div>
       </div>
@@ -348,21 +375,6 @@
 
 
 
-
-<script class="next-config" data-name="valine" type="application/json">{"enable":true,"appId":"jD385ICqgsSXvIPjMqMoJhn5-gzGzoHsz","appKey":"Y3pbrUp0lQbqyJK8XRjke93m","serverURLs":"https://jd385icq.api.lncldglobal.com","placeholder":"（づ≧∀≦）づ╭❤～  客官,快来玩吖!","avatar":"mm","meta":["nick","mail","link"],"pageSize":10,"lang":null,"visitor":false,"comment_count":true,"recordIP":false,"enableQQ":false,"requiredFields":[],"notify":false,"verify":false,"language":"zh-cn","el":"#valine-comments","path":"/archives/2021/04/"}</script>
-<script>
-document.addEventListener('page:loaded', () => {
-  NexT.utils.loadComments(CONFIG.valine.el)
-    .then(() => NexT.utils.getScript(
-      'https://fastly.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js',
-      { condition: window.Valine }
-    ))
-    .then(() => {
-      new Valine(CONFIG.valine);
-    });
-});
-</script>
-
 <script src="/js/fireworks.js"></script>
 <script src="/js/caret.js"></script>
 
@@ -391,6 +403,7 @@ const darkmode = new Darkmode(options);
 darkmode.showWidget();
 </script>
 
+ <script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.js"></script>
 
 
 

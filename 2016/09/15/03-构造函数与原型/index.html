@@ -33,8 +33,8 @@
 <meta property="article:modified_time" content="2024-06-02T16:07:19.371Z">
 <meta property="article:author" content="陈晟">
 <meta property="article:tag" content="javaScript">
-<meta property="article:tag" content="原型">
 <meta property="article:tag" content="构造函数">
+<meta property="article:tag" content="原型">
 <meta property="article:tag" content="继承">
 <meta name="twitter:card" content="summary">
 
@@ -188,6 +188,33 @@
   <div class="cc-license animated" itemprop="license">
     <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
   </div>
+<!--网易云音乐插件-->
+<!-- require APlayer -->
+<script src="/js/music/APlayer.js"></script>
+<!-- require MetingJS-->
+<script src="/js/music/Meting.js"></script> 
+<!--网易云playlist外链地址--> 
+
+<div>
+    <meting-js
+        server="netease"
+        type="song" 
+        id="4876202"
+        mini="false"
+        fixed="false"
+        list-folded="true"
+        autoplay="false"
+        volume="0.4"
+        theme="#FADFA3"
+        order="list"
+        loop="all"
+        preload="auto"
+        mutex="true">
+    </meting-js>
+</div>
+
+
+
 
         </div>
       </div>
@@ -263,20 +290,6 @@
         </span>
     </span>
 
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Valine：</span>
-  
-    <a title="valine" href="/2016/09/15/03-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E4%B8%8E%E5%8E%9F%E5%9E%8B/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2016/09/15/03-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E4%B8%8E%E5%8E%9F%E5%9E%8B/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
   
 </div>
 
@@ -375,8 +388,8 @@
 
           <div class="post-tags">
               <a href="/tags/javaScript/" rel="tag"><i class="fa fa-tag"></i> javaScript</a>
-              <a href="/tags/%E5%8E%9F%E5%9E%8B/" rel="tag"><i class="fa fa-tag"></i> 原型</a>
               <a href="/tags/%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0/" rel="tag"><i class="fa fa-tag"></i> 构造函数</a>
+              <a href="/tags/%E5%8E%9F%E5%9E%8B/" rel="tag"><i class="fa fa-tag"></i> 原型</a>
               <a href="/tags/%E7%BB%A7%E6%89%BF/" rel="tag"><i class="fa fa-tag"></i> 继承</a>
           </div>
 
@@ -403,7 +416,6 @@
 
 
 
-    <div class="comments" id="valine-comments"></div>
 </div>
   </main>
 
@@ -503,21 +515,6 @@
 
 
 
-
-<script class="next-config" data-name="valine" type="application/json">{"enable":true,"appId":"jD385ICqgsSXvIPjMqMoJhn5-gzGzoHsz","appKey":"Y3pbrUp0lQbqyJK8XRjke93m","serverURLs":"https://jd385icq.api.lncldglobal.com","placeholder":"（づ≧∀≦）づ╭❤～  客官,快来玩吖!","avatar":"mm","meta":["nick","mail","link"],"pageSize":10,"lang":null,"visitor":false,"comment_count":true,"recordIP":false,"enableQQ":false,"requiredFields":[],"notify":false,"verify":false,"language":"zh-cn","el":"#valine-comments","path":"/2016/09/15/03-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E4%B8%8E%E5%8E%9F%E5%9E%8B/"}</script>
-<script>
-document.addEventListener('page:loaded', () => {
-  NexT.utils.loadComments(CONFIG.valine.el)
-    .then(() => NexT.utils.getScript(
-      'https://fastly.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js',
-      { condition: window.Valine }
-    ))
-    .then(() => {
-      new Valine(CONFIG.valine);
-    });
-});
-</script>
-
 <script src="/js/fireworks.js"></script>
 <script src="/js/caret.js"></script>
 
@@ -546,6 +543,7 @@ const darkmode = new Darkmode(options);
 darkmode.showWidget();
 </script>
 
+ <script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.js"></script>
 
 
 
