@@ -1372,7 +1372,7 @@ pre code {
   vertical-align: middle;
 }
 .links-of-author a::before {
-  background: #30ffac;
+  background: #ffb9ff;
   display: inline-block;
   margin-right: 3px;
   transform: translateY(-2px);
@@ -3689,4 +3689,10 @@ header.header {
 }
 .footer-fenge {
   margin: 0 0.8em;
+}
+.sidebar-blogroll {
+  display: none;
+}
+.sidebar-overview-active + .sidebar-blogroll {
+  display: block;
 }

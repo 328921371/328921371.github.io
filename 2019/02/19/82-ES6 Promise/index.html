@@ -188,26 +188,21 @@
 <!--网易云音乐插件-->
 <!-- require APlayer -->
 <script src="/js/music/APlayer.js"></script>
+<script>
+    var meting_api='https://api.injahow.cn/meting/?server=:server&type=:type&id=:id&r=:r';
+</script>
 <!-- require MetingJS-->
 <script src="/js/music/Meting.js"></script> 
 <!--网易云playlist外链地址--> 
 
 <div>
-    <meting-js
-        server="netease"
-        type="song" 
-        id="4876202"
-        mini="false"
-        fixed="false"
-        list-folded="true"
-        autoplay="false"
-        volume="0.4"
-        theme="#FADFA3"
-        order="list"
-        loop="all"
-        preload="auto"
-        mutex="true">
-    </meting-js>
+
+<meting-js
+	server="tencent"
+	type="playlist"
+    id="9248446877"
+    list-folded="true">
+</meting-js>
 </div>
 
 
@@ -397,13 +392,13 @@
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2019/02/19/80-ES6%20Set/" rel="prev" title="ECMAScript 6 Set">
-                  <i class="fa fa-angle-left"></i> ECMAScript 6 Set
+                <a href="/2019/02/19/81-ES6%20Map/" rel="prev" title="ECMAScript 6 Map">
+                  <i class="fa fa-angle-left"></i> ECMAScript 6 Map
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2019/02/19/81-ES6%20Map/" rel="next" title="ECMAScript 6 Map">
-                  ECMAScript 6 Map <i class="fa fa-angle-right"></i>
+                <a href="/2019/02/19/80-ES6%20Set/" rel="next" title="ECMAScript 6 Set">
+                  ECMAScript 6 Set <i class="fa fa-angle-right"></i>
                 </a>
             </div>
           </div>
@@ -543,7 +538,7 @@ const darkmode = new Darkmode(options);
 darkmode.showWidget();
 </script>
 
- <script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.js"></script>
+ 
 
 
 
