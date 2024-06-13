@@ -285,6 +285,20 @@
     </span>
 
   
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Valine：</span>
+  
+    <a title="valine" href="/2016/09/20/04-%E5%8E%9F%E5%9E%8B%E4%B8%8E%E5%8E%9F%E5%9E%8B%E9%93%BE/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2016/09/20/04-%E5%8E%9F%E5%9E%8B%E4%B8%8E%E5%8E%9F%E5%9E%8B%E9%93%BE/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
 </div>
 
         </div>
@@ -393,6 +407,7 @@ person（构造函数初始化的对象）--- _proto_ ---&gt; Person.prototype�
 
 
 
+    <div class="comments" id="valine-comments"></div>
 </div>
   </main>
 
@@ -491,6 +506,21 @@ person（构造函数初始化的对象）--- _proto_ ---&gt; Person.prototype�
 
 
 
+
+
+<script class="next-config" data-name="valine" type="application/json">{"enable":true,"appId":"jD385ICqgsSXvIPjMqMoJhn5-gzGzoHsz","appKey":"Y3pbrUp0lQbqyJK8XRjke93m","serverURLs":"https://jd385icq.api.lncldglobal.com","placeholder":"（づ≧∀≦）づ╭❤～  客官,快来玩吖!","avatar":"mm","meta":["nick","mail","link"],"pageSize":10,"lang":null,"visitor":false,"comment_count":true,"recordIP":false,"enableQQ":false,"requiredFields":[],"notify":true,"verify":true,"language":"zh-cn","path":"/2016/09/20/04-%E5%8E%9F%E5%9E%8B%E4%B8%8E%E5%8E%9F%E5%9E%8B%E9%93%BE/","el":"#valine-comments"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.valine.el)
+    .then(() => NexT.utils.getScript(
+      'https://fastly.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js',
+      { condition: window.Valine }
+    ))
+    .then(() => {
+      new Valine(CONFIG.valine);
+    });
+});
+</script>
 
 <script src="/js/fireworks.js"></script>
 <script src="/js/caret.js"></script>

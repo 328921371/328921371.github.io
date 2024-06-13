@@ -282,6 +282,20 @@
     </span>
 
   
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Valine：</span>
+  
+    <a title="valine" href="/2019/11/13/108-%E9%83%A8%E7%BD%B2github/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/11/13/108-%E9%83%A8%E7%BD%B2github/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
 </div>
 
         </div>
@@ -306,7 +320,7 @@
 </li>
 </ol>
 <blockquote>
-<p>git clone <a href="mailto:&#x67;&#x69;&#116;&#64;&#x67;&#105;&#x74;&#x68;&#x75;&#98;&#46;&#99;&#x6f;&#x6d;">&#x67;&#x69;&#116;&#64;&#x67;&#105;&#x74;&#x68;&#x75;&#98;&#46;&#99;&#x6f;&#x6d;</a>:328921371&#x2F;cs.git</p>
+<p>git clone <a href="mailto:&#103;&#x69;&#x74;&#64;&#x67;&#x69;&#116;&#104;&#x75;&#98;&#46;&#99;&#x6f;&#x6d;">&#103;&#x69;&#x74;&#64;&#x67;&#x69;&#116;&#104;&#x75;&#98;&#46;&#99;&#x6f;&#x6d;</a>:328921371&#x2F;cs.git</p>
 </blockquote>
 <ol start="4">
 <li><p>克隆后进入文件夹,当命令行那边的文件目录出现master</p>
@@ -395,6 +409,7 @@
 
 
 
+    <div class="comments" id="valine-comments"></div>
 </div>
   </main>
 
@@ -493,6 +508,21 @@
 
 
 
+
+
+<script class="next-config" data-name="valine" type="application/json">{"enable":true,"appId":"jD385ICqgsSXvIPjMqMoJhn5-gzGzoHsz","appKey":"Y3pbrUp0lQbqyJK8XRjke93m","serverURLs":"https://jd385icq.api.lncldglobal.com","placeholder":"（づ≧∀≦）づ╭❤～  客官,快来玩吖!","avatar":"mm","meta":["nick","mail","link"],"pageSize":10,"lang":null,"visitor":false,"comment_count":true,"recordIP":false,"enableQQ":false,"requiredFields":[],"notify":true,"verify":true,"language":"zh-cn","path":"/2019/11/13/108-%E9%83%A8%E7%BD%B2github/","el":"#valine-comments"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.valine.el)
+    .then(() => NexT.utils.getScript(
+      'https://fastly.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js',
+      { condition: window.Valine }
+    ))
+    .then(() => {
+      new Valine(CONFIG.valine);
+    });
+});
+</script>
 
 <script src="/js/fireworks.js"></script>
 <script src="/js/caret.js"></script>
