@@ -6,7 +6,7 @@
   <link href="https://www.chensheng.group/atom.xml" rel="self"/>
   
   <link href="https://www.chensheng.group/"/>
-  <updated>2024-06-13T07:53:23.184Z</updated>
+  <updated>2024-06-17T15:12:21.813Z</updated>
   <id>https://www.chensheng.group/</id>
   
   <author>
@@ -15,6 +15,56 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Next 8.x waline评论系统</title>
+    <link href="https://www.chensheng.group/2024/06/17/172-Next%208.x%20waline%E8%AF%84%E8%AE%BA%E7%B3%BB%E7%BB%9F/"/>
+    <id>https://www.chensheng.group/2024/06/17/172-Next%208.x%20waline%E8%AF%84%E8%AE%BA%E7%B3%BB%E7%BB%9F/</id>
+    <published>2024-06-17T15:33:00.000Z</published>
+    <updated>2024-06-17T15:12:21.813Z</updated>
+    
+    
+    <summary type="html">&lt;hr style=&#39;filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)&#39; color=&#39;#FF0000&#39; size=&#39;1&#39; /&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;又又又换评论系统了，所有的评论又清空了&lt;/p&gt;
+&lt;/blockquote&gt;</summary>
+    
+    
+    
+    <category term="hexo" scheme="https://www.chensheng.group/categories/hexo/"/>
+    
+    <category term="next" scheme="https://www.chensheng.group/categories/hexo/next/"/>
+    
+    
+    <category term="hexo" scheme="https://www.chensheng.group/tags/hexo/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Next 8.x 音乐播放器</title>
+    <link href="https://www.chensheng.group/2024/06/15/171-Next%208.x%20%E9%9F%B3%E4%B9%90%E6%92%AD%E6%94%BE%E5%99%A8/"/>
+    <id>https://www.chensheng.group/2024/06/15/171-Next%208.x%20%E9%9F%B3%E4%B9%90%E6%92%AD%E6%94%BE%E5%99%A8/</id>
+    <published>2024-06-15T15:33:00.000Z</published>
+    <updated>2024-06-17T14:44:01.785Z</updated>
+    
+    
+    <summary type="html">&lt;hr style=&#39;filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)&#39; color=&#39;#FF0000&#39; size=&#39;1&#39; /&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;音乐播放器用的是 APlayer + Meting，这里做一个记录&lt;/p&gt;
+&lt;/blockquote&gt;</summary>
+    
+    
+    
+    <category term="hexo" scheme="https://www.chensheng.group/categories/hexo/"/>
+    
+    <category term="next" scheme="https://www.chensheng.group/categories/hexo/next/"/>
+    
+    
+    <category term="hexo" scheme="https://www.chensheng.group/tags/hexo/"/>
+    
+  </entry>
   
   <entry>
     <title>Next 8.x 暗黑模式</title>
@@ -715,29 +765,6 @@
   </entry>
   
   <entry>
-    <title>coding配置腾讯云证书</title>
-    <link href="https://www.chensheng.group/2021/02/11/139-coding%E9%85%8D%E7%BD%AE%E8%85%BE%E8%AE%AF%E4%BA%91%E8%AF%81%E4%B9%A6/"/>
-    <id>https://www.chensheng.group/2021/02/11/139-coding%E9%85%8D%E7%BD%AE%E8%85%BE%E8%AE%AF%E4%BA%91%E8%AF%81%E4%B9%A6/</id>
-    <published>2021-02-11T06:57:00.000Z</published>
-    <updated>2024-06-02T16:07:19.376Z</updated>
-    
-    
-    <summary type="html">&lt;hr style=&#39;filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)&#39; color=&#39;#FF0000&#39; size=&#39;1&#39; /&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;小小的记录,以免以后忘记了&lt;/p&gt;
-&lt;/blockquote&gt;</summary>
-    
-    
-    
-    <category term="SSL证书" scheme="https://www.chensheng.group/categories/SSL%E8%AF%81%E4%B9%A6/"/>
-    
-    
-    <category term="SSL证书" scheme="https://www.chensheng.group/tags/SSL%E8%AF%81%E4%B9%A6/"/>
-    
-  </entry>
-  
-  <entry>
     <title>关于CSS的一些事(2)</title>
     <link href="https://www.chensheng.group/2021/02/11/140-%E5%85%B3%E4%BA%8ECSS%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BA%8B(2)/"/>
     <id>https://www.chensheng.group/2021/02/11/140-%E5%85%B3%E4%BA%8ECSS%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BA%8B(2)/</id>
@@ -757,6 +784,29 @@
     
     
     <category term="CSS" scheme="https://www.chensheng.group/tags/CSS/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>coding配置腾讯云证书</title>
+    <link href="https://www.chensheng.group/2021/02/11/139-coding%E9%85%8D%E7%BD%AE%E8%85%BE%E8%AE%AF%E4%BA%91%E8%AF%81%E4%B9%A6/"/>
+    <id>https://www.chensheng.group/2021/02/11/139-coding%E9%85%8D%E7%BD%AE%E8%85%BE%E8%AE%AF%E4%BA%91%E8%AF%81%E4%B9%A6/</id>
+    <published>2021-02-11T06:57:00.000Z</published>
+    <updated>2024-06-02T16:07:19.376Z</updated>
+    
+    
+    <summary type="html">&lt;hr style=&#39;filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)&#39; color=&#39;#FF0000&#39; size=&#39;1&#39; /&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;小小的记录,以免以后忘记了&lt;/p&gt;
+&lt;/blockquote&gt;</summary>
+    
+    
+    
+    <category term="SSL证书" scheme="https://www.chensheng.group/categories/SSL%E8%AF%81%E4%B9%A6/"/>
+    
+    
+    <category term="SSL证书" scheme="https://www.chensheng.group/tags/SSL%E8%AF%81%E4%B9%A6/"/>
     
   </entry>
   
@@ -895,52 +945,6 @@
     
     
     <category term="javaScript" scheme="https://www.chensheng.group/tags/javaScript/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>element-ui动态换肤</title>
-    <link href="https://www.chensheng.group/2020/06/27/132-element-ui%E5%8A%A8%E6%80%81%E6%8D%A2%E8%82%A4/"/>
-    <id>https://www.chensheng.group/2020/06/27/132-element-ui%E5%8A%A8%E6%80%81%E6%8D%A2%E8%82%A4/</id>
-    <published>2020-06-27T03:30:00.000Z</published>
-    <updated>2024-06-02T16:07:19.375Z</updated>
-    
-    
-    <summary type="html">&lt;hr style=&#39;filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)&#39; color=&#39;#FF0000&#39; size=&#39;1&#39; /&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;element-ui这个框架想必大家都不陌生,今天学习一下如何动态更改主题色&lt;/p&gt;
-&lt;/blockquote&gt;</summary>
-    
-    
-    
-    <category term="element" scheme="https://www.chensheng.group/categories/element/"/>
-    
-    
-    <category term="element" scheme="https://www.chensheng.group/tags/element/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>神器扒网站——teleport ultra</title>
-    <link href="https://www.chensheng.group/2020/06/26/131-%E7%88%AC%E7%BD%91%E7%AB%99%E7%A5%9E%E5%99%A8/"/>
-    <id>https://www.chensheng.group/2020/06/26/131-%E7%88%AC%E7%BD%91%E7%AB%99%E7%A5%9E%E5%99%A8/</id>
-    <published>2020-06-26T07:31:00.000Z</published>
-    <updated>2024-06-02T16:07:19.375Z</updated>
-    
-    
-    <summary type="html">&lt;hr style=&#39;filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)&#39; color=&#39;#FF0000&#39; size=&#39;1&#39; /&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;在平时的开发或者学习的过程中，我们难免会看到一些让人心动的网站，于是自己想把它搞下来，自己手工一个文件一个文件把它保存下来也可以实现，完成了也累得够呛，有一款扒站的神器，可以把你所喜欢的目标网站整个网站给扒下来，这个神器就是teleport ultra！&lt;/p&gt;
-&lt;/blockquote&gt;</summary>
-    
-    
-    
-    <category term="teleport" scheme="https://www.chensheng.group/categories/teleport/"/>
-    
-    
-    <category term="teleport" scheme="https://www.chensheng.group/tags/teleport/"/>
     
   </entry>
   
