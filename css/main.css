@@ -1372,7 +1372,7 @@ pre code {
   vertical-align: middle;
 }
 .links-of-author a::before {
-  background: #535ee3;
+  background: #45af88;
   display: inline-block;
   margin-right: 3px;
   transform: translateY(-2px);
@@ -3628,9 +3628,6 @@ header.header {
 }
 .menu {
   text-align: right;
-}
-.menu-item {
-  margin-left: 4px !important;
 }
 .menu-item:hover {
   background: $gray-lighter;

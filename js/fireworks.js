@@ -1,33 +1,37 @@
 class Fireworks {
   constructor() {
-    this.canvas = document.createElement('canvas');
-    this.ctx = this.canvas.getContext('2d');
+    this.canvas = document.createElement("canvas");
+    this.ctx = this.canvas.getContext("2d");
     document.body.appendChild(this.canvas);
     this.canvas.width = window.innerWidth;
     this.canvas.height = window.innerHeight;
-    this.canvas.style.position = 'fixed';
-    this.canvas.style.top = '0';
-    this.canvas.style.left = '0';
-    this.canvas.style.pointerEvents = 'none';
-    this.canvas.style.zIndex = '9999';
+    this.canvas.style.position = "fixed";
+    this.canvas.style.top = "0";
+    this.canvas.style.left = "0";
+    this.canvas.style.pointerEvents = "none";
+    this.canvas.style.zIndex = "9999";
     this.particles = [];
-    this.maxParticles = 20;  // 调整最大粒子数量
-    this.colors = ['#ff1461', '#18FF92', '#5A87FF', '#FBF38C'];
+    this.maxParticles = 20; // 调整最大粒子数量
+    this.colors = ["#ff1461", "#18FF92", "#5A87FF", "#FBF38C"];
 
-    window.addEventListener('resize', () => {
+    window.addEventListener("resize", () => {
       this.canvas.width = window.innerWidth;
       this.canvas.height = window.innerHeight;
     });
 
-    document.addEventListener('click', (e) => {
+    document.addEventListener("click", (e) => {
       this.createParticles(e.clientX, e.clientY);
     });
 
-    document.addEventListener('keydown', (e) => {
+    document.addEventListener("keydown", (e) => {
       const activeElement = document.activeElement;
-      if (activeElement.tagName === 'TEXTAREA' || (activeElement.tagName === 'INPUT' && (activeElement.type === 'text' || activeElement.type === 'search'))) {
+      if (
+        activeElement.tagName === "TEXTAREA" ||
+        (activeElement.tagName === "INPUT" &&
+          (activeElement.type === "text" || activeElement.type === "search"))
+      ) {
         const { left, top } = this.getCaretCoordinates(activeElement);
-        console.log(left, top);
+        // console.log(left, top);
         this.createParticles(left, top);
       }
     });
@@ -40,7 +44,7 @@ class Fireworks {
     const rect = element.getBoundingClientRect();
     return {
       left: rect.left + caret.left + window.scrollX,
-      top: rect.top + caret.top + window.scrollY
+      top: rect.top + caret.top + window.scrollY,
     };
   }
 
@@ -53,7 +57,9 @@ class Fireworks {
   loop() {
     requestAnimationFrame(() => this.loop());
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    this.particles = this.particles.filter(particle => particle.update(this.ctx));
+    this.particles = this.particles.filter((particle) =>
+      particle.update(this.ctx)
+    );
   }
 }
 
@@ -63,17 +69,17 @@ class Particle {
     this.y = y;
     this.colors = colors;
     this.color = this.colors[Math.floor(Math.random() * this.colors.length)];
-    this.radius = Math.random() * 2 + 1;  // 调整粒子的半径
-    this.speedX = Math.random() * 2 - 1;  // 调整粒子的水平速度
-    this.speedY = Math.random() * 4 - 2;  // 调整粒子的初始垂直速度
-    this.gravity = 0.2;  // 增加重力效果
+    this.radius = Math.random() * 2 + 1; // 调整粒子的半径
+    this.speedX = Math.random() * 2 - 1; // 调整粒子的水平速度
+    this.speedY = Math.random() * 4 - 2; // 调整粒子的初始垂直速度
+    this.gravity = 0.2; // 增加重力效果
     this.alpha = 1;
   }
 
   update(ctx) {
     this.x += this.speedX;
     this.y += this.speedY;
-    this.speedY += this.gravity;  // 在垂直速度上添加重力
+    this.speedY += this.gravity; // 在垂直速度上添加重力
     this.alpha -= 0.02;
     if (this.alpha <= 0) return false;
 
