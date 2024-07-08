@@ -6,7 +6,7 @@
   <link href="https://www.chensheng.group/atom.xml" rel="self"/>
   
   <link href="https://www.chensheng.group/"/>
-  <updated>2024-07-07T15:41:55.095Z</updated>
+  <updated>2024-07-08T08:07:07.012Z</updated>
   <id>https://www.chensheng.group/</id>
   
   <author>
@@ -17,11 +17,56 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>nvm管理Node版本.md</title>
+    <link href="https://www.chensheng.group/2024/07/06/174-nvm%E7%AE%A1%E7%90%86Node%E7%89%88%E6%9C%AC/"/>
+    <id>https://www.chensheng.group/2024/07/06/174-nvm%E7%AE%A1%E7%90%86Node%E7%89%88%E6%9C%AC/</id>
+    <published>2024-07-06T15:33:00.000Z</published>
+    <updated>2024-07-08T08:07:07.012Z</updated>
+    
+    
+    <summary type="html">&lt;hr style=&#39;filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)&#39; color=&#39;#FF0000&#39; size=&#39;1&#39; /&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;工作中我们偶尔可能同时在进行多个项目开发，而多个不同的项目所使用的 node 版本又是不一样的，在这种情况下，对于维护多个版本的 node 将会是一件非常麻烦的事情，因为需要操作做卸载安装操作，而 nvm 就是为解决这个问题而产生的，使用 nvm 可以方面的在同一台电脑上进行管理多个 node 版本之间切换&lt;/p&gt;
+&lt;/blockquote&gt;</summary>
+    
+    
+    
+    <category term="npm" scheme="https://www.chensheng.group/categories/npm/"/>
+    
+    
+    <category term="npm" scheme="https://www.chensheng.group/tags/npm/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>npm install 报错问题 webpack@4.46.0</title>
+    <link href="https://www.chensheng.group/2024/07/03/173-npm%E5%AE%89%E8%A3%85%E4%B8%8D%E5%90%8C%E7%89%88%E6%9C%AC%E5%85%BC%E5%AE%B9%E9%97%AE%E9%A2%98/"/>
+    <id>https://www.chensheng.group/2024/07/03/173-npm%E5%AE%89%E8%A3%85%E4%B8%8D%E5%90%8C%E7%89%88%E6%9C%AC%E5%85%BC%E5%AE%B9%E9%97%AE%E9%A2%98/</id>
+    <published>2024-07-03T15:33:00.000Z</published>
+    <updated>2024-07-08T06:58:52.277Z</updated>
+    
+    
+    <summary type="html">&lt;hr style=&#39;filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)&#39; color=&#39;#FF0000&#39; size=&#39;1&#39; /&gt;
+
+&lt;blockquote&gt;
+&lt;/blockquote&gt;</summary>
+    
+    
+    
+    <category term="npm" scheme="https://www.chensheng.group/categories/npm/"/>
+    
+    
+    <category term="npm" scheme="https://www.chensheng.group/tags/npm/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Next 8.x waline评论系统</title>
     <link href="https://www.chensheng.group/2024/06/17/172-Next%208.x%20waline%E8%AF%84%E8%AE%BA%E7%B3%BB%E7%BB%9F/"/>
     <id>https://www.chensheng.group/2024/06/17/172-Next%208.x%20waline%E8%AF%84%E8%AE%BA%E7%B3%BB%E7%BB%9F/</id>
     <published>2024-06-17T15:33:00.000Z</published>
-    <updated>2024-07-07T15:41:55.095Z</updated>
+    <updated>2024-07-08T08:12:37.187Z</updated>
     
     
     <summary type="html">&lt;hr style=&#39;filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)&#39; color=&#39;#FF0000&#39; size=&#39;1&#39; /&gt;
@@ -43,10 +88,10 @@
   
   <entry>
     <title>Next 8.x 音乐播放器</title>
-    <link href="https://www.chensheng.group/2024/06/15/171-Next%208.x%20%E9%9F%B3%E4%B9%90%E6%92%AD%E6%94%BE%E5%99%A8/"/>
-    <id>https://www.chensheng.group/2024/06/15/171-Next%208.x%20%E9%9F%B3%E4%B9%90%E6%92%AD%E6%94%BE%E5%99%A8/</id>
-    <published>2024-06-15T15:33:00.000Z</published>
-    <updated>2024-06-17T14:44:01.785Z</updated>
+    <link href="https://www.chensheng.group/2024/04/15/171-Next%208.x%20%E9%9F%B3%E4%B9%90%E6%92%AD%E6%94%BE%E5%99%A8/"/>
+    <id>https://www.chensheng.group/2024/04/15/171-Next%208.x%20%E9%9F%B3%E4%B9%90%E6%92%AD%E6%94%BE%E5%99%A8/</id>
+    <published>2024-04-15T15:33:00.000Z</published>
+    <updated>2024-07-08T00:42:58.778Z</updated>
     
     
     <summary type="html">&lt;hr style=&#39;filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)&#39; color=&#39;#FF0000&#39; size=&#39;1&#39; /&gt;
@@ -899,52 +944,6 @@
     
     
     <category term="hexo" scheme="https://www.chensheng.group/tags/hexo/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>富文本编辑器</title>
-    <link href="https://www.chensheng.group/2020/07/17/134-%E5%AF%8C%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/"/>
-    <id>https://www.chensheng.group/2020/07/17/134-%E5%AF%8C%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/</id>
-    <published>2020-07-17T13:35:00.000Z</published>
-    <updated>2024-06-02T16:07:19.375Z</updated>
-    
-    
-    <summary type="html">&lt;hr style=&#39;filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)&#39; color=&#39;#FF0000&#39; size=&#39;1&#39; /&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;推荐一个好用的富文本编辑器,之前也有用过其他版本的,但是都太简易了&lt;/p&gt;
-&lt;/blockquote&gt;</summary>
-    
-    
-    
-    <category term="vue-cli" scheme="https://www.chensheng.group/categories/vue-cli/"/>
-    
-    
-    <category term="vue-cli" scheme="https://www.chensheng.group/tags/vue-cli/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>JavaScript的执行顺序</title>
-    <link href="https://www.chensheng.group/2020/07/04/133-JavaScript%E7%9A%84%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F/"/>
-    <id>https://www.chensheng.group/2020/07/04/133-JavaScript%E7%9A%84%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F/</id>
-    <published>2020-07-04T05:35:00.000Z</published>
-    <updated>2024-06-02T16:07:19.375Z</updated>
-    
-    
-    <summary type="html">&lt;hr style=&#39;filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)&#39; color=&#39;#FF0000&#39; size=&#39;1&#39; /&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;如何理解JavaScript的事件循环?什么是宏任务和微任务?怎么理解消息队列的执行顺序?&lt;/p&gt;
-&lt;/blockquote&gt;</summary>
-    
-    
-    
-    <category term="javaScript" scheme="https://www.chensheng.group/categories/javaScript/"/>
-    
-    
-    <category term="javaScript" scheme="https://www.chensheng.group/tags/javaScript/"/>
     
   </entry>
   
