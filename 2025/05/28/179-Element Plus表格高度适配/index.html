@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.2.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"www.chensheng.group","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.20.0","exturl":false,"sidebar":{"position":"right","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":true,"style":"mac"},"fold":{"enable":true,"height":200},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false,"trigger":"auto"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="后台系统里面表格页面很多，列配置一般还是固定写在页面里，这里主要记录一下 Element Plus 表格高度自适应的处理">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Element Plus表格高度适配">
+<meta property="og:url" content="https://www.chensheng.group/2025/05/28/179-Element%20Plus%E8%A1%A8%E6%A0%BC%E9%AB%98%E5%BA%A6%E9%80%82%E9%85%8D/index.html">
+<meta property="og:site_name" content="陈先生的小前端">
+<meta property="og:description" content="后台系统里面表格页面很多，列配置一般还是固定写在页面里，这里主要记录一下 Element Plus 表格高度自适应的处理">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-05-28T14:54:00.000Z">
+<meta property="article:modified_time" content="2026-06-16T07:03:24.852Z">
+<meta property="article:author" content="陈晟">
+<meta property="article:tag" content="vue">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://www.chensheng.group/2025/05/28/179-Element%20Plus%E8%A1%A8%E6%A0%BC%E9%AB%98%E5%BA%A6%E9%80%82%E9%85%8D/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://www.chensheng.group/2025/05/28/179-Element%20Plus%E8%A1%A8%E6%A0%BC%E9%AB%98%E5%BA%A6%E9%80%82%E9%85%8D/","path":"2025/05/28/179-Element Plus表格高度适配/","title":"Element Plus表格高度适配"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Element Plus表格高度适配 | 陈先生的小前端</title>
+  
+
+
+
+
+
+
+
+<link rel="dns-prefetch" href="https://cs-waline.chensheng.group">
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="陈先生的小前端" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">陈先生的小前端</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-house-chimney fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-list fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A1%B5%E9%9D%A2%E7%BB%93%E6%9E%84"><span class="nav-number">1.</span> <span class="nav-text">页面结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E7%94%A8max-height"><span class="nav-number">2.</span> <span class="nav-text">为什么用max-height</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9D%E5%A7%8B%E5%AD%97%E6%AE%B5"><span class="nav-number">3.</span> <span class="nav-text">初始字段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E8%A1%A8%E6%A0%BC%E5%AE%B9%E5%99%A8"><span class="nav-number">4.</span> <span class="nav-text">获取表格容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E9%AB%98%E5%BA%A6"><span class="nav-number">5.</span> <span class="nav-text">计算高度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%87%8F%E5%88%86%E9%A1%B5%E9%AB%98%E5%BA%A6"><span class="nav-number">6.</span> <span class="nav-text">为什么要减分页高度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%87%8FtableOffsetTop"><span class="nav-number">7.</span> <span class="nav-text">为什么要减tableOffsetTop</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#requestAnimationFrame"><span class="nav-number">8.</span> <span class="nav-text">requestAnimationFrame</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ResizeObserver"><span class="nav-number">9.</span> <span class="nav-text">ResizeObserver</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%87%8D%E6%96%B0%E5%B8%83%E5%B1%80"><span class="nav-number">10.</span> <span class="nav-text">重新布局</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="nav-number">11.</span> <span class="nav-text">生命周期</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%BB%9A%E5%8A%A8%E9%87%8D%E7%BD%AE"><span class="nav-number">12.</span> <span class="nav-text">滚动重置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">13.</span> <span class="nav-text">总结</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="陈晟"
+      src="https://csblogimage.oss-cn-hangzhou.aliyuncs.com/chensheng.jpg">
+  <p class="site-author-name" itemprop="name">陈晟</p>
+  <div class="site-description" itemprop="description">请不要在最能吃苦的日子选择安逸</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">180</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">39</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">58</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/328921371" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;328921371" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:328921371@qq.com" title="E-Mail → mailto:328921371@qq.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+<!--网易云音乐插件-->
+<!-- require APlayer -->
+<script src="/js/music/APlayer.js"></script>
+<script>
+    var meting_api='https://api.injahow.cn/meting/?server=:server&type=:type&id=:id&r=:r';
+</script>
+<!-- require MetingJS-->
+<script src="/js/music/Meting.js"></script> 
+<!--网易云playlist外链地址--> 
+
+<div>
+
+<meting-js
+	server="tencent"
+	type="playlist"
+    id="9251255863"
+    list-folded="true">
+</meting-js>
+</div>
+
+
+
+
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="sidebar-inner sidebar-blogroll">
+      <div class="links-of-blogroll animated">
+        <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+          友情链接
+        </div>
+        <ul class="links-of-blogroll-list">
+            <li class="links-of-blogroll-item">
+              <a href="https://www.code-porter.com/" title="https:&#x2F;&#x2F;www.code-porter.com" rel="noopener" target="_blank">代码搬运工</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.chensheng.group/2025/05/28/179-Element%20Plus%E8%A1%A8%E6%A0%BC%E9%AB%98%E5%BA%A6%E9%80%82%E9%85%8D/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://csblogimage.oss-cn-hangzhou.aliyuncs.com/chensheng.jpg">
+      <meta itemprop="name" content="陈晟">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="陈先生的小前端">
+      <meta itemprop="description" content="请不要在最能吃苦的日子选择安逸">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Element Plus表格高度适配 | 陈先生的小前端">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Element Plus表格高度适配
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2025-05-28 22:54:00" itemprop="dateCreated datePublished" datetime="2025-05-28T22:54:00+08:00">2025-05-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/vue/" itemprop="url" rel="index"><span itemprop="name">vue</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/vue/element-plus/" itemprop="url" rel="index"><span itemprop="name">element-plus</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/2025/05/28/179-Element%20Plus%E8%A1%A8%E6%A0%BC%E9%AB%98%E5%BA%A6%E9%80%82%E9%85%8D/#waline" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" data-path="/2025/05/28/179-Element%20Plus%E8%A1%A8%E6%A0%BC%E9%AB%98%E5%BA%A6%E9%80%82%E9%85%8D/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><hr style='filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)' color='#FF0000' size='1' />
+
+<blockquote>
+<p>后台系统里面表格页面很多，列配置一般还是固定写在页面里，这里主要记录一下 Element Plus 表格高度自适应的处理</p>
+</blockquote>
+<span id="more"></span>
+
+<p>后台项目中，列表页是最常见的页面。</p>
+<p>我的表格列并不是动态配置出来的，还是正常在页面里写 <code>el-table-column</code>，这样看起来更直观，后期改某一列也方便。</p>
+<p>真正需要统一处理的是表格高度。</p>
+<p>因为后台页面经常会有搜索区域、分页、顶部标签页、左侧菜单、浏览器窗口变化等情况，如果表格高度不处理好，就很容易出现页面双滚动条或者表格撑出页面的问题。</p>
+<h3 id="页面结构"><a href="#页面结构" class="headerlink" title="页面结构"></a>页面结构</h3><p>页面结构大概是这样：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&quot;page-layout table-demo-page&quot;&gt;</span><br><span class="line">  &lt;div class=&quot;search-component&quot;&gt;</span><br><span class="line">    搜索区域</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line"></span><br><span class="line">  &lt;div ref=&quot;table&quot; class=&quot;Table-page&quot;&gt;</span><br><span class="line">    &lt;el-table</span><br><span class="line">      ref=&quot;tableList&quot;</span><br><span class="line">      v-loading=&quot;tableLoading&quot;</span><br><span class="line">      :data=&quot;tableData&quot;</span><br><span class="line">      stripe</span><br><span class="line">      border</span><br><span class="line">      :max-height=&quot;tableHeight&quot;</span><br><span class="line">      size=&quot;large&quot;</span><br><span class="line">    &gt;</span><br><span class="line">      &lt;el-table-column align=&quot;center&quot; prop=&quot;id&quot; label=&quot;编号&quot; width=&quot;90&quot; /&gt;</span><br><span class="line">      &lt;el-table-column align=&quot;center&quot; prop=&quot;name&quot; label=&quot;名称&quot; min-width=&quot;160&quot; /&gt;</span><br><span class="line">      &lt;el-table-column align=&quot;center&quot; prop=&quot;createdAt&quot; label=&quot;创建时间&quot; :formatter=&quot;formatterTime&quot; min-width=&quot;180&quot; /&gt;</span><br><span class="line">    &lt;/el-table&gt;</span><br><span class="line"></span><br><span class="line">    &lt;Pagination v-model=&quot;page&quot; :total=&quot;total&quot; @handleCurrentChange=&quot;changePage&quot; /&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+
+<p>这里主要注意两个地方：</p>
+<ol>
+<li><code>ref=&quot;table&quot;</code>：外层表格区域，用来计算位置和分页高度</li>
+<li><code>:max-height=&quot;tableHeight&quot;</code>：Element Plus 表格最大高度</li>
+</ol>
+<p>列还是按普通写法写，重点是把 <code>tableHeight</code> 算准确。</p>
+<h3 id="为什么用max-height"><a href="#为什么用max-height" class="headerlink" title="为什么用max-height"></a>为什么用max-height</h3><p>Element Plus 的表格如果不限制高度，数据多的时候会直接把页面撑开。</p>
+<p>后台页面一般不希望整页一直往下滚，而是希望：</p>
+<ol>
+<li>搜索区域固定在上面</li>
+<li>分页固定在表格下面</li>
+<li>表格内容区域内部滚动</li>
+<li>外层布局不要出现多余滚动条</li>
+</ol>
+<p>所以这里使用 <code>max-height</code>。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;el-table :max-height=&quot;tableHeight&quot;&gt;</span><br><span class="line">&lt;/el-table&gt;</span><br></pre></td></tr></table></figure>
+
+<p>当数据多的时候，表格内部会出现滚动条，页面整体高度就比较稳定。</p>
+<h3 id="初始字段"><a href="#初始字段" class="headerlink" title="初始字段"></a>初始字段</h3><p>我把表格高度相关的字段放在 <code>tableMixin.js</code> 中：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">data() &#123;</span><br><span class="line">  return &#123;</span><br><span class="line">    tableHeight: 300,</span><br><span class="line">    marginHeight: 80,</span><br><span class="line">    tableResizeObserver: null,</span><br><span class="line">    tableHeightFrame: null,</span><br><span class="line">    tableLayoutFrame: null</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其中：</p>
+<ol>
+<li><code>tableHeight</code>：最终给 <code>el-table</code> 使用的高度</li>
+<li><code>marginHeight</code>：没有分页时预留的底部高度</li>
+<li><code>tableResizeObserver</code>：监听布局尺寸变化</li>
+<li><code>tableHeightFrame</code>：控制高度计算的节流</li>
+<li><code>tableLayoutFrame</code>：控制表格重新布局</li>
+</ol>
+<h3 id="获取表格容器"><a href="#获取表格容器" class="headerlink" title="获取表格容器"></a>获取表格容器</h3><p>由于有些页面 ref 可能拿到组件实例，有些可能拿到原生 DOM，所以先封装一个方法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">getTableWrapper() &#123;</span><br><span class="line">  const tableRef = this.$refs.table;</span><br><span class="line">  return tableRef?.$el || tableRef || null;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样后面统一拿到真实 DOM。</p>
+<h3 id="计算高度"><a href="#计算高度" class="headerlink" title="计算高度"></a>计算高度</h3><p>核心方法是 <code>viewHeight</code>。</p>
+<p>大概思路是：</p>
+<ol>
+<li>获取外层滚动容器高度</li>
+<li>获取表格区域距离容器顶部的距离</li>
+<li>获取分页高度</li>
+<li>减去页面底部 padding</li>
+<li>得到表格可用高度</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">viewHeight() &#123;</span><br><span class="line">  const tableDom = this.getTableWrapper();</span><br><span class="line"></span><br><span class="line">  if (!tableDom) &#123;</span><br><span class="line">    return;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  const currentDom = this.$el;</span><br><span class="line">  const viewScrollDom = currentDom?.closest(&#x27;.view-scroll&#x27;);</span><br><span class="line">  const pageLayoutDom = currentDom?.closest(&#x27;.page-layout&#x27;) || currentDom;</span><br><span class="line">  const paginationDom = tableDom.querySelector(&#x27;.el-footer&#x27;);</span><br><span class="line">  const viewScrollRect = viewScrollDom?.getBoundingClientRect();</span><br><span class="line">  const tableRect = tableDom.getBoundingClientRect();</span><br><span class="line">  const paginationHeight = paginationDom?.offsetHeight || 0;</span><br><span class="line">  const pagePaddingBottom = pageLayoutDom ? parseFloat(window.getComputedStyle(pageLayoutDom).paddingBottom) || 0 : 0;</span><br><span class="line">  const viewHeight = viewScrollDom?.clientHeight || pageLayoutDom?.clientHeight || window.innerHeight;</span><br><span class="line">  const tableOffsetTop = viewScrollRect ? Math.max(tableRect.top - viewScrollRect.top, 0) : 0;</span><br><span class="line"></span><br><span class="line">  let nextTableHeight = viewHeight - tableOffsetTop - paginationHeight - pagePaddingBottom;</span><br><span class="line"></span><br><span class="line">  if (!paginationDom) &#123;</span><br><span class="line">    nextTableHeight -= this.marginHeight;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  nextTableHeight = Math.max(Math.floor(nextTableHeight), 160);</span><br><span class="line">  this.tableHeight = nextTableHeight;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>实际代码里面会再做一些判断，避免高度变化很小时重复赋值。</p>
+<h3 id="为什么要减分页高度"><a href="#为什么要减分页高度" class="headerlink" title="为什么要减分页高度"></a>为什么要减分页高度</h3><p>表格区域下面一般会有分页组件。</p>
+<p>如果不减分页高度，表格就会把分页挤到下面，导致外层页面出现滚动条。</p>
+<p>所以这里通过：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">const paginationDom = tableDom.querySelector(&#x27;.el-footer&#x27;);</span><br><span class="line">const paginationHeight = paginationDom?.offsetHeight || 0;</span><br></pre></td></tr></table></figure>
+
+<p>拿到分页高度，再从总高度中减掉。</p>
+<h3 id="为什么要减tableOffsetTop"><a href="#为什么要减tableOffsetTop" class="headerlink" title="为什么要减tableOffsetTop"></a>为什么要减tableOffsetTop</h3><p>搜索区域的高度不是固定的。</p>
+<p>有的页面搜索条件少，有的页面搜索条件多，甚至还有展开收起。</p>
+<p>所以不能写死一个高度。</p>
+<p>这里用表格区域距离外层滚动容器顶部的距离来计算：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">const tableOffsetTop = viewScrollRect ? Math.max(tableRect.top - viewScrollRect.top, 0) : 0;</span><br></pre></td></tr></table></figure>
+
+<p>这样搜索区域变高或者变低，表格高度都能跟着变化。</p>
+<h3 id="requestAnimationFrame"><a href="#requestAnimationFrame" class="headerlink" title="requestAnimationFrame"></a>requestAnimationFrame</h3><p>高度计算会因为窗口变化、页面更新、搜索区域变化触发很多次。</p>
+<p>如果每次都直接计算，可能会频繁触发页面回流。</p>
+<p>所以我这里加了一层：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">scheduleViewHeight() &#123;</span><br><span class="line">  if (this.tableHeightFrame) &#123;</span><br><span class="line">    cancelAnimationFrame(this.tableHeightFrame);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  this.tableHeightFrame = requestAnimationFrame(() =&gt; &#123;</span><br><span class="line">    this.viewHeight();</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样同一帧里面多次触发，也只会执行最后一次。</p>
+<h3 id="ResizeObserver"><a href="#ResizeObserver" class="headerlink" title="ResizeObserver"></a>ResizeObserver</h3><p>只监听窗口 <code>resize</code> 不够。</p>
+<p>比如：</p>
+<ol>
+<li>左侧菜单收起</li>
+<li>顶部标签页显示隐藏</li>
+<li>搜索区域换行</li>
+<li>页面容器尺寸变化</li>
+</ol>
+<p>这些不一定都会触发 <code>window.resize</code>。</p>
+<p>所以使用 <code>ResizeObserver</code> 监听相关容器：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">initTableResizeObserver() &#123;</span><br><span class="line">  if (typeof ResizeObserver === &#x27;undefined&#x27;) &#123;</span><br><span class="line">    return;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  this.destroyTableResizeObserver();</span><br><span class="line"></span><br><span class="line">  const tableDom = this.getTableWrapper();</span><br><span class="line">  const currentDom = this.$el;</span><br><span class="line">  const pageLayoutDom = currentDom?.closest(&#x27;.page-layout&#x27;) || currentDom;</span><br><span class="line">  const viewScrollDom = currentDom?.closest(&#x27;.view-scroll&#x27;);</span><br><span class="line"></span><br><span class="line">  this.tableResizeObserver = new ResizeObserver(() =&gt; &#123;</span><br><span class="line">    this.scheduleViewHeight();</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  [tableDom, pageLayoutDom, viewScrollDom]</span><br><span class="line">    .filter(Boolean)</span><br><span class="line">    .forEach((dom) =&gt; this.tableResizeObserver.observe(dom));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样容器尺寸变化的时候，表格高度也会重新计算。</p>
+<h3 id="重新布局"><a href="#重新布局" class="headerlink" title="重新布局"></a>重新布局</h3><p>Element Plus 表格在高度变化或者数据变化后，有时候固定列、滚动条位置会有一点不对。</p>
+<p>这时候需要调用 <code>doLayout</code>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">refreshTableLayout(refName = &#x27;tableList&#x27;) &#123;</span><br><span class="line">  if (this.tableLayoutFrame) &#123;</span><br><span class="line">    cancelAnimationFrame(this.tableLayoutFrame);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  this.$nextTick(() =&gt; &#123;</span><br><span class="line">    this.tableLayoutFrame = requestAnimationFrame(() =&gt; &#123;</span><br><span class="line">      const tableInstance = this.$refs[refName];</span><br><span class="line"></span><br><span class="line">      tableInstance?.doLayout?.();</span><br><span class="line">      this.tableLayoutFrame = null;</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>一般在列表数据请求完成后执行：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">searchStopLoading() &#123;</span><br><span class="line">  setTimeout(() =&gt; &#123;</span><br><span class="line">    this.searchLoading = false;</span><br><span class="line">    this.tableLoading = false;</span><br><span class="line">    this.scheduleViewHeight();</span><br><span class="line">    this.refreshTableLayout();</span><br><span class="line">  &#125;, 500);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期"></a>生命周期</h3><p>页面第一次进入时，需要初始化监听并计算一次高度：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">mounted() &#123;</span><br><span class="line">  this.$nextTick(() =&gt; &#123;</span><br><span class="line">    this.initTableResizeObserver();</span><br><span class="line">    this.scheduleViewHeight();</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  window.addEventListener(&#x27;resize&#x27;, this.scheduleViewHeight);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果页面使用了 <code>keep-alive</code>，切换回来时也要重新计算：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">activated() &#123;</span><br><span class="line">  this.$nextTick(() =&gt; &#123;</span><br><span class="line">    this.initTableResizeObserver();</span><br><span class="line">    this.scheduleViewHeight();</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>离开页面时清理监听：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">deactivated() &#123;</span><br><span class="line">  this.destroyTableResizeObserver();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">beforeUnmount() &#123;</span><br><span class="line">  this.destroyTableResizeObserver();</span><br><span class="line">  window.removeEventListener(&#x27;resize&#x27;, this.scheduleViewHeight);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="滚动重置"><a href="#滚动重置" class="headerlink" title="滚动重置"></a>滚动重置</h3><p>切换分页或者重新查询时，表格滚动条最好回到顶部。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">resetTableScroll(refName = &#x27;tableList&#x27;) &#123;</span><br><span class="line">  this.$nextTick(() =&gt; &#123;</span><br><span class="line">    const tableInstance = this.$refs[refName];</span><br><span class="line"></span><br><span class="line">    tableInstance?.setScrollTop?.(0);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果不处理，用户在第一页滚动到底部后，再切换到第二页，表格可能还是停在底部。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>这篇主要不是讲动态表格，也不是把表格列配置化。</p>
+<p>我的表格列还是按页面固定写，真正抽出来的是高度适配这一块。</p>
+<p>整体思路就是：</p>
+<ol>
+<li><code>el-table</code> 使用 <code>:max-height=&quot;tableHeight&quot;</code></li>
+<li>根据外层容器高度计算表格可用高度</li>
+<li>减掉搜索区域、分页和页面 padding 占用的空间</li>
+<li>使用 <code>ResizeObserver</code> 监听容器变化</li>
+<li>数据变化后调用 <code>doLayout</code></li>
+<li>查询和分页后重置表格滚动</li>
+</ol>
+<p>这样处理以后，不同高度的搜索区域、不同屏幕尺寸、标签页切换，都能让表格保持在比较合适的高度。</p>
+<p>以上就是我对 Element Plus 表格高度适配的一些理解，如有错误，欢迎大佬指出。</p>
+
+    </div>
+
+    
+    
+    
+
+    
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>没办法,总要恰饭的嘛~~</div>
+  <button>
+    打赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/img/wechatpay.png" alt="陈晟 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/img/alipay.png" alt="陈晟 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>陈晟
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://www.chensheng.group/2025/05/28/179-Element%20Plus%E8%A1%A8%E6%A0%BC%E9%AB%98%E5%BA%A6%E9%80%82%E9%85%8D/" title="Element Plus表格高度适配">https://www.chensheng.group/2025/05/28/179-Element Plus表格高度适配/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/vue/" rel="tag"><i class="fa fa-tag"></i> vue</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2025/03/21/178-%E5%8A%A8%E6%80%81%E8%B7%AF%E7%94%B1%E5%88%B7%E6%96%B0%E6%81%A2%E5%A4%8D/" rel="prev" title="动态路由刷新恢复">
+                  <i class="fa fa-angle-left"></i> 动态路由刷新恢复
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2025/07/17/180-Vue3%E4%B8%8A%E4%BC%A0%E7%BB%84%E4%BB%B6%E5%B0%81%E8%A3%85/" rel="next" title="Vue3上传组件封装">
+                  Vue3上传组件封装 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+<div class="footer-item-box">
+  <div class="copyright">
+    &copy; 2016 – 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">陈晟</span>
+  </div>
+
+<div class="footer-fenge">|</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">541k</span>
+  </span>
+</div>
+</div>
+
+<div class="footer-item-box">
+  <div>欢迎访问</div>
+  <div class="footer-fenge">|</div>
+  <div >Mr.Chen的小前端</div>
+  <div class="footer-fenge">|</div>
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">闽ICP备2022007916号-1 </a>
+  </div>
+
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span>我的第</span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+      <span>位朋友,</span>
+    </span>
+    <span id="busuanzi_container_site_pv">
+
+      <span>&nbsp;历经</span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+      <span>次回眸才与你相遇</span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.umd.js" integrity="sha256-a+H7FYzJv6oU2hfsfDGM2Ohw/cR9v+hPfxHCLdmCrE8=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script><script src="/js/pjax.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script class="next-config" data-name="waline" type="application/json">{"lang":"zh-cn","enable":true,"serverURL":"https://cs-waline.chensheng.group","cssUrl":"https://unpkg.com/@waline/client@v2/dist/waline.css","commentCount":true,"pageview":false,"locale":{"placeholder":"（づ≧∀≦）づ╭❤～  客官,快来玩吖!    (填写邮箱可在被回复时收到邮件提醒)"},"avatar":"mm","meta":["nick","mail","link"],"pageSize":10,"login":"enable","visitor":true,"comment_count":true,"requiredFields":[],"dark":false,"libUrl":"//unpkg.com/@waline/client@v2/dist/waline.js","mode":"list","copyright":true,"reaction":false,"el":"#waline","comment":true,"path":"/2025/05/28/179-Element%20Plus%E8%A1%A8%E6%A0%BC%E9%AB%98%E5%BA%A6%E9%80%82%E9%85%8D/"}</script>
+<link rel="stylesheet" href="https://unpkg.com/@waline/client@v2/dist/waline.css">
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() =>
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => 
+    Waline.init(Object.assign({}, CONFIG.waline,{ el: document.querySelector(CONFIG.waline.el) }))
+  );
+});
+</script>
+
+<script src="/js/fireworks.js"></script>
+<script src="/js/caret.js"></script>
+
+<script src="/js/wobblewindow.js"></script>
+<script src="/js/wobble-header.js"></script>
+
+
+  
+<script src="/js/darkmode-js.min.js"></script>
+
+<script>
+var options = {
+  bottom: '32px', // default: '32px'
+  right: 'unset', // default: '32px'
+  left: '32px', // default: 'unset'
+  time: '0.5s', // default: '0.3s'
+  mixColor: 'transparent', // default: '#fff', transparent
+  backgroundColor: 'transparent',  // default: '#fff', transparent
+  buttonColorDark: '#100f2c',  // default: '#100f2c'
+  buttonColorLight: '#fff', // default: '#fff'
+  saveInCookies: true, // default: true,
+  label: '🌓', // default: '' 🌓
+  autoMatchOsTheme: true // default: true
+}
+const darkmode = new Darkmode(options);
+darkmode.showWidget();
+</script>
+
+ 
+
+
+
+</body>
+</html>

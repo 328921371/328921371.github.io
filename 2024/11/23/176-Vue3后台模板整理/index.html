@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.2.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"www.chensheng.group","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.20.0","exturl":false,"sidebar":{"position":"right","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":true,"style":"mac"},"fold":{"enable":true,"height":200},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false,"trigger":"auto"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="之前做后台项目的时候，很多基础功能每个项目都要重新复制一遍，所以这次基于 Vue3 和 Vite 重新整理了一套后台模板">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue3后台模板整理">
+<meta property="og:url" content="https://www.chensheng.group/2024/11/23/176-Vue3%E5%90%8E%E5%8F%B0%E6%A8%A1%E6%9D%BF%E6%95%B4%E7%90%86/index.html">
+<meta property="og:site_name" content="陈先生的小前端">
+<meta property="og:description" content="之前做后台项目的时候，很多基础功能每个项目都要重新复制一遍，所以这次基于 Vue3 和 Vite 重新整理了一套后台模板">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-11-23T13:42:00.000Z">
+<meta property="article:modified_time" content="2026-06-16T06:35:22.066Z">
+<meta property="article:author" content="陈晟">
+<meta property="article:tag" content="vue">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://www.chensheng.group/2024/11/23/176-Vue3%E5%90%8E%E5%8F%B0%E6%A8%A1%E6%9D%BF%E6%95%B4%E7%90%86/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://www.chensheng.group/2024/11/23/176-Vue3%E5%90%8E%E5%8F%B0%E6%A8%A1%E6%9D%BF%E6%95%B4%E7%90%86/","path":"2024/11/23/176-Vue3后台模板整理/","title":"Vue3后台模板整理"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Vue3后台模板整理 | 陈先生的小前端</title>
+  
+
+
+
+
+
+
+
+<link rel="dns-prefetch" href="https://cs-waline.chensheng.group">
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="陈先生的小前端" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">陈先生的小前端</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-house-chimney fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-list fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E6%95%B4%E7%90%86%E6%A8%A1%E6%9D%BF"><span class="nav-number">1.</span> <span class="nav-text">为什么要整理模板</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84"><span class="nav-number">2.</span> <span class="nav-text">项目结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%83%E5%B1%80"><span class="nav-number">3.</span> <span class="nav-text">布局</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B7%AF%E7%94%B1"><span class="nav-number">4.</span> <span class="nav-text">路由</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%8F%9C%E5%8D%95"><span class="nav-number">5.</span> <span class="nav-text">菜单</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%B7%E6%B1%82"><span class="nav-number">6.</span> <span class="nav-text">请求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A1%A8%E6%A0%BC"><span class="nav-number">7.</span> <span class="nav-text">表格</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8A%E4%BC%A0"><span class="nav-number">8.</span> <span class="nav-text">上传</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">9.</span> <span class="nav-text">总结</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="陈晟"
+      src="https://csblogimage.oss-cn-hangzhou.aliyuncs.com/chensheng.jpg">
+  <p class="site-author-name" itemprop="name">陈晟</p>
+  <div class="site-description" itemprop="description">请不要在最能吃苦的日子选择安逸</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">180</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">39</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">58</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/328921371" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;328921371" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:328921371@qq.com" title="E-Mail → mailto:328921371@qq.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+<!--网易云音乐插件-->
+<!-- require APlayer -->
+<script src="/js/music/APlayer.js"></script>
+<script>
+    var meting_api='https://api.injahow.cn/meting/?server=:server&type=:type&id=:id&r=:r';
+</script>
+<!-- require MetingJS-->
+<script src="/js/music/Meting.js"></script> 
+<!--网易云playlist外链地址--> 
+
+<div>
+
+<meting-js
+	server="tencent"
+	type="playlist"
+    id="9251255863"
+    list-folded="true">
+</meting-js>
+</div>
+
+
+
+
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="sidebar-inner sidebar-blogroll">
+      <div class="links-of-blogroll animated">
+        <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+          友情链接
+        </div>
+        <ul class="links-of-blogroll-list">
+            <li class="links-of-blogroll-item">
+              <a href="https://www.code-porter.com/" title="https:&#x2F;&#x2F;www.code-porter.com" rel="noopener" target="_blank">代码搬运工</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.chensheng.group/2024/11/23/176-Vue3%E5%90%8E%E5%8F%B0%E6%A8%A1%E6%9D%BF%E6%95%B4%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://csblogimage.oss-cn-hangzhou.aliyuncs.com/chensheng.jpg">
+      <meta itemprop="name" content="陈晟">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="陈先生的小前端">
+      <meta itemprop="description" content="请不要在最能吃苦的日子选择安逸">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Vue3后台模板整理 | 陈先生的小前端">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Vue3后台模板整理
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2024-11-23 21:42:00" itemprop="dateCreated datePublished" datetime="2024-11-23T21:42:00+08:00">2024-11-23</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/vue/" itemprop="url" rel="index"><span itemprop="name">vue</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/2024/11/23/176-Vue3%E5%90%8E%E5%8F%B0%E6%A8%A1%E6%9D%BF%E6%95%B4%E7%90%86/#waline" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" data-path="/2024/11/23/176-Vue3%E5%90%8E%E5%8F%B0%E6%A8%A1%E6%9D%BF%E6%95%B4%E7%90%86/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><hr style='filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)' color='#FF0000' size='1' />
+
+<blockquote>
+<p>之前做后台项目的时候，很多基础功能每个项目都要重新复制一遍，所以这次基于 Vue3 和 Vite 重新整理了一套后台模板</p>
+</blockquote>
+<span id="more"></span>
+
+<p>这篇主要记录一下后台模板的整体结构，先不深入到某一个功能点。</p>
+<p>目前模板主要使用的是：</p>
+<ol>
+<li>Vue3</li>
+<li>Vite</li>
+<li>Element Plus</li>
+<li>Pinia</li>
+<li>Vue Router</li>
+<li>Axios</li>
+<li>SCSS</li>
+</ol>
+<p>这些东西其实都不陌生，但是放在后台项目里面，还是需要整理出一套固定的写法。</p>
+<h3 id="为什么要整理模板"><a href="#为什么要整理模板" class="headerlink" title="为什么要整理模板"></a>为什么要整理模板</h3><p>后台项目里面有很多东西是重复的。</p>
+<p>比如：</p>
+<ol>
+<li>登录</li>
+<li>权限菜单</li>
+<li>动态路由</li>
+<li>顶部导航</li>
+<li>左侧菜单</li>
+<li>标签页</li>
+<li>表格搜索</li>
+<li>分页</li>
+<li>上传</li>
+<li>接口封装</li>
+</ol>
+<p>如果每次新项目都从零开始搭一遍，时间会浪费在很多重复工作上。</p>
+<p>所以我这次整理模板的思路就是：把后台系统中基本都会用到的东西先抽出来，后续新项目直接在这个基础上改。</p>
+<h3 id="项目结构"><a href="#项目结构" class="headerlink" title="项目结构"></a>项目结构</h3><p>主要目录大概是这样：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">src</span><br><span class="line">├── assets</span><br><span class="line">├── components</span><br><span class="line">├── i18n</span><br><span class="line">├── router</span><br><span class="line">├── stores</span><br><span class="line">├── utils</span><br><span class="line">└── views</span><br><span class="line">    ├── layout</span><br><span class="line">    └── pages</span><br></pre></td></tr></table></figure>
+
+<p>这里面比较重要的是：</p>
+<ol>
+<li><code>components</code>：公共组件</li>
+<li><code>router</code>：基础路由和路由守卫</li>
+<li><code>stores</code>：Pinia 状态管理</li>
+<li><code>utils</code>：请求、枚举、表格 mixin 等公共方法</li>
+<li><code>views/layout</code>：后台整体布局</li>
+<li><code>views/pages</code>：业务页面</li>
+</ol>
+<h3 id="布局"><a href="#布局" class="headerlink" title="布局"></a>布局</h3><p>后台布局一般都是固定的几块：</p>
+<ol>
+<li>左侧菜单</li>
+<li>顶部栏</li>
+<li>面包屑</li>
+<li>标签页</li>
+<li>页面内容区域</li>
+</ol>
+<p>模板里面把这些内容放在 <code>MainLayout.vue</code> 中统一处理。</p>
+<p>这样业务页面就不需要关心外层布局，只需要正常写页面内容即可。</p>
+<p>普通业务页面大概保持这样的结构：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div class=&quot;page-layout&quot;&gt;</span><br><span class="line">    页面内容</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br></pre></td></tr></table></figure>
+
+<p>这样布局、滚动、标签页缓存都交给外层统一处理。</p>
+<h3 id="路由"><a href="#路由" class="headerlink" title="路由"></a>路由</h3><p>后台系统的路由分为两类：</p>
+<ol>
+<li>静态路由</li>
+<li>动态路由</li>
+</ol>
+<p>静态路由只保留登录页、layout、刷新中转页、404 页面。</p>
+<p>真正的业务页面不直接写死在路由表中，而是通过后端返回的菜单动态生成。</p>
+<p>这样做的好处是：不同账号看到的菜单不一样，能访问的页面也不一样。</p>
+<h3 id="菜单"><a href="#菜单" class="headerlink" title="菜单"></a>菜单</h3><p>后台菜单一般都是后端返回的树形结构。</p>
+<p>模板中主要使用这些字段：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  menuId: &#x27;1&#x27;,</span><br><span class="line">  parentId: &#x27;0&#x27;,</span><br><span class="line">  menuTitle: &#x27;工作台&#x27;,</span><br><span class="line">  menuPath: &#x27;/home&#x27;,</span><br><span class="line">  menuIcon: &#x27;HomeFilled&#x27;,</span><br><span class="line">  menuDisplayStatus: 1,</span><br><span class="line">  menuType: 1,</span><br><span class="line">  children: []</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>前端拿到菜单后，会做几件事：</p>
+<ol>
+<li>保存完整菜单树</li>
+<li>过滤侧边栏显示菜单</li>
+<li>生成动态路由</li>
+<li>保存按钮权限</li>
+</ol>
+<h3 id="请求"><a href="#请求" class="headerlink" title="请求"></a>请求</h3><p>请求部分还是使用 Axios。</p>
+<p>一般后台项目里面，请求封装至少要处理这些事情：</p>
+<ol>
+<li>统一 <code>baseURL</code></li>
+<li>统一携带 token</li>
+<li>统一处理接口状态码</li>
+<li>登录过期后跳回登录页</li>
+<li>退出时清空路由和权限</li>
+</ol>
+<p>这块后续也可以单独整理一篇。</p>
+<h3 id="表格"><a href="#表格" class="headerlink" title="表格"></a>表格</h3><p>后台里面最多的页面就是表格页。</p>
+<p>所以模板中把常用的表格能力放到了 <code>tableMixin.js</code> 中，比如：</p>
+<ol>
+<li>查询</li>
+<li>分页</li>
+<li>loading</li>
+<li>表格高度</li>
+<li>时间格式化</li>
+<li>滚动重置</li>
+</ol>
+<p>业务页面只需要关注自己的搜索条件和列表数据。</p>
+<h3 id="上传"><a href="#上传" class="headerlink" title="上传"></a>上传</h3><p>上传也是后台项目里面经常用到的功能。</p>
+<p>模板中整理了图片上传和文件上传，主要考虑几个场景：</p>
+<ol>
+<li>单图上传</li>
+<li>多图上传</li>
+<li>文件上传</li>
+<li>新增时清空</li>
+<li>编辑时回填</li>
+<li>保存时统一字段格式</li>
+</ol>
+<p>上传组件后面也会单独写一篇。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>后台模板最重要的不是页面有多好看，而是基础能力是否完整。</p>
+<p>我目前整理的方向就是：</p>
+<ol>
+<li>路由权限统一</li>
+<li>布局统一</li>
+<li>表格统一</li>
+<li>上传统一</li>
+<li>请求统一</li>
+<li>常用组件统一</li>
+</ol>
+<p>后续新项目接进来的时候，只要补业务页面和接口就可以了。</p>
+<p>以上就是我对 Vue3 后台模板整理的一些理解，如有错误，欢迎大佬指出。</p>
+
+    </div>
+
+    
+    
+    
+
+    
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>没办法,总要恰饭的嘛~~</div>
+  <button>
+    打赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/img/wechatpay.png" alt="陈晟 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/img/alipay.png" alt="陈晟 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>陈晟
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://www.chensheng.group/2024/11/23/176-Vue3%E5%90%8E%E5%8F%B0%E6%A8%A1%E6%9D%BF%E6%95%B4%E7%90%86/" title="Vue3后台模板整理">https://www.chensheng.group/2024/11/23/176-Vue3后台模板整理/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/vue/" rel="tag"><i class="fa fa-tag"></i> vue</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2024/09/18/175-Vite%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" rel="prev" title="Vite学习记录">
+                  <i class="fa fa-angle-left"></i> Vite学习记录
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2025/01/09/177-Vue3%E5%8A%A8%E6%80%81%E8%8F%9C%E5%8D%95%E5%92%8C%E8%B7%AF%E7%94%B1/" rel="next" title="Vue3动态菜单和路由">
+                  Vue3动态菜单和路由 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+<div class="footer-item-box">
+  <div class="copyright">
+    &copy; 2016 – 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">陈晟</span>
+  </div>
+
+<div class="footer-fenge">|</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">541k</span>
+  </span>
+</div>
+</div>
+
+<div class="footer-item-box">
+  <div>欢迎访问</div>
+  <div class="footer-fenge">|</div>
+  <div >Mr.Chen的小前端</div>
+  <div class="footer-fenge">|</div>
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">闽ICP备2022007916号-1 </a>
+  </div>
+
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span>我的第</span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+      <span>位朋友,</span>
+    </span>
+    <span id="busuanzi_container_site_pv">
+
+      <span>&nbsp;历经</span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+      <span>次回眸才与你相遇</span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.umd.js" integrity="sha256-a+H7FYzJv6oU2hfsfDGM2Ohw/cR9v+hPfxHCLdmCrE8=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script><script src="/js/pjax.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script class="next-config" data-name="waline" type="application/json">{"lang":"zh-cn","enable":true,"serverURL":"https://cs-waline.chensheng.group","cssUrl":"https://unpkg.com/@waline/client@v2/dist/waline.css","commentCount":true,"pageview":false,"locale":{"placeholder":"（づ≧∀≦）づ╭❤～  客官,快来玩吖!    (填写邮箱可在被回复时收到邮件提醒)"},"avatar":"mm","meta":["nick","mail","link"],"pageSize":10,"login":"enable","visitor":true,"comment_count":true,"requiredFields":[],"dark":false,"libUrl":"//unpkg.com/@waline/client@v2/dist/waline.js","mode":"list","copyright":true,"reaction":false,"el":"#waline","comment":true,"path":"/2024/11/23/176-Vue3%E5%90%8E%E5%8F%B0%E6%A8%A1%E6%9D%BF%E6%95%B4%E7%90%86/"}</script>
+<link rel="stylesheet" href="https://unpkg.com/@waline/client@v2/dist/waline.css">
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() =>
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => 
+    Waline.init(Object.assign({}, CONFIG.waline,{ el: document.querySelector(CONFIG.waline.el) }))
+  );
+});
+</script>
+
+<script src="/js/fireworks.js"></script>
+<script src="/js/caret.js"></script>
+
+<script src="/js/wobblewindow.js"></script>
+<script src="/js/wobble-header.js"></script>
+
+
+  
+<script src="/js/darkmode-js.min.js"></script>
+
+<script>
+var options = {
+  bottom: '32px', // default: '32px'
+  right: 'unset', // default: '32px'
+  left: '32px', // default: 'unset'
+  time: '0.5s', // default: '0.3s'
+  mixColor: 'transparent', // default: '#fff', transparent
+  backgroundColor: 'transparent',  // default: '#fff', transparent
+  buttonColorDark: '#100f2c',  // default: '#100f2c'
+  buttonColorLight: '#fff', // default: '#fff'
+  saveInCookies: true, // default: true,
+  label: '🌓', // default: '' 🌓
+  autoMatchOsTheme: true // default: true
+}
+const darkmode = new Darkmode(options);
+darkmode.showWidget();
+</script>
+
+ 
+
+
+
+</body>
+</html>

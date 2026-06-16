@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.2.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"www.chensheng.group","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.20.0","exturl":false,"sidebar":{"position":"right","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":true,"style":"mac"},"fold":{"enable":true,"height":200},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false,"trigger":"auto"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="后台系统里面，菜单和路由一般都不是写死的，而是根据后端返回的权限动态生成，这里记录一下 Vue3 中动态菜单和动态路由的处理方式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue3动态菜单和路由">
+<meta property="og:url" content="https://www.chensheng.group/2025/01/09/177-Vue3%E5%8A%A8%E6%80%81%E8%8F%9C%E5%8D%95%E5%92%8C%E8%B7%AF%E7%94%B1/index.html">
+<meta property="og:site_name" content="陈先生的小前端">
+<meta property="og:description" content="后台系统里面，菜单和路由一般都不是写死的，而是根据后端返回的权限动态生成，这里记录一下 Vue3 中动态菜单和动态路由的处理方式">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-01-09T15:08:00.000Z">
+<meta property="article:modified_time" content="2026-06-16T06:35:22.067Z">
+<meta property="article:author" content="陈晟">
+<meta property="article:tag" content="vue">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://www.chensheng.group/2025/01/09/177-Vue3%E5%8A%A8%E6%80%81%E8%8F%9C%E5%8D%95%E5%92%8C%E8%B7%AF%E7%94%B1/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://www.chensheng.group/2025/01/09/177-Vue3%E5%8A%A8%E6%80%81%E8%8F%9C%E5%8D%95%E5%92%8C%E8%B7%AF%E7%94%B1/","path":"2025/01/09/177-Vue3动态菜单和路由/","title":"Vue3动态菜单和路由"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Vue3动态菜单和路由 | 陈先生的小前端</title>
+  
+
+
+
+
+
+
+
+<link rel="dns-prefetch" href="https://cs-waline.chensheng.group">
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="陈先生的小前端" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">陈先生的小前端</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-house-chimney fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-list fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%8E%E7%AB%AF%E8%8F%9C%E5%8D%95"><span class="nav-number">1.</span> <span class="nav-text">后端菜单</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%94%B6%E9%9B%86%E9%A1%B5%E9%9D%A2"><span class="nav-number">2.</span> <span class="nav-text">收集页面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B7%AF%E5%BE%84%E5%A4%84%E7%90%86"><span class="nav-number">3.</span> <span class="nav-text">路径处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%9F%E6%88%90%E8%B7%AF%E7%94%B1"><span class="nav-number">4.</span> <span class="nav-text">生成路由</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#path"><span class="nav-number">5.</span> <span class="nav-text">path</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#name"><span class="nav-number">6.</span> <span class="nav-text">name</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#meta"><span class="nav-number">7.</span> <span class="nav-text">meta</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#component"><span class="nav-number">8.</span> <span class="nav-text">component</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BE%A7%E8%BE%B9%E6%A0%8F%E8%8F%9C%E5%8D%95"><span class="nav-number">9.</span> <span class="nav-text">侧边栏菜单</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Pinia%E4%BF%9D%E5%AD%98"><span class="nav-number">10.</span> <span class="nav-text">Pinia保存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">11.</span> <span class="nav-text">总结</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="陈晟"
+      src="https://csblogimage.oss-cn-hangzhou.aliyuncs.com/chensheng.jpg">
+  <p class="site-author-name" itemprop="name">陈晟</p>
+  <div class="site-description" itemprop="description">请不要在最能吃苦的日子选择安逸</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">180</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">39</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">58</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/328921371" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;328921371" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:328921371@qq.com" title="E-Mail → mailto:328921371@qq.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+<!--网易云音乐插件-->
+<!-- require APlayer -->
+<script src="/js/music/APlayer.js"></script>
+<script>
+    var meting_api='https://api.injahow.cn/meting/?server=:server&type=:type&id=:id&r=:r';
+</script>
+<!-- require MetingJS-->
+<script src="/js/music/Meting.js"></script> 
+<!--网易云playlist外链地址--> 
+
+<div>
+
+<meting-js
+	server="tencent"
+	type="playlist"
+    id="9251255863"
+    list-folded="true">
+</meting-js>
+</div>
+
+
+
+
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="sidebar-inner sidebar-blogroll">
+      <div class="links-of-blogroll animated">
+        <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+          友情链接
+        </div>
+        <ul class="links-of-blogroll-list">
+            <li class="links-of-blogroll-item">
+              <a href="https://www.code-porter.com/" title="https:&#x2F;&#x2F;www.code-porter.com" rel="noopener" target="_blank">代码搬运工</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.chensheng.group/2025/01/09/177-Vue3%E5%8A%A8%E6%80%81%E8%8F%9C%E5%8D%95%E5%92%8C%E8%B7%AF%E7%94%B1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://csblogimage.oss-cn-hangzhou.aliyuncs.com/chensheng.jpg">
+      <meta itemprop="name" content="陈晟">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="陈先生的小前端">
+      <meta itemprop="description" content="请不要在最能吃苦的日子选择安逸">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Vue3动态菜单和路由 | 陈先生的小前端">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Vue3动态菜单和路由
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2025-01-09 23:08:00" itemprop="dateCreated datePublished" datetime="2025-01-09T23:08:00+08:00">2025-01-09</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/vue/" itemprop="url" rel="index"><span itemprop="name">vue</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/2025/01/09/177-Vue3%E5%8A%A8%E6%80%81%E8%8F%9C%E5%8D%95%E5%92%8C%E8%B7%AF%E7%94%B1/#waline" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" data-path="/2025/01/09/177-Vue3%E5%8A%A8%E6%80%81%E8%8F%9C%E5%8D%95%E5%92%8C%E8%B7%AF%E7%94%B1/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><hr style='filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)' color='#FF0000' size='1' />
+
+<blockquote>
+<p>后台系统里面，菜单和路由一般都不是写死的，而是根据后端返回的权限动态生成，这里记录一下 Vue3 中动态菜单和动态路由的处理方式</p>
+</blockquote>
+<span id="more"></span>
+
+<p>后台系统和普通官网不太一样，普通官网路由基本可以写死，但是后台系统通常需要根据账号权限显示不同菜单。</p>
+<p>比如管理员可以看到所有菜单，普通账号只能看到部分菜单。</p>
+<p>所以这里就会涉及两个问题：</p>
+<ol>
+<li>左侧菜单怎么显示</li>
+<li>页面路由怎么注册</li>
+</ol>
+<h3 id="后端菜单"><a href="#后端菜单" class="headerlink" title="后端菜单"></a>后端菜单</h3><p>一般后端返回的菜单都是树形结构，类似这样：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">  &#123;</span><br><span class="line">    menuId: &#x27;1&#x27;,</span><br><span class="line">    parentId: &#x27;0&#x27;,</span><br><span class="line">    menuTitle: &#x27;演示页面&#x27;,</span><br><span class="line">    menuPath: &#x27;/demo&#x27;,</span><br><span class="line">    menuDisplayStatus: 1,</span><br><span class="line">    menuType: 1,</span><br><span class="line">    children: [</span><br><span class="line">      &#123;</span><br><span class="line">        menuId: &#x27;2&#x27;,</span><br><span class="line">        parentId: &#x27;1&#x27;,</span><br><span class="line">        menuTitle: &#x27;表格示例&#x27;,</span><br><span class="line">        menuPath: &#x27;/demo/table&#x27;,</span><br><span class="line">        menuDisplayStatus: 1,</span><br><span class="line">        menuType: 1</span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<p>前端要做的事情就是把这份菜单转换成侧边栏和路由。</p>
+<h3 id="收集页面"><a href="#收集页面" class="headerlink" title="收集页面"></a>收集页面</h3><p>因为使用的是 Vite，所以动态收集页面使用的是 <code>import.meta.glob</code>。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">const modules = import.meta.glob(&#x27;/src/views/pages/**/*.vue&#x27;);</span><br></pre></td></tr></table></figure>
+
+<p>这行代码会把 <code>src/views/pages</code> 下面的 <code>.vue</code> 页面全部收集起来。</p>
+<p>比如页面文件是：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">src/views/pages/demo/table/index.vue</span><br></pre></td></tr></table></figure>
+
+<p>那么后面就可以通过路径找到这个页面。</p>
+<h3 id="路径处理"><a href="#路径处理" class="headerlink" title="路径处理"></a>路径处理</h3><p>后端返回的 <code>menuPath</code> 不一定刚好等于页面文件路径，所以这里需要做一层处理。</p>
+<p>我这里约定普通页面路径为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/src/views/pages + menuPath + /index.vue</span><br></pre></td></tr></table></figure>
+
+<p>比如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">menuPath: /demo/table</span><br></pre></td></tr></table></figure>
+
+<p>对应页面就是：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/src/views/pages/demo/table/index.vue</span><br></pre></td></tr></table></figure>
+
+<p>如果菜单路径和真实文件路径不一致，也可以增加一个 <code>componentPath</code> 字段专门指定页面路径。</p>
+<p>这样菜单显示路径和页面文件路径就可以分开。</p>
+<h3 id="生成路由"><a href="#生成路由" class="headerlink" title="生成路由"></a>生成路由</h3><p>菜单本身是树形结构，但是 Vue Router 最终需要的是路由配置。</p>
+<p>所以需要递归菜单树，把真正的叶子页面转成路由：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  path: menuItem.menuPath,</span><br><span class="line">  name: String(menuItem.menuId || menuItem.menuPath),</span><br><span class="line">  meta: &#123;</span><br><span class="line">    title: menuItem.menuTitle,</span><br><span class="line">    menuId: menuItem.menuId</span><br><span class="line">  &#125;,</span><br><span class="line">  component: createRouteComponent(menuItem)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里有几个点需要注意。</p>
+<h3 id="path"><a href="#path" class="headerlink" title="path"></a>path</h3><p><code>path</code> 使用后端返回的 <code>menuPath</code>。</p>
+<p>因为这个路径是用户真正访问的地址，也是侧边栏点击后跳转的地址。</p>
+<h3 id="name"><a href="#name" class="headerlink" title="name"></a>name</h3><p><code>name</code> 不建议随便写。</p>
+<p>我这里优先使用 <code>menuId</code>，因为动态路由后面可能需要删除、重置、判断是否已经存在。</p>
+<p>如果 <code>name</code> 不稳定，后面处理会比较麻烦。</p>
+<h3 id="meta"><a href="#meta" class="headerlink" title="meta"></a>meta</h3><p><code>meta</code> 里面主要放页面显示需要用到的信息。</p>
+<p>比如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">meta: &#123;</span><br><span class="line">  title: menuItem.menuTitle,</span><br><span class="line">  titleKey: menuItem.menuI18nKey,</span><br><span class="line">  id: currentRootMenuId,</span><br><span class="line">  menuId: menuItem.menuId</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>标题、菜单 id、顶级菜单 id 都可以放进去，后面标签页、面包屑、菜单高亮都能用到。</p>
+<h3 id="component"><a href="#component" class="headerlink" title="component"></a>component</h3><p>动态路由里面最重要的是组件匹配。</p>
+<p>大概逻辑是：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">const pagePathCandidates = [</span><br><span class="line">  `/src/views/pages$&#123;menuPath&#125;/index.vue`,</span><br><span class="line">  `/src/views/pages$&#123;menuPath&#125;.vue`</span><br><span class="line">];</span><br><span class="line"></span><br><span class="line">for (const pagePath of pagePathCandidates) &#123;</span><br><span class="line">  if (modules[pagePath]) &#123;</span><br><span class="line">    return modules[pagePath];</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果匹配不到页面，就跳到 404 页面，避免整个路由注册失败。</p>
+<h3 id="侧边栏菜单"><a href="#侧边栏菜单" class="headerlink" title="侧边栏菜单"></a>侧边栏菜单</h3><p>路由需要完整菜单，但是侧边栏不一定要显示全部。</p>
+<p>比如按钮权限、隐藏菜单都不应该显示在侧边栏里面。</p>
+<p>所以还需要过滤一次：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">const filterHidden = (menuList = []) =&gt; &#123;</span><br><span class="line">  return menuList</span><br><span class="line">    .filter((item) =&gt; Number(item.menuDisplayStatus) === 1 &amp;&amp; Number(item.menuType) === 1)</span><br><span class="line">    .map((item) =&gt; (&#123;</span><br><span class="line">      ...item,</span><br><span class="line">      children: filterHidden(item.children || [])</span><br><span class="line">    &#125;));</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>这样侧边栏只显示需要展示的菜单。</p>
+<h3 id="Pinia保存"><a href="#Pinia保存" class="headerlink" title="Pinia保存"></a>Pinia保存</h3><p>菜单和权限需要保存到 Pinia 中：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">state: () =&gt; &#123;</span><br><span class="line">  return &#123;</span><br><span class="line">    menuList: [],</span><br><span class="line">    showMenu: [],</span><br><span class="line">    apiList: [],</span><br><span class="line">    activeIndex: &#x27;0&#x27;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其中：</p>
+<ol>
+<li><code>menuList</code> 保存完整菜单</li>
+<li><code>showMenu</code> 保存侧边栏菜单</li>
+<li><code>apiList</code> 保存按钮权限</li>
+<li><code>activeIndex</code> 保存当前选中菜单</li>
+</ol>
+<p>并且需要开启持久化，因为刷新页面的时候还要恢复动态路由。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>动态菜单和动态路由的核心其实就三步：</p>
+<ol>
+<li>后端返回菜单树</li>
+<li>前端过滤出侧边栏菜单</li>
+<li>前端把菜单转换成 Vue Router 路由</li>
+</ol>
+<p>这里面比较容易踩坑的是页面路径匹配和刷新后路由丢失。</p>
+<p>路径匹配可以通过 <code>componentPath</code> 兜底，刷新恢复下一篇再单独记录。</p>
+<p>以上就是我对 Vue3 动态菜单和路由的一些理解，如有错误，欢迎大佬指出。</p>
+
+    </div>
+
+    
+    
+    
+
+    
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>没办法,总要恰饭的嘛~~</div>
+  <button>
+    打赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/img/wechatpay.png" alt="陈晟 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/img/alipay.png" alt="陈晟 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>陈晟
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://www.chensheng.group/2025/01/09/177-Vue3%E5%8A%A8%E6%80%81%E8%8F%9C%E5%8D%95%E5%92%8C%E8%B7%AF%E7%94%B1/" title="Vue3动态菜单和路由">https://www.chensheng.group/2025/01/09/177-Vue3动态菜单和路由/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/vue/" rel="tag"><i class="fa fa-tag"></i> vue</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2024/11/23/176-Vue3%E5%90%8E%E5%8F%B0%E6%A8%A1%E6%9D%BF%E6%95%B4%E7%90%86/" rel="prev" title="Vue3后台模板整理">
+                  <i class="fa fa-angle-left"></i> Vue3后台模板整理
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2025/03/21/178-%E5%8A%A8%E6%80%81%E8%B7%AF%E7%94%B1%E5%88%B7%E6%96%B0%E6%81%A2%E5%A4%8D/" rel="next" title="动态路由刷新恢复">
+                  动态路由刷新恢复 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+<div class="footer-item-box">
+  <div class="copyright">
+    &copy; 2016 – 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">陈晟</span>
+  </div>
+
+<div class="footer-fenge">|</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">541k</span>
+  </span>
+</div>
+</div>
+
+<div class="footer-item-box">
+  <div>欢迎访问</div>
+  <div class="footer-fenge">|</div>
+  <div >Mr.Chen的小前端</div>
+  <div class="footer-fenge">|</div>
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">闽ICP备2022007916号-1 </a>
+  </div>
+
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span>我的第</span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+      <span>位朋友,</span>
+    </span>
+    <span id="busuanzi_container_site_pv">
+
+      <span>&nbsp;历经</span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+      <span>次回眸才与你相遇</span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.umd.js" integrity="sha256-a+H7FYzJv6oU2hfsfDGM2Ohw/cR9v+hPfxHCLdmCrE8=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script><script src="/js/pjax.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script class="next-config" data-name="waline" type="application/json">{"lang":"zh-cn","enable":true,"serverURL":"https://cs-waline.chensheng.group","cssUrl":"https://unpkg.com/@waline/client@v2/dist/waline.css","commentCount":true,"pageview":false,"locale":{"placeholder":"（づ≧∀≦）づ╭❤～  客官,快来玩吖!    (填写邮箱可在被回复时收到邮件提醒)"},"avatar":"mm","meta":["nick","mail","link"],"pageSize":10,"login":"enable","visitor":true,"comment_count":true,"requiredFields":[],"dark":false,"libUrl":"//unpkg.com/@waline/client@v2/dist/waline.js","mode":"list","copyright":true,"reaction":false,"el":"#waline","comment":true,"path":"/2025/01/09/177-Vue3%E5%8A%A8%E6%80%81%E8%8F%9C%E5%8D%95%E5%92%8C%E8%B7%AF%E7%94%B1/"}</script>
+<link rel="stylesheet" href="https://unpkg.com/@waline/client@v2/dist/waline.css">
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() =>
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => 
+    Waline.init(Object.assign({}, CONFIG.waline,{ el: document.querySelector(CONFIG.waline.el) }))
+  );
+});
+</script>
+
+<script src="/js/fireworks.js"></script>
+<script src="/js/caret.js"></script>
+
+<script src="/js/wobblewindow.js"></script>
+<script src="/js/wobble-header.js"></script>
+
+
+  
+<script src="/js/darkmode-js.min.js"></script>
+
+<script>
+var options = {
+  bottom: '32px', // default: '32px'
+  right: 'unset', // default: '32px'
+  left: '32px', // default: 'unset'
+  time: '0.5s', // default: '0.3s'
+  mixColor: 'transparent', // default: '#fff', transparent
+  backgroundColor: 'transparent',  // default: '#fff', transparent
+  buttonColorDark: '#100f2c',  // default: '#100f2c'
+  buttonColorLight: '#fff', // default: '#fff'
+  saveInCookies: true, // default: true,
+  label: '🌓', // default: '' 🌓
+  autoMatchOsTheme: true // default: true
+}
+const darkmode = new Darkmode(options);
+darkmode.showWidget();
+</script>
+
+ 
+
+
+
+</body>
+</html>

@@ -6,7 +6,7 @@
   <link href="https://www.chensheng.group/atom.xml" rel="self"/>
   
   <link href="https://www.chensheng.group/"/>
-  <updated>2024-07-08T08:07:07.012Z</updated>
+  <updated>2026-06-16T06:35:22.069Z</updated>
   <id>https://www.chensheng.group/</id>
   
   <author>
@@ -17,11 +17,151 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>nvm管理Node版本.md</title>
-    <link href="https://www.chensheng.group/2024/07/06/174-nvm%E7%AE%A1%E7%90%86Node%E7%89%88%E6%9C%AC/"/>
-    <id>https://www.chensheng.group/2024/07/06/174-nvm%E7%AE%A1%E7%90%86Node%E7%89%88%E6%9C%AC/</id>
-    <published>2024-07-06T15:33:00.000Z</published>
-    <updated>2024-07-08T08:07:07.012Z</updated>
+    <title>Vue3上传组件封装</title>
+    <link href="https://www.chensheng.group/2025/07/17/180-Vue3%E4%B8%8A%E4%BC%A0%E7%BB%84%E4%BB%B6%E5%B0%81%E8%A3%85/"/>
+    <id>https://www.chensheng.group/2025/07/17/180-Vue3%E4%B8%8A%E4%BC%A0%E7%BB%84%E4%BB%B6%E5%B0%81%E8%A3%85/</id>
+    <published>2025-07-17T13:26:00.000Z</published>
+    <updated>2026-06-16T06:35:22.069Z</updated>
+    
+    
+    <summary type="html">&lt;hr style=&#39;filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)&#39; color=&#39;#FF0000&#39; size=&#39;1&#39; /&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;后台项目里面上传功能也很常见，头像、封面、附件、合同文件都可能会用到，所以这里记录一下 Vue3 中上传组件的封装&lt;/p&gt;
+&lt;/blockquote&gt;</summary>
+    
+    
+    
+    <category term="vue" scheme="https://www.chensheng.group/categories/vue/"/>
+    
+    
+    <category term="vue" scheme="https://www.chensheng.group/tags/vue/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Element Plus表格高度适配</title>
+    <link href="https://www.chensheng.group/2025/05/28/179-Element%20Plus%E8%A1%A8%E6%A0%BC%E9%AB%98%E5%BA%A6%E9%80%82%E9%85%8D/"/>
+    <id>https://www.chensheng.group/2025/05/28/179-Element%20Plus%E8%A1%A8%E6%A0%BC%E9%AB%98%E5%BA%A6%E9%80%82%E9%85%8D/</id>
+    <published>2025-05-28T14:54:00.000Z</published>
+    <updated>2026-06-16T07:03:24.852Z</updated>
+    
+    
+    <summary type="html">&lt;hr style=&#39;filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)&#39; color=&#39;#FF0000&#39; size=&#39;1&#39; /&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;后台系统里面表格页面很多，列配置一般还是固定写在页面里，这里主要记录一下 Element Plus 表格高度自适应的处理&lt;/p&gt;
+&lt;/blockquote&gt;</summary>
+    
+    
+    
+    <category term="vue" scheme="https://www.chensheng.group/categories/vue/"/>
+    
+    <category term="element-plus" scheme="https://www.chensheng.group/categories/vue/element-plus/"/>
+    
+    
+    <category term="vue" scheme="https://www.chensheng.group/tags/vue/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>动态路由刷新恢复</title>
+    <link href="https://www.chensheng.group/2025/03/21/178-%E5%8A%A8%E6%80%81%E8%B7%AF%E7%94%B1%E5%88%B7%E6%96%B0%E6%81%A2%E5%A4%8D/"/>
+    <id>https://www.chensheng.group/2025/03/21/178-%E5%8A%A8%E6%80%81%E8%B7%AF%E7%94%B1%E5%88%B7%E6%96%B0%E6%81%A2%E5%A4%8D/</id>
+    <published>2025-03-21T12:37:00.000Z</published>
+    <updated>2026-06-16T06:35:22.068Z</updated>
+    
+    
+    <summary type="html">&lt;hr style=&#39;filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)&#39; color=&#39;#FF0000&#39; size=&#39;1&#39; /&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;动态路由注册之后，页面刷新会丢失运行时添加的路由，如果不处理，就会出现明明有权限但是刷新后进入 404 的问题&lt;/p&gt;
+&lt;/blockquote&gt;</summary>
+    
+    
+    
+    <category term="vue" scheme="https://www.chensheng.group/categories/vue/"/>
+    
+    
+    <category term="vue" scheme="https://www.chensheng.group/tags/vue/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Vue3动态菜单和路由</title>
+    <link href="https://www.chensheng.group/2025/01/09/177-Vue3%E5%8A%A8%E6%80%81%E8%8F%9C%E5%8D%95%E5%92%8C%E8%B7%AF%E7%94%B1/"/>
+    <id>https://www.chensheng.group/2025/01/09/177-Vue3%E5%8A%A8%E6%80%81%E8%8F%9C%E5%8D%95%E5%92%8C%E8%B7%AF%E7%94%B1/</id>
+    <published>2025-01-09T15:08:00.000Z</published>
+    <updated>2026-06-16T06:35:22.067Z</updated>
+    
+    
+    <summary type="html">&lt;hr style=&#39;filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)&#39; color=&#39;#FF0000&#39; size=&#39;1&#39; /&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;后台系统里面，菜单和路由一般都不是写死的，而是根据后端返回的权限动态生成，这里记录一下 Vue3 中动态菜单和动态路由的处理方式&lt;/p&gt;
+&lt;/blockquote&gt;</summary>
+    
+    
+    
+    <category term="vue" scheme="https://www.chensheng.group/categories/vue/"/>
+    
+    
+    <category term="vue" scheme="https://www.chensheng.group/tags/vue/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Vue3后台模板整理</title>
+    <link href="https://www.chensheng.group/2024/11/23/176-Vue3%E5%90%8E%E5%8F%B0%E6%A8%A1%E6%9D%BF%E6%95%B4%E7%90%86/"/>
+    <id>https://www.chensheng.group/2024/11/23/176-Vue3%E5%90%8E%E5%8F%B0%E6%A8%A1%E6%9D%BF%E6%95%B4%E7%90%86/</id>
+    <published>2024-11-23T13:42:00.000Z</published>
+    <updated>2026-06-16T06:35:22.066Z</updated>
+    
+    
+    <summary type="html">&lt;hr style=&#39;filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)&#39; color=&#39;#FF0000&#39; size=&#39;1&#39; /&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;之前做后台项目的时候，很多基础功能每个项目都要重新复制一遍，所以这次基于 Vue3 和 Vite 重新整理了一套后台模板&lt;/p&gt;
+&lt;/blockquote&gt;</summary>
+    
+    
+    
+    <category term="vue" scheme="https://www.chensheng.group/categories/vue/"/>
+    
+    
+    <category term="vue" scheme="https://www.chensheng.group/tags/vue/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Vite学习记录</title>
+    <link href="https://www.chensheng.group/2024/09/18/175-Vite%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/"/>
+    <id>https://www.chensheng.group/2024/09/18/175-Vite%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</id>
+    <published>2024-09-18T14:16:00.000Z</published>
+    <updated>2026-06-16T06:35:22.066Z</updated>
+    
+    
+    <summary type="html">&lt;hr style=&#39;filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)&#39; color=&#39;#FF0000&#39; size=&#39;1&#39; /&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;最近重新整理了一套 Vue3 的后台模板，和以前项目最大的不同就是构建工具从 webpack 换成了 Vite，这里先记录一下 Vite 的一些基础使用&lt;/p&gt;
+&lt;/blockquote&gt;</summary>
+    
+    
+    
+    <category term="vue" scheme="https://www.chensheng.group/categories/vue/"/>
+    
+    
+    <category term="vite" scheme="https://www.chensheng.group/tags/vite/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>nvm管理Node版本</title>
+    <link href="https://www.chensheng.group/2024/07/11/174-nvm%E7%AE%A1%E7%90%86Node%E7%89%88%E6%9C%AC/"/>
+    <id>https://www.chensheng.group/2024/07/11/174-nvm%E7%AE%A1%E7%90%86Node%E7%89%88%E6%9C%AC/</id>
+    <published>2024-07-11T12:33:00.000Z</published>
+    <updated>2026-06-16T03:48:17.124Z</updated>
     
     
     <summary type="html">&lt;hr style=&#39;filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)&#39; color=&#39;#FF0000&#39; size=&#39;1&#39; /&gt;
@@ -40,33 +180,11 @@
   </entry>
   
   <entry>
-    <title>npm install 报错问题 webpack@4.46.0</title>
-    <link href="https://www.chensheng.group/2024/07/03/173-npm%E5%AE%89%E8%A3%85%E4%B8%8D%E5%90%8C%E7%89%88%E6%9C%AC%E5%85%BC%E5%AE%B9%E9%97%AE%E9%A2%98/"/>
-    <id>https://www.chensheng.group/2024/07/03/173-npm%E5%AE%89%E8%A3%85%E4%B8%8D%E5%90%8C%E7%89%88%E6%9C%AC%E5%85%BC%E5%AE%B9%E9%97%AE%E9%A2%98/</id>
-    <published>2024-07-03T15:33:00.000Z</published>
-    <updated>2024-07-08T06:58:52.277Z</updated>
-    
-    
-    <summary type="html">&lt;hr style=&#39;filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)&#39; color=&#39;#FF0000&#39; size=&#39;1&#39; /&gt;
-
-&lt;blockquote&gt;
-&lt;/blockquote&gt;</summary>
-    
-    
-    
-    <category term="npm" scheme="https://www.chensheng.group/categories/npm/"/>
-    
-    
-    <category term="npm" scheme="https://www.chensheng.group/tags/npm/"/>
-    
-  </entry>
-  
-  <entry>
     <title>Next 8.x waline评论系统</title>
     <link href="https://www.chensheng.group/2024/06/17/172-Next%208.x%20waline%E8%AF%84%E8%AE%BA%E7%B3%BB%E7%BB%9F/"/>
     <id>https://www.chensheng.group/2024/06/17/172-Next%208.x%20waline%E8%AF%84%E8%AE%BA%E7%B3%BB%E7%BB%9F/</id>
     <published>2024-06-17T15:33:00.000Z</published>
-    <updated>2024-07-08T08:12:37.187Z</updated>
+    <updated>2026-06-16T03:51:39.966Z</updated>
     
     
     <summary type="html">&lt;hr style=&#39;filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)&#39; color=&#39;#FF0000&#39; size=&#39;1&#39; /&gt;
@@ -87,11 +205,33 @@
   </entry>
   
   <entry>
+    <title>npm install 报错问题 webpack@4.46.0</title>
+    <link href="https://www.chensheng.group/2024/04/03/173-npm%E5%AE%89%E8%A3%85%E4%B8%8D%E5%90%8C%E7%89%88%E6%9C%AC%E5%85%BC%E5%AE%B9%E9%97%AE%E9%A2%98/"/>
+    <id>https://www.chensheng.group/2024/04/03/173-npm%E5%AE%89%E8%A3%85%E4%B8%8D%E5%90%8C%E7%89%88%E6%9C%AC%E5%85%BC%E5%AE%B9%E9%97%AE%E9%A2%98/</id>
+    <published>2024-04-03T15:33:00.000Z</published>
+    <updated>2026-03-12T08:29:15.889Z</updated>
+    
+    
+    <summary type="html">&lt;hr style=&#39;filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)&#39; color=&#39;#FF0000&#39; size=&#39;1&#39; /&gt;
+
+&lt;blockquote&gt;
+&lt;/blockquote&gt;</summary>
+    
+    
+    
+    <category term="npm" scheme="https://www.chensheng.group/categories/npm/"/>
+    
+    
+    <category term="npm" scheme="https://www.chensheng.group/tags/npm/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Next 8.x 音乐播放器</title>
-    <link href="https://www.chensheng.group/2024/04/15/171-Next%208.x%20%E9%9F%B3%E4%B9%90%E6%92%AD%E6%94%BE%E5%99%A8/"/>
-    <id>https://www.chensheng.group/2024/04/15/171-Next%208.x%20%E9%9F%B3%E4%B9%90%E6%92%AD%E6%94%BE%E5%99%A8/</id>
-    <published>2024-04-15T15:33:00.000Z</published>
-    <updated>2024-07-08T00:42:58.778Z</updated>
+    <link href="https://www.chensheng.group/2024/03/15/171-Next%208.x%20%E9%9F%B3%E4%B9%90%E6%92%AD%E6%94%BE%E5%99%A8/"/>
+    <id>https://www.chensheng.group/2024/03/15/171-Next%208.x%20%E9%9F%B3%E4%B9%90%E6%92%AD%E6%94%BE%E5%99%A8/</id>
+    <published>2024-03-15T15:33:00.000Z</published>
+    <updated>2024-07-09T15:19:40.833Z</updated>
     
     
     <summary type="html">&lt;hr style=&#39;filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)&#39; color=&#39;#FF0000&#39; size=&#39;1&#39; /&gt;
@@ -113,10 +253,10 @@
   
   <entry>
     <title>Next 8.x 暗黑模式</title>
-    <link href="https://www.chensheng.group/2024/03/19/170-Next%208.x%20%E6%9A%97%E9%BB%91%E6%A8%A1%E5%BC%8F/"/>
-    <id>https://www.chensheng.group/2024/03/19/170-Next%208.x%20%E6%9A%97%E9%BB%91%E6%A8%A1%E5%BC%8F/</id>
-    <published>2024-03-19T15:33:00.000Z</published>
-    <updated>2024-07-07T15:36:40.097Z</updated>
+    <link href="https://www.chensheng.group/2024/02/19/170-Next%208.x%20%E6%9A%97%E9%BB%91%E6%A8%A1%E5%BC%8F/"/>
+    <id>https://www.chensheng.group/2024/02/19/170-Next%208.x%20%E6%9A%97%E9%BB%91%E6%A8%A1%E5%BC%8F/</id>
+    <published>2024-02-19T15:33:00.000Z</published>
+    <updated>2024-07-09T15:19:41.449Z</updated>
     
     
     <summary type="html">&lt;hr style=&#39;filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)&#39; color=&#39;#FF0000&#39; size=&#39;1&#39; /&gt;
@@ -806,144 +946,6 @@
     
     
     <category term="uniApp" scheme="https://www.chensheng.group/tags/uniApp/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>coding配置腾讯云证书</title>
-    <link href="https://www.chensheng.group/2021/02/11/139-coding%E9%85%8D%E7%BD%AE%E8%85%BE%E8%AE%AF%E4%BA%91%E8%AF%81%E4%B9%A6/"/>
-    <id>https://www.chensheng.group/2021/02/11/139-coding%E9%85%8D%E7%BD%AE%E8%85%BE%E8%AE%AF%E4%BA%91%E8%AF%81%E4%B9%A6/</id>
-    <published>2021-02-11T06:57:00.000Z</published>
-    <updated>2024-06-02T16:07:19.376Z</updated>
-    
-    
-    <summary type="html">&lt;hr style=&#39;filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)&#39; color=&#39;#FF0000&#39; size=&#39;1&#39; /&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;小小的记录,以免以后忘记了&lt;/p&gt;
-&lt;/blockquote&gt;</summary>
-    
-    
-    
-    <category term="SSL证书" scheme="https://www.chensheng.group/categories/SSL%E8%AF%81%E4%B9%A6/"/>
-    
-    
-    <category term="SSL证书" scheme="https://www.chensheng.group/tags/SSL%E8%AF%81%E4%B9%A6/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>关于CSS的一些事(2)</title>
-    <link href="https://www.chensheng.group/2021/02/11/140-%E5%85%B3%E4%BA%8ECSS%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BA%8B(2)/"/>
-    <id>https://www.chensheng.group/2021/02/11/140-%E5%85%B3%E4%BA%8ECSS%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BA%8B(2)/</id>
-    <published>2021-02-11T06:57:00.000Z</published>
-    <updated>2024-06-02T16:07:19.376Z</updated>
-    
-    
-    <summary type="html">&lt;hr style=&#39;filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)&#39; color=&#39;#FF0000&#39; size=&#39;1&#39; /&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;记录一些实用的CSS&lt;/p&gt;
-&lt;/blockquote&gt;</summary>
-    
-    
-    
-    <category term="CSS" scheme="https://www.chensheng.group/categories/CSS/"/>
-    
-    
-    <category term="CSS" scheme="https://www.chensheng.group/tags/CSS/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>vue源码学习-diff算法原理</title>
-    <link href="https://www.chensheng.group/2021/02/11/138-vue%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0-diff%E7%AE%97%E6%B3%95%E5%8E%9F%E7%90%86/"/>
-    <id>https://www.chensheng.group/2021/02/11/138-vue%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0-diff%E7%AE%97%E6%B3%95%E5%8E%9F%E7%90%86/</id>
-    <published>2021-02-11T03:33:00.000Z</published>
-    <updated>2024-06-02T16:07:19.376Z</updated>
-    
-    
-    <summary type="html">&lt;hr style=&#39;filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)&#39; color=&#39;#FF0000&#39; size=&#39;1&#39; /&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;今天就是除夕了,也只有放假才有时间写一写博客,把欠下的博客都补上&lt;/p&gt;
-&lt;/blockquote&gt;</summary>
-    
-    
-    
-    <category term="Vue" scheme="https://www.chensheng.group/categories/Vue/"/>
-    
-    
-    <category term="Vue" scheme="https://www.chensheng.group/tags/Vue/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>vue源码学习-模板编译原理</title>
-    <link href="https://www.chensheng.group/2020/11/08/137-vue%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0-%E6%A8%A1%E6%9D%BF%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/"/>
-    <id>https://www.chensheng.group/2020/11/08/137-vue%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0-%E6%A8%A1%E6%9D%BF%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/</id>
-    <published>2020-11-08T07:26:00.000Z</published>
-    <updated>2024-06-02T16:07:19.376Z</updated>
-    
-    
-    <summary type="html">&lt;hr style=&#39;filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)&#39; color=&#39;#FF0000&#39; size=&#39;1&#39; /&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;由于之前发生了一些事情,并且公司的项目也很赶,碰巧孩子出生了,所以忙的不可开交,,很久没有更新博客了,今天有时间,把欠下的博客都补上&lt;/p&gt;
-&lt;/blockquote&gt;</summary>
-    
-    
-    
-    <category term="Vue" scheme="https://www.chensheng.group/categories/Vue/"/>
-    
-    
-    <category term="Vue" scheme="https://www.chensheng.group/tags/Vue/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>hexo使用Valine评论</title>
-    <link href="https://www.chensheng.group/2020/07/29/136-hexo%E4%BD%BF%E7%94%A8Valine%E8%AF%84%E8%AE%BA/"/>
-    <id>https://www.chensheng.group/2020/07/29/136-hexo%E4%BD%BF%E7%94%A8Valine%E8%AF%84%E8%AE%BA/</id>
-    <published>2020-07-29T13:19:00.000Z</published>
-    <updated>2024-06-02T16:07:19.376Z</updated>
-    
-    
-    <summary type="html">&lt;hr style=&#39;filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)&#39; color=&#39;#FF0000&#39; size=&#39;1&#39; /&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;关于这个评论系统,前前后后换了三四个,今天又换了一个,哎,评论又要被清空了&lt;/p&gt;
-&lt;/blockquote&gt;</summary>
-    
-    
-    
-    <category term="hexo" scheme="https://www.chensheng.group/categories/hexo/"/>
-    
-    
-    <category term="hexo" scheme="https://www.chensheng.group/tags/hexo/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>hexo添加看板娘</title>
-    <link href="https://www.chensheng.group/2020/07/27/135-hexo%E7%9C%8B%E6%9D%BF%E5%A8%98/"/>
-    <id>https://www.chensheng.group/2020/07/27/135-hexo%E7%9C%8B%E6%9D%BF%E5%A8%98/</id>
-    <published>2020-07-27T13:10:00.000Z</published>
-    <updated>2024-06-02T16:07:19.375Z</updated>
-    
-    
-    <summary type="html">&lt;hr style=&#39;filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)&#39; color=&#39;#FF0000&#39; size=&#39;1&#39; /&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;何如给我们的博客添加一个会说话的看板娘呢&lt;/p&gt;
-&lt;/blockquote&gt;</summary>
-    
-    
-    
-    <category term="hexo" scheme="https://www.chensheng.group/categories/hexo/"/>
-    
-    
-    <category term="hexo" scheme="https://www.chensheng.group/tags/hexo/"/>
     
   </entry>
   

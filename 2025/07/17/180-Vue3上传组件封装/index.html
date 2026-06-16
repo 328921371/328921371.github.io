@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.2.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"www.chensheng.group","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.20.0","exturl":false,"sidebar":{"position":"right","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":true,"style":"mac"},"fold":{"enable":true,"height":200},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false,"trigger":"auto"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="后台项目里面上传功能也很常见，头像、封面、附件、合同文件都可能会用到，所以这里记录一下 Vue3 中上传组件的封装">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue3上传组件封装">
+<meta property="og:url" content="https://www.chensheng.group/2025/07/17/180-Vue3%E4%B8%8A%E4%BC%A0%E7%BB%84%E4%BB%B6%E5%B0%81%E8%A3%85/index.html">
+<meta property="og:site_name" content="陈先生的小前端">
+<meta property="og:description" content="后台项目里面上传功能也很常见，头像、封面、附件、合同文件都可能会用到，所以这里记录一下 Vue3 中上传组件的封装">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-07-17T13:26:00.000Z">
+<meta property="article:modified_time" content="2026-06-16T06:35:22.069Z">
+<meta property="article:author" content="陈晟">
+<meta property="article:tag" content="vue">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://www.chensheng.group/2025/07/17/180-Vue3%E4%B8%8A%E4%BC%A0%E7%BB%84%E4%BB%B6%E5%B0%81%E8%A3%85/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://www.chensheng.group/2025/07/17/180-Vue3%E4%B8%8A%E4%BC%A0%E7%BB%84%E4%BB%B6%E5%B0%81%E8%A3%85/","path":"2025/07/17/180-Vue3上传组件封装/","title":"Vue3上传组件封装"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Vue3上传组件封装 | 陈先生的小前端</title>
+  
+
+
+
+
+
+
+
+<link rel="dns-prefetch" href="https://cs-waline.chensheng.group">
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="陈先生的小前端" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">陈先生的小前端</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-house-chimney fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-list fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%BE%E7%89%87%E4%B8%8A%E4%BC%A0"><span class="nav-number">1.</span> <span class="nav-text">图片上传</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0"><span class="nav-number">2.</span> <span class="nav-text">文件上传</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%9F%E4%B8%80%E5%AD%97%E6%AE%B5"><span class="nav-number">3.</span> <span class="nav-text">统一字段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B0%E5%A2%9E"><span class="nav-number">4.</span> <span class="nav-text">新增</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E8%BE%91%E5%9B%9E%E5%A1%AB"><span class="nav-number">5.</span> <span class="nav-text">编辑回填</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%87%8D%E7%BD%AE%E7%BB%84%E4%BB%B6"><span class="nav-number">6.</span> <span class="nav-text">重置组件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A1%A8%E5%8D%95%E6%A0%A1%E9%AA%8C"><span class="nav-number">7.</span> <span class="nav-text">表单校验</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%9D%E5%AD%98"><span class="nav-number">8.</span> <span class="nav-text">保存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mock%E4%B8%8A%E4%BC%A0"><span class="nav-number">9.</span> <span class="nav-text">mock上传</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">10.</span> <span class="nav-text">总结</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="陈晟"
+      src="https://csblogimage.oss-cn-hangzhou.aliyuncs.com/chensheng.jpg">
+  <p class="site-author-name" itemprop="name">陈晟</p>
+  <div class="site-description" itemprop="description">请不要在最能吃苦的日子选择安逸</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">180</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">39</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">58</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/328921371" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;328921371" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:328921371@qq.com" title="E-Mail → mailto:328921371@qq.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+<!--网易云音乐插件-->
+<!-- require APlayer -->
+<script src="/js/music/APlayer.js"></script>
+<script>
+    var meting_api='https://api.injahow.cn/meting/?server=:server&type=:type&id=:id&r=:r';
+</script>
+<!-- require MetingJS-->
+<script src="/js/music/Meting.js"></script> 
+<!--网易云playlist外链地址--> 
+
+<div>
+
+<meting-js
+	server="tencent"
+	type="playlist"
+    id="9251255863"
+    list-folded="true">
+</meting-js>
+</div>
+
+
+
+
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="sidebar-inner sidebar-blogroll">
+      <div class="links-of-blogroll animated">
+        <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+          友情链接
+        </div>
+        <ul class="links-of-blogroll-list">
+            <li class="links-of-blogroll-item">
+              <a href="https://www.code-porter.com/" title="https:&#x2F;&#x2F;www.code-porter.com" rel="noopener" target="_blank">代码搬运工</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.chensheng.group/2025/07/17/180-Vue3%E4%B8%8A%E4%BC%A0%E7%BB%84%E4%BB%B6%E5%B0%81%E8%A3%85/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://csblogimage.oss-cn-hangzhou.aliyuncs.com/chensheng.jpg">
+      <meta itemprop="name" content="陈晟">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="陈先生的小前端">
+      <meta itemprop="description" content="请不要在最能吃苦的日子选择安逸">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Vue3上传组件封装 | 陈先生的小前端">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Vue3上传组件封装
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2025-07-17 21:26:00" itemprop="dateCreated datePublished" datetime="2025-07-17T21:26:00+08:00">2025-07-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/vue/" itemprop="url" rel="index"><span itemprop="name">vue</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/2025/07/17/180-Vue3%E4%B8%8A%E4%BC%A0%E7%BB%84%E4%BB%B6%E5%B0%81%E8%A3%85/#waline" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" data-path="/2025/07/17/180-Vue3%E4%B8%8A%E4%BC%A0%E7%BB%84%E4%BB%B6%E5%B0%81%E8%A3%85/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><hr style='filter:progid:DXImageTransform.Microsoft.Glow(color=#FF0000,strength=10)' color='#FF0000' size='1' />
+
+<blockquote>
+<p>后台项目里面上传功能也很常见，头像、封面、附件、合同文件都可能会用到，所以这里记录一下 Vue3 中上传组件的封装</p>
+</blockquote>
+<span id="more"></span>
+
+<p>上传看起来只是选择文件，但是在真实项目里面会遇到很多细节。</p>
+<p>比如：</p>
+<ol>
+<li>单图上传</li>
+<li>多图上传</li>
+<li>文件上传</li>
+<li>上传数量限制</li>
+<li>新增时清空</li>
+<li>编辑时回填</li>
+<li>保存时字段格式统一</li>
+</ol>
+<p>所以我这次在后台模板里面整理了图片上传和文件上传两个组件。</p>
+<h3 id="图片上传"><a href="#图片上传" class="headerlink" title="图片上传"></a>图片上传</h3><p>图片上传使用的是 <code>UploadImgMore</code>。</p>
+<p>单图上传：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;UploadImgMore</span><br><span class="line">  ref=&quot;singleUploadRef&quot;</span><br><span class="line">  mock-upload</span><br><span class="line">  :more-length=&quot;1&quot;</span><br><span class="line">  :upload-type=&quot;1&quot;</span><br><span class="line">  :input-width=&quot;118&quot;</span><br><span class="line">  :input-height=&quot;118&quot;</span><br><span class="line">  @updataImg=&quot;updateSingleImg&quot;</span><br><span class="line">/&gt;</span><br></pre></td></tr></table></figure>
+
+<p>多图上传：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;UploadImgMore</span><br><span class="line">  ref=&quot;multiUploadRef&quot;</span><br><span class="line">  mock-upload</span><br><span class="line">  multiple</span><br><span class="line">  :more-length=&quot;4&quot;</span><br><span class="line">  :upload-type=&quot;1&quot;</span><br><span class="line">  :input-width=&quot;94&quot;</span><br><span class="line">  :input-height=&quot;94&quot;</span><br><span class="line">  @updataImg=&quot;updateMultiImg&quot;</span><br><span class="line">/&gt;</span><br></pre></td></tr></table></figure>
+
+<p>这里几个参数比较常用：</p>
+<ol>
+<li><code>more-length</code>：最多上传几个</li>
+<li><code>multiple</code>：是否支持多选</li>
+<li><code>input-width</code>：上传框宽度</li>
+<li><code>input-height</code>：上传框高度</li>
+<li><code>mock-upload</code>：模板演示时使用 mock 上传</li>
+</ol>
+<h3 id="文件上传"><a href="#文件上传" class="headerlink" title="文件上传"></a>文件上传</h3><p>文件上传使用的是 <code>UploadFile</code>。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;UploadFile</span><br><span class="line">  ref=&quot;fileUploadRef&quot;</span><br><span class="line">  mock-upload</span><br><span class="line">  :more-length=&quot;2&quot;</span><br><span class="line">  @updataImg=&quot;updateFileList&quot;</span><br><span class="line">&gt;</span><br><span class="line">  支持文档、压缩包、安装包等附件示例。</span><br><span class="line">&lt;/UploadFile&gt;</span><br></pre></td></tr></table></figure>
+
+<p>文件上传和图片上传最后都统一返回文件列表。</p>
+<h3 id="统一字段"><a href="#统一字段" class="headerlink" title="统一字段"></a>统一字段</h3><p>不同上传组件或者不同后端返回的字段可能不一样。</p>
+<p>有的叫 <code>url</code>，有的叫 <code>oss_url</code>。</p>
+<p>有的叫 <code>name</code>，有的叫 <code>oss_key</code>。</p>
+<p>所以保存前最好统一一下字段：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">normalizeUploadList(fileList = []) &#123;</span><br><span class="line">  return fileList.map((item) =&gt; (&#123;</span><br><span class="line">    oss_key: item.oss_key || item.name,</span><br><span class="line">    oss_url: item.oss_url || item.url</span><br><span class="line">  &#125;));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样后面业务保存的时候，就不用关心组件内部返回了什么字段。</p>
+<h3 id="新增"><a href="#新增" class="headerlink" title="新增"></a>新增</h3><p>新增时需要把表单和上传组件都清空。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">openCreate() &#123;</span><br><span class="line">  this.formData = createDefaultForm();</span><br><span class="line">  this.createDialog = true;</span><br><span class="line"></span><br><span class="line">  this.$nextTick(() =&gt; &#123;</span><br><span class="line">    this.resetDialogUpload();</span><br><span class="line">    this.$refs.formRef?.clearValidate();</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里需要等弹窗打开之后再调用组件方法，所以放在 <code>$nextTick</code> 中。</p>
+<h3 id="编辑回填"><a href="#编辑回填" class="headerlink" title="编辑回填"></a>编辑回填</h3><p>编辑时最重要的是回填。</p>
+<p>表单数据可以直接复制，但是上传组件里面的文件列表需要手动初始化。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">edit(row) &#123;</span><br><span class="line">  this.formData = JSON.parse(JSON.stringify(row));</span><br><span class="line">  this.createDialog = true;</span><br><span class="line"></span><br><span class="line">  this.$nextTick(() =&gt; &#123;</span><br><span class="line">    this.$refs.dialogCoverRef?.initUpload(this.formData.coverList);</span><br><span class="line">    this.$refs.dialogImagesRef?.initUpload(this.formData.imageList);</span><br><span class="line">    this.$refs.dialogFileRef?.initFile(this.formData.fileList);</span><br><span class="line">    this.$refs.formRef?.clearValidate();</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>图片使用 <code>initUpload</code>，文件使用 <code>initFile</code>。</p>
+<p>这样打开编辑弹窗时，之前上传过的图片和文件就能正常显示出来。</p>
+<h3 id="重置组件"><a href="#重置组件" class="headerlink" title="重置组件"></a>重置组件</h3><p>弹窗关闭时也需要重置上传组件。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">resetDialogUpload() &#123;</span><br><span class="line">  this.$refs.dialogCoverRef?.resetFields();</span><br><span class="line">  this.$refs.dialogImagesRef?.resetFields();</span><br><span class="line">  this.$refs.dialogFileRef?.resetFields();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>不然可能会出现新增时还显示上一次编辑图片的问题。</p>
+<h3 id="表单校验"><a href="#表单校验" class="headerlink" title="表单校验"></a>表单校验</h3><p>如果封面图是必填，可以把上传结果放进表单字段里。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">updateDialogCover(fileList) &#123;</span><br><span class="line">  this.formData.coverList = this.normalizeUploadList(fileList);</span><br><span class="line">  this.$refs.formRef?.validateField(&#x27;coverList&#x27;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上传后主动触发表单校验，这样用户上传图片后错误提示能及时消失。</p>
+<h3 id="保存"><a href="#保存" class="headerlink" title="保存"></a>保存</h3><p>保存的时候只保存整理后的字段。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">save() &#123;</span><br><span class="line">  this.$refs.formRef.validate((valid) =&gt; &#123;</span><br><span class="line">    if (!valid) &#123;</span><br><span class="line">      return;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    const data = JSON.parse(JSON.stringify(this.formData));</span><br><span class="line"></span><br><span class="line">    // 调接口保存 data</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>真实项目里面这里换成接口请求就可以了。</p>
+<h3 id="mock上传"><a href="#mock上传" class="headerlink" title="mock上传"></a>mock上传</h3><p>模板里面加了 <code>mock-upload</code>，主要是为了让示例页面不依赖真实接口。</p>
+<p>新项目接入真实后端时，可以去掉 <code>mock-upload</code>，然后在上传组件里面接入真实的 OSS token 或上传接口。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>上传组件封装时，我觉得最容易忽略的是编辑回填。</p>
+<p>只处理新增上传不难，难的是保证下面几件事都正常：</p>
+<ol>
+<li>新增时为空</li>
+<li>编辑时能回填</li>
+<li>删除后字段同步</li>
+<li>上传后表单校验同步</li>
+<li>保存字段格式统一</li>
+</ol>
+<p>这些处理好以后，图片上传、附件上传、封面上传这些场景基本都能复用。</p>
+<p>以上就是我对 Vue3 上传组件封装的一些理解，如有错误，欢迎大佬指出。</p>
+
+    </div>
+
+    
+    
+    
+
+    
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>没办法,总要恰饭的嘛~~</div>
+  <button>
+    打赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/img/wechatpay.png" alt="陈晟 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/img/alipay.png" alt="陈晟 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>陈晟
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://www.chensheng.group/2025/07/17/180-Vue3%E4%B8%8A%E4%BC%A0%E7%BB%84%E4%BB%B6%E5%B0%81%E8%A3%85/" title="Vue3上传组件封装">https://www.chensheng.group/2025/07/17/180-Vue3上传组件封装/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/vue/" rel="tag"><i class="fa fa-tag"></i> vue</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2025/05/28/179-Element%20Plus%E8%A1%A8%E6%A0%BC%E9%AB%98%E5%BA%A6%E9%80%82%E9%85%8D/" rel="prev" title="Element Plus表格高度适配">
+                  <i class="fa fa-angle-left"></i> Element Plus表格高度适配
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+<div class="footer-item-box">
+  <div class="copyright">
+    &copy; 2016 – 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">陈晟</span>
+  </div>
+
+<div class="footer-fenge">|</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">541k</span>
+  </span>
+</div>
+</div>
+
+<div class="footer-item-box">
+  <div>欢迎访问</div>
+  <div class="footer-fenge">|</div>
+  <div >Mr.Chen的小前端</div>
+  <div class="footer-fenge">|</div>
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">闽ICP备2022007916号-1 </a>
+  </div>
+
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span>我的第</span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+      <span>位朋友,</span>
+    </span>
+    <span id="busuanzi_container_site_pv">
+
+      <span>&nbsp;历经</span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+      <span>次回眸才与你相遇</span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.umd.js" integrity="sha256-a+H7FYzJv6oU2hfsfDGM2Ohw/cR9v+hPfxHCLdmCrE8=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script><script src="/js/pjax.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script class="next-config" data-name="waline" type="application/json">{"lang":"zh-cn","enable":true,"serverURL":"https://cs-waline.chensheng.group","cssUrl":"https://unpkg.com/@waline/client@v2/dist/waline.css","commentCount":true,"pageview":false,"locale":{"placeholder":"（づ≧∀≦）づ╭❤～  客官,快来玩吖!    (填写邮箱可在被回复时收到邮件提醒)"},"avatar":"mm","meta":["nick","mail","link"],"pageSize":10,"login":"enable","visitor":true,"comment_count":true,"requiredFields":[],"dark":false,"libUrl":"//unpkg.com/@waline/client@v2/dist/waline.js","mode":"list","copyright":true,"reaction":false,"el":"#waline","comment":true,"path":"/2025/07/17/180-Vue3%E4%B8%8A%E4%BC%A0%E7%BB%84%E4%BB%B6%E5%B0%81%E8%A3%85/"}</script>
+<link rel="stylesheet" href="https://unpkg.com/@waline/client@v2/dist/waline.css">
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() =>
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => 
+    Waline.init(Object.assign({}, CONFIG.waline,{ el: document.querySelector(CONFIG.waline.el) }))
+  );
+});
+</script>
+
+<script src="/js/fireworks.js"></script>
+<script src="/js/caret.js"></script>
+
+<script src="/js/wobblewindow.js"></script>
+<script src="/js/wobble-header.js"></script>
+
+
+  
+<script src="/js/darkmode-js.min.js"></script>
+
+<script>
+var options = {
+  bottom: '32px', // default: '32px'
+  right: 'unset', // default: '32px'
+  left: '32px', // default: 'unset'
+  time: '0.5s', // default: '0.3s'
+  mixColor: 'transparent', // default: '#fff', transparent
+  backgroundColor: 'transparent',  // default: '#fff', transparent
+  buttonColorDark: '#100f2c',  // default: '#100f2c'
+  buttonColorLight: '#fff', // default: '#fff'
+  saveInCookies: true, // default: true,
+  label: '🌓', // default: '' 🌓
+  autoMatchOsTheme: true // default: true
+}
+const darkmode = new Darkmode(options);
+darkmode.showWidget();
+</script>
+
+ 
+
+
+
+</body>
+</html>
